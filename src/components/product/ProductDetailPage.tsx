@@ -36,7 +36,7 @@ export default function ProductDetailPage({ product }: { product: ProductDetail 
           <div className="flex-1 min-w-0">
             <ProductTabs product={product} tab={tab} onTabChange={setTab} />
           </div>
-          <ProductSidebar product={product.mostViewed} />
+          <ProductSidebar product={product.mostViewed} /> 
         </div>
       </div>
 
