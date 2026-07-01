@@ -82,7 +82,7 @@ export default function FeaturedProducts() {
               {products.map((p) => (
                 <Link
                   key={p.slug}
-                  href={`/${p.slug}`}
+                  href="/sony-bravia-8-k-65xr80-65-inch-4k-hdr-oled-google-tv"
                   className="flex-none w-[47%] sm:w-[31%] lg:w-[calc(25%-15px)] bg-white p-3 md:p-5 rounded-2xl md:rounded-[20px] flex flex-col no-underline"
                 >
                   <div className="bg-white rounded-2xl flex items-center justify-center mb-3">

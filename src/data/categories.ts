@@ -1,16 +1,16 @@
 export const featuredCategories = [
   { name: 'Television',      img: '/images/image/cache/catalog/website/featured-category/casing2-500x400.png',         href: '/midea-air-conditioner' },
-  { name: 'Air Conditioner', img: '/images/image/cache/catalog/website/featured-category/laptop-500x400.png',          href: '/air-conditioner' },
-  { name: 'Washing Machine', img: '/images/image/cache/catalog/website/featured-category/graphics-card-500x400.png',   href: '/washing-machine' },
-  { name: 'Refrigerator',    img: '/images/image/cache/catalog/website/featured-category/monitor-500x400.png',         href: '/refrigerator' },
-  { name: 'Smart Phone',     img: '/images/image/cache/catalog/website/featured-category/smartphone-500x400.png',      href: '/smart-phone' },
-  { name: 'Laptop',          img: '/images/image/cache/catalog/website/featured-category/laptop-icon-500x400.png',     href: '/laptop' },
-  { name: 'Monitor',         img: '/images/image/cache/catalog/website/featured-category/monitor-500x400.png',         href: '/monitor' },
-  { name: 'Desktop',         img: '/images/image/cache/catalog/website/featured-category/desktop-500x400.png',         href: '/desktop' },
-  { name: 'Microwave Oven',  img: '/images/image/cache/catalog/website/featured-category/oven-icon-500x400.png',       href: '/oven' },
-  { name: 'Drone',           img: '/images/image/cache/catalog/website/featured-category/drone-icon-500x400.png',      href: '/drone' },
-  { name: 'Camera',          img: '/images/image/cache/catalog/website/featured-category/camera-icon-images-500x400.png', href: '/camera' },
-  { name: 'Tablet',          img: '/images/image/cache/catalog/website/featured-category/tablet-icon-500x400.png',     href: '/tablets' },
+  { name: 'Air Conditioner', img: '/images/image/cache/catalog/website/featured-category/laptop-500x400.png',          href: '/midea-air-conditioner' },
+  { name: 'Washing Machine', img: '/images/image/cache/catalog/website/featured-category/graphics-card-500x400.png',   href: '/midea-air-conditioner' },
+  { name: 'Refrigerator',    img: '/images/image/cache/catalog/website/featured-category/monitor-500x400.png',         href: '/midea-air-conditioner' },
+  { name: 'Smart Phone',     img: '/images/image/cache/catalog/website/featured-category/smartphone-500x400.png',      href: '/midea-air-conditioner' },
+  { name: 'Laptop',          img: '/images/image/cache/catalog/website/featured-category/laptop-icon-500x400.png',     href: '/midea-air-conditioner' },
+  { name: 'Monitor',         img: '/images/image/cache/catalog/website/featured-category/monitor-500x400.png',         href: '/midea-air-conditioner' },
+  { name: 'Desktop',         img: '/images/image/cache/catalog/website/featured-category/desktop-500x400.png',         href: '/midea-air-conditioner' },
+  { name: 'Microwave Oven',  img: '/images/image/cache/catalog/website/featured-category/oven-icon-500x400.png',       href: '/midea-air-conditioner' },
+  { name: 'Drone',           img: '/images/image/cache/catalog/website/featured-category/drone-icon-500x400.png',      href: '/midea-air-conditioner' },
+  { name: 'Camera',          img: '/images/image/cache/catalog/website/featured-category/camera-icon-images-500x400.png', href: '/midea-air-conditioner' },
+  { name: 'Tablet',          img: '/images/image/cache/catalog/website/featured-category/tablet-icon-500x400.png',     href: '/midea-air-conditioner' },
 ]
 
 export const drawerCategories = [
