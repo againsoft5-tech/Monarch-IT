@@ -30,7 +30,7 @@ export default function ProductInfo({
           <button
             type="button"
             onClick={onShowReviews}
-            className="text-gray-500 hover:underline flex items-center gap-1"
+            className="text-gray-500 hover:underline flex items-center gap-1 cursor-pointer"
           >
             (Reviews ({product.reviewCount})
             <Image src="/images/catalog/view/theme/default/image/verified.svg" alt="Verified" width={12} height={12} className="w-3 h-3" />
@@ -100,7 +100,7 @@ export default function ProductInfo({
         <button
           type="button"
           onClick={onShowSpecs}
-          className="text-[12.5px] font-semibold text-[#d92128] mt-1 hover:underline"
+          className="text-[12.5px] font-semibold text-[#d92128] mt-1 hover:underline cursor-pointer"
         >
           More ›
         </button>

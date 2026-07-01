@@ -30,7 +30,7 @@ export default function ProductGallery({ images, name }: { images: ProductImage[
           type="button"
           onClick={() => scrollThumbs(-1)}
           aria-label="Previous thumbnail"
-          className="w-[30px] h-[30px] shrink-0 rounded-full bg-[#f5f5f7] border-[1.5px] border-gray-200 flex items-center justify-center text-[#d92128] hover:bg-[#d92128] hover:text-white transition-colors"
+          className="w-[30px] h-[30px] shrink-0 rounded-full bg-[#f5f5f7] border-[1.5px] border-gray-200 flex items-center justify-center text-[#d92128] hover:bg-[#d92128] hover:text-white transition-colors cursor-pointer"
         >
           <span className="mi text-xl">chevron_left</span>
         </button>
@@ -41,7 +41,7 @@ export default function ProductGallery({ images, name }: { images: ProductImage[
               key={i}
               type="button"
               onClick={() => setActive(i)}
-              className={`w-16 h-16 shrink-0 rounded-lg border-2 bg-[#fafbfe] flex items-center justify-center overflow-hidden transition-colors ${
+              className={`w-16 h-16 shrink-0 rounded-lg border-2 bg-[#fafbfe] flex items-center justify-center overflow-hidden transition-colors cursor-pointer ${
                 i === active ? 'border-[#d92128]' : 'border-gray-200 hover:border-[#d92128]'
               }`}
             >
@@ -54,7 +54,7 @@ export default function ProductGallery({ images, name }: { images: ProductImage[
           type="button"
           onClick={() => scrollThumbs(1)}
           aria-label="Next thumbnail"
-          className="w-[30px] h-[30px] shrink-0 rounded-full bg-[#f5f5f7] border-[1.5px] border-gray-200 flex items-center justify-center text-[#d92128] hover:bg-[#d92128] hover:text-white transition-colors"
+          className="w-[30px] h-[30px] shrink-0 rounded-full bg-[#f5f5f7] border-[1.5px] border-gray-200 flex items-center justify-center text-[#d92128] hover:bg-[#d92128] hover:text-white transition-colors cursor-pointer"
         >
           <span className="mi text-xl">chevron_right</span>
         </button>

@@ -30,7 +30,7 @@ export default function ProductTabs({
             key={t.id}
             type="button"
             onClick={() => onTabChange(t.id)}
-            className={`shrink-0 px-4 py-2 rounded-full text-[13px] font-semibold whitespace-nowrap transition-colors ${
+            className={`shrink-0 px-4 py-2 rounded-full text-[13px] font-semibold whitespace-nowrap transition-colors cursor-pointer ${
               tab === t.id ? 'bg-[#d92128] text-white' : 'text-gray-600 hover:bg-[#d92128]/10 hover:text-[#d92128]'
             }`}
           >

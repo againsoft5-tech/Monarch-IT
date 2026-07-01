@@ -88,7 +88,7 @@ export default function CategoryPage({ categoryName, products, priceMinDefault, 
             <button
               type="button"
               onClick={() => setFilterOpen(false)}
-              className="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center"
+              className="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center cursor-pointer"
               aria-label="Close filters"
             >
               <span className="mi text-[18px]">close</span>
@@ -172,7 +172,7 @@ export default function CategoryPage({ categoryName, products, priceMinDefault, 
               <button
                 type="button"
                 onClick={() => setFilterOpen(true)}
-                className="inline-flex items-center gap-1.5 bg-[#f5f5f7] border border-[#f5f5f7] rounded-full px-4 py-2 text-[14px] font-semibold text-gray-600 hover:border-[#d32f2f] hover:text-[#d32f2f] transition-colors"
+                className="inline-flex items-center gap-1.5 bg-[#f5f5f7] border border-[#f5f5f7] rounded-full px-4 py-2 text-[14px] font-semibold text-gray-600 hover:border-[#d32f2f] hover:text-[#d32f2f] transition-colors cursor-pointer"
               >
                 <span className="mi text-[17px]">tune</span> Filter By
               </button>
@@ -232,21 +232,21 @@ export default function CategoryPage({ categoryName, products, priceMinDefault, 
                     <div className="flex items-center gap-2">
                       <button
                         type="button"
-                        className="flex-1 bg-white text-[#c3272b] border-2 border-[#c3272b] rounded-full py-1.5 px-2 text-[13px] font-bold hover:bg-[#c3272b] hover:text-white transition-colors"
+                        className="flex-1 bg-white text-[#c3272b] border-2 border-[#c3272b] rounded-full py-1.5 px-2 text-[13px] font-bold hover:bg-[#c3272b] hover:text-white transition-colors cursor-pointer"
                       >
                         Buy now
                       </button>
                       <button
                         type="button"
                         title="Add to Wish List"
-                        className="w-9 h-9 shrink-0 rounded-full bg-[#f5f6fa] border border-[#ebebeb] flex items-center justify-center hover:bg-[#c3272b] hover:border-[#c3272b] transition-colors"
+                        className="w-9 h-9 shrink-0 rounded-full bg-[#f5f6fa] border border-[#ebebeb] flex items-center justify-center hover:bg-[#c3272b] hover:border-[#c3272b] transition-colors cursor-pointer"
                       >
                         <span className="mi text-[16px] text-gray-500">favorite_border</span>
                       </button>
                       <button
                         type="button"
                         title="Compare this Product"
-                        className="w-9 h-9 shrink-0 rounded-full bg-[#f5f6fa] border border-[#ebebeb] flex items-center justify-center hover:bg-[#c3272b] hover:border-[#c3272b] transition-colors"
+                        className="w-9 h-9 shrink-0 rounded-full bg-[#f5f6fa] border border-[#ebebeb] flex items-center justify-center hover:bg-[#c3272b] hover:border-[#c3272b] transition-colors cursor-pointer"
                       >
                         <span className="mi text-[16px] text-gray-500">compare_arrows</span>
                       </button>
@@ -268,7 +268,7 @@ export default function CategoryPage({ categoryName, products, priceMinDefault, 
                 <button
                   type="button"
                   onClick={() => setVisibleCount((c) => c + LOAD_MORE_COUNT)}
-                  className="inline-flex items-center gap-2 bg-[#f5f5f7] hover:bg-gray-200 text-gray-700 font-semibold text-[13px] px-6 py-2.5 rounded-full transition-colors"
+                  className="inline-flex items-center gap-2 bg-[#f5f5f7] hover:bg-gray-200 text-gray-700 font-semibold text-[13px] px-6 py-2.5 rounded-full transition-colors cursor-pointer"
                 >
                   <i className="fa fa-chevron-down" /> More
                 </button>
@@ -308,7 +308,7 @@ export default function CategoryPage({ categoryName, products, priceMinDefault, 
               <button
                 type="button"
                 onClick={() => setDescOpen((v) => !v)}
-                className="w-full flex items-center justify-center py-2.5 text-[#d32f2f] hover:bg-gray-50 transition-colors"
+                className="w-full flex items-center justify-center py-2.5 text-[#d32f2f] hover:bg-gray-50 transition-colors cursor-pointer"
                 aria-label={descOpen ? 'Collapse description' : 'Expand description'}
               >
                 <span className={`mi text-2xl transition-transform ${descOpen ? 'rotate-180' : ''}`}>expand_more</span>

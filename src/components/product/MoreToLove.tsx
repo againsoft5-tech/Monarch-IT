@@ -25,7 +25,7 @@ export default function MoreToLove({ products }: { products: RelatedProduct[] })
             type="button"
             onClick={() => scroll(-300)}
             aria-label="Scroll left"
-            className="hidden md:flex absolute -left-2.5 top-1/2 -translate-y-1/2 z-10 w-9 h-9 rounded-full bg-white border border-gray-200 items-center justify-center text-[#d92128] shadow-md hover:bg-gray-50"
+            className="hidden md:flex absolute -left-2.5 top-1/2 -translate-y-1/2 z-10 w-9 h-9 rounded-full bg-white border border-gray-200 items-center justify-center text-[#d92128] shadow-md hover:bg-gray-50 cursor-pointer"
           >
             <span className="mi text-xl">chevron_left</span>
           </button>
@@ -73,7 +73,7 @@ export default function MoreToLove({ products }: { products: RelatedProduct[] })
             type="button"
             onClick={() => scroll(300)}
             aria-label="Scroll right"
-            className="hidden md:flex absolute -right-2.5 top-1/2 -translate-y-1/2 z-10 w-9 h-9 rounded-full bg-white border border-gray-200 items-center justify-center text-[#d92128] shadow-md hover:bg-gray-50"
+            className="hidden md:flex absolute -right-2.5 top-1/2 -translate-y-1/2 z-10 w-9 h-9 rounded-full bg-white border border-gray-200 items-center justify-center text-[#d92128] shadow-md hover:bg-gray-50 cursor-pointer"
           >
             <span className="mi text-xl">chevron_right</span>
           </button>

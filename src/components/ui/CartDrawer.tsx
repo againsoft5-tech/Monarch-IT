@@ -102,7 +102,7 @@ export default function CartDrawer() {
               <button
                 type="button"
                 onClick={applyCoupon}
-                className="bg-[#c3272b] border-2 border-[#c3272b] text-white text-[13px] font-semibold px-4 rounded-r-md hover:bg-[#a71f22] transition-colors"
+                className="bg-[#c3272b] border-2 border-[#c3272b] text-white text-[13px] font-semibold px-4 rounded-r-md hover:bg-[#a71f22] transition-colors cursor-pointer"
               >
                 Apply
               </button>
@@ -119,12 +119,12 @@ export default function CartDrawer() {
 
             <div className="flex gap-3">
               <a href="/checkout/cart" className="flex-1">
-                <button className="w-full border-2 border-[#c3272b] text-[#c3272b] font-semibold text-[13px] py-2.5 rounded-full hover:bg-[#c3272b] hover:text-white transition-colors">
+                <button className="w-full border-2 border-[#c3272b] text-[#c3272b] font-semibold text-[13px] py-2.5 rounded-full hover:bg-[#c3272b] hover:text-white transition-colors cursor-pointer">
                   View Cart
                 </button>
               </a>
               <a href="/checkout" className="flex-1">
-                <button className="w-full bg-[#c3272b] text-white font-semibold text-[13px] py-2.5 rounded-full hover:bg-[#a71f22] transition-colors">
+                <button className="w-full bg-[#c3272b] text-white font-semibold text-[13px] py-2.5 rounded-full hover:bg-[#a71f22] transition-colors cursor-pointer">
                   Checkout
                 </button>
               </a>

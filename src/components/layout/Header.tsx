@@ -78,7 +78,7 @@ export default function Header() {
             <button
               type="button"
               onClick={openCart}
-              className="relative w-11 h-11 bg-[#f4f5f7] rounded-full flex items-center justify-center hover:bg-[#e8eaed] transition-colors"
+              className="relative w-11 h-11 bg-[#f4f5f7] rounded-full flex items-center justify-center hover:bg-[#e8eaed] transition-colors cursor-pointer"
             >
               <Image
                 src={`${IMG_BASE}/catalog/view/theme/default/image/cart-icon.svg`}
@@ -100,7 +100,7 @@ export default function Header() {
               <button
                 type="button"
                 onClick={() => setAccountOpen((v) => !v)}
-                className="w-11 h-11 bg-[#f4f5f7] rounded-full flex items-center justify-center hover:bg-[#e8eaed] transition-colors"
+                className="w-11 h-11 bg-[#f4f5f7] rounded-full flex items-center justify-center hover:bg-[#e8eaed] transition-colors cursor-pointer"
               >
                 <Image
                   src={`${IMG_BASE}/catalog/view/theme/default/image/account-icon.svg`}
