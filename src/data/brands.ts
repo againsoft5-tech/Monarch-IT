@@ -1,0 +1,17 @@
+export const brands = [
+  { name: 'Sony', href: '/sony', logo: '/images/image/cache/catalog/brand-logo/sony-logo-100x100.jpg' },
+  { name: 'Apple', href: '/apple', logo: '/images/image/cache/catalog/brand-logo/apple-logo-100x100.jpg' },
+  { name: 'Edifier', href: '/edifier-speakers', logo: '/images/image/cache/catalog/edifier/Untitled-100x100.png' },
+  { name: 'Gree', href: '/gree', logo: '/images/image/cache/catalog/brand-logo/gree-logo-100x100.jpg' },
+  { name: 'Haier', href: '/haier', logo: '/images/image/cache/catalog/Air-Conditioner/haier-brand-logo-1-100x100.jpg' },
+  { name: 'Hisense', href: '/hisense', logo: '/images/image/cache/catalog/brand-logo/hisense-100x100.jpg' },
+  { name: 'LG', href: '/lg', logo: '/images/image/cache/catalog/brand-logo/lg-100x100.jpg' },
+  { name: 'Samsung', href: '/samsung', logo: '/images/image/cache/catalog/brand-logo/samsung-logo-100x100.jpg' },
+  { name: 'Vision', href: '/vision-1', logo: '/images/image/cache/catalog/vision/Screenshot-(60)-100x100.png' },
+  { name: 'Baseus', href: '/baseus-cleaner', logo: '/images/image/cache/catalog/brand-logo/baseus-100x100.jpg' },
+  { name: 'BenQ', href: '/benq', logo: '/images/image/cache/catalog/brand-logo/benq-100x100.jpg' },
+  { name: 'Epson', href: '/epson', logo: '/images/image/cache/catalog/brand-logo/epson-100x100.jpg' },
+  { name: 'Maono', href: '/maono', logo: '/images/image/cache/catalog/brand-logo/maono-100x100.jpg' },
+  { name: 'Oneplus', href: '/oneplus', logo: '/images/image/cache/catalog/brand-logo/onepluse-logo-100x100.jpg' },
+  { name: 'Oppo', href: '/oppo', logo: '/images/image/cache/catalog/brand-logo/oppo-logo-100x100.jpg' },
+]

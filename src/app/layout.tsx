@@ -1,0 +1,51 @@
+import type { Metadata } from "next";
+import { Poppins } from "next/font/google";
+import "./globals.css";
+import SideMenu from "@/components/layout/SideMenu";
+import Header from "@/components/layout/Header";
+import MobileHeader from "@/components/layout/MobileHeader";
+import Footer from "@/components/layout/Footer";
+import CartDrawer from "@/components/ui/CartDrawer";
+import { CartProvider } from "@/context/CartContext";
+
+const poppins = Poppins({
+  variable: "--font-poppins",
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+});
+
+export const metadata: Metadata = {
+  title: "Monarchit | Top Tech Product Store in Bangladesh",
+  description:
+    "Monarchit is Bangladesh's top retailer for laptops, computers, gaming PCs, components, accessories, and gadgets, offering the latest tech at unbeatable prices.",
+};
+
+export default function RootLayout({
+  children,
+}: Readonly<{
+  children: React.ReactNode;
+}>) {
+  return (
+    <html lang="en" className={`${poppins.variable} h-full antialiased`}>
+      <head>
+        <link
+          rel="stylesheet"
+          href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
+        />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+      </head>
+      <body className="min-h-full flex flex-col">
+        <CartProvider>
+          <SideMenu />
+          <div className="flex-1 flex flex-col pb-[76px] md:pb-0 relative">
+            <Header />
+            <MobileHeader />
+            <main className="flex-1">{children}</main>
+            <Footer />
+          </div>
+          <CartDrawer />
+        </CartProvider>
+      </body>
+    </html>
+  );
+}
