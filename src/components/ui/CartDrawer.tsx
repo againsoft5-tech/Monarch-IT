@@ -18,13 +18,13 @@ export default function CartDrawer() {
     <>
       <div
         onClick={closeCart}
-        className={`fixed inset-0 bg-black/50 z-[9998] transition-opacity ${
+        className={`fixed inset-0 bg-black/50 z-[10000] transition-opacity ${
           isOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
         }`}
       />
 
       <div
-        className={`fixed top-0 right-0 h-full w-[90%] max-w-[400px] bg-white z-[9999] shadow-2xl transition-transform duration-300 flex flex-col ${
+        className={`fixed top-0 right-0 h-full w-[90%] max-w-[400px] bg-white z-[10001] shadow-2xl transition-transform duration-300 flex flex-col ${
           isOpen ? 'translate-x-0' : 'translate-x-full'
         }`}
       >

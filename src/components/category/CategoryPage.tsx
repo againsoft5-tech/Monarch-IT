@@ -195,7 +195,7 @@ export default function CategoryPage({ categoryName, products, priceMinDefault, 
               </div>
             </div>
 
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 md:gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-3 md:gap-4">
               {paged.map((p) => (
                 <div key={p.id} className="bg-white rounded-[14px] overflow-hidden flex flex-col shadow-[0_2px_10px_rgba(0,0,0,0.07)] hover:shadow-[0_10px_32px_rgba(0,0,0,0.14)] hover:-translate-y-1 transition-all">
                   <Link href={`/${p.slug}`} className="aspect-square flex items-center justify-center">
