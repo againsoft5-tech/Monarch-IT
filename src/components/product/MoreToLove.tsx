@@ -13,13 +13,13 @@ export default function MoreToLove({ products }: { products: RelatedProduct[] })
   }
 
   return (
-    <div className="bg-white mt-6 py-7 min-[992px]:pl-20">
+    <div className="bg-white mt-6 py-7">
       <div className="text-center mb-5">
         <h2 className="text-2xl font-bold text-gray-900 mb-1">More to love</h2>
         <p className="text-[14px] text-gray-500">Chosen by customers like you</p>
       </div>
 
-      <div className="container mx-auto px-4">
+      <div className="container mx-auto px-4 min-[992px]:px-14">
         <div className="relative">
           <button
             type="button"

@@ -12,19 +12,19 @@ export default function BrandSlider() {
   }
 
   return (
-    <div className="relative py-10 bg-white min-[992px]:pl-20">
+    <div className="relative py-10 bg-white">
       <div className="text-center mb-[30px]">
         <h2 className="m-0 mb-1 font-bold text-2xl md:text-[26px] text-[#333]">Brands We Distribute</h2>
         <p className="m-0 text-sm text-[#777]">Official distributor of trusted brands.</p>
       </div>
 
-      <div className="container mx-auto px-4">
+      <div className="container mx-auto px-4 min-[992px]:px-14">
         <div className="relative mx-auto px-6 md:px-[50px]">
           <button
             type="button"
             onClick={() => scroll(-300)}
             aria-label="Previous brand"
-            className="absolute left-0 md:left-2.5 top-1/2 -translate-y-1/2 z-10 w-[35px] h-[35px] rounded-full bg-white border border-[#e2e8f0] flex items-center justify-center text-[#e53e3e] shadow-[0_2px_5px_rgba(0,0,0,0.05)] hover:bg-[#f7fafc] hover:text-[#c53030] transition-colors"
+            className="absolute left-0 md:left-2.5 top-1/2 -translate-y-1/2 z-10 w-[35px] h-[35px] rounded-full bg-white border border-[#e2e8f0] flex items-center justify-center text-[#e53e3e] shadow-[0_2px_5px_rgba(0,0,0,0.05)] hover:bg-[#f7fafc] hover:text-[#c53030] transition-colors cursor-pointer"
           >
             <i className="fa fa-chevron-left text-sm" />
           </button>
@@ -56,7 +56,7 @@ export default function BrandSlider() {
             type="button"
             onClick={() => scroll(300)}
             aria-label="Next brand"
-            className="absolute right-0 md:right-2.5 top-1/2 -translate-y-1/2 z-10 w-[35px] h-[35px] rounded-full bg-white border border-[#e2e8f0] flex items-center justify-center text-[#e53e3e] shadow-[0_2px_5px_rgba(0,0,0,0.05)] hover:bg-[#f7fafc] hover:text-[#c53030] transition-colors"
+            className="absolute right-0 md:right-2.5 top-1/2 -translate-y-1/2 z-10 w-[35px] h-[35px] rounded-full bg-white border border-[#e2e8f0] flex items-center justify-center text-[#e53e3e] shadow-[0_2px_5px_rgba(0,0,0,0.05)] hover:bg-[#f7fafc] hover:text-[#c53030] transition-colors cursor-pointer"
           >
             <i className="fa fa-chevron-right text-sm" />
           </button>

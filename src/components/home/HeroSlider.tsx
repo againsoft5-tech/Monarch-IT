@@ -41,7 +41,7 @@ export default function HeroSlider() {
   }
 
   return (
-    <div className="w-full min-[992px]:pl-20" onMouseEnter={stop} onMouseLeave={start}>
+    <div className="w-full" onMouseEnter={stop} onMouseLeave={start}>
       <div className="relative w-full overflow-hidden" style={{ aspectRatio: '1880 / 1060' }}>
         {slides.map((slide, i) => (
           <a
@@ -59,7 +59,7 @@ export default function HeroSlider() {
           type="button"
           onClick={() => changeSlide(-1)}
           aria-label="Previous slide"
-          className="absolute bottom-[35px] left-10 z-[99] w-[38px] h-[38px] bg-[#f5f5f7] rounded-full flex items-center justify-center cursor-pointer hover:bg-white hover:scale-105 transition-all"
+          className="absolute bottom-[35px] left-10 min-[992px]:left-28 z-[99] w-[38px] h-[38px] bg-[#f5f5f7] rounded-full flex items-center justify-center cursor-pointer hover:bg-white hover:scale-105 transition-all"
         >
           <span className="mi text-[20px] font-bold text-[#d32f2e]">chevron_left</span>
         </button>
@@ -67,7 +67,7 @@ export default function HeroSlider() {
           type="button"
           onClick={() => changeSlide(1)}
           aria-label="Next slide"
-          className="absolute bottom-[35px] left-[88px] z-[99] w-[38px] h-[38px] bg-[#f5f5f7] rounded-full flex items-center justify-center cursor-pointer hover:bg-white hover:scale-105 transition-all"
+          className="absolute bottom-[35px] left-[88px] min-[992px]:left-[176px] z-[99] w-[38px] h-[38px] bg-[#f5f5f7] rounded-full flex items-center justify-center cursor-pointer hover:bg-white hover:scale-105 transition-all"
         >
           <span className="mi text-[20px] font-bold text-[#d32f2e]">chevron_right</span>
         </button>

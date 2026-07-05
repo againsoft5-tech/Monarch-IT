@@ -256,7 +256,7 @@ export default function AboutBox() {
           type="button"
           onClick={() => setOpen((v) => !v)}
           aria-label={open ? 'Collapse description' : 'Expand description'}
-          className="w-[50px] h-[50px] rounded-full bg-[#f3f3f3] shadow-[0_2px_8px_rgba(0,0,0,0.08)] mt-[15px] inline-flex items-center justify-center transition-transform hover:scale-105"
+          className="w-[50px] h-[50px] rounded-full bg-[#f3f3f3] shadow-[0_2px_8px_rgba(0,0,0,0.08)] mt-[15px] inline-flex items-center justify-center transition-transform hover:scale-105 cursor-pointer"
         >
           <svg
             viewBox="0 0 24 24"

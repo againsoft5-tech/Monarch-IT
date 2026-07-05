@@ -4,7 +4,7 @@ const IMG_BASE = '/images/image/cache/catalog/website/custom'
 
 export default function SupportSection() {
   return (
-    <section className="px-5 py-5 min-[992px]:pl-20">
+    <section className="px-5 py-5 min-[992px]:px-14">
       <div className="text-center mb-10">
         <h2 className="m-0 text-3xl md:text-5xl font-bold leading-none text-[#3b3b3b]">Support</h2>
         <p className="mt-2 text-[15px] md:text-lg text-[#6f6f6f]">Official distributor of trusted brands.</p>

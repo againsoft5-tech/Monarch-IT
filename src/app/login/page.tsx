@@ -30,7 +30,7 @@ export default function LoginPage() {
         ]}
       />
 
-      <div className="container mx-auto px-4 min-[992px]:pl-20 py-10 md:py-16">
+      <div className="container mx-auto px-4 min-[992px]:px-14 py-10 md:py-16">
         <div className="flex flex-col md:flex-row items-center justify-center gap-10 md:gap-24 max-w-[1100px] mx-auto">
           <Image
             src={`${IMG_BASE}/catalog/view/theme/default/image/login-page-image.png`}

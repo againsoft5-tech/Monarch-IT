@@ -69,7 +69,7 @@ export default function CategoryPage({ categoryName, products, priceMinDefault, 
   if (products.length === 0) {
     return (
       <div className="cp-cat-wrap">
-        <div className="container mx-auto px-4 min-[992px]:pl-20 py-16">
+        <div className="container mx-auto px-4 min-[992px]:px-14 py-16">
           <div className="text-center max-w-md mx-auto">
             <span className="mi text-[56px] text-gray-300 block mb-4">inventory_2</span>
             <h1 className="text-lg font-semibold text-gray-800 mb-2">{categoryName}</h1>
@@ -91,7 +91,7 @@ export default function CategoryPage({ categoryName, products, priceMinDefault, 
   return (
     <div className="cp-cat-wrap">
       <Toast message={toast} />
-      <div className="container mx-auto px-4 min-[992px]:pl-20 py-6">
+      <div className="container mx-auto px-4 min-[992px]:px-14 py-6">
         {/* Sidebar filters (off-canvas at every breakpoint) */}
         <div
           onClick={() => setFilterOpen(false)}

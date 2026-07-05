@@ -27,7 +27,7 @@ export default function BannerSlider() {
   }
 
   return (
-    <div className="container mx-auto px-4 flex items-center justify-center gap-2.5 py-5 min-[992px]:pl-20">
+    <div className="container mx-auto px-4 min-[992px]:px-14 flex items-center justify-center gap-2.5 py-5">
       <a
         href={left.url}
         className={`flex-1 w-1/2 block transition-all duration-400 ${sliding ? 'opacity-0 scale-95' : 'opacity-100 scale-100'}`}
@@ -48,7 +48,7 @@ export default function BannerSlider() {
             type="button"
             onClick={() => go(-1)}
             aria-label="Previous banner"
-            className="mt-5 max-[640px]:mt-[27px] text-[#e22a28] text-[22px] max-[640px]:text-sm hover:scale-125 transition-transform"
+            className="mt-5 max-[640px]:mt-[27px] text-[#e22a28] text-[22px] max-[640px]:text-sm hover:scale-125 transition-transform cursor-pointer"
           >
             <i className="fa fa-chevron-up" />
           </button>
@@ -66,7 +66,7 @@ export default function BannerSlider() {
             type="button"
             onClick={() => go(1)}
             aria-label="Next banner"
-            className="mb-5 max-[640px]:mb-[27px] text-[#e22a28] text-[22px] max-[640px]:text-sm hover:scale-125 transition-transform"
+            className="mb-5 max-[640px]:mb-[27px] text-[#e22a28] text-[22px] max-[640px]:text-sm hover:scale-125 transition-transform cursor-pointer"
           >
             <i className="fa fa-chevron-down" />
           </button>

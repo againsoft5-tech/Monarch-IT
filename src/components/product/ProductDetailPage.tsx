@@ -18,8 +18,8 @@ export default function ProductDetailPage({ product }: { product: ProductDetail 
 
   return (
     <div className="bg-[#f6f7f9]">
-      <div className="bg-white min-[992px]:pl-20">
-        <div className="container mx-auto px-4 py-6">
+      <div className="bg-white">
+        <div className="container mx-auto px-4 min-[992px]:px-14 py-6">
           <div className="grid grid-cols-1 md:grid-cols-[40%_60%] gap-5 items-start">
             <ProductGallery images={product.images} name={product.name} />
             <ProductInfo
@@ -31,7 +31,7 @@ export default function ProductDetailPage({ product }: { product: ProductDetail 
         </div>
       </div>
 
-      <div className="container mx-auto px-4 min-[992px]:pl-20 py-6">
+      <div className="container mx-auto px-4 min-[992px]:px-14 py-6">
         <div className="flex flex-col lg:flex-row gap-5">
           <div className="flex-1 min-w-0">
             <ProductTabs product={product} tab={tab} onTabChange={setTab} />
@@ -40,7 +40,7 @@ export default function ProductDetailPage({ product }: { product: ProductDetail 
         </div>
       </div>
 
-      <div className="container mx-auto px-4 min-[992px]:pl-20 py-6">
+      <div className="container mx-auto px-4 min-[992px]:px-14 py-6">
         <div className="bg-white border-[1.5px] border-gray-100 rounded-[40px] p-5 md:p-6">
           <h2 className="text-[17px] font-bold text-gray-900 mb-2">
             What is the price of {product.name}?

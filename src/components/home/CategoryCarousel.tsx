@@ -22,14 +22,14 @@ export default function CategoryCarousel() {
   }
 
   return (
-    <div className="bg-[#f5f5f7] py-5 min-[992px]:pl-20">
-      <div className="container mx-auto px-4">
+    <div className="bg-[#f5f5f7] py-5">
+      <div className="container mx-auto px-4 min-[992px]:px-14">
         <div className="relative flex items-center">
           <button
             type="button"
             onClick={() => scroll(-300)}
             aria-label="Scroll left"
-            className={`absolute -left-2.5 z-10 bg-white border border-gray-200 rounded-full w-9 h-9 flex items-center justify-center shadow-sm transition-opacity ${
+            className={`absolute -left-2.5 z-10 bg-white border border-gray-200 rounded-full w-9 h-9 flex items-center justify-center shadow-sm transition-opacity cursor-pointer ${
               atStart ? 'opacity-0 pointer-events-none' : 'opacity-100'
             }`}
           >
@@ -57,7 +57,7 @@ export default function CategoryCarousel() {
             type="button"
             onClick={() => scroll(300)}
             aria-label="Scroll right"
-            className={`absolute -right-2.5 z-10 bg-white border border-gray-200 rounded-full w-9 h-9 flex items-center justify-center shadow-sm transition-opacity ${
+            className={`absolute -right-2.5 z-10 bg-white border border-gray-200 rounded-full w-9 h-9 flex items-center justify-center shadow-sm transition-opacity cursor-pointer ${
               atEnd ? 'opacity-0 pointer-events-none' : 'opacity-100'
             }`}
           >

@@ -21,7 +21,7 @@ export default function FeaturedProducts() {
 
   return (
     <section className="mt-2.5">
-      <div className="container mx-auto px-4 min-[992px]:pl-20">
+      <div className="container mx-auto px-4 min-[992px]:px-14">
         <div className="text-center my-8">
           <h2 className="text-[#333] font-bold text-2xl md:text-[28px] mb-1">Most Wanted</h2>
           <p className="text-[#777] text-[15px] mt-0">Explore Our Best-Selling Deal</p>
@@ -32,7 +32,7 @@ export default function FeaturedProducts() {
             type="button"
             onClick={() => changeTab(-1)}
             aria-label="Previous tab"
-            className="w-9 h-9 rounded-full border border-gray-200 flex items-center justify-center text-[#BE1E2D] text-sm hover:bg-gray-50 hover:border-gray-300 transition-colors"
+            className="w-9 h-9 rounded-full border border-gray-200 flex items-center justify-center text-[#BE1E2D] text-sm hover:bg-gray-50 hover:border-gray-300 transition-colors cursor-pointer"
           >
             <i className="fa fa-chevron-left" />
           </button>
@@ -43,7 +43,7 @@ export default function FeaturedProducts() {
                 key={tab.label}
                 type="button"
                 onClick={() => setActiveTab(i)}
-                className={`px-7 py-2 rounded-full font-medium text-[15px] whitespace-nowrap transition-colors ${
+                className={`px-7 py-2 rounded-full font-medium text-[15px] whitespace-nowrap transition-colors cursor-pointer ${
                   i === activeTab ? 'bg-[#BE1E2D] text-white' : 'hidden'
                 }`}
               >
@@ -56,21 +56,21 @@ export default function FeaturedProducts() {
             type="button"
             onClick={() => changeTab(1)}
             aria-label="Next tab"
-            className="w-9 h-9 rounded-full border border-gray-200 flex items-center justify-center text-[#BE1E2D] text-sm hover:bg-gray-50 hover:border-gray-300 transition-colors"
+            className="w-9 h-9 rounded-full border border-gray-200 flex items-center justify-center text-[#BE1E2D] text-sm hover:bg-gray-50 hover:border-gray-300 transition-colors cursor-pointer"
           >
             <i className="fa fa-chevron-right" />
           </button>
         </div>
       </div>
 
-      <div className="bg-[#f6f7f9] py-2.5 min-[992px]:pl-20">
-        <div className="container mx-auto px-4">
+      <div className="bg-[#f6f7f9] py-2.5">
+        <div className="container mx-auto px-4 min-[992px]:px-14">
           <div className="relative">
             <button
               type="button"
               onClick={() => scroll(-300)}
               aria-label="Scroll products left"
-              className="hidden md:flex absolute -left-2.5 top-1/2 -translate-y-1/2 z-10 w-11 h-11 rounded-full bg-white border border-gray-200 items-center justify-center text-[#BE1E2D] shadow-[0_4px_12px_rgba(0,0,0,0.08)] hover:bg-gray-50"
+              className="hidden md:flex absolute -left-2.5 top-1/2 -translate-y-1/2 z-10 w-11 h-11 rounded-full bg-white border border-gray-200 items-center justify-center text-[#BE1E2D] shadow-[0_4px_12px_rgba(0,0,0,0.08)] hover:bg-gray-50 cursor-pointer"
             >
               <i className="fa fa-chevron-left" />
             </button>
@@ -123,7 +123,7 @@ export default function FeaturedProducts() {
               type="button"
               onClick={() => scroll(300)}
               aria-label="Scroll products right"
-              className="hidden md:flex absolute -right-2.5 top-1/2 -translate-y-1/2 z-10 w-11 h-11 rounded-full bg-white border border-gray-200 items-center justify-center text-[#BE1E2D] shadow-[0_4px_12px_rgba(0,0,0,0.08)] hover:bg-gray-50"
+              className="hidden md:flex absolute -right-2.5 top-1/2 -translate-y-1/2 z-10 w-11 h-11 rounded-full bg-white border border-gray-200 items-center justify-center text-[#BE1E2D] shadow-[0_4px_12px_rgba(0,0,0,0.08)] hover:bg-gray-50 cursor-pointer"
             >
               <i className="fa fa-chevron-right" />
             </button>

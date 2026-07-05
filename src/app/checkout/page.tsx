@@ -96,7 +96,7 @@ export default function CheckoutPage() {
         ]}
       />
 
-      <div className="container mx-auto px-4 min-[992px]:pl-20 py-6 md:py-8">
+      <div className="container mx-auto px-4 min-[992px]:px-14 py-6 md:py-8">
         {items.length === 0 ? (
           <div className="max-w-[420px] mx-auto text-center py-16">
             <p className="text-gray-500 mb-4">Your cart is empty!</p>

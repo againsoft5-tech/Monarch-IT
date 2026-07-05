@@ -19,7 +19,7 @@ export default function CartPage() {
         ]}
       />
 
-      <div className="container mx-auto px-4 min-[992px]:pl-20 py-6 md:py-8">
+      <div className="container mx-auto px-4 min-[992px]:px-14 py-6 md:py-8">
         <h1 className="text-[22px] font-bold text-gray-800 mb-4 md:mb-5">Shopping Cart</h1>
 
         {items.length === 0 ? (

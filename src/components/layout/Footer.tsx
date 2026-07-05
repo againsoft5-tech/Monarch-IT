@@ -26,8 +26,8 @@ const socialLinks = [
 
 export default function Footer() {
   return (
-    <footer className="bg-[#1d1d1d] text-white min-[992px]:pl-20">
-      <div className="max-w-[1400px] mx-auto px-[30px] py-[70px] grid grid-cols-1 md:grid-cols-2 lg:grid-cols-[1.4fr_1.5fr_1fr] gap-10 lg:gap-[60px] text-center md:text-left">
+    <footer className="bg-[#1d1d1d] text-white">
+      <div className="max-w-[1400px] mx-auto px-[30px] min-[992px]:px-28 py-[70px] grid grid-cols-1 md:grid-cols-2 lg:grid-cols-[1.4fr_1.5fr_1fr] gap-10 lg:gap-[60px] text-center md:text-left">
         <div>
           <Image
             src={`${IMG_BASE}/catalog/view/theme/default/image/monarch-it.png`}
@@ -96,17 +96,17 @@ export default function Footer() {
         </div>
       </div>
 
-      <div className="border-t border-white/10 text-center px-5 py-[25px] container mx-auto">
+      <div className="border-t border-white/10 text-center px-5 min-[992px]:px-28 py-[25px] container mx-auto">
         <p className="mb-[15px] text-[#d0d0d0]">
           © 2026, <span className="text-[#ff3d3d]">Monarch IT Ltd</span>, All Rights Reserved.
         </p>
         <div className="flex justify-center">
           <Image
-            src={`${IMG_BASE}/catalog/view/theme/default/image/payment.jpg`}
+            src={`${IMG_BASE}/catalog/view/theme/default/image/payment-partner.png`}
             alt="Payment Methods"
-            width={320}
-            height={40}
-            className="max-w-full h-auto"
+            width={1231}
+            height={35}
+            className="w-full h-auto"
             style={{ height: 'auto' }}
           />
         </div>
