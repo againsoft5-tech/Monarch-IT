@@ -7,6 +7,8 @@ import MobileHeader from "@/components/layout/MobileHeader";
 import Footer from "@/components/layout/Footer";
 import CartDrawer from "@/components/ui/CartDrawer";
 import { CartProvider } from "@/context/CartContext";
+import { AuthProvider } from "@/context/AuthContext";
+import { WishlistProvider } from "@/context/WishlistContext";
 
 const poppins = Poppins({
   variable: "--font-poppins",
@@ -35,16 +37,20 @@ export default function RootLayout({
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
       </head>
       <body className="min-h-full flex flex-col">
-        <CartProvider>
-          <SideMenu />
-          <div className="flex-1 flex flex-col pb-[76px] md:pb-0 relative">
-            <Header />
-            <MobileHeader />
-            <main className="flex-1">{children}</main>
-            <Footer />
-          </div>
-          <CartDrawer />
-        </CartProvider>
+        <AuthProvider>
+          <WishlistProvider>
+            <CartProvider>
+              <SideMenu />
+              <div className="flex-1 flex flex-col pb-[76px] md:pb-0 relative">
+                <Header />
+                <MobileHeader />
+                <main className="flex-1">{children}</main>
+                <Footer />
+              </div>
+              <CartDrawer />
+            </CartProvider>
+          </WishlistProvider>
+        </AuthProvider>
       </body>
     </html>
   );

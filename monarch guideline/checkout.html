@@ -1,0 +1,3778 @@
+<html dir="ltr" lang="en" data-pb-content-script-state="ready"><!--<![endif]-->
+
+<head>
+    <style>
+        body {
+            transition: opacity ease-in 0.2s;
+        }
+
+        body[unresolved] {
+            opacity: 0;
+            display: block;
+            overflow: hidden;
+            position: relative;
+        }
+    </style>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Checkout</title>
+    <base href="https://monarchit.devteam.againtheme.com/">
+
+
+    <meta property="og:title" content="Checkout">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://monarchit.devteam.againtheme.com/index.php?route=checkout/checkout">
+    <meta property="og:image"
+        content="https://monarchit.devteam.againtheme.com/image/cache/catalog/website/logo/monarch-it-logo-600x315.png">
+    <meta property="og:description" content="">
+    <meta property="og:site_name" content="Monarch IT">
+
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Checkout">
+    <meta name="twitter:description" content="">
+    <meta name="twitter:image"
+        content="https://monarchit.devteam.againtheme.com/image/cache/catalog/website/logo/monarch-it-logo-600x315.png">
+
+
+    <script src="catalog/view/javascript/jquery/jquery-3.7.1.min.js" type="text/javascript"></script>
+    <link href="catalog/view/javascript/bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
+    <script src="catalog/view/javascript/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+    <link type="text/css" rel="stylesheet" id="dark-mode-custom-link">
+    <link type="text/css" rel="stylesheet" id="dark-mode-general-link">
+    <style lang="en" type="text/css" id="dark-mode-custom-style"></style>
+    <style lang="en" type="text/css" id="dark-mode-native-style"></style>
+    <style lang="en" type="text/css" id="dark-mode-native-sheet"></style>
+    <link href="catalog/view/javascript/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="catalog/view/theme/default/stylesheet/stylesheet.css?v=1783230419" rel="stylesheet">
+    <link href="catalog/view/theme/default/stylesheet/common.css?v=1783230419" rel="stylesheet">
+    <link href="catalog/view/theme/default/stylesheet/custom.css?v=1783230419" rel="stylesheet">
+    <link href="catalog/view/theme/default/stylesheet/newtest35.css?v=1783230419" rel="stylesheet">
+    <link href="catalog/view/theme/default/fonts/MaterialIcons-Regular.eot" rel="stylesheet">
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/15.7.0/nouislider.min.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/15.7.0/nouislider.min.js"></script>
+    <link href="catalog/view/theme/default/stylesheet/special_offer.css?v=5.0" rel="stylesheet">
+    <link href="catalog/view/theme/default/stylesheet/checkout.css?v=1783230419" type="text/css" rel="stylesheet"
+        media="screen">
+    <script src="catalog/view/theme/default/javascript/checkout.js" type="text/javascript"></script>
+    <script src="catalog/view/theme/default/javascript/special_offer.js?v=5.0" type="text/javascript"></script>
+    <script src="catalog/view/javascript/common.js?v=1783230419" type="text/javascript"></script>
+    <script src="catalog/view/javascript/search_suggestion.js?v=1783230419" type="text/javascript"></script>
+    <script src="catalog/view/javascript/mobilenav.js" type="text/javascript"></script>
+    <script src="catalog/view/javascript/sticky.js" type="text/javascript"></script>
+    <script src="catalog/view/javascript/mobile-search.js" type="text/javascript"></script>
+
+    <link href="https://monarchit.devteam.againtheme.com/image/catalog/website/logo/againcart-favicon-100x100.png"
+        rel="icon">
+
+    <link href="catalog/view/theme/default/stylesheet/common1.css?v=1" rel="stylesheet">
+    <link href="catalog/view/theme/default/stylesheet/home/home5.css?v=52" rel="stylesheet">
+    <script src="catalog/view/javascript/home/home.js" type="text/javascript"></script>
+
+    <script src="catalog/view/javascript/pc_builder.js?v=1.0.1" type="text/javascript"></script>
+
+
+    <style>
+        :root {
+            --ac-primary: #ef4a23;
+            --ac-primary-dark: #D51E0B;
+            --ac-secondary: #3749bb;
+            --ac-tertiary: #838383;
+            --ac-hf-bg: #081621;
+            --ac-b-bg: #f2f4f8;
+            --ac-m-bg: #6E2594;
+            --ac-s-bg: rgba(55, 73, 187, .05);
+            --ac-f-c1: #666666;
+            --ac-f-c2: #ffffff;
+        }
+    </style>
+
+    <style>
+        @media (max-width: 470px) {
+            .navbar {
+                margin-top: -50px;
+            }
+        }
+
+        .ie8 .container,
+        .ie9 .container {
+            width: 100% !important;
+            max-width: none !important;
+        }
+
+        @media (max-width: 1280px) {
+            .container {
+                width: 100% !important;
+            }
+
+            .container {
+                max-width: 100% !important;
+            }
+        }
+
+        /* ===== MONARCH DESKTOP HEADER ===== */
+        header {
+            background: var(--white);
+            border-bottom: none;
+            box-shadow: none;
+        }
+
+        .main-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 14px 40px;
+            position: relative;
+            z-index: 100;
+        }
+
+        @media (min-width: 992px) {
+            .main-header {
+                padding-left: 70px;
+            }
+        }
+
+        .header-left {
+            flex: 0 0 auto;
+            display: flex;
+            align-items: center;
+        }
+
+        .header-center {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0;
+            padding: 0 30px;
+        }
+
+        .header-right {
+            flex: 0 0 auto;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        /* Search pill (monarch style) */
+        #main-search-wrap {
+            position: relative;
+            max-width: 400px;
+            width: 100%;
+        }
+
+        .search-container {
+            display: flex;
+            align-items: center;
+            background-color: #f4f5f7;
+            border-radius: 30px;
+            padding: 10px 20px;
+            width: 100%;
+        }
+
+        .search-container input[name=search] {
+            border: none;
+            background: transparent;
+            outline: none;
+            flex: 1;
+            font-size: 15px;
+            color: #333;
+            font-family: inherit;
+            padding: 0;
+            height: auto;
+        }
+
+        .search-container input[name=search]::placeholder {
+            color: #9ca3af;
+        }
+
+        #srch-btn {
+            background: none;
+            border: none;
+            padding: 0;
+            cursor: pointer;
+            color: #666;
+            display: flex;
+            align-items: center;
+            margin-right: 10px;
+            flex-shrink: 0;
+            transition: color .2s;
+        }
+
+        #srch-btn:hover {
+            color: #d32f2f;
+        }
+
+        #srch-btn .mi {
+            font-size: 22px;
+        }
+
+        /* SHOP toggle */
+        .shop-toggle {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-weight: 600;
+            font-size: 15px;
+            color: #333;
+            cursor: pointer;
+            padding: 10px 4px;
+            white-space: nowrap;
+            user-select: none;
+            flex-shrink: 0;
+            margin-left: 20px;
+        }
+
+        .shop-toggle:hover {
+            color: #d32f2f;
+        }
+
+        .shop-chevron {
+            transition: transform 0.3s ease;
+        }
+
+        .shop-toggle:hover .shop-chevron {
+            transform: rotate(180deg);
+            stroke: #d32f2f;
+        }
+
+        /* Search Dropdown */
+        #srch-dropdown {
+            position: absolute;
+            top: calc(100% + 6px);
+            left: 0;
+            right: 0;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, .15);
+            z-index: 99999;
+            overflow: hidden;
+            min-width: 100%;
+        }
+
+        .sd-tabs {
+            display: flex;
+            border-bottom: 1px solid #f1f5f9;
+            padding: 8px 12px 0;
+        }
+
+        .sd-tab-btn {
+            background: none;
+            border: none;
+            padding: 7px 16px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            border-radius: 6px 6px 0 0;
+            color: #4b5563;
+            transition: all .18s;
+            margin-right: 4px;
+        }
+
+        .sd-tab-btn.active {
+            background: #d32f2f;
+            color: #fff;
+        }
+
+        .sd-tab-btn:not(.active):hover {
+            background: #f5f6fa;
+            color: #111;
+        }
+
+        .sd-pane {
+            display: none;
+            max-height: 340px;
+            overflow-y: auto;
+        }
+
+        .sd-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 10px 14px;
+            text-decoration: none;
+            color: #111827;
+            transition: background .15s;
+            border-bottom: 1px solid #f9fafb;
+        }
+
+        .sd-item:last-child {
+            border-bottom: none;
+        }
+
+        .sd-item:hover {
+            background: #f5f6fa;
+        }
+
+        .sd-thumb {
+            width: 54px;
+            height: 54px;
+            object-fit: contain;
+            flex-shrink: 0;
+            border-radius: 4px;
+            border: 1px solid #f1f5f9;
+            background: #fff;
+            padding: 2px;
+        }
+
+        .sd-info {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .sd-name {
+            font-size: 13px;
+            font-weight: 500;
+            color: #111827;
+            line-height: 1.4;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .sd-price {
+            margin-top: 3px;
+        }
+
+        .sd-pnew {
+            font-size: 13px;
+            font-weight: 700;
+            color: #d32f2f;
+        }
+
+        .sd-pold {
+            font-size: 11px;
+            color: #9ca3af;
+            text-decoration: line-through;
+            margin-left: 5px;
+        }
+
+        .sd-see-all {
+            display: block;
+            text-align: center;
+            padding: 10px;
+            font-size: 13px;
+            font-weight: 600;
+            color: #d32f2f;
+            text-decoration: none;
+            border-top: 1px solid #f1f5f9;
+        }
+
+        .sd-see-all:hover {
+            background: #fff5f5;
+            color: #b71c1c;
+        }
+
+        .sd-empty {
+            padding: 18px 14px;
+            font-size: 13px;
+            color: #9ca3af;
+            text-align: center;
+        }
+
+        #srch-footer {
+            display: none;
+        }
+
+        /* Header right icon buttons */
+        .hdr-icon-btn {
+            width: 44px;
+            height: 44px;
+            background-color: #f4f5f7;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            position: relative;
+            border: none;
+            transition: background .2s;
+            color: #333;
+            text-decoration: none;
+        }
+
+        img.cart_icon,
+        img.account_icon {
+            width: 50%;
+        }
+
+        .hdr-icon-btn:hover {
+            background: #e8eaed;
+        }
+
+        .hdr-icon-btn .mi {
+            font-size: 22px;
+            color: #333;
+        }
+
+        /* Offers button (outlined) */
+        .hdr-offers-btn {
+            border: 2px solid #d32f2f;
+            color: #d32f2f;
+            background-color: #fff;
+            padding: 9px 20px;
+            border-radius: 30px;
+            font-weight: 700;
+            font-size: 13px;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            cursor: pointer;
+            white-space: nowrap;
+            font-family: inherit;
+        }
+
+        .hdr-offers-btn:hover {
+            background-color: #d32f2f;
+            color: #fff;
+        }
+
+        .hdr-offers-btn .mi {
+            font-size: 17px;
+        }
+
+        /* Cart button (red pill with count + price) */
+        .hdr-cart-btn {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: #d32f2f;
+            color: #fff;
+            border: none;
+            border-radius: 30px;
+            padding: 9px 18px 9px 14px;
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: 700;
+            transition: background .2s;
+            white-space: nowrap;
+            font-family: inherit;
+        }
+
+        .hdr-cart-btn:hover {
+            background: #b71c1c;
+        }
+
+        .hdr-cart-btn .mi {
+            font-size: 20px;
+        }
+
+        .hdr-cart-count {
+            background: #fff;
+            color: #d32f2f;
+            border-radius: 10px;
+            font-size: 11px;
+            font-weight: 800;
+            min-width: 18px;
+            height: 18px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0 4px;
+        }
+
+        .hdr-cart-amt {
+            font-size: 13px;
+            font-weight: 700;
+        }
+
+        /* Badge (compare) */
+        .hdr-badge {
+            position: absolute;
+            top: -4px;
+            right: 0px;
+            background: #d32f2f;
+            color: #fff;
+            border-radius: 50%;
+            font-size: 10px;
+            font-weight: 700;
+            min-width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px solid #fff;
+            line-height: 1;
+        }
+
+        /* ===== ACCOUNT DROPDOWN (Desktop) ===== */
+        .account-wrap {
+            position: relative;
+        }
+
+        .account-dropdown {
+            display: none;
+            position: absolute;
+            top: calc(100% + 0px);
+            right: 0;
+            background: #fff;
+            border: 1.5px solid #e5e7eb;
+            border-radius: 10px;
+            box-shadow: 0 8px 28px rgba(0, 0, 0, 0.13);
+            min-width: 175px;
+            z-index: 1200;
+            overflow: hidden;
+            padding: 6px 0;
+            animation: dropFade .18s ease;
+        }
+
+        @keyframes dropFade {
+            from {
+                opacity: 0;
+                transform: translateY(-6px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .account-wrap:hover .account-dropdown,
+        .account-dropdown.open {
+            display: block;
+        }
+
+        .account-dropdown a {
+            display: flex;
+            align-items: center;
+            gap: 9px;
+            padding: 10px 16px;
+            font-size: 13px;
+            font-weight: 500;
+            color: #111827;
+            text-decoration: none;
+            transition: background .15s;
+            white-space: nowrap;
+        }
+
+        .account-dropdown a:hover {
+            background: #f5f6fa;
+            color: #d32f2f;
+        }
+
+        .account-dropdown a .mi {
+            font-size: 17px;
+            color: #9ca3af;
+            transition: color .15s;
+        }
+
+        .account-dropdown a:hover .mi {
+            color: #d32f2f;
+        }
+
+        .account-dropdown .acc-divider {
+            height: 1px;
+            background: #f1f5f9;
+            margin: 4px 0;
+        }
+
+        .account-dropdown .acc-logout {
+            color: #ff5625;
+        }
+
+        .account-dropdown .acc-logout .mi {
+            color: #ff5625;
+        }
+
+        .account-dropdown .acc-logout:hover {
+            background: #fff1f0;
+            color: #d43235;
+        }
+
+        /* ===== MOBILE ACCOUNT MODAL ===== */
+        .mob-account-modal {
+            display: none;
+            position: fixed;
+            inset: 0;
+            z-index: 9998;
+            background: rgba(0, 0, 0, 0.5);
+            align-items: flex-end;
+            justify-content: center;
+        }
+
+        .mob-account-modal.open {
+            display: flex;
+        }
+
+        .mob-account-box {
+            background: #fff;
+            border-radius: 16px 16px 0 0;
+            width: 100%;
+            padding: 0 0 24px;
+            animation: slideUp .25s ease;
+        }
+
+        @keyframes slideUp {
+            from {
+                transform: translateY(100%);
+            }
+
+            to {
+                transform: translateY(0);
+            }
+        }
+
+        .mob-acc-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 16px 20px;
+            border-bottom: 1.5px solid #f1f5f9;
+            margin-bottom: 8px;
+        }
+
+        .mob-acc-close {
+            background: #f5f6fa;
+            border: none;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            color: #4b5563;
+        }
+
+        .mob-acc-link {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 14px 20px;
+            font-size: 14px;
+            font-weight: 500;
+            color: #111827;
+            text-decoration: none;
+            border-bottom: 1px solid #f5f6fa;
+            transition: background .15s;
+        }
+
+        .mob-acc-link:last-child {
+            border-bottom: none;
+        }
+
+        .mob-acc-link .mi {
+            font-size: 20px;
+            color: #d32f2f;
+        }
+
+        .mob-acc-link:active {
+            background: #f5f6fa;
+        }
+
+        .mob-acc-logout {
+            color: #ff5625;
+        }
+
+        .mob-acc-logout .mi {
+            color: #ff5625;
+        }
+    </style>
+    <script>
+        $(function () {
+            /* Desktop: dropdown toggle on click */
+            $('#accountBtn').on('click', function (e) {
+                e.stopPropagation();
+                $('#accountDropdown').toggleClass('open');
+            });
+            $(document).on('click', function () {
+                $('#accountDropdown').removeClass('open');
+            });
+            $('#accountDropdown').on('click', function (e) { e.stopPropagation(); });
+        });
+    </script>
+    <link rel="stylesheet" href="https://webtoolsbd.com/api/custom.css">
+    <link rel="stylesheet" type="text/css" href="chrome-extension://mpjjildhmpddojocokjkgmlkkkfjnepo/css/12166.css">
+    <style></style>
+    <style id="_goober">
+        @keyframes go2264125279 {
+            from {
+                transform: scale(0) rotate(45deg);
+                opacity: 0;
+            }
+
+            to {
+                transform: scale(1) rotate(45deg);
+                opacity: 1;
+            }
+        }
+
+        @keyframes go3020080000 {
+            from {
+                transform: scale(0);
+                opacity: 0;
+            }
+
+            to {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        @keyframes go463499852 {
+            from {
+                transform: scale(0) rotate(90deg);
+                opacity: 0;
+            }
+
+            to {
+                transform: scale(1) rotate(90deg);
+                opacity: 1;
+            }
+        }
+
+        @keyframes go1268368563 {
+            from {
+                transform: rotate(0deg);
+            }
+
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        @keyframes go1310225428 {
+            from {
+                transform: scale(0) rotate(45deg);
+                opacity: 0;
+            }
+
+            to {
+                transform: scale(1) rotate(45deg);
+                opacity: 1;
+            }
+        }
+
+        @keyframes go651618207 {
+            0% {
+                height: 0;
+                width: 0;
+                opacity: 0;
+            }
+
+            40% {
+                height: 0;
+                width: 6px;
+                opacity: 1;
+            }
+
+            100% {
+                opacity: 1;
+                height: 10px;
+            }
+        }
+
+        @keyframes go901347462 {
+            from {
+                transform: scale(0.6);
+                opacity: 0.4;
+            }
+
+            to {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        .go4109123758 {
+            z-index: 9999;
+        }
+
+        .go4109123758>* {
+            pointer-events: auto;
+        }
+    </style>
+</head>
+
+
+
+
+
+
+
+
+<body cz-shortcut-listen="true" class="on-scroll">
+    <style>
+        #fixed-side-menu {
+            width: 80px;
+            position: fixed;
+            height: 100vh;
+            left: 0;
+            top: 0;
+            z-index: 9999;
+            background: transparent;
+            pointer-events: none;
+        }
+
+        .vertical-menu {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 15px 0 10px 0;
+            gap: 25px;
+            background-color: rgba(247, 248, 249, 0.95);
+            box-sizing: border-box;
+
+            border-bottom-left-radius: 40px;
+            border-bottom-right-radius: 40px;
+            border: 1px solid #eee;
+            border-top: none;
+            margin-left: 14px;
+
+            height: auto;
+
+            pointer-events: auto;
+            box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        .active-item {
+            margin-top: 0;
+            margin-bottom: 0;
+        }
+
+        .menu-item {
+            text-decoration: none;
+            display: inline-block;
+            position: relative;
+            transition: transform 0.2s ease;
+        }
+
+        .menu-item:hover {
+            transform: scale(1.05);
+        }
+
+        .logo-item i {
+            font-size: 28px;
+            color: #d92128;
+        }
+
+        .icon-circle {
+            width: 45px;
+            height: 45px;
+            background-color: #ffffff;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+        }
+
+        .icon-circle i {
+            font-size: 18px;
+            color: #444444;
+        }
+
+        .icon-circle img {
+            width: 22px;
+            height: 22px;
+            object-fit: contain;
+            display: block;
+            transition: filter 0.2s ease;
+        }
+
+        .menu-item:hover .icon-circle {
+            background-color: #d92128;
+            box-shadow: 0 4px 10px rgba(217, 33, 40, 0.3);
+        }
+
+        .menu-item:hover .icon-circle img {
+            filter: brightness(0) invert(1);
+        }
+
+        .notification-badge::before {
+            content: '';
+            position: absolute;
+            top: 2px;
+            right: 2px;
+            width: 10px;
+            height: 10px;
+            background-color: #d92128;
+            border-radius: 50%;
+            border: 1.5px solid #ffffff;
+            z-index: 2;
+        }
+
+        .active-item .red-circle {
+            width: 50px;
+            height: 50px;
+            background-color: #d92128;
+            box-shadow: 0 4px 10px rgba(217, 33, 40, 0.3);
+        }
+
+        .active-item .red-circle i {
+            color: #ffffff;
+            font-size: 20px;
+        }
+
+        .active-item .red-circle img {
+            filter: brightness(0) invert(1);
+            width: 24px;
+            height: 24px;
+        }
+
+        @media (max-width: 767px) {
+            #fixed-side-menu {
+                position: fixed;
+                top: auto;
+                bottom: 0;
+                width: 100%;
+                height: auto;
+                pointer-events: auto;
+            }
+
+            .vertical-menu {
+                flex-direction: row;
+                justify-content: space-around;
+                padding: 10px;
+                gap: 0;
+                height: auto;
+                margin-left: 0;
+                border-radius: 0;
+                border: none;
+                border-top: 1px solid #eee;
+                box-shadow: 0 -5px 15px rgba(0, 0, 0, 0.05);
+            }
+        }
+    </style>
+    <div id="fixed-side-menu">
+        <div class="vertical-menu">
+            <a href="/" class="menu-item logo-item">
+                <img src="/catalog/view/theme/default/image/monarch-it-icon.png" title="Monarch IT" alt="Monarch IT"
+                    style="height:44px;width:auto;object-fit:contain;display:block">
+            </a>
+
+            <a href="#" class="menu-item">
+                <div class="icon-circle">
+                    <img src="/catalog/view/theme/default/image/svg/phone-black-icon.svg" alt="fire icon"
+                        class="fire-icon">
+                </div>
+            </a>
+
+            <a href="#" class="menu-item">
+                <div class="icon-circle">
+                    <img src="/catalog/view/theme/default/image/message-icon.svg" alt="Message Icon"
+                        class="message_icon">
+                </div>
+            </a>
+
+            <a href="#" class="menu-item">
+                <div class="icon-circle notification-badge">
+                    <img src="/catalog/view/theme/default/image/compare-icon-svg.svg" alt="Compare Icon"
+                        class="compare_icon">
+                </div>
+            </a>
+
+            <a href="#" class="menu-item">
+                <div class="icon-circle">
+                    <img src="/catalog/view/theme/default/image/svg/gift-black-icon.svg" alt="fire icon"
+                        class="fire-icon">
+                </div>
+            </a>
+
+            <a href="#" class="menu-item">
+                <div class="icon-circle">
+                    <img src="/catalog/view/theme/default/image/svg/fire-black-icon.svg" alt="fire icon"
+                        class="fire-icon">
+                </div>
+            </a>
+
+            <a href="#" class="menu-item active-item">
+                <div class="icon-circle red-circle">
+                    <img src="/catalog/view/theme/default/image/svg/pc-icon.svg" alt="fire icon" class="fire-icon">
+                </div>
+            </a>
+        </div>
+    </div>
+    <header>
+        <div class="container-wrapper">
+            <div class="container">
+                <div class="main-header">
+                    <!-- Left: Logo -->
+                    <div class="header-left">
+                        <a href="https://monarchit.devteam.againtheme.com/index.php?route=common/home"
+                            style="display:flex;align-items:center;text-decoration:none">
+                            <img src="https://monarchit.devteam.againtheme.com/image/catalog/website/logo/monarch-it-logo.png"
+                                title="Monarch IT" alt="Monarch IT"
+                                style="height:44px;width:auto;object-fit:contain;display:block">
+                        </a>
+                    </div>
+
+                    <!-- Center: Search + SHOP -->
+                    <div class="header-center">
+                        <div id="main-search-wrap">
+                            <div class="search-container" id="search">
+                                <button type="button" id="srch-btn"><span class="mi">search</span></button>
+                                <input type="text" id="srch-input" name="search" placeholder="Search Products"
+                                    autocomplete="off">
+                            </div>
+                            <div id="srch-dropdown" style="display:none;">
+                                <div class="sd-tabs">
+                                    <button class="sd-tab-btn active" data-tab="products">Products</button>
+                                    <button class="sd-tab-btn" data-tab="categories">Categories</button>
+                                </div>
+                                <div class="sd-pane" id="srch-pane-products"></div>
+                                <div class="sd-pane" id="srch-pane-categories" style="display:none;"></div>
+                                <div id="srch-footer"></div>
+                            </div>
+                        </div>
+                        <div class="shop-toggle">
+                            <span>SHOP</span>
+                            <svg class="shop-chevron" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16"
+                                height="16" fill="none" stroke="#333" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round">
+                                <path d="M19 9l-7 7-7-7"></path>
+                            </svg>
+                        </div>
+                    </div>
+
+                    <!-- Right: Actions -->
+                    <div class="header-right">
+                        <button onclick="location.href='pc-builder';" class="hdr-offers-btn">
+                            PC Builder
+                        </button>
+
+                        <button class="hdr-icon-btn mc-toggler loaded" id="cart">
+                            <img src="/catalog/view/theme/default/image/cart-icon.svg" alt="cart-icon"
+                                class="cart_icon">
+                            <span class="hdr-badge">1</span>
+                        </button>
+
+                        <div class="account-wrap">
+                            <button class="hdr-icon-btn" id="accountBtn">
+                                <img src="/catalog/view/theme/default/image/account-icon.svg" alt="account-icon"
+                                    class="account_icon">
+                            </button>
+                            <div class="account-dropdown" id="accountDropdown">
+                                <a href="https://monarchit.devteam.againtheme.com/index.php?route=account/login"><span
+                                        class="mi">lock</span> Login</a>
+                                <a href="https://monarchit.devteam.againtheme.com/index.php?route=account/register"><span
+                                        class="mi">person_add</span> Register</a>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+    </header>
+    <!-- MOBILE HEADER -->
+    <div class="mob-hdr">
+        <button class="mob-menu-btn" onclick="openMobMenu()"><span class="mi">menu</span></button>
+        <a href="https://monarchit.devteam.againtheme.com/index.php?route=common/home" class="mob-logo">
+            <img src="https://monarchit.devteam.againtheme.com/image/catalog/website/logo/monarch-it-logo.png"
+                title="Monarch IT" alt="Monarch IT">
+        </a>
+        <div class="mob-hdr-r">
+            <button class="mob-icon-btn" onclick="toggleMobSearch()" id="mobSrchBtn"><span
+                    class="mi">search</span></button>
+            <button class="mob-icon-btn mc-toggler loaded">
+                <span class="mi">shopping_cart</span>
+                <span class="mob-cart-badge">1</span>
+            </button>
+        </div>
+    </div>
+
+
+    <!-- MOBILE SEARCH BAR -->
+    <div class="mob-srch-bar" id="mobSrchBar" style="position:relative;">
+        <div style="display:flex;gap:8px;align-items:center;">
+            <div class="mob-srch-inner" id="search" style="flex:1;position:relative;">
+                <input type="text" name="search" value="" placeholder="Search products, brands..." id="mobSrchInput"
+                    autocomplete="off">
+            </div>
+            <button type="button" class="mob-srch-go"><span class="mi">search</span> Search</button>
+        </div>
+        <div id="mob-srch-dropdown"
+            style="display:none;position:absolute;top:calc(100% + 6px);left:0;right:0;background:#fff;border-radius:8px;box-shadow:0 8px 32px rgba(0,0,0,.15);z-index:99999;overflow:hidden;">
+            <div class="sd-tabs">
+                <button class="sd-tab-btn active" data-tab="mob-products">Products</button>
+                <button class="sd-tab-btn" data-tab="mob-categories">Categories</button>
+            </div>
+            <div class="sd-pane" id="srch-pane-mob-products"></div>
+            <div class="sd-pane" id="srch-pane-mob-categories" style="display:none;"></div>
+            <div id="mob-srch-footer"></div>
+        </div>
+    </div>
+    <!-- MOBILE OVERLAY -->
+    <div class="mob-overlay" id="mobOverlay" onclick="closeMobMenu()"></div>
+
+    <div class="mob-drawer" id="mobDrawer">
+        <div class="mob-drawer-hdr">
+            <span class="mob-drawer-title">All Categories</span>
+            <button class="mob-close-btn" onclick="closeMobMenu()"><span class="mi">close</span></button>
+        </div>
+        <div class="mob-drawer-body">
+
+            <div class="mac-item">
+                <div class="mac-row" onclick="toggleMac(this)">
+                    <div class="mac-l">
+                        <a href="https://monarchit.devteam.againtheme.com/smart-tv"
+                            style="text-decoration: none; color: inherit; display: flex; align-items: center;">
+                            <span class="mi" style="margin-right: 10px;">tv</span>
+                            Television
+                        </a>
+                    </div>
+
+                    <span class="mac-icon mi">add</span>
+                </div>
+
+                <div class="mac-sub">
+                    <a href="https://monarchit.devteam.againtheme.com/tcl-tv">TCL</a>
+                    <a href="https://monarchit.devteam.againtheme.com/haier-tv">Haier</a>
+                    <a href="https://monarchit.devteam.againtheme.com/samsung-tv">Samsung </a>
+                    <a href="https://monarchit.devteam.againtheme.com/sony-tv">Sony</a>
+                    <a href="https://monarchit.devteam.againtheme.com/lg-television">LG</a>
+                    <a href="https://monarchit.devteam.againtheme.com/hisense-tv">Hisense</a>
+                    <a href="https://monarchit.devteam.againtheme.com/daewoo-television">Daewoo</a>
+                    <a href="https://monarchit.devteam.againtheme.com/more-brands">More Brands</a>
+                    <a href="https://monarchit.devteam.againtheme.com/tv-stand-wall-mount">TV Stand &amp; Wall Mount</a>
+                </div>
+            </div>
+            <div class="mac-item">
+                <div class="mac-row" onclick="toggleMac(this)">
+                    <div class="mac-l">
+                        <a href="https://monarchit.devteam.againtheme.com/interactive-flat-panel-display"
+                            style="text-decoration: none; color: inherit; display: flex; align-items: center;">
+                            <span class="mi" style="margin-right: 10px;">aspect_ratio</span>
+                            Interactive Flat Panel
+                        </a>
+                    </div>
+
+                    <span class="mac-icon mi">add</span>
+                </div>
+
+                <div class="mac-sub">
+                    <a href="https://monarchit.devteam.againtheme.com/dahua">Dahua </a>
+                    <a href="https://monarchit.devteam.againtheme.com/optoma-1">Optoma</a>
+                    <a href="https://monarchit.devteam.againtheme.com/benq-interactive-flat-panel">BenQ</a>
+                    <a href="https://monarchit.devteam.againtheme.com/newline-interactive-flat-panels">Newline</a>
+                    <a href="https://monarchit.devteam.againtheme.com/armor-interactive-flat-panel">Armor</a>
+                    <a href="https://monarchit.devteam.againtheme.com/hitachi-interactive-flat-panel">Hitachi</a>
+                    <a href="https://monarchit.devteam.againtheme.com/boxlight-interactive-flat-panel">Boxlight</a>
+                    <a href="https://monarchit.devteam.againtheme.com/flat-panel-trolly">Trolly For Interactive Flat
+                        Panels</a>
+                </div>
+            </div>
+            <div class="mac-item">
+                <div class="mac-row" onclick="toggleMac(this)">
+                    <div class="mac-l">
+                        <a href="https://monarchit.devteam.againtheme.com/air-conditioner"
+                            style="text-decoration: none; color: inherit; display: flex; align-items: center;">
+                            <span class="mi" style="margin-right: 10px;">ac_unit</span>
+                            Air Conditioner
+                        </a>
+                    </div>
+
+                    <span class="mac-icon mi">add</span>
+                </div>
+
+                <div class="mac-sub">
+                    <a href="https://monarchit.devteam.againtheme.com/haier-air-conditioner">Haier </a>
+                    <a href="https://monarchit.devteam.againtheme.com/gree-ac-price-in-bd">Gree</a>
+                    <a href="https://monarchit.devteam.againtheme.com/samsung-ac">Samsung</a>
+                    <a href="https://monarchit.devteam.againtheme.com/midea-air-conditioner">Midea</a>
+                    <a href="https://monarchit.devteam.againtheme.com/hisense-air-conditioners">Hisense</a>
+                    <a href="https://monarchit.devteam.againtheme.com/more-ac-brands">More Brands </a>
+                </div>
+            </div>
+            <div class="mac-item">
+                <div class="mac-row" onclick="toggleMac(this)">
+                    <div class="mac-l">
+                        <a href="https://monarchit.devteam.againtheme.com/https:-www.Againcart.com.bd-washing-machine-1"
+                            style="text-decoration: none; color: inherit; display: flex; align-items: center;">
+                            <span class="mi" style="margin-right: 10px;">local_laundry_service</span>
+                            Washing Machine
+                        </a>
+                    </div>
+
+                    <span class="mac-icon mi">add</span>
+                </div>
+
+                <div class="mac-sub">
+                    <a href="https://monarchit.devteam.againtheme.com/haier-washing-machine">Haier</a>
+                    <a href="https://monarchit.devteam.againtheme.com/lg-washing-machine">LG</a>
+                    <a href="https://monarchit.devteam.againtheme.com/sharp-washing-machine">Sharp</a>
+                    <a href="https://monarchit.devteam.againtheme.com/samsung-washing-machine">Samsung</a>
+                    <a href="https://monarchit.devteam.againtheme.com/whirlpool-washing-machine">Whirlpool</a>
+                    <a href="https://monarchit.devteam.againtheme.com/hisense-washing-machine">Hisense</a>
+                </div>
+            </div>
+            <div class="mac-item">
+                <div class="mac-row" onclick="toggleMac(this)">
+                    <div class="mac-l">
+                        <a href="https://monarchit.devteam.againtheme.com/refrigerator"
+                            style="text-decoration: none; color: inherit; display: flex; align-items: center;">
+                            <span class="mi" style="margin-right: 10px;">kitchen</span>
+                            Refrigerator
+                        </a>
+                    </div>
+
+                    <span class="mac-icon mi">add</span>
+                </div>
+
+                <div class="mac-sub">
+                    <a href="https://monarchit.devteam.againtheme.com/haier-refrigerator">Haier</a>
+                    <a href="https://monarchit.devteam.againtheme.com/samsung-refrigerator">Samsung </a>
+                    <a href="https://monarchit.devteam.againtheme.com/sharp-refrigerator">Sharp</a>
+                    <a href="https://monarchit.devteam.againtheme.com/hisense-refrigerator">Hisense</a>
+                </div>
+            </div>
+            <div class="mac-item">
+                <div class="mac-row" onclick="toggleMac(this)">
+                    <div class="mac-l">
+                        <a href="https://monarchit.devteam.againtheme.com/home-appliance"
+                            style="text-decoration: none; color: inherit; display: flex; align-items: center;">
+                            <span class="mi" style="margin-right: 10px;">local_cafe</span>
+                            Home Appliance
+                        </a>
+                    </div>
+
+                    <span class="mac-icon mi">add</span>
+                </div>
+
+                <div class="mac-sub">
+                    <a href="https://monarchit.devteam.againtheme.com/oven">Microwave Oven</a>
+                    <a href="https://monarchit.devteam.againtheme.com/mixer-grinder">Mixer Grinder</a>
+                    <a href="https://monarchit.devteam.againtheme.com/home-appliance-daily-products">Daily Lifestyle</a>
+                    <a href="https://monarchit.devteam.againtheme.com/iron-machine">Iron</a>
+                    <a href="https://monarchit.devteam.againtheme.com/air-fryer">Air Fryer</a>
+                    <a href="https://monarchit.devteam.againtheme.com/vacuum-cleaner">Vacuum Cleaner</a>
+                </div>
+            </div>
+            <div class="mac-item">
+                <div class="mac-row" onclick="toggleMac(this)">
+                    <div class="mac-l">
+                        <a href="https://monarchit.devteam.againtheme.com/monitor"
+                            style="text-decoration: none; color: inherit; display: flex; align-items: center;">
+                            <span class="mi" style="margin-right: 10px;">desktop_windows</span>
+                            Monitor
+                        </a>
+                    </div>
+
+                    <span class="mac-icon mi">add</span>
+                </div>
+
+                <div class="mac-sub">
+                    <a href="https://monarchit.devteam.againtheme.com/benq-monitor">BENQ</a>
+                    <a href="https://monarchit.devteam.againtheme.com/dahua-monitors">Dahua</a>
+                    <a href="https://monarchit.devteam.againtheme.com/dell-monitor">Dell</a>
+                    <a href="https://monarchit.devteam.againtheme.com/hp-monitor">HP</a>
+                    <a href="https://monarchit.devteam.againtheme.com/lg-monitors">LG</a>
+                    <a href="https://monarchit.devteam.againtheme.com/Xiaomi-Monitor">Xiaomi </a>
+                </div>
+            </div>
+            <div class="mac-item">
+                <div class="mac-row" onclick="toggleMac(this)">
+                    <div class="mac-l">
+                        <a href="https://monarchit.devteam.againtheme.com/computer-accessories"
+                            style="text-decoration: none; color: inherit; display: flex; align-items: center;">
+                            <span class="mi" style="margin-right: 10px;">memory</span>
+                            Computer Items
+                        </a>
+                    </div>
+
+                    <span class="mac-icon mi">add</span>
+                </div>
+
+                <div class="mac-sub">
+                    <a href="https://monarchit.devteam.againtheme.com/router">Router</a>
+                    <a href="https://monarchit.devteam.againtheme.com/combo">Combo</a>
+                    <a href="https://monarchit.devteam.againtheme.com/keyboard">Keyboard</a>
+                    <a href="https://monarchit.devteam.againtheme.com/computer-mouse">Mouse</a>
+                    <a href="https://monarchit.devteam.againtheme.com/pendrives">Pendrives</a>
+                    <a href="https://monarchit.devteam.againtheme.com/projector">Projector</a>
+                    <a href="https://monarchit.devteam.againtheme.com/ram">RAM</a>
+                    <a href="https://monarchit.devteam.againtheme.com/ssd">SSD</a>
+                </div>
+            </div>
+            <div class="mac-item">
+                <div class="mac-row" onclick="toggleMac(this)">
+                    <div class="mac-l">
+                        <a href="https://monarchit.devteam.againtheme.com/home-theatre"
+                            style="text-decoration: none; color: inherit; display: flex; align-items: center;">
+                            <span class="mi" style="margin-right: 10px;">movie</span>
+                            Home Theatre
+                        </a>
+                    </div>
+
+                    <span class="mac-icon mi">add</span>
+                </div>
+
+                <div class="mac-sub">
+                    <a href="https://monarchit.devteam.againtheme.com/soundbar-price-in-bd">Soundbar</a>
+                    <a href="https://monarchit.devteam.againtheme.com/speakers">Speakers</a>
+                    <a href="https://monarchit.devteam.againtheme.com/portable-bluetooth-speakers">Portable Speakers
+                    </a>
+                </div>
+            </div>
+            <div class="mac-item">
+                <div class="mac-row" onclick="toggleMac(this)">
+                    <div class="mac-l">
+                        <a href="https://monarchit.devteam.againtheme.com/water-heater"
+                            style="text-decoration: none; color: inherit; display: flex; align-items: center;">
+                            <span class="mi" style="margin-right: 10px;">hot_tub</span>
+                            Water Heater
+                        </a>
+                    </div>
+
+                    <span class="mac-icon mi">add</span>
+                </div>
+
+                <div class="mac-sub">
+                    <a href="https://monarchit.devteam.againtheme.com/water-heater-haier">Haier</a>
+                    <a href="https://monarchit.devteam.againtheme.com/water-heater-konka">Konka</a>
+                    <a href="https://monarchit.devteam.againtheme.com/water-heater-midea">Midea</a>
+                    <a href="https://monarchit.devteam.againtheme.com/panasonic-water-heater">Panasonic</a>
+                </div>
+            </div>
+            <div class="mac-item">
+                <div class="mac-row" onclick="toggleMac(this)">
+                    <div class="mac-l">
+                        <a href="https://monarchit.devteam.againtheme.com/iot"
+                            style="text-decoration: none; color: inherit; display: flex; align-items: center;">
+                            <span class="mi" style="margin-right: 10px;">settings_input_antenna</span>
+                            IoT
+                        </a>
+                    </div>
+
+                    <span class="mac-icon mi">add</span>
+                </div>
+
+                <div class="mac-sub">
+                    <a href="https://monarchit.devteam.againtheme.com/home-security">Home Security</a>
+                    <a href="https://monarchit.devteam.againtheme.com/activity-trackers">Activity Trackers</a>
+                    <a href="https://monarchit.devteam.againtheme.com/industrial-security-and-safety">Industrial
+                        Security and Safety</a>
+                    <a href="https://monarchit.devteam.againtheme.com/augmented-reality-glasses">Augmented Reality
+                        Glasses</a>
+                    <a href="https://monarchit.devteam.againtheme.com/motion-detection">Motion Detection</a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+
+
+
+
+
+
+
+    <style>
+        .footer.btn-wrap a.btn {
+            width: 39%;
+        }
+    </style>
+
+    <div class="drawer cmpr-panel" id="cmpr-panel">
+        <div class="title">
+            <p>Compare Product (0)</p>
+            <span class="cmpr-toggler loaded close"><i class="material-icons">close</i></span>
+        </div>
+
+
+        <div class="content">
+            <div class="empty-content">
+                <p class="text-center">Your compare list is empty!</p>
+            </div>
+        </div>
+
+    </div>
+
+
+    <script>
+        $(document).ready(function () {
+            window.compare = window.compare || {};
+
+            window.compare.add = function (product_id) {
+                $.ajax({
+                    url: 'index.php?route=product/compare/add',
+                    type: 'post',
+                    data: 'product_id=' + product_id,
+                    dataType: 'json',
+                    success: function (json) {
+                        if (json['success']) {
+                            var panel = $('.cmpr-panel');
+
+                            // Remove empty-content placeholder if present
+                            panel.find('.empty-content').closest('.content').find('.empty-content').remove();
+
+                            // Only add the item if it's not already in the drawer
+                            if (!panel.find('.item span[onclick*="' + json['product']['product_id'] + '"]').length) {
+                                var item = '<div class="item">' +
+                                    '<div class="info">' +
+                                    '<div class="image"><img src="' + json['product']['thumb'] + '" alt="' + json['product']['name'] + '" width="47" height="47"></div>' +
+                                    '<div class="name"><a href="' + json['product']['href'] + '">' + json['product']['name'] + '</a></div>' +
+                                    '</div>' +
+                                    '<span class="remove" onclick="compare.remove(\'' + json['product']['product_id'] + '\');" title="Remove">' +
+                                    '<i class="material-icons" aria-hidden="true">delete</i>' +
+                                    '</span>' +
+                                    '</div>';
+                                panel.find('.content').append(item);
+                            }
+
+                            // Show footer with buttons
+                            if (!panel.find('.footer').length) {
+                                panel.append('<div class="footer btn-wrap"><a class="clear-all btn st-outline" onclick="compare.clear()">Clear</a><a class="btn compare-now" href="index.php?route=product/compare">Compare Now</a></div>');
+                            } else {
+                                panel.find('.footer').show();
+                            }
+
+                            panel.find('.title p').text('Compare Product (' + json['total_count'] + ')');
+                            $('#compare-total').html(json['total']);
+                            $('.cmpr-badge').text(json['total_count']);
+
+                            // Open the drawer
+                            panel.addClass('open');
+                        }
+                    },
+                    error: function (xhr, ajaxOptions, thrownError) {
+                        console.log(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+                    }
+                });
+            };
+
+            window.compare.remove = function (product_id) {
+                $.ajax({
+                    url: 'index.php?route=product/compare/remove',
+                    type: 'post',
+                    data: 'product_id=' + product_id,
+                    dataType: 'json',
+                    success: function (json) {
+                        if (json['success']) {
+                            $('.item').has('span[onclick*="' + product_id + '"]').fadeOut(300, function () {
+                                $(this).remove();
+
+                                if ($('.cmpr-panel .content .item').length == 0) {
+                                    $('.cmpr-panel .content').html('<div class="empty-content"><p class="text-center">Your compare list is empty!</p></div>');
+                                    $('.cmpr-panel .footer').fadeOut();
+                                }
+                            });
+
+                            $('.cmpr-panel .title p').text('Compare Product (' + json['total_count'] + ')');
+                            $('#compare-total').html(json['total']);
+                            $('.cmpr-badge').text(json['total_count']);
+                        }
+                    },
+                    error: function (xhr, ajaxOptions, thrownError) {
+                        console.log(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+                    }
+                });
+            };
+
+            window.compare.clear = function () {
+                $.ajax({
+                    url: 'index.php?route=product/compare/clear',
+                    type: 'post',
+                    dataType: 'json',
+                    success: function (json) {
+                        if (json['success']) {
+                            $('.cmpr-panel .content').fadeOut(400, function () {
+                                $(this).html('<div class="empty-content"><p class="text-center">Your compare list is empty!</p></div>').fadeIn();
+                            });
+
+                            $('.cmpr-panel .footer').fadeOut();
+
+                            $('.cmpr-panel .title p').text('Compare Product (0)');
+                            $('#compare-total').html(json['total']);
+                            $('.cmpr-badge').text('0');
+                        }
+                    },
+                    error: function (xhr, ajaxOptions, thrownError) {
+                        console.log(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+                    }
+                });
+
+            };
+        });
+    </script>
+
+
+    <style>
+        .drawer>.title {
+            background: #f5f6fc;
+        }
+
+        .drawer .title p {
+            color: #6c767f;
+        }
+
+        .drawer .footer {
+            background: #ffffff;
+            color: #fff;
+        }
+
+        .drawer .title .mc-toggler {
+            color: #000000;
+            opacity: 0.5;
+        }
+
+        button.btn.button-coupon {
+            background: #c3272b;
+            border: 2px solid #c3272b display: inline-block;
+        }
+
+        .drawer .footer .checkout-btn a button,
+        .footer.btn-wrap a.compare-now {
+            background: #c3272b;
+        }
+
+        .drawer .content .item .remove i {
+            color: #c3272b;
+        }
+
+        .footer .promotion-code input {
+            color: #000000;
+        }
+
+        .drawer .title .mc-toggler,
+        .drawer .title .cmpr-toggler {
+            color: #000000;
+            position: absolute;
+            right: 8px;
+            top: 0;
+            cursor: pointer;
+            opacity: 1;
+        }
+    </style>
+    <div class="drawer m-cart" id="m-cart">
+        <div class="title">
+            <p>YOUR CART</p>
+            <span class="mc-toggler loaded close" title="1 item(s) - ৳121,900"><i
+                    class="material-icons">close</i></span>
+        </div>
+        <div class="content">
+
+
+            <div class="item">
+                <div class="image">
+                    <a href="https://monarchit.devteam.againtheme.com/sony-bravia-3-k-55s30-55-inch-4k-uhd-google-tv"><img
+                            src="https://monarchit.devteam.againtheme.com/image/cache/catalog/tv-/sony/Bravia%203/k-43s30-001-500x500-47x47.png"
+                            alt="Sony Bravia 3 K-55S30 55 Inch 4K UHD Google TV"
+                            title="Sony Bravia 3 K-55S30 55 Inch 4K UHD Google TV" width="47" height="47"></a>
+                </div>
+                <div class="info">
+                    <div class="name">
+                        <a
+                            href="https://monarchit.devteam.againtheme.com/sony-bravia-3-k-55s30-55-inch-4k-uhd-google-tv">Sony
+                            Bravia 3 K-55S30 55 Inch 4K UHD Google TV</a>
+                    </div>
+                    <span class="amount">৳121,900</span>
+                    <i class="material-icons">clear</i>
+                    <span>1</span>
+                    <span class="eq">=</span>
+                    <span class="total">৳121,900</span>
+                </div>
+                <div class="remove" onclick="cart.remove('25440');" title="Remove">
+                    <i class="material-icons" aria-hidden="true">delete</i>
+                </div>
+            </div>
+
+
+
+
+            <!-- Start Special Offers modification -->
+            <!-- End Special Offers modification -->
+
+        </div>
+        <div class="footer">
+
+
+            <div class="promotion-code">
+                <div class="input-group">
+                    <input type="text" placeholder="Promo Code" id="input-cart-coupon">
+                    <span class="input-group-btn">
+                        <button data-target="#input-cart-coupon" class="btn button-coupon" type="submit">Apply</button>
+                    </span>
+                </div>
+            </div>
+
+            <div class="total">
+                <div class="title">Sub-Total</div>
+                <div class="amount">৳121,900</div>
+            </div>
+            <div class="total">
+                <div class="title">Inside Dhaka City</div>
+                <div class="amount">৳0</div>
+            </div>
+            <div class="total">
+                <div class="title">Total</div>
+                <div class="amount">৳121,900</div>
+            </div>
+            <div class="cart_check">
+                <div class="drawer-cart-btn">
+                    <a href="https://monarchit.devteam.againtheme.com/index.php?route=checkout/cart"><button
+                            class="btn cart">View Cart</button></a>
+                </div>
+                <div class="checkout-btn">
+                    <a href="https://monarchit.devteam.againtheme.com/index.php?route=checkout/checkout"><button
+                            class="btn submit">Checkout</button></a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        $(document).on('click', '.button-coupon', function () {
+            var $btn = $(this);
+            var $couponInput = $('#input-cart-coupon');
+            var coupon = $couponInput.val();
+
+            if (!coupon) {
+                alert("Please enter a promo code!");
+                return;
+            }
+
+            $.ajax({
+                url: 'index.php?route=extension/total/coupon/coupon',
+                type: 'post',
+                data: 'coupon=' + encodeURIComponent(coupon),
+                dataType: 'json',
+                beforeSend: function () {
+                    $btn.prop('disabled', true).text('Applying...');
+                },
+                complete: function () {
+                    $btn.prop('disabled', false).text('Apply');
+                },
+                success: function (json) {
+                    $('.alert-dismissible').remove();
+
+                    if (json['error']) {
+                        $('.promotion-code').after('<div class="alert alert-danger alert-dismissible" style="margin-top:10px; font-size:12px;">' + json['error'] + '</div>');
+                    }
+
+                    if (json['redirect'] || json['success']) {
+                        $('#m-cart').load(window.location.href + ' #m-cart > *', function () {
+                            $('.promotion-code').after('<div class="alert alert-success alert-dismissible" style="margin-top:10px; font-size:12px;">Success: Coupon applied!</div>');
+
+                            setTimeout(function () {
+                                $('.alert-success').fadeOut();
+                            }, 3000);
+                        });
+                    }
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    console.log(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+                }
+            });
+        });
+
+    </script>
+
+
+
+    <section class="after-header">
+        <div class="container breadcrumbs_ml">
+            <ul class="breadcrumbs" itemscope="" itemtype="http://schema.org/breadcrumbsList">
+                <li itemprop="itemListElement" itemscope="" itemtype="http://schema.org/ListItem">
+                    <a itemprop="item" href="https://monarchit.devteam.againtheme.com/index.php?route=common/home">
+                        <span itemprop="name">Home</span>
+                    </a>
+                    <meta itemprop="position" content="1">
+                </li>
+                <li itemprop="itemListElement" itemscope="" itemtype="http://schema.org/ListItem">
+                    <a itemprop="item" href="https://monarchit.devteam.againtheme.com/index.php?route=checkout/cart">
+                        <span itemprop="name">Checkout</span>
+                    </a>
+                    <meta itemprop="position" content="1">
+                </li>
+            </ul>
+        </div>
+    </section>
+    <style>
+        /*============ General & Breadcrumbs (moved from checkout.css) ===========*/
+        .breadcrumbs {
+            padding: 0;
+            list-style: none;
+            display: flex;
+            align-items: center;
+            font-size: 14px;
+            margin: 10px 0;
+        }
+
+        .breadcrumbs li {
+            display: flex;
+            align-items: center;
+            color: #777;
+        }
+
+        .breadcrumbs li a {
+            color: #1d1d1d;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .breadcrumbs li:not(:first-child)::before {
+            content: "/";
+            margin: 0 8px;
+            color: #777;
+            font-weight: 300;
+        }
+
+        .breadcrumbs ul li img {
+            width: 14px;
+            color: #858585;
+            margin-right: 5px;
+            margin-bottom: 4px;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding-right: 0;
+                padding-left: 0;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .breadcrumbs {
+                margin-top: 35px;
+            }
+
+            .breadcrumbs_ml {
+                margin-left: 0px;
+            }
+
+            .breadcrumbs li:last-child span[itemprop="name"] {
+                display: inline-block;
+                max-width: 15ch;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                vertical-align: middle;
+            }
+        }
+
+        @media (min-width: 992px) {
+            .after-header {
+                padding-left: 100px !important;
+            }
+
+            .container.breadcrumbs_ml {
+                padding-left: 0px !important;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .breadcrumbs_ml {
+                padding-left: 20px;
+            }
+
+            .breadcrumbs {
+                margin-top: 15px;
+            }
+        }
+
+        @media (max-width: 992px) {
+            .breadcrumbs_ml {
+                padding-left: 20px;
+            }
+
+            .breadcrumbs {
+                margin-top: 15px;
+            }
+
+            form#checkout-form {
+                padding: 0 20px;
+            }
+        }
+
+        @media (min-width: 768px) and (max-width: 992px) {
+            .breadcrumbs_ml {
+                padding-left: 100px;
+            }
+
+            form#checkout-form {
+                padding: 0 20px 0 100px;
+            }
+        }
+
+        :root {
+            --primary-red: #d32f2f;
+            --primary-green: #10b981;
+            --text-dark: #1e293b;
+            --text-muted: #64748b;
+            --border-color: #e2e8f0;
+            --bg-main: #f5f5f7;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Poppins', sans-serif;
+            -webkit-font-smoothing: antialiased;
+        }
+
+
+        /* Outer Grey Frame */
+        .checkout-frame {
+            background-color: var(--bg-main);
+            padding: 28px;
+            border-radius: 36px;
+            max-width: 1040px;
+            width: 100%;
+            display: grid;
+            grid-template-columns: 1.90fr 1fr;
+            gap: 24px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.05);
+            margin: 0 auto;
+            margin-top: 20px;
+        }
+
+        .white-card {
+            background: #ffffff;
+            border-radius: 26px;
+            padding: 32px 28px;
+        }
+
+        /* ================= LEFT CARD: FORM ================= */
+        .form-content {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        /* Top Tabs */
+        .tabs-wrapper {
+            background-color: var(--bg-main);
+            border-radius: 50px;
+            display: inline-flex;
+            align-self: flex-start;
+        }
+
+        .tab-btn {
+            border: none;
+            background: transparent;
+            padding: 8px 26px;
+            border-radius: 50px;
+            font-size: 13px;
+            font-weight: 600;
+            color: #475569;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .tab-btn.active {
+            background-color: var(--primary-red);
+            color: #ffffff;
+            box-shadow: 0 4px 12px rgba(211, 47, 47, 0.3);
+        }
+
+        .info-heading {
+            font-size: 17px;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-top: 4px;
+        }
+
+        /* Capsule Inputs */
+        .input-grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 14px;
+            width: 100%;
+        }
+
+        .capsule-input {
+            width: 100%;
+            padding: 10px 22px;
+            border-radius: 50px;
+            /* Exact Capsule Shape */
+            border: 1px solid var(--border-color);
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--text-dark);
+            outline: none;
+            background: #ffffff;
+            transition: border-color 0.2s;
+        }
+
+        .capsule-input::placeholder {
+            color: #334155;
+            font-weight: 500;
+        }
+
+        .capsule-input:focus {
+            border-color: #94a3b8;
+        }
+
+        .static-info-box {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            cursor: default;
+            color: var(--text-muted);
+        }
+
+        .static-info-box b {
+            color: var(--text-dark);
+            font-weight: 600;
+        }
+
+        .zone-select-wrap select {
+            border: none;
+            background: transparent;
+            outline: none;
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--text-dark);
+            flex: 1;
+            cursor: pointer;
+            height: auto;
+        }
+
+        .error-text {
+            color: var(--primary-red);
+            font-size: 11px;
+            font-weight: 500;
+            margin: 4px 0 0 6px;
+        }
+
+        .alert-warning-box {
+            background: #fff5f5;
+            border: 1px solid #fecaca;
+            color: var(--primary-red);
+            font-size: 12.5px;
+            font-weight: 500;
+            padding: 10px 18px;
+            border-radius: 14px;
+        }
+
+        #login-panel {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .logged-in-bar {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 14px;
+            color: var(--text-dark);
+            font-weight: 600;
+        }
+
+        .logged-in-bar i {
+            color: var(--primary-green);
+            font-size: 18px;
+        }
+
+        .btn-submit-order:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        /* Payment Methods (Fixed Full Width Grid) */
+        .payment-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+            width: 100%;
+            margin-top: 4px;
+        }
+
+        .pay-box {
+            border: 1px solid var(--border-color);
+            border-radius: 50px;
+            padding: 9px 6px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: 600;
+            color: #334155;
+            background: #ffffff;
+            transition: all 0.2s;
+            user-select: none;
+            width: 100%;
+        }
+
+        .pay-box input[type="radio"] {
+            display: none;
+        }
+
+        .pay-box i {
+            font-size: 16px;
+            color: #64748b;
+        }
+
+        .pay-icon-cod {
+            width: 16px;
+            height: 16px;
+            flex-shrink: 0;
+            display: inline-block;
+            background-color: #64748b;
+            -webkit-mask-image: url('/catalog/view/theme/default/image/svg/cash-on-delivery-icon.svg');
+            mask-image: url('/catalog/view/theme/default/image/svg/cash-on-delivery-icon.svg');
+            -webkit-mask-repeat: no-repeat;
+            mask-repeat: no-repeat;
+            -webkit-mask-position: center;
+            mask-position: center;
+            -webkit-mask-size: contain;
+            mask-size: contain;
+            transition: background-color 0.2s;
+        }
+
+        .pay-box:hover .pay-icon-cod,
+        .pay-box.active .pay-icon-cod {
+            background-color: var(--primary-red);
+        }
+
+        .pay-box.active {
+            border: 1.5px solid var(--primary-red);
+            color: var(--primary-red);
+        }
+
+        .pay-box.active i {
+            color: var(--primary-red);
+        }
+
+        /* Custom Radio Dot */
+        .radio-circle {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            border: 1.5px solid #cbd5e1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .pay-box.active .radio-circle {
+            border-color: var(--primary-red);
+        }
+
+        .pay-box.active .radio-circle::after {
+            content: '';
+            width: 14px;
+            height: 14px;
+            background-color: var(--primary-red);
+            border-radius: 50%;
+        }
+
+        /* Terms */
+        .terms-line {
+            display: flex;
+            align-items: center;
+            gap: 9px;
+            font-size: 11.5px;
+            color: var(--text-muted);
+            margin-top: 4px;
+        }
+
+        .terms-line i {
+            color: var(--primary-red);
+            font-size: 17px;
+        }
+
+        .terms-line span,
+        .terms-line a.agree {
+            color: var(--primary-red);
+            font-weight: 600;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        .terms-line a {
+            color: var(--primary-red)
+        }
+
+        .btn-submit-order {
+            background-color: var(--primary-red);
+            color: white;
+            border: none;
+            padding: 13px 36px;
+            border-radius: 50px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            align-self: flex-start;
+            margin-top: 6px;
+            box-shadow: 0 6px 18px rgba(211, 47, 47, 0.25);
+        }
+
+        /* ================= RIGHT CARD: SUMMARY ================= */
+        .summary-content {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .prod-main-row {
+            display: flex;
+            gap: 14px;
+            align-items: flex-start;
+            margin-bottom: 16px;
+        }
+
+        .prod-main-row:last-child {
+            margin-bottom: 0;
+        }
+
+        .img-container {
+            width: 66px;
+            height: 66px;
+            background-color: #f8fafc;
+            border: 1px solid var(--border-color);
+            border-radius: 14px;
+            padding: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .img-container img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+
+        .prod-text-col {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .prod-title {
+            font-size: 13.5px;
+            font-weight: 600;
+            color: var(--text-dark);
+            line-height: 1.3;
+        }
+
+        .prod-options {
+            font-size: 11px;
+            color: var(--text-muted);
+        }
+
+        /* Fixed: Price and Quantity on the exact same line */
+        .price-qty-line {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+        }
+
+        .price-group {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .taka-red {
+            color: var(--primary-red);
+            font-weight: 700;
+            font-size: 13.5px;
+        }
+
+        .taka-cut {
+            color: #94a3b8;
+            text-decoration: line-through;
+            font-size: 11.5px;
+        }
+
+        .taka-note {
+            color: #94a3b8;
+            font-size: 11px;
+        }
+
+        .discount-tag {
+            color: var(--primary-green);
+            font-weight: 600;
+            font-size: 11.5px;
+        }
+
+        /* Quantity Pill */
+        .qty-capsule {
+            background-color: var(--bg-main);
+            border-radius: 50px;
+            padding: 3px 12px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 12px;
+            font-weight: 700;
+            color: #475569;
+        }
+
+        .qty-capsule .qty-btn {
+            cursor: pointer;
+            user-select: none;
+            padding: 0 2px;
+        }
+
+        .btn-more {
+            background-color: var(--bg-main);
+            border: none;
+            padding: 8px 20px;
+            border-radius: 50px;
+            font-size: 12px;
+            font-weight: 600;
+            color: #475569;
+            align-self: flex-start;
+            cursor: pointer;
+            margin-top: 14px;
+            margin-bottom: 22px;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-more:hover {
+            background: #e2e8f0;
+            color: #d32f2f;
+        }
+
+        /* Calculation Row */
+        .calc-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            font-size: 13.5px;
+            color: #475569;
+            font-weight: 500;
+            padding-top: 20px;
+            border-top: 2px solid #f1f5f9;
+        }
+
+        .calc-item {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .txt-green {
+            color: var(--primary-green);
+            font-weight: 600;
+        }
+
+        .divider {
+            border: none;
+            border-top: 1.5px dashed var(--border-color);
+            margin: 6px 0;
+        }
+
+        .calc-total {
+            display: flex;
+            justify-content: space-between;
+            font-size: 15px;
+            font-weight: 700;
+            color: var(--text-dark);
+        }
+
+        .txt-red {
+            color: var(--primary-red);
+        }
+
+        /* Coupon Box */
+        .coupon-wrapper {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            margin-top: 20px;
+        }
+
+        .coupon-title {
+            font-size: 13px;
+            font-weight: 600;
+            color: #475569;
+        }
+
+        .coupon-title b {
+            color: var(--primary-red);
+            font-weight: 600;
+        }
+
+        .coupon-input-group {
+            background-color: var(--bg-main);
+            border-radius: 50px;
+            display: flex;
+            width: 100%;
+        }
+
+        .coupon-input-group input {
+            border: none;
+            background: transparent;
+            padding: 0 16px;
+            width: 100%;
+            outline: none;
+            font-size: 12.5px;
+            color: var(--text-dark);
+        }
+
+        .btn-apply-coupon {
+            background-color: var(--primary-red);
+            color: white;
+            border: none;
+            padding: 9px 26px;
+            border-radius: 50px;
+            font-size: 12.5px;
+            font-weight: 600;
+            cursor: pointer;
+            flex-shrink: 0;
+        }
+
+        #coupon-message {
+            font-size: 11px;
+            color: var(--primary-red);
+            display: none;
+        }
+
+        @keyframes sslSpin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 992px) {
+            .checkout-frame {
+                grid-template-columns: 1fr;
+            }
+
+            .payment-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .checkout-frame {
+                padding: 14px;
+                border-radius: 20px;
+            }
+
+            .white-card {
+                padding: 20px 16px;
+            }
+
+            .input-grid-2 {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Terms Modal Scrollbar */
+        #modal-terms-body {
+            scrollbar-width: thin;
+            scrollbar-color: var(--primary-red) transparent;
+        }
+
+        #modal-terms-body::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        #modal-terms-body::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        #modal-terms-body::-webkit-scrollbar-thumb {
+            background-color: var(--primary-red);
+            border-radius: 10px;
+        }
+    </style>
+
+    <form id="checkout-form" action="https://monarchit.devteam.againtheme.com/index.php?route=checkout/checkout"
+        method="post" novalidate="">
+        <div class="checkout-frame">
+
+            <!-- LEFT FORM -->
+            <div class="white-card form-content">
+
+
+                <div class="tabs-wrapper" id="mode-tabs">
+                    <button type="button" class="tab-btn active" data-mode="guest">Guest</button>
+                    <button type="button" class="tab-btn" data-mode="login">Login</button>
+                    <button type="button" class="tab-btn" data-mode="register">Register</button>
+                </div>
+                <input type="hidden" name="checkout_mode" id="checkout-mode-input" value="guest">
+
+                <div id="login-panel" style="display: none;">
+                    <div class="input-grid-2">
+                        <input type="email" id="login-email" class="capsule-input" placeholder="Email"
+                            autocomplete="email">
+                        <input type="password" id="login-password" class="capsule-input" placeholder="Password"
+                            autocomplete="current-password">
+                    </div>
+                    <div id="login-error" class="error-text" style="display:none;"></div>
+                    <button type="button" id="btn-do-login" class="btn-submit-order"
+                        style="margin-top:0;">Login</button>
+                </div>
+
+                <div class="info-heading" id="customer-info-heading" style="">Information</div>
+
+                <div id="customer-info-fields" style="display: flex; flex-direction: column; gap: 16px;">
+
+                    <div class="input-grid-2">
+                        <div>
+                            <input type="text" name="firstname" class="capsule-input" placeholder="Name*" value=""
+                                autocomplete="name">
+                        </div>
+                        <div>
+                            <input type="tel" name="telephone" class="capsule-input" placeholder="Number*" value="">
+                        </div>
+                    </div>
+
+                    <div>
+                        <input type="email" name="email" class="capsule-input" placeholder="Email*" value="">
+                    </div>
+
+                    <div>
+                        <input type="text" name="address_1" class="capsule-input" placeholder="Address*" value="">
+                    </div>
+
+                    <div class="capsule-input static-info-box zone-select-wrap">
+                        <b>District:</b>
+                        <select name="zone_id" id="input-zone" onchange="reload({zone_id: this.value})">
+                            <option value="4257">Bagerhat</option>
+                            <option value="4280">Bandarban</option>
+                            <option value="4275">Barguna</option>
+                            <option value="320">Barisal</option>
+                            <option value="4276">Bhola</option>
+                            <option value="4265">Bogura</option>
+                            <option value="4281">Brahmanbaria</option>
+                            <option value="4282">Chandpur</option>
+                            <option value="4266">Chapai Nawabganj</option>
+                            <option value="321">Chittagong</option>
+                            <option value="4258">Chuadanga</option>
+                            <option value="4283">Comilla</option>
+                            <option value="4284">Cox's Bazar</option>
+                            <option value="322" selected="">Dhaka</option>
+                            <option value="4289">Dinajpur</option>
+                            <option value="4244">Faridpur</option>
+                            <option value="4285">Feni</option>
+                            <option value="4290">Gaibandha</option>
+                            <option value="4241">Gazipur</option>
+                            <option value="4245">Gopalganj</option>
+                            <option value="4272">Habiganj</option>
+                            <option value="4254">Jamalpur</option>
+                            <option value="4259">Jessore</option>
+                            <option value="4277">Jhalokathi</option>
+                            <option value="4260">Jhenaidah</option>
+                            <option value="4267">Joypur Hat</option>
+                            <option value="4286">Khagrachari</option>
+                            <option value="323">Khulna</option>
+                            <option value="4246">Kishorganj</option>
+                            <option value="4291">Kurigram</option>
+                            <option value="4261">Kustia</option>
+                            <option value="4296">Lakshmipur</option>
+                            <option value="4292">Lalmonirhat</option>
+                            <option value="4247">Madaripur</option>
+                            <option value="4262">Magura</option>
+                            <option value="4248">Manikganj</option>
+                            <option value="4273">Moulvibazar</option>
+                            <option value="4249">Munshiganj</option>
+                            <option value="4240">Mymensingh</option>
+                            <option value="4268">Naoga</option>
+                            <option value="4263">Narail</option>
+                            <option value="4242">Narayanganj</option>
+                            <option value="4250">Narshingdi</option>
+                            <option value="4269">Natore</option>
+                            <option value="4255">Netrokona</option>
+                            <option value="4293">Nilphamari</option>
+                            <option value="4287">Noakhali</option>
+                            <option value="4270">Pabna</option>
+                            <option value="4294">Panchagarh</option>
+                            <option value="4278">Patuakhali</option>
+                            <option value="4279">Perojpur</option>
+                            <option value="4251">Rajbari</option>
+                            <option value="324">Rajshahi</option>
+                            <option value="4288">Rangamati</option>
+                            <option value="4239">Rangpur</option>
+                            <option value="4264">Satkhira</option>
+                            <option value="4243">Savar</option>
+                            <option value="4252">Shariatpur</option>
+                            <option value="4256">Sherpur</option>
+                            <option value="4271">Sirajganj</option>
+                            <option value="4274">Sunamganj</option>
+                            <option value="325">Sylhet</option>
+                            <option value="4253">Tangail</option>
+                            <option value="4295">Thakurgaon</option>
+                        </select>
+                    </div>
+
+                    <div id="register-password-fields" class="input-grid-2" style="display: none;">
+                        <div>
+                            <input type="password" name="password" class="capsule-input" placeholder="Password*"
+                                autocomplete="new-password">
+                        </div>
+                        <div>
+                            <input type="password" name="confirm" class="capsule-input" placeholder="Confirm Password*"
+                                autocomplete="new-password">
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- Payment Grid -->
+                <div class="payment-grid">
+                    <div class="pay-box active" onclick="selectPayment(this)">
+                        <div class="radio-circle"></div>
+                        <span class="pay-icon-cod"></span>
+                        Cash On Delivery
+                        <input type="radio" name="payment_method" value="cod" checked="">
+                    </div>
+                    <div class="pay-box " onclick="selectPayment(this)">
+                        <div class="radio-circle"></div>
+                        <i class="fa-solid fa-building-columns"></i>
+                        Online Banking
+                        <input type="radio" name="payment_method" value="SSLCommerce">
+                    </div>
+                </div>
+
+                <div class="terms-line">
+                    <i class="fa-solid fa-circle-check"></i>
+                    <div>
+                        I have read and agree to the <a href="https://monarchit.devteam.againtheme.com/terms"
+                            class=""><b>Terms &amp; Conditions</b></a>, <a
+                            href="https://monarchit.devteam.againtheme.com/privacy-policy" class=""><b>Privacy
+                                Policy</b></a> &amp; <a href="https://monarchit.devteam.againtheme.com/return-policy"
+                            class=""><b>Return Policy</b></a>
+                    </div>
+                </div>
+                <input type="hidden" name="agree" value="1">
+
+                <button type="submit" id="button-confirm" class="btn-submit-order">Place Order</button>
+
+            </div>
+
+            <!-- RIGHT SUMMARY -->
+            <div class="white-card summary-content">
+
+                <div>
+                    <div class="checkout-products">
+                        <div class="prod-main-row">
+                            <div class="img-container">
+                                <img src="https://monarchit.devteam.againtheme.com/image/cache/catalog/tv-/sony/Bravia%203/k-43s30-001-500x500-47x47.png"
+                                    alt="Sony Bravia 3 K-55S30 55 Inch 4K UHD Google TV">
+                            </div>
+
+                            <div class="prod-text-col">
+                                <div class="prod-title"><a
+                                        href="https://monarchit.devteam.againtheme.com/sony-bravia-3-k-55s30-55-inch-4k-uhd-google-tv"
+                                        style="color:inherit;text-decoration:none;">Sony Bravia 3 K-55S30 55 Inch 4K UHD
+                                        Google TV</a></div>
+
+
+                                <div class="price-qty-line">
+                                    <div class="price-group">
+                                        <span class="taka-red">৳121,900</span>
+                                        <span class="taka-cut">৳131,900</span>
+                                        <span class="discount-tag">8% OFF</span>
+                                    </div>
+                                </div>
+
+                                <div class="qty-capsule-wrap" style="display: inherit;">
+                                    <div class="qty-capsule" data-cart-id="25440" data-qty="1">
+                                        <span class="qty-btn" onclick="changeQty(this, -1)">-</span>
+                                        <span class="qty-value">1</span>
+                                        <span class="qty-btn" onclick="changeQty(this, 1)">+</span>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <a href="index.php?route=checkout/cart" class="btn-more">Buy More</a>
+                </div>
+
+                <div>
+                    <div class="calc-list checkout-data">
+                        <div class="calc-item">
+                            <span>Sub-Total</span>
+                            <span class="txt-green">৳121,900</span>
+                        </div>
+                        <div class="calc-item">
+                            <span>Inside Dhaka City</span>
+                            <span class="txt-green">৳0</span>
+                        </div>
+                        <hr class="divider">
+                        <div class="calc-total">
+                            <span>Total</span>
+                            <span class="txt-red">৳121,900</span>
+                        </div>
+                    </div>
+
+                    <div class="coupon-wrapper">
+                        <div class="coupon-title">Coupon/<b>Promo Code</b></div>
+                        <div class="coupon-input-group">
+                            <input type="text" id="input-coupon" value="" placeholder="Promo / Coupon Code">
+                            <button type="button" id="button-coupon" class="btn-apply-coupon">Apply</button>
+                        </div>
+                        <p id="coupon-message"></p>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </form>
+
+    <div id="ssl-loading-overlay" style="display:none;position:fixed;inset:0;z-index:99999;background:rgba(0,0,0,.65);">
+        <div
+            style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);background:#fff;border-radius:12px;padding:32px 44px;text-align:center;box-shadow:0 8px 40px rgba(0,0,0,.25);min-width:280px;">
+            <div
+                style="width:44px;height:44px;border:4px solid #eee;border-top-color:#ff5625;border-radius:50%;animation:sslSpin .8s linear infinite;margin:0 auto;">
+            </div>
+            <p style="margin-top:16px;font-size:15px;font-weight:700;color:#333;margin-bottom:0;">Connecting to Payment
+                Gateway</p>
+            <p style="font-size:12px;color:#888;margin-top:6px;">Please wait, do not close this window.</p>
+        </div>
+    </div>
+
+    <div id="modal-terms" style="display:none; position:fixed; inset:0; z-index:99997; background:rgba(0,0,0,.55);">
+        <div
+            style="position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); background:#fff; border-radius:8px; width:92%; max-width:620px; max-height:80vh; overflow:hidden; display:flex; flex-direction:column; box-shadow:0 8px 40px rgba(0,0,0,.3);">
+            <div
+                style="padding:14px 20px; border-bottom:1px solid #eee; display:flex; justify-content:space-between; align-items:center; flex-shrink:0;">
+                <strong id="modal-terms-title" style="font-size:16px;">Terms and Conditions</strong>
+                <button type="button" id="close-terms-modal"
+                    style="background:none; border:none; font-size:22px; cursor:pointer; color:#888; line-height:1;">×</button>
+            </div>
+            <div id="modal-terms-body" style="padding:20px; font-size:14px; line-height:1.7; overflow-y:auto;"></div>
+        </div>
+    </div>
+
+    <script>
+        function selectPayment(element) {
+            document.querySelectorAll('.pay-box').forEach(function (box) { box.classList.remove('active'); });
+            element.classList.add('active');
+            var radio = element.querySelector('input[name="payment_method"]');
+            if (radio) {
+                radio.checked = true;
+                reload({ payment_method: radio.value });
+            }
+        }
+
+        function reload(data) {
+            data = data || {};
+            var $confirmBtn = $('#button-confirm');
+            $confirmBtn.prop('disabled', true);
+            $.ajax({
+                url: 'index.php?route=checkout/checkout/reload',
+                data: data,
+                success: function (resp) {
+                    var $resp = $(resp);
+                    $('.checkout-data').html($resp.find('.checkout-data').html());
+                    $('.payment-grid').html($resp.find('.payment-grid').html());
+                    $('.checkout-products').html($resp.find('.checkout-products').html());
+                    $confirmBtn.prop('disabled', false);
+                },
+                error: function () { $confirmBtn.prop('disabled', false); }
+            });
+        }
+
+        function changeQty(el, delta) {
+            var $capsule = $(el).closest('.qty-capsule');
+            var cartId = $capsule.data('cart-id');
+            var qty = parseInt($capsule.data('qty'), 10) || 1;
+            var newQty = qty + delta;
+            if (newQty < 1) { newQty = 1; }
+            if (newQty === qty) { return; }
+
+            $capsule.find('.qty-value').text(newQty);
+            $capsule.data('qty', newQty);
+
+            $.ajax({
+                url: 'index.php?route=checkout/checkout/updateQty',
+                method: 'POST',
+                data: { cart_id: cartId, quantity: newQty },
+                dataType: 'json',
+                success: function (json) {
+                    if (json.error) {
+                        $capsule.find('.qty-value').text(qty);
+                        $capsule.data('qty', qty);
+                        return;
+                    }
+                    reload();
+                },
+                error: function () {
+                    $capsule.find('.qty-value').text(qty);
+                    $capsule.data('qty', qty);
+                }
+            });
+        }
+
+        $(document).ready(function () {
+
+            // Strip the "agree" class from the terms link so OpenCart's legacy global
+            // handler (common.js $(document).delegate('.agree', ...)) doesn't also fire
+            // and open its own duplicate modal (which drags in the header/cart/category
+            // drawers) alongside our custom modal below.
+            $('.terms-line a.agree').removeClass('agree');
+
+            // --- Login / Register / Guest Mode Logic ---
+            function applyMode(mode) {
+                $('#mode-tabs .tab-btn').each(function () {
+                    $(this).toggleClass('active', $(this).data('mode') === mode);
+                });
+                $('#checkout-mode-input').val(mode);
+
+                var $btn = $('#button-confirm');
+
+                if (mode === 'login') {
+                    $('#login-panel').show();
+                    $('#customer-info-heading, #customer-info-fields').hide();
+                    $btn.prop('disabled', true);
+                } else {
+                    $('#login-panel').hide();
+                    $('#customer-info-heading, #customer-info-fields').show();
+                    $('#register-password-fields').css('display', mode === 'register' ? 'grid' : 'none');
+                    $btn.prop('disabled', false);
+                }
+            }
+
+            var initMode = $('#checkout-mode-input').val() || 'guest';
+            applyMode(initMode);
+
+            $('#mode-tabs .tab-btn').on('click', function () {
+                applyMode($(this).data('mode'));
+            });
+
+            // AJAX Login
+            $('#btn-do-login').on('click', function () {
+                var email = $('#login-email').val().trim();
+                var password = $('#login-password').val();
+
+                if (!email || !password) {
+                    $('#login-error').text('Please enter your email and password.').show();
+                    return;
+                }
+
+                var $btn = $(this);
+                $btn.prop('disabled', true).text('Please wait...');
+                $('#login-error').hide();
+
+                $.ajax({
+                    url: 'index.php?route=checkout/checkout/loginAjax',
+                    method: 'POST',
+                    data: { email: email, password: password },
+                    dataType: 'json',
+                    success: function (json) {
+                        if (json.error) {
+                            $('#login-error').text(json.error).show();
+                            $btn.prop('disabled', false).text('Login');
+                        } else if (json.success) {
+                            var fullName = json.firstname + (json.lastname ? ' ' + json.lastname : '');
+
+                            $('[name="firstname"]').val(fullName);
+                            $('[name="email"]').val(json.email || '');
+                            $('[name="telephone"]').val(json.telephone || '');
+                            if (json.address_1) { $('[name="address_1"]').val(json.address_1); }
+                            if (json.zone_id) { $('#input-zone').val(json.zone_id).trigger('change'); }
+
+                            $('#mode-tabs, #login-panel').hide();
+                            $('#customer-info-heading').before('<div class="logged-in-bar"><i class="fa-solid fa-circle-check"></i> Logged in as ' + fullName + '</div>');
+                            $('#customer-info-heading, #customer-info-fields').show();
+                            $('#button-confirm').prop('disabled', false);
+                        }
+                    },
+                    error: function () {
+                        $('#login-error').text('Connection error. Please try again.').show();
+                        $btn.prop('disabled', false).text('Login');
+                    }
+                });
+            });
+
+            $('#login-password, #login-email').on('keypress', function (e) {
+                if (e.which === 13) { $('#btn-do-login').click(); }
+            });
+
+            // --- Coupon ---
+            $('#button-coupon').on('click', function () {
+                $.ajax({
+                    url: 'index.php?route=extension/total/coupon/coupon',
+                    method: 'post',
+                    data: 'coupon=' + encodeURIComponent($('#input-coupon').val()),
+                    dataType: 'json',
+                    success: function (json) {
+                        if (json['error']) { $('#coupon-message').text(json['error']).show(); }
+                        else { $('#coupon-message').hide(); reload(); }
+                    }
+                });
+            });
+
+            // --- Terms & Conditions Popup ---
+            $(document).on('click', '.terms-line a, .terms-line span', function (e) {
+                e.preventDefault();
+                var url = $(this).attr('href');
+                var title = $(this).text().replace('.', '').trim();
+                $('#modal-terms-title').text(title || 'Terms and Conditions');
+
+                if (!url || url === '#') {
+                    $('#modal-terms-body').html('<p style="color:#888; padding:10px 0;">Terms and Conditions page is not configured in the store settings.</p>');
+                    $('#modal-terms').fadeIn(200);
+                    return;
+                }
+
+                $('#modal-terms-body').html('<p style="color:#888;text-align:center;padding:30px 0;">Loading...</p>');
+                $('#modal-terms').fadeIn(200);
+
+                $.get(url, function (html) {
+                    var doc = new DOMParser().parseFromString(html, 'text/html');
+                    var el = doc.getElementById('content')
+                        || doc.querySelector('.col-sm-9')
+                        || doc.querySelector('.col-sm-12')
+                        || doc.querySelector('article')
+                        || doc.querySelector('main');
+                    if (el) { $('#modal-terms-body').html(el.innerHTML); }
+                    else { $('#modal-terms-body').html('<p style="color:#888;">Content not available.</p>'); }
+                }).fail(function () {
+                    $('#modal-terms-body').html('<p style="color:#888;">Could not load terms. Please try again.</p>');
+                });
+            });
+
+            $(document).on('click', '#close-terms-modal', function () { $('#modal-terms').fadeOut(200); });
+            $(document).on('click', '#modal-terms', function (e) {
+                if ($(e.target).is('#modal-terms')) { $('#modal-terms').fadeOut(200); }
+            });
+
+            // --- SSL Commerce: redirect to payment gateway ---
+            $('#checkout-form').on('submit', function (e) {
+                var selectedPayment = $('input[name="payment_method"]:checked').val();
+                if (selectedPayment !== 'SSLCommerce') return true;
+
+                e.preventDefault();
+                var $form = $(this);
+                var $btn = $('#button-confirm');
+                $btn.prop('disabled', true).text('Processing...');
+                $('#ssl-loading-overlay').fadeIn(150);
+
+                $.ajax({
+                    url: $form.attr('action'),
+                    method: 'POST',
+                    data: $form.serialize() + '&ssl_ajax=1',
+                    dataType: 'json',
+                    success: function (json) {
+                        if (json.errors) {
+                            $form.off('submit').submit();
+                            return;
+                        }
+                        if (json.redirect) {
+                            window.location.href = json.redirect;
+                            return;
+                        }
+                        if (json.status === 'ssl') {
+                            $.ajax({
+                                url: json.process_url,
+                                method: 'POST',
+                                data: { order: json.order_id },
+                                dataType: 'json',
+                                success: function (sslResp) {
+                                    var gwStatus = (sslResp.status || '').toUpperCase();
+                                    if (gwStatus === 'SUCCESS' && sslResp.data) {
+                                        window.location.href = sslResp.data;
+                                    } else {
+                                        $('#ssl-loading-overlay').fadeOut(150);
+                                        $btn.prop('disabled', false).text('Place Order');
+                                        alert('Payment gateway error. Please try again.');
+                                    }
+                                },
+                                error: function () {
+                                    $('#ssl-loading-overlay').fadeOut(150);
+                                    $btn.prop('disabled', false).text('Place Order');
+                                    alert('Could not connect to payment gateway. Please try again.');
+                                }
+                            });
+                        }
+                    },
+                    error: function () {
+                        $('#ssl-loading-overlay').fadeOut(150);
+                        $btn.prop('disabled', false).text('Place Order');
+                        alert('Connection failed. Please try again.');
+                    }
+                });
+            });
+        });
+    </script>
+    <style>
+        .footer {
+            background: #1d1d1d;
+            color: #fff;
+        }
+
+        @media (min-width: 992px) {
+            .footer {
+                padding-left: 80px
+            }
+        }
+
+        .footer-container {
+            max-width: 1400px;
+            margin: auto;
+            padding: 70px 30px;
+            display: grid;
+            grid-template-columns: 1.4fr 1.5fr 1fr;
+            gap: 60px;
+        }
+
+        /* Logo */
+        .footer-logo {
+            max-width: 180px;
+            margin-bottom: 20px;
+        }
+
+        .company-info p {
+            color: #d0d0d0;
+            line-height: 1.7;
+            font-size: 15px;
+            margin: 20px 0px;
+        }
+
+        /* Social Icons */
+        .social-icons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .social-icons a {
+            width: 38px;
+            height: 38px;
+            border: 1px solid rgba(255, 255, 255, .15);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            text-decoration: none;
+            transition: .3s;
+        }
+
+        .social-icons a i {
+            font-size: 16px;
+        }
+
+        .social-icons a:hover {
+            background: #e53935;
+            border-color: #e53935;
+            transform: translateY(-3px);
+        }
+
+        /* Heading */
+        .footer-col h3 {
+            font-size: 22px;
+            margin-bottom: 25px;
+            font-weight: 600;
+            color: #ffffff;
+        }
+
+        /* Links */
+        .footer-links-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+        }
+
+        .footer-links-grid ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .footer-links-grid li {
+            margin-bottom: 16px;
+        }
+
+        .footer-links-grid a {
+            color: #d6d6d6;
+            text-decoration: none;
+            transition: .3s;
+        }
+
+        .footer-links-grid a:hover {
+            color: #ff3d3d;
+            padding-left: 5px;
+        }
+
+        /* Membership */
+
+        .office-address {
+            color: #d7d7d7;
+            line-height: 1.8;
+            margin-top: 20px;
+        }
+
+        .office-address strong {
+            color: #fff;
+        }
+
+        /* Bottom */
+        .footer-bottom {
+            border-top: 1px solid rgba(255, 255, 255, .1);
+            text-align: center;
+            padding: 25px 20px;
+        }
+
+        .footer-bottom p {
+            margin-bottom: 15px;
+            color: #d0d0d0;
+        }
+
+        .footer-bottom span {
+            color: #ff3d3d;
+        }
+
+        .payment-icons img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        /* Tablet */
+        @media(max-width:992px) {
+
+            .footer-container {
+                grid-template-columns: 1fr 1fr;
+                gap: 40px;
+            }
+
+            .footer-col:last-child {
+                grid-column: span 2;
+            }
+        }
+
+        /* Mobile */
+        @media(max-width:768px) {
+
+            .footer-container {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .footer-col:last-child {
+                grid-column: unset;
+            }
+
+            .social-icons {
+                justify-content: center;
+            }
+
+            .footer-links-grid {
+                grid-template-columns: 1fr;
+                gap: 10px;
+            }
+
+            .membership {
+                justify-content: center;
+            }
+        }
+    </style>
+
+    <!-- Start Special Offers modification -->
+
+    <div id="modal-som-info" class="modal" role="dialog" aria-labelledby="OfferModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        function modalOfferInfo(offer_id) {
+            $.ajax({
+                url: 'index.php?route=extension/module/special_offer/modalOfferInfoByID&offer_id=' + offer_id,
+                type: 'get',
+                dataType: 'text',
+                beforeSend: function () {
+                    //	$('#modal-som-info .modal-body').html('Loading...');
+                },
+                success: function (responseText) {
+                    $('#modal-som-info .modal-content').html(responseText);
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+                }
+            });
+            $('#modal-som-info').modal();
+        };
+        function SetSOMTimers() {
+            $('[data-countdown]').each(function () {
+                var $this = $(this), finalDate = $(this).data('countdown');
+                $this.SpecTimer({
+                    DateEnd: finalDate,
+                    TextEnded: "Offer Ended",
+                    OutputHTML: "<div>%%D%% <span>Days</span></div><div>%%H%% <span>Hours</span></div><div>%%M%% <span>Min.</span></div><div>%%S%% <span>Sec.</span></div>"
+                });
+            });
+        };
+    </script>
+    <!-- End Special Offers modification -->
+    <footer class="footer">
+        <div class="footer-container">
+
+            <!-- Company Info -->
+            <div class="footer-col company-info">
+                <img src="/catalog/view/theme/default/image/monarch-it.png" title="Monarch IT" alt="Monarch IT">
+
+                <p>
+                    At Monarch IT, we are committed to create the future by delivering
+                    genuine tech products, reliable solutions, and unmatched support.
+                    Our goal is to inspire growth and success through technology.
+                </p>
+
+                <div class="social-icons">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-whatsapp"></i></a>
+                    <a href="#"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+
+            <!-- Important Links -->
+            <div class="footer-col">
+                <h3>Important Links</h3>
+
+                <div class="footer-links-grid">
+                    <ul>
+                        <li><a href="#">About Us</a></li>
+                        <li><a href="#">Brands</a></li>
+                        <li><a href="#">Blog</a></li>
+                        <li><a href="#">Contact Us</a></li>
+                    </ul>
+
+                    <ul>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Terms &amp; Conditions</a></li>
+                        <li><a href="#">Online Delivery</a></li>
+                        <li><a href="#">Refund &amp; Return Policy</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Membership -->
+            <div class="footer-col">
+                <h3>Membership</h3>
+
+                <div class="membership">
+                    <img src="/catalog/view/theme/default/image/partnership-logo.png" alt="Partnership Logo">
+                </div>
+
+                <div class="office-address">
+                    <strong>Head Office:</strong>
+                    Bs Bhaban, 2nd Floor, 75-76,
+                    New Elephant Road, Dhaka-1205,
+                    Bangladesh
+                </div>
+            </div>
+
+        </div>
+
+        <div class="footer-bottom container">
+            <p>
+                © 2026, <span>Monarch IT Ltd</span>, All Rights Reserved.
+            </p>
+
+            <div class="payment-icons">
+                <img src="/catalog/view/theme/default/image/payment.jpg" alt="Payment Methods">
+            </div>
+        </div>
+    </footer>
+
+
+
+
+    <veepn-lock-screen><template shadowrootmode="open">
+            <style>
+                html {
+                    box-sizing: border-box;
+                    -webkit-text-size-adjust: 100%;
+                    -moz-text-size-adjust: 100%;
+                    text-size-adjust: 100%;
+                    word-break: normal;
+                    tab-size: 4
+                }
+
+                *,
+                :before,
+                :after {
+                    box-sizing: border-box;
+                    background-repeat: no-repeat
+                }
+
+                :before,
+                :after {
+                    -webkit-text-decoration: inherit;
+                    text-decoration: inherit;
+                    vertical-align: inherit
+                }
+
+                * {
+                    margin: 0;
+                    padding: 0
+                }
+
+                hr {
+                    height: 0;
+                    color: inherit;
+                    border: 0;
+                    border-top: 1px solid;
+                    overflow: visible
+                }
+
+                details,
+                main {
+                    display: block
+                }
+
+                summary {
+                    display: list-item
+                }
+
+                small {
+                    font-size: 80%
+                }
+
+                [hidden] {
+                    display: none !important
+                }
+
+                abbr[title] {
+                    border-bottom: none;
+                    -webkit-text-decoration: underline dotted;
+                    text-decoration: underline dotted
+                }
+
+                a {
+                    background-color: #0000
+                }
+
+                a:active,
+                a:hover {
+                    outline-width: 0
+                }
+
+                code,
+                kbd,
+                pre,
+                samp {
+                    font-family: monospace
+                }
+
+                pre {
+                    font-size: 1em
+                }
+
+                b,
+                strong {
+                    font-weight: bolder
+                }
+
+                sub,
+                sup {
+                    vertical-align: baseline;
+                    font-size: 75%;
+                    line-height: 0;
+                    position: relative
+                }
+
+                sub {
+                    bottom: -.25em
+                }
+
+                sup {
+                    top: -.5em
+                }
+
+                table {
+                    border-color: inherit;
+                    text-indent: 0
+                }
+
+                iframe {
+                    border-style: none
+                }
+
+                input {
+                    border-radius: 0
+                }
+
+                [type=number]::-webkit-inner-spin-button {
+                    height: auto
+                }
+
+                [type=number]::-webkit-outer-spin-button {
+                    height: auto
+                }
+
+                [type=search] {
+                    appearance: textfield;
+                    outline-offset: -2px
+                }
+
+                [type=search]::-webkit-search-decoration {
+                    appearance: none
+                }
+
+                textarea {
+                    resize: vertical;
+                    overflow: auto
+                }
+
+                button,
+                input,
+                optgroup,
+                select,
+                textarea {
+                    font: inherit;
+                    color: inherit
+                }
+
+                optgroup {
+                    font-weight: 700
+                }
+
+                button {
+                    overflow: visible
+                }
+
+                button,
+                select {
+                    text-transform: none
+                }
+
+                button,
+                [type=button],
+                [type=reset],
+                [type=submit],
+                [role=button] {
+                    cursor: pointer
+                }
+
+                button::-moz-focus-inner {
+                    border-style: none;
+                    padding: 0
+                }
+
+                [type=button]::-moz-focus-inner {
+                    border-style: none;
+                    padding: 0
+                }
+
+                [type=reset]::-moz-focus-inner {
+                    border-style: none;
+                    padding: 0
+                }
+
+                [type=submit]::-moz-focus-inner {
+                    border-style: none;
+                    padding: 0
+                }
+
+                button,
+                html [type=button],
+                [type=reset],
+                [type=submit] {
+                    appearance: auto
+                }
+
+                button,
+                input,
+                select,
+                textarea {
+                    background-color: #0000;
+                    border-style: none
+                }
+
+                button:-moz-focusring {
+                    outline: 1px dotted buttontext
+                }
+
+                [type=button]::-moz-focus-inner {
+                    outline: 1px dotted buttontext
+                }
+
+                [type=reset]::-moz-focus-inner {
+                    outline: 1px dotted buttontext
+                }
+
+                [type=submit]::-moz-focus-inner {
+                    outline: 1px dotted buttontext
+                }
+
+                select {
+                    appearance: none
+                }
+
+                a:focus,
+                button:focus,
+                input:focus,
+                select:focus,
+                textarea:focus {
+                    outline-width: 0
+                }
+
+                select::-ms-expand {
+                    display: none
+                }
+
+                select::-ms-value {
+                    color: currentColor
+                }
+
+                legend {
+                    color: inherit;
+                    white-space: normal;
+                    border: 0;
+                    max-width: 100%;
+                    display: table
+                }
+
+                ::-webkit-file-upload-button {
+                    appearance: auto;
+                    color: inherit;
+                    font: inherit
+                }
+
+                [disabled] {
+                    cursor: default
+                }
+
+                img {
+                    border-style: none
+                }
+
+                progress {
+                    vertical-align: baseline
+                }
+
+                [aria-busy=true] {
+                    cursor: progress
+                }
+
+                [aria-controls] {
+                    cursor: pointer
+                }
+
+                [aria-disabled=true] {
+                    cursor: default
+                }
+
+                ul,
+                ol {
+                    list-style-type: none
+                }
+
+                figure {
+                    margin: 0
+                }
+
+                @keyframes slide-in {
+                    0% {
+                        opacity: 0;
+                        transform: translateY(16px)
+                    }
+
+                    to {
+                        opacity: 1;
+                        transform: translateY(0%)
+                    }
+                }
+
+                .gradient-blue {
+                    background: radial-gradient(106.41% 128.47% at 50.15% 128.47%, #23abff 0%, #3066ff 100%)
+                }
+
+                .gradient-green {
+                    background: radial-gradient(92.26% 118.88% at 50.15% .13%, #00c3c3 0%, #00aab3 100%)
+                }
+
+                .gradient-purple {
+                    background: radial-gradient(165.12% 115.56% at 50.15% .13%, #a15aff 0%, #00a0eb 100%)
+                }
+
+                .bg-blue {
+                    background-color: #f2f5ff
+                }
+
+                .bg-purple {
+                    background-color: #f7f0ff
+                }
+
+                .bg-green {
+                    background-color: #ebffed
+                }
+
+                .lock-screen {
+                    letter-spacing: normal;
+                    z-index: 2147483638;
+                    border-radius: 24px;
+                    width: 327px;
+                    font-family: FigtreeVF, sans-serif;
+                    animation: .3s ease-in-out forwards slide-in;
+                    position: fixed;
+                    bottom: 24px;
+                    right: 24px;
+                    overflow: hidden;
+                    box-shadow: 0 24px 32px #00000014
+                }
+
+                .lock-screen__content {
+                    padding: 24px 24px 64px;
+                    position: relative
+                }
+
+                .lock-screen__close {
+                    opacity: .5;
+                    justify-content: center;
+                    align-items: center;
+                    width: 24px;
+                    height: 24px;
+                    display: flex;
+                    position: absolute;
+                    top: 16px;
+                    right: 16px
+                }
+
+                .lock-screen__label {
+                    color: #fff;
+                    background-color: #fff3;
+                    border-radius: 50px;
+                    justify-content: center;
+                    align-items: center;
+                    gap: 8px;
+                    width: fit-content;
+                    height: 26px;
+                    margin: -8px auto 16px;
+                    padding-inline: 16px;
+                    font-size: 12px;
+                    line-height: 18px;
+                    display: flex
+                }
+
+                .lock-screen__title {
+                    color: #fff;
+                    text-align: center;
+                    margin-bottom: 8px;
+                    font-size: 20px;
+                    font-weight: 600;
+                    line-height: 28px
+                }
+
+                .lock-screen__description {
+                    color: #f5f6f7;
+                    text-align: center;
+                    font-size: 14px;
+                    line-height: 20px
+                }
+
+                .lock-screen__description b {
+                    font-weight: 600
+                }
+
+                .lock-screen__card {
+                    z-index: 1;
+                    background-color: #fff;
+                    border-radius: 24px;
+                    margin-top: -44px;
+                    padding: 32px 20px 20px;
+                    position: relative
+                }
+
+                .lock-screen__inner {
+                    margin-bottom: 24px
+                }
+
+                .lock-screen__submit {
+                    color: #fff;
+                    background-color: #f70;
+                    border-radius: 12px;
+                    justify-content: center;
+                    align-items: center;
+                    gap: 10px;
+                    width: 100%;
+                    height: 40px;
+                    margin-bottom: 16px;
+                    padding-inline: 16px;
+                    font-size: 16px;
+                    font-weight: 700;
+                    display: flex
+                }
+
+                .lock-screen__skip {
+                    color: #82829c;
+                    justify-content: center;
+                    align-items: center;
+                    margin-inline: auto;
+                    font-size: 14px;
+                    line-height: 20px;
+                    display: flex
+                }
+
+                .price-card {
+                    background: linear-gradient(254.14deg, #fafbff .04%, #f5f8ff 100.04%);
+                    border: 1px solid #f2f2fc;
+                    border-radius: 24px;
+                    padding: 24px 28px
+                }
+
+                .price-card__label {
+                    color: #4a5764;
+                    text-align: center;
+                    text-transform: uppercase;
+                    margin-bottom: 16px;
+                    font-size: 14px;
+                    line-height: 20px
+                }
+
+                .price-card__price {
+                    justify-content: center;
+                    align-items: flex-start;
+                    column-gap: 2px;
+                    margin-bottom: 12px;
+                    display: flex
+                }
+
+                .price-card__currency {
+                    color: #515478;
+                    font-size: 18px;
+                    line-height: 28px
+                }
+
+                .price-card__number {
+                    color: #14142a;
+                    text-align: center;
+                    font-size: 64px;
+                    line-height: 54px
+                }
+
+                .price-card__wrap {
+                    flex-direction: column;
+                    display: flex
+                }
+
+                .price-card__decimal {
+                    color: #515478;
+                    font-size: 18px;
+                    font-weight: 600;
+                    line-height: 28px
+                }
+
+                .price-card__period {
+                    color: #515478;
+                    margin-top: -6px;
+                    font-size: 14px;
+                    line-height: 20px
+                }
+
+                .price-card__discount {
+                    justify-content: center;
+                    align-items: center;
+                    margin-bottom: 12px;
+                    display: flex;
+                    position: relative
+                }
+
+                .price-card__discount-divider {
+                    z-index: 0;
+                    background-color: #dbe2f9;
+                    width: 100%;
+                    height: 1px;
+                    position: absolute;
+                    top: 50%;
+                    left: 0;
+                    transform: translateY(-50%)
+                }
+
+                .price-card__discount-icon {
+                    z-index: 1;
+                    position: absolute;
+                    top: 50%;
+                    left: 50%;
+                    transform: translate(-50%, -50%)
+                }
+
+                .price-card__discount-text {
+                    z-index: 2;
+                    color: #fff;
+                    font-size: 12px;
+                    font-weight: 600;
+                    line-height: 18px;
+                    position: relative
+                }
+
+                .price-card__features {
+                    justify-content: center;
+                    align-items: center;
+                    column-gap: 16px;
+                    display: flex
+                }
+
+                .price-card__feature {
+                    color: #222e3a;
+                    align-items: center;
+                    gap: 6px;
+                    font-size: 14px;
+                    line-height: 20px;
+                    display: flex
+                }
+
+                .price-card__feature:before {
+                    content: "";
+                    background-color: #20df9e;
+                    border-radius: 50%;
+                    flex-shrink: 0;
+                    width: 4px;
+                    height: 4px;
+                    display: block
+                }
+
+                .features-list {
+                    grid-template-columns: repeat(3, 1fr);
+                    gap: 12px;
+                    display: grid
+                }
+
+                .features-list__item {
+                    flex-direction: column;
+                    align-items: center;
+                    gap: 6px;
+                    display: flex
+                }
+
+                .features-list__icon {
+                    border-radius: 12px;
+                    justify-content: center;
+                    align-items: center;
+                    width: 52px;
+                    height: 52px;
+                    display: flex
+                }
+
+                .features-list__text {
+                    color: #293a53;
+                    text-align: center;
+                    letter-spacing: -.1px;
+                    font-size: 16px;
+                    line-height: 24px
+                }
+            </style>
+        </template>
+        <style>
+            @font-face {
+                font-family: FigtreeVF;
+                src: url(chrome-extension://majdfhpaihoncoakbjgbdhglocklcgno/fonts/FigtreeVF.woff2)format("woff2 supports variations"), url(chrome-extension://majdfhpaihoncoakbjgbdhglocklcgno/fonts/FigtreeVF.woff2)format("woff2-variations");
+                font-weight: 100 1000;
+                font-display: swap
+            }
+        </style>
+    </veepn-lock-screen>
+</body><pixiebrix-widget pb-name="notifications" style="all: initial; display: block; ">
+    <div data-rht-toaster=""
+        style="position: fixed; z-index: 2147483647; inset: 16px; pointer-events: none; font-family: sans-serif; background: none;">
+    </div>
+</pixiebrix-widget>
+
+</html>

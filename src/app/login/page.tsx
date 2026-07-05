@@ -3,15 +3,21 @@
 import { useState } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
+import { useRouter } from 'next/navigation'
 import Breadcrumbs from '@/components/category/Breadcrumbs'
+import { useAuth } from '@/context/AuthContext'
 
 const IMG_BASE = '/images'
 
 export default function LoginPage() {
   const [showPassword, setShowPassword] = useState(false)
+  const { login } = useAuth()
+  const router = useRouter()
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
+    login()
+    router.push('/')
   }
 
   return (

@@ -3,7 +3,11 @@
 import { useMemo, useState } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
+import { useRouter } from 'next/navigation'
 import type { CategoryProduct } from '@/data/categoryProducts'
+import { useAuth } from '@/context/AuthContext'
+import { useWishlist } from '@/context/WishlistContext'
+import { useToast, Toast } from '@/components/ui/Toast'
 
 type Props = {
   categoryName: string
@@ -16,6 +20,9 @@ const INITIAL_COUNT = 16
 const LOAD_MORE_COUNT = 10
 
 export default function CategoryPage({ categoryName, products, priceMinDefault, priceMaxDefault }: Props) {
+  const router = useRouter()
+  const { isLoggedIn } = useAuth()
+  const { isWished, toggleWish } = useWishlist()
   const [filterOpen, setFilterOpen] = useState(false)
   const [availability, setAvailability] = useState<string[]>([])
   const [priceMin, setPriceMin] = useState(priceMinDefault)
@@ -23,6 +30,21 @@ export default function CategoryPage({ categoryName, products, priceMinDefault, 
   const [sort, setSort] = useState<'default' | 'price-asc' | 'price-desc'>('default')
   const [visibleCount, setVisibleCount] = useState(INITIAL_COUNT)
   const [descOpen, setDescOpen] = useState(false)
+  const { toast, showToast } = useToast()
+
+  const handleWishlistClick = (product: CategoryProduct) => {
+    if (!isLoggedIn) {
+      router.push('/login')
+      return
+    }
+    const wasWished = isWished(product.id)
+    toggleWish(product.id)
+    showToast(wasWished ? 'Removed from wishlist.' : 'Added to wishlist!')
+  }
+
+  const handleCompareClick = (product: CategoryProduct) => {
+    showToast(`${product.name} added to compare list!`)
+  }
 
   const toggleAvailability = (value: string) => {
     setAvailability((prev) => (prev.includes(value) ? prev.filter((v) => v !== value) : [...prev, value]))
@@ -68,6 +90,7 @@ export default function CategoryPage({ categoryName, products, priceMinDefault, 
 
   return (
     <div className="cp-cat-wrap">
+      <Toast message={toast} />
       <div className="container mx-auto px-4 min-[992px]:pl-20 py-6">
         {/* Sidebar filters (off-canvas at every breakpoint) */}
         <div
@@ -168,18 +191,18 @@ export default function CategoryPage({ categoryName, products, priceMinDefault, 
 
         {/* Main content */}
         <div>
-            <div className="flex items-center justify-between gap-3 flex-wrap mb-4">
+            <div className="flex items-center justify-between gap-3 mb-4 overflow-x-auto no-scrollbar">
               <button
                 type="button"
                 onClick={() => setFilterOpen(true)}
-                className="inline-flex items-center gap-1.5 bg-[#f5f5f7] border border-[#f5f5f7] rounded-full px-4 py-2 text-[14px] font-semibold text-gray-600 hover:border-[#d32f2f] hover:text-[#d32f2f] transition-colors cursor-pointer"
+                className="shrink-0 inline-flex items-center gap-1.5 bg-[#f5f5f7] border border-[#f5f5f7] rounded-full px-4 py-2 text-[14px] font-semibold text-gray-600 hover:border-[#d32f2f] hover:text-[#d32f2f] transition-colors cursor-pointer"
               >
                 <span className="mi text-[17px]">tune</span> Filter By
               </button>
 
-              <div className="flex items-center gap-1.5 bg-[#f5f5f7] rounded-full px-3 py-1.5">
+              <div className="shrink-0 flex items-center gap-1.5 bg-[#f5f5f7] rounded-full px-3 py-1.5">
                 <span className="mi text-gray-500 text-[20px]">swap_vert</span>
-                <span className="text-gray-500 text-[14px] font-semibold">Sort:</span>
+                <span className="text-gray-500 text-[14px] font-semibold max-[400px]:hidden">Sort:</span>
                 <select
                   value={sort}
                   onChange={(e) => {
@@ -239,16 +262,30 @@ export default function CategoryPage({ categoryName, products, priceMinDefault, 
                       <button
                         type="button"
                         title="Add to Wish List"
-                        className="w-9 h-9 shrink-0 rounded-full bg-[#f5f6fa] border border-[#ebebeb] flex items-center justify-center hover:bg-[#c3272b] hover:border-[#c3272b] transition-colors cursor-pointer"
+                        onClick={() => handleWishlistClick(p)}
+                        className={`group w-9 h-9 shrink-0 rounded-full border flex items-center justify-center transition-colors cursor-pointer ${
+                          isWished(p.id)
+                            ? 'bg-[#c3272b] border-[#c3272b]'
+                            : 'bg-[#f5f6fa] border-[#ebebeb] hover:bg-[#c3272b] hover:border-[#c3272b]'
+                        }`}
                       >
-                        <span className="mi text-[16px] text-gray-500">favorite_border</span>
+                        <span
+                          className={`mi text-[16px] transition-colors ${
+                            isWished(p.id) ? 'text-white' : 'text-gray-500 group-hover:text-white'
+                          }`}
+                        >
+                          {isWished(p.id) ? 'favorite' : 'favorite_border'}
+                        </span>
                       </button>
                       <button
                         type="button"
                         title="Compare this Product"
-                        className="w-9 h-9 shrink-0 rounded-full bg-[#f5f6fa] border border-[#ebebeb] flex items-center justify-center hover:bg-[#c3272b] hover:border-[#c3272b] transition-colors cursor-pointer"
+                        onClick={() => handleCompareClick(p)}
+                        className="group w-9 h-9 shrink-0 rounded-full bg-[#f5f6fa] border border-[#ebebeb] flex items-center justify-center hover:bg-[#c3272b] hover:border-[#c3272b] transition-colors cursor-pointer"
                       >
-                        <span className="mi text-[16px] text-gray-500">compare_arrows</span>
+                        <span className="mi text-[16px] text-gray-500 group-hover:text-white transition-colors">
+                          compare_arrows
+                        </span>
                       </button>
                     </div>
                   </div>

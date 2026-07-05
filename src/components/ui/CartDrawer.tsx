@@ -6,13 +6,8 @@ import Link from 'next/link'
 import { useCart } from '@/context/CartContext'
 
 export default function CartDrawer() {
-  const { items, isOpen, closeCart, removeItem, subtotal } = useCart()
+  const { items, isOpen, closeCart, removeItem, subtotal, discount, total, couponMessage, applyCoupon } = useCart()
   const [coupon, setCoupon] = useState('')
-
-  const applyCoupon = () => {
-    if (!coupon.trim()) return
-    alert('Please enter a valid promo code!')
-  }
 
   return (
     <>
@@ -68,7 +63,7 @@ export default function CartDrawer() {
                   </div>
                   <div className="flex items-center gap-1.5 text-[13px] text-gray-600 flex-wrap">
                     <span>৳{item.price.toLocaleString()}</span>
-                    <span className="mi text-[13px] text-gray-400">close</span>
+                    <span className="mi text-[18px] text-gray-400">close</span>
                     <span>{item.qty}</span>
                     <span className="text-gray-400">=</span>
                     <span className="font-semibold text-gray-900">৳{(item.price * item.qty).toLocaleString()}</span>
@@ -101,20 +96,36 @@ export default function CartDrawer() {
               />
               <button
                 type="button"
-                onClick={applyCoupon}
+                onClick={() => applyCoupon(coupon)}
                 className="bg-[#c3272b] border-2 border-[#c3272b] text-white text-[13px] font-semibold px-4 rounded-r-md hover:bg-[#a71f22] transition-colors cursor-pointer"
               >
                 Apply
               </button>
             </div>
 
+            {couponMessage && (
+              <p
+                className={`text-[12px] -mt-2.5 mb-3 ${
+                  couponMessage.type === 'success' ? 'text-green-600' : 'text-[#c3272b]'
+                }`}
+              >
+                {couponMessage.text}
+              </p>
+            )}
+
             <div className="flex items-center justify-between text-[14px] text-gray-600 mb-1">
               <span>Sub-Total</span>
               <span>৳{subtotal.toLocaleString()}</span>
             </div>
+            {discount > 0 && (
+              <div className="flex items-center justify-between text-[14px] text-green-600 mb-1">
+                <span>Discount</span>
+                <span>-৳{discount.toLocaleString()}</span>
+              </div>
+            )}
             <div className="flex items-center justify-between text-[15px] font-semibold text-gray-900 mb-4">
               <span>Total</span>
-              <span>৳{subtotal.toLocaleString()}</span>
+              <span>৳{total.toLocaleString()}</span>
             </div>
 
             <div className="flex gap-3">

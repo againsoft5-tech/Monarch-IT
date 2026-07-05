@@ -17,9 +17,9 @@ export default function SideMenu() {
       <div
         className="flex flex-col items-center gap-6 py-4 pointer-events-auto bg-[rgba(247,248,249,0.95)]
         rounded-b-[40px] border border-t-0 border-[#eee] ml-3.5 shadow-[5px_5px_15px_rgba(0,0,0,0.05)]
-        max-md:flex-row max-md:justify-around max-md:rounded-none max-md:border-t max-md:border-x-0 max-md:border-b-0 max-md:ml-0"
+        max-md:flex-row max-md:justify-around max-md:overflow-x-auto max-md:no-scrollbar max-md:px-4 max-md:rounded-none max-md:border-t max-md:border-x-0 max-md:border-b-0 max-md:ml-0"
       >
-        <a href="/" className="transition-transform duration-200 hover:scale-105">
+        <a href="/" className="shrink-0 transition-transform duration-200 hover:scale-105">
           <Image
             src={`${IMG_BASE}/catalog/view/theme/default/image/monarch-it-icon.png`}
             alt="Monarch IT"
@@ -30,7 +30,7 @@ export default function SideMenu() {
         </a>
 
         {menuItems.map((item) => (
-          <a key={item.label} href={item.href} className="relative group transition-transform duration-200 hover:scale-105">
+          <a key={item.label} href={item.href} className="relative group shrink-0 transition-transform duration-200 hover:scale-105">
             <div
               className={`w-[45px] h-[45px] rounded-full flex items-center justify-center shadow-[0_2px_5px_rgba(0,0,0,0.05)] transition-all duration-200 ${
                 item.active

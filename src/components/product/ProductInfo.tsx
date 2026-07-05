@@ -5,6 +5,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import type { ProductDetail } from '@/data/productDetail'
 import CountdownTimer from './CountdownTimer'
+import { useToast, Toast } from '@/components/ui/Toast'
 
 export default function ProductInfo({
   product,
@@ -17,11 +18,13 @@ export default function ProductInfo({
 }) {
   const [qty, setQty] = useState(1)
   const [priceOption, setPriceOption] = useState<'full' | 'emi'>('full')
+  const { toast, showToast } = useToast()
 
   const changeQty = (dir: number) => setQty((q) => Math.max(1, q + dir))
 
   return (
     <div className="px-4 py-2 md:px-6">
+      <Toast message={toast} />
       <div className="flex items-center gap-3 flex-wrap text-[13px] mb-2">
         <div className="flex items-center gap-1">
           <span className="text-[#ffc107] text-[15px] leading-none tracking-tight">
@@ -151,9 +154,16 @@ export default function ProductInfo({
         <button
           type="button"
           title="Compare"
-          className="w-9 h-9 shrink-0 bg-[#f3f4f6] rounded-full flex items-center justify-center hover:bg-gray-200 transition-colors cursor-pointer"
+          onClick={() => showToast(`${product.name} added to compare list!`)}
+          className="group w-9 h-9 shrink-0 bg-[#f3f4f6] rounded-full flex items-center justify-center hover:bg-[#c3272b] transition-colors cursor-pointer"
         >
-          <Image src="/images/catalog/view/theme/default/image/compare-icon-svg.svg" alt="Compare Icon" width={22} height={22} className="w-[22px] h-[22px]" />
+          <Image
+            src="/images/catalog/view/theme/default/image/compare-icon-svg.svg"
+            alt="Compare Icon"
+            width={22}
+            height={22}
+            className="w-[22px] h-[22px] transition-[filter] group-hover:brightness-0 group-hover:invert"
+          />
         </button>
       </div>
 

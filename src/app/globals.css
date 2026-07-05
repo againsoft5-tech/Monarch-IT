@@ -21,21 +21,35 @@ body {
 }
 
 /* Material Icons */
-.mi {
-  font-family: 'Material Symbols Outlined';
-  font-weight: normal;
-  font-style: normal;
-  font-size: 24px;
-  line-height: 1;
-  letter-spacing: normal;
-  text-transform: none;
-  display: inline-block;
-  white-space: nowrap;
-  word-wrap: normal;
-  direction: ltr;
-  -webkit-font-smoothing: antialiased;
+@layer base {
+  .mi {
+    font-family: 'Material Symbols Outlined';
+    font-weight: normal;
+    font-style: normal;
+    font-size: 24px;
+    line-height: 1;
+    letter-spacing: normal;
+    text-transform: none;
+    display: inline-block;
+    white-space: nowrap;
+    word-wrap: normal;
+    direction: ltr;
+    -webkit-font-smoothing: antialiased;
+  }
 }
 
 /* Hide scrollbar utility */
 .no-scrollbar::-webkit-scrollbar { display: none; }
 .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+/* Thin brand-red scrollbar utility */
+.thin-scroll-red {
+  scrollbar-width: thin;
+  scrollbar-color: #d32f2f transparent;
+}
+.thin-scroll-red::-webkit-scrollbar { width: 6px; }
+.thin-scroll-red::-webkit-scrollbar-track { background: transparent; }
+.thin-scroll-red::-webkit-scrollbar-thumb {
+  background-color: #d32f2f;
+  border-radius: 10px;
+}
