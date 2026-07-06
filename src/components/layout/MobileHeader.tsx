@@ -42,7 +42,7 @@ export default function MobileHeader() {
             className="w-9 h-9 flex items-center justify-center text-gray-700"
             aria-label="Toggle search"
           >
-            <span className="mi text-[24px]">search</span>
+            <Image src="/images/compare-icons/search-icon.svg" alt="" width={20} height={20} className="w-5 h-5" />
           </button>
           <button
             type="button"
@@ -50,7 +50,13 @@ export default function MobileHeader() {
             className="relative w-9 h-9 flex items-center justify-center text-gray-700"
             aria-label="Cart"
           >
-            <span className="mi text-[24px]">shopping_cart</span>
+            <Image
+              src={`${IMG_BASE}/catalog/view/theme/default/image/cart-icon.svg`}
+              alt="Cart"
+              width={22}
+              height={22}
+              className="w-[22px] h-[22px]"
+            />
             <span className="absolute top-0 right-0 bg-[#d32f2f] text-white text-[9px] font-bold min-w-[15px] h-[15px] rounded-full flex items-center justify-center border-2 border-white leading-none">
               {itemCount}
             </span>
@@ -59,21 +65,16 @@ export default function MobileHeader() {
       </div>
 
       {searchOpen && (
-        <div className="md:hidden flex items-center gap-2 bg-white px-4 pb-3 border-b border-gray-100">
-          <div className="flex-1 flex items-center bg-[#f4f5f7] rounded-[8px] px-3 py-2">
+        <div className="md:hidden bg-white px-4 pb-3 border-b border-gray-100">
+          <div className="flex items-center bg-[#f4f5f7] rounded-full px-4 py-2.5">
+            <Image src="/images/compare-icons/search-icon.svg" alt="" width={18} height={18} className="w-[18px] h-[18px] mr-2.5 shrink-0" />
             <input
               type="text"
-              placeholder="Search products, brands..."
+              placeholder="Search Products"
               autoComplete="off"
-              className="border-none bg-transparent outline-none flex-1 text-[14px] text-gray-700 placeholder-gray-400"
+              className="flex-1 min-w-0 border-none bg-transparent outline-none text-[14px] text-gray-700 placeholder-gray-400"
             />
           </div>
-          <button
-            type="button"
-            className="flex items-center gap-1 bg-[#d32f2f] text-white px-3 py-2 rounded-[8px] text-[13px] font-semibold"
-          >
-            <span className="mi text-[16px]">search</span> Search
-          </button>
         </div>
       )}
 
