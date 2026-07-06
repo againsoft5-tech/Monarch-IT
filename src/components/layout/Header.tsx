@@ -6,6 +6,7 @@ import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { useCart } from '@/context/CartContext'
 import ShopMenu from './ShopMenu'
+import SearchDropdown from './SearchDropdown'
 
 const IMG_BASE = '/images'
 
@@ -15,6 +16,9 @@ export default function Header() {
   const isHome = usePathname() === '/'
   const headerRef = useRef<HTMLElement>(null)
   const [headerBottom, setHeaderBottom] = useState(0)
+  const searchRef = useRef<HTMLDivElement>(null)
+  const [query, setQuery] = useState('')
+  const [searchFocused, setSearchFocused] = useState(false)
 
   useEffect(() => {
     const updateHeaderBottom = () => {
@@ -24,6 +28,15 @@ export default function Header() {
     window.addEventListener('resize', updateHeaderBottom)
     return () => window.removeEventListener('resize', updateHeaderBottom)
   }, [])
+
+  useEffect(() => {
+    if (!searchFocused) return
+    const handleClick = (e: MouseEvent) => {
+      if (searchRef.current && !searchRef.current.contains(e.target as Node)) setSearchFocused(false)
+    }
+    document.addEventListener('mousedown', handleClick)
+    return () => document.removeEventListener('mousedown', handleClick)
+  }, [searchFocused])
 
   return (
     <header
@@ -49,7 +62,7 @@ export default function Header() {
           </div>
 
           <div className="flex-1 flex items-center justify-end px-8">
-            <div className="relative max-w-[400px] w-full">
+            <div ref={searchRef} className="relative max-w-[400px] w-full">
               <div className="flex items-center bg-[#f4f5f7] rounded-[30px] px-5 py-2.5">
                 <button type="button" className="text-gray-500 mr-2.5 hover:text-[#d32f2f] transition-colors">
                   <Image
@@ -62,11 +75,15 @@ export default function Header() {
                 </button>
                 <input
                   type="text"
+                  value={query}
+                  onChange={(e) => setQuery(e.target.value)}
+                  onFocus={() => setSearchFocused(true)}
                   placeholder="Search Products"
                   autoComplete="off"
                   className="border-none bg-transparent outline-none flex-1 text-[15px] text-gray-700 placeholder-gray-400"
                 />
               </div>
+              {searchFocused && <SearchDropdown query={query} onNavigate={() => setSearchFocused(false)} />}
             </div>
             <ShopMenu headerBottom={headerBottom} />
           </div>

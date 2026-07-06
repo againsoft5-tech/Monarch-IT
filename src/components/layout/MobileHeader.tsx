@@ -4,6 +4,7 @@ import { useState } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import MobileDrawer from './MobileDrawer'
+import SearchDropdown from './SearchDropdown'
 import { useCart } from '@/context/CartContext'
 
 const IMG_BASE = '/images'
@@ -11,6 +12,7 @@ const IMG_BASE = '/images'
 export default function MobileHeader() {
   const [drawerOpen, setDrawerOpen] = useState(false)
   const [searchOpen, setSearchOpen] = useState(false)
+  const [query, setQuery] = useState('')
   const { openCart, itemCount } = useCart()
 
   return (
@@ -66,13 +68,24 @@ export default function MobileHeader() {
 
       {searchOpen && (
         <div className="md:hidden bg-white px-4 pb-3 border-b border-gray-100">
-          <div className="flex items-center bg-[#f4f5f7] rounded-full px-4 py-2.5">
-            <Image src="/images/compare-icons/search-icon.svg" alt="" width={18} height={18} className="w-[18px] h-[18px] mr-2.5 shrink-0" />
-            <input
-              type="text"
-              placeholder="Search Products"
-              autoComplete="off"
-              className="flex-1 min-w-0 border-none bg-transparent outline-none text-[14px] text-gray-700 placeholder-gray-400"
+          <div className="relative">
+            <div className="flex items-center bg-[#f4f5f7] rounded-full px-4 py-2.5">
+              <Image src="/images/compare-icons/search-icon.svg" alt="" width={18} height={18} className="w-[18px] h-[18px] mr-2.5 shrink-0" />
+              <input
+                type="text"
+                value={query}
+                onChange={(e) => setQuery(e.target.value)}
+                placeholder="Search Products"
+                autoComplete="off"
+                className="flex-1 min-w-0 border-none bg-transparent outline-none text-[14px] text-gray-700 placeholder-gray-400"
+              />
+            </div>
+            <SearchDropdown
+              query={query}
+              onNavigate={() => {
+                setSearchOpen(false)
+                setQuery('')
+              }}
             />
           </div>
         </div>
