@@ -9,6 +9,7 @@ import CartDrawer from "@/components/ui/CartDrawer";
 import { CartProvider } from "@/context/CartContext";
 import { AuthProvider } from "@/context/AuthContext";
 import { WishlistProvider } from "@/context/WishlistContext";
+import { CompareProvider } from "@/context/CompareContext";
 
 const poppins = Poppins({
   variable: "--font-poppins",
@@ -39,16 +40,18 @@ export default function RootLayout({
       <body className="min-h-full flex flex-col">
         <AuthProvider>
           <WishlistProvider>
-            <CartProvider>
-              <SideMenu />
-              <div className="flex-1 flex flex-col pb-[76px] md:pb-0 relative">
-                <Header />
-                <MobileHeader />
-                <main className="flex-1">{children}</main>
-                <Footer />
-              </div>
-              <CartDrawer />
-            </CartProvider>
+            <CompareProvider>
+              <CartProvider>
+                <SideMenu />
+                <div className="flex-1 flex flex-col pb-[76px] md:pb-0 relative">
+                  <Header />
+                  <MobileHeader />
+                  <main className="flex-1">{children}</main>
+                  <Footer />
+                </div>
+                <CartDrawer />
+              </CartProvider>
+            </CompareProvider>
           </WishlistProvider>
         </AuthProvider>
       </body>
