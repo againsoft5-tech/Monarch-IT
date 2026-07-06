@@ -92,12 +92,12 @@ export default function CartDrawer() {
                 value={coupon}
                 onChange={(e) => setCoupon(e.target.value)}
                 placeholder="Promo Code"
-                className="flex-1 border border-gray-200 rounded-l-md px-3 py-2 text-[13px] text-black outline-none"
+                className="flex-1 min-w-0 border border-gray-200 rounded-l-md px-3 py-2 text-[13px] text-black outline-none"
               />
               <button
                 type="button"
                 onClick={() => applyCoupon(coupon)}
-                className="bg-[#c3272b] border-2 border-[#c3272b] text-white text-[13px] font-semibold px-4 rounded-r-md hover:bg-[#a71f22] transition-colors cursor-pointer"
+                className="shrink-0 bg-[#c3272b] border-2 border-[#c3272b] text-white text-[13px] font-semibold px-4 rounded-r-md hover:bg-[#a71f22] transition-colors cursor-pointer"
               >
                 Apply
               </button>
