@@ -1,10 +1,11 @@
 'use client'
 
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { useCart } from '@/context/CartContext'
+import ShopMenu from './ShopMenu'
 
 const IMG_BASE = '/images'
 
@@ -12,9 +13,21 @@ export default function Header() {
   const [accountOpen, setAccountOpen] = useState(false)
   const { openCart, itemCount } = useCart()
   const isHome = usePathname() === '/'
+  const headerRef = useRef<HTMLElement>(null)
+  const [headerBottom, setHeaderBottom] = useState(0)
+
+  useEffect(() => {
+    const updateHeaderBottom = () => {
+      if (headerRef.current) setHeaderBottom(headerRef.current.getBoundingClientRect().bottom)
+    }
+    updateHeaderBottom()
+    window.addEventListener('resize', updateHeaderBottom)
+    return () => window.removeEventListener('resize', updateHeaderBottom)
+  }, [])
 
   return (
     <header
+      ref={headerRef}
       className={`z-30 hidden md:block ${
         isHome ? 'absolute top-0 left-0 right-0 bg-transparent' : 'relative bg-white'
       }`}
@@ -55,22 +68,7 @@ export default function Header() {
                 />
               </div>
             </div>
-            <div className="flex items-center gap-[5px] font-semibold text-[15px] text-[#333] cursor-pointer ml-5 whitespace-nowrap select-none group hover:text-[#d32f2f]">
-              <span>SHOP</span>
-              <svg
-                width="16"
-                height="16"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="#333"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                className="transition-transform duration-300 group-hover:rotate-180 group-hover:stroke-[#d32f2f]"
-              >
-                <path d="M19 9l-7 7-7-7" />
-              </svg>
-            </div>
+            <ShopMenu headerBottom={headerBottom} />
           </div>
 
           <div className="flex-none flex items-center gap-3">
