@@ -35,11 +35,17 @@ export default function Header() {
             </Link>
           </div>
 
-          <div className="flex-1 flex items-center justify-center px-8">
+          <div className="flex-1 flex items-center justify-end px-8">
             <div className="relative max-w-[400px] w-full">
               <div className="flex items-center bg-[#f4f5f7] rounded-[30px] px-5 py-2.5">
                 <button type="button" className="text-gray-500 mr-2.5 hover:text-[#d32f2f] transition-colors">
-                  <span className="mi text-[22px] leading-none">search</span>
+                  <Image
+                    src="/images/compare-icons/search-icon.svg"
+                    alt=""
+                    width={18}
+                    height={18}
+                    className="w-[18px] h-[18px]"
+                  />
                 </button>
                 <input
                   type="text"
@@ -68,6 +74,20 @@ export default function Header() {
           </div>
 
           <div className="flex-none flex items-center gap-3">
+            <Link
+              href="/order-track"
+              className="flex items-center gap-1.5 font-semibold text-[15px] text-[#d32f2f] whitespace-nowrap hover:text-[#b71c1c] transition-colors no-underline"
+            >
+              <Image
+                src={`${IMG_BASE}/catalog/view/theme/default/image/svg/order-track-icon.svg`}
+                alt=""
+                width={18}
+                height={18}
+                className="w-[18px] h-[18px]"
+              />
+              Order Track
+            </Link>
+
             <Link
               href="/pc-builder"
               className="border-2 border-[#d32f2f] text-[#d32f2f] bg-white px-5 py-[9px] rounded-[30px] font-bold text-[13px] hover:bg-[#d32f2f] hover:text-white transition-all whitespace-nowrap"
