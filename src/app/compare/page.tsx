@@ -246,6 +246,8 @@ function ComparePageInner() {
   .brand-meta { font-size: 12px; color: #4b5563; text-align: right; line-height: 1.6; }
   .brand-name { font-size: 22px; font-weight: 800; color: #d32f2f; margin: 0 0 4px; }
   table { width: 100%; border-collapse: collapse; }
+  /* prevent the browser from repeating the product-name header row on every printed page */
+  thead { display: table-row-group; }
   th, td { border: 1px solid #d1d5db; padding: 10px 12px; font-size: 13px; text-align: left; vertical-align: top; }
   thead th { background: #fff; font-size: 14px; font-weight: 700; color: #1f2937; }
   .row-label { width: 140px; font-weight: 700; color: #374151; background: #f9fafb; }
@@ -301,8 +303,8 @@ function ComparePageInner() {
     return (
       <div className="relative px-3 py-3">
         <div className="flex items-center gap-2">
-          <div className="flex-1 min-w-0 flex items-center bg-[#f5f5f7] border border-gray-200 focus-within:border-gray-400 transition-colors rounded-full px-3.5 py-2">
-            <span className="mi text-gray-400 text-[18px] mr-1.5">search</span>
+          <div className="flex-1 min-w-0 flex items-center bg-white border border-gray-200 focus-within:border-gray-400 transition-colors rounded-full px-3 py-1.5">
+            <Image src="/images/compare-icons/search-icon.svg" alt="" width={20} height={20} className="w-5 h-5 mr-1.5 shrink-0" />
             <input
               type="text"
               value={displayValue}
@@ -321,9 +323,9 @@ function ComparePageInner() {
               type="button"
               onClick={() => clearSlot(i)}
               aria-label="Remove product"
-              className="w-9 h-9 shrink-0 rounded-full bg-[#f5f5f7] flex items-center justify-center text-gray-400 hover:text-[#d32f2f] hover:bg-gray-200 transition-colors cursor-pointer"
+              className="shrink-0 flex items-center justify-center hover:opacity-80 transition-opacity cursor-pointer"
             >
-              <span className="mi text-[16px]">close</span>
+              <Image src="/images/compare-icons/cross-icon.svg" alt="" width={36} height={36} className="w-9 h-9" />
             </button>
           )}
         </div>
@@ -393,15 +395,15 @@ function ComparePageInner() {
             <div className="hidden md:block bg-white border border-gray-100 rounded-2xl shadow-[0_2px_16px_rgba(0,0,0,0.05)] overflow-x-auto no-scrollbar">
               <div className="min-w-[760px]">
                 {/* Search row */}
-                <div className={`grid ${deskGridCols} items-center border-b border-gray-100`}>
+                <div className={`grid ${deskGridCols} items-center border-b bg-gray-100 border-gray-100`}>
                   <div className="flex items-center justify-center py-4">
                     <button
                       type="button"
                       onClick={resetAll}
                       title="Reset comparison"
-                      className="w-9 h-9 rounded-full flex items-center justify-center text-gray-500 hover:text-[#d32f2f] hover:bg-gray-50 transition-colors cursor-pointer"
+                      className="flex items-center justify-center hover:opacity-80 transition-opacity cursor-pointer"
                     >
-                      <span className="mi text-[20px]">refresh</span>
+                      <Image src="/images/compare-icons/refresh-icon.svg" alt="Reset" width={36} height={36} className="w-9 h-9" />
                     </button>
                   </div>
                   {renderSearchCell(0, { hideRemove: true, hideName: true })}
@@ -473,17 +475,17 @@ function ComparePageInner() {
                       type="button"
                       onClick={handleShare}
                       title="Share comparison"
-                      className="w-9 h-9 rounded-full bg-gray-50 flex items-center justify-center text-gray-500 hover:bg-[#d32f2f] hover:text-white transition-colors cursor-pointer"
+                      className="flex items-center justify-center hover:opacity-80 transition-opacity cursor-pointer"
                     >
-                      <span className="mi text-[17px]">ios_share</span>
+                      <Image src="/images/compare-icons/share-icon.svg" alt="Share" width={36} height={36} className="w-9 h-9" />
                     </button>
                     <button
                       type="button"
                       onClick={handlePrint}
                       title="Print comparison"
-                      className="w-9 h-9 rounded-full bg-gray-50 flex items-center justify-center text-gray-500 hover:bg-[#d32f2f] hover:text-white transition-colors cursor-pointer"
+                      className="flex items-center justify-center hover:opacity-80 transition-opacity cursor-pointer"
                     >
-                      <span className="mi text-[17px]">print</span>
+                      <Image src="/images/compare-icons/download-icon.svg" alt="Print" width={36} height={36} className="w-9 h-9" />
                     </button>
                   </div>
                   {visibleIndexes.map((i) => {
@@ -512,26 +514,26 @@ function ComparePageInner() {
                   type="button"
                   onClick={resetAll}
                   title="Reset comparison"
-                  className="w-8 h-8 rounded-full flex items-center justify-center text-gray-500 hover:text-[#d32f2f] hover:bg-gray-50 transition-colors cursor-pointer"
+                  className="flex items-center justify-center hover:opacity-80 transition-opacity cursor-pointer"
                 >
-                  <span className="mi text-[18px]">refresh</span>
+                  <Image src="/images/compare-icons/refresh-icon.svg" alt="Reset" width={32} height={32} className="w-8 h-8" />
                 </button>
                 <div className="flex items-center gap-1.5">
                   <button
                     type="button"
                     onClick={handleShare}
                     title="Share comparison"
-                    className="w-8 h-8 rounded-full bg-gray-50 flex items-center justify-center text-gray-500 hover:bg-[#d32f2f] hover:text-white transition-colors cursor-pointer"
+                    className="flex items-center justify-center hover:opacity-80 transition-opacity cursor-pointer"
                   >
-                    <span className="mi text-[15px]">ios_share</span>
+                    <Image src="/images/compare-icons/share-icon.svg" alt="Share" width={32} height={32} className="w-8 h-8" />
                   </button>
                   <button
                     type="button"
                     onClick={handlePrint}
                     title="Print comparison"
-                    className="w-8 h-8 rounded-full bg-gray-50 flex items-center justify-center text-gray-500 hover:bg-[#d32f2f] hover:text-white transition-colors cursor-pointer"
+                    className="flex items-center justify-center hover:opacity-80 transition-opacity cursor-pointer"
                   >
-                    <span className="mi text-[15px]">print</span>
+                    <Image src="/images/compare-icons/download-icon.svg" alt="Print" width={32} height={32} className="w-8 h-8" />
                   </button>
                 </div>
               </div>
