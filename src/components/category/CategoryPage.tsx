@@ -106,7 +106,7 @@ export default function CategoryPage({ categoryName, products, priceMinDefault, 
         >
           <div className="flex items-center justify-between px-4 py-3.5 bg-[#3b5cff] text-white sticky top-0 z-10">
             <span className="flex items-center gap-1.5 font-bold text-[15px]">
-              <span className="mi text-[18px]">tune</span> Filter
+              <Image src="/images/pc-builder/icons/filter-icon-white.svg" alt="" width={17} height={12} /> Filter
             </span>
             <button
               type="button"
@@ -195,9 +195,25 @@ export default function CategoryPage({ categoryName, products, priceMinDefault, 
               <button
                 type="button"
                 onClick={() => setFilterOpen(true)}
-                className="shrink-0 inline-flex items-center gap-1.5 bg-[#f5f5f7] border border-[#f5f5f7] rounded-full px-4 py-2 text-[14px] font-semibold text-gray-600 hover:border-[#d32f2f] hover:text-[#d32f2f] transition-colors cursor-pointer"
+                className="group shrink-0 inline-flex items-center gap-1.5 bg-[#f5f5f7] border border-[#f5f5f7] rounded-full px-4 py-2 text-[14px] font-semibold text-gray-600 hover:border-[#d32f2f] hover:text-[#d32f2f] transition-colors cursor-pointer"
               >
-                <span className="mi text-[17px]">tune</span> Filter By
+                <span className="relative w-[17px] h-[12px]">
+                  <Image
+                    src="/images/pc-builder/icons/filter-icon.svg"
+                    alt=""
+                    width={17}
+                    height={12}
+                    className="absolute inset-0 transition-opacity opacity-100 group-hover:opacity-0"
+                  />
+                  <Image
+                    src="/images/pc-builder/icons/filter-icon-red2.svg"
+                    alt=""
+                    width={17}
+                    height={12}
+                    className="absolute inset-0 transition-opacity opacity-0 group-hover:opacity-100"
+                  />
+                </span>
+                Filter By
               </button>
 
               <div className="shrink-0 flex items-center gap-1.5 bg-[#f5f5f7] rounded-full px-3 py-1.5">

@@ -3,6 +3,7 @@ export type BuildCategory = {
   label: string
   icon: string
   iconSvg?: string
+  iconSvgActive?: string
   required?: boolean
   accent?: boolean
 }
@@ -12,18 +13,94 @@ const ICON_BASE = '/images/pc-builder/icons'
 export const buildCategories: BuildCategory[] = [
   { key: 'cpu', label: 'CPU', icon: 'memory', required: true },
   { key: 'motherboard', label: 'Motherboard', icon: 'developer_board', required: true },
-  { key: 'cpu-cooler', label: 'CPU Cooler', icon: 'ac_unit', iconSvg: `${ICON_BASE}/cpu-cooler.svg`, accent: true },
-  { key: 'memory', label: 'Memory', icon: 'sd_card', iconSvg: `${ICON_BASE}/memory.svg`, required: true },
-  { key: 'storage', label: 'Storage', icon: 'storage', iconSvg: `${ICON_BASE}/storage.svg` },
-  { key: 'graphics-card', label: 'Garphics Card', icon: 'widgets', iconSvg: `${ICON_BASE}/graphics-card.svg` },
-  { key: 'power-supply', label: 'Power Supply', icon: 'bolt', iconSvg: `${ICON_BASE}/power-supply.svg`, required: true },
-  { key: 'casing', label: 'Casing', icon: 'computer', iconSvg: `${ICON_BASE}/casing.svg`, required: true },
-  { key: 'casing-cooler', label: 'Casing Cooler', icon: 'air', iconSvg: `${ICON_BASE}/casing-cooler.svg` },
-  { key: 'monitor', label: 'Monitor', icon: 'desktop_windows', iconSvg: `${ICON_BASE}/monitor.svg` },
-  { key: 'keyboard', label: 'Keyboard', icon: 'keyboard', iconSvg: `${ICON_BASE}/keyboard.svg` },
-  { key: 'mouse', label: 'Mouse', icon: 'mouse', iconSvg: `${ICON_BASE}/mouse.svg` },
-  { key: 'headphone', label: 'Headphone', icon: 'headphones', iconSvg: `${ICON_BASE}/headphone.svg` },
-  { key: 'ups', label: 'UPS', icon: 'battery_charging_full', iconSvg: `${ICON_BASE}/ups.svg` },
+  {
+    key: 'cpu-cooler',
+    label: 'CPU Cooler',
+    icon: 'ac_unit',
+    iconSvg: `${ICON_BASE}/cpu-cooler-gray.svg`,
+    iconSvgActive: `${ICON_BASE}/cpu-cooler.svg`,
+    accent: true,
+  },
+  {
+    key: 'memory',
+    label: 'Memory',
+    icon: 'sd_card',
+    iconSvg: `${ICON_BASE}/memory.svg`,
+    iconSvgActive: `${ICON_BASE}/memory-active.svg`,
+    required: true,
+  },
+  {
+    key: 'storage',
+    label: 'Storage',
+    icon: 'storage',
+    iconSvg: `${ICON_BASE}/storage.svg`,
+    iconSvgActive: `${ICON_BASE}/storage-active.svg`,
+  },
+  {
+    key: 'graphics-card',
+    label: 'Garphics Card',
+    icon: 'widgets',
+    iconSvg: `${ICON_BASE}/graphics-card.svg`,
+    iconSvgActive: `${ICON_BASE}/graphics-card-active.svg`,
+  },
+  {
+    key: 'power-supply',
+    label: 'Power Supply',
+    icon: 'bolt',
+    iconSvg: `${ICON_BASE}/power-supply.svg`,
+    iconSvgActive: `${ICON_BASE}/power-supply-active.svg`,
+    required: true,
+  },
+  {
+    key: 'casing',
+    label: 'Casing',
+    icon: 'computer',
+    iconSvg: `${ICON_BASE}/casing.svg`,
+    iconSvgActive: `${ICON_BASE}/casing-active.svg`,
+    required: true,
+  },
+  {
+    key: 'casing-cooler',
+    label: 'Casing Cooler',
+    icon: 'air',
+    iconSvg: `${ICON_BASE}/casing-cooler.svg`,
+    iconSvgActive: `${ICON_BASE}/casing-cooler-active.svg`,
+  },
+  {
+    key: 'monitor',
+    label: 'Monitor',
+    icon: 'desktop_windows',
+    iconSvg: `${ICON_BASE}/monitor.svg`,
+    iconSvgActive: `${ICON_BASE}/monitor-active.svg`,
+  },
+  {
+    key: 'keyboard',
+    label: 'Keyboard',
+    icon: 'keyboard',
+    iconSvg: `${ICON_BASE}/keyboard.svg`,
+    iconSvgActive: `${ICON_BASE}/keyboard-active.svg`,
+  },
+  {
+    key: 'mouse',
+    label: 'Mouse',
+    icon: 'mouse',
+    iconSvg: `${ICON_BASE}/mouse.svg`,
+    iconSvgActive: `${ICON_BASE}/mouse-active.svg`,
+  },
+  {
+    key: 'headphone',
+    label: 'Headphone',
+    icon: 'headphones',
+    iconSvg: `${ICON_BASE}/headphone.svg`,
+    iconSvgActive: `${ICON_BASE}/headphone-active.svg`,
+  },
+  {
+    key: 'ups',
+    label: 'UPS',
+    icon: 'battery_charging_full',
+    iconSvg: `${ICON_BASE}/ups.svg`,
+    iconSvgActive: `${ICON_BASE}/ups-active.svg`,
+  },
 ]
 
 export type BuildProduct = {

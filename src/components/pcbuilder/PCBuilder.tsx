@@ -137,6 +137,7 @@ export default function PCBuilder() {
   th { background: #c3272b; color: #fff; text-align: left; vertical-align: middle; padding: 10px 12px; font-size: 13px; line-height: 16px; }
   td { border: 1px solid #ddd; padding: 10px 12px; font-size: 13px; line-height: 16px; vertical-align: top; }
   .strike-wrap {
+    display: inline-block;
     color: #999;
     font-size: 11px;
     background-image: linear-gradient(#999, #999);
@@ -145,6 +146,10 @@ export default function PCBuilder() {
     background-position: center;
   }
   tfoot td { font-weight: 700; text-align: right; border: none; padding-top: 14px; }`
+
+  // html2canvas centers this box differently than real browsers do, so the PNG
+  // export needs its own nudge without affecting the print page's styling above.
+  const pngOnlyStyles = `.strike-wrap { background-position: center 100%; }`
 
   const downloadSummary = async () => {
     const html2canvas = (await import('html2canvas')).default
@@ -160,7 +165,7 @@ export default function PCBuilder() {
     container.style.boxSizing = 'border-box'
     container.style.background = '#ffffff'
     container.style.overflow = 'hidden'
-    container.innerHTML = `<style>${summaryStyles}</style>${getSummaryBodyHtml(window.location.origin)}`
+    container.innerHTML = `<style>${summaryStyles}${pngOnlyStyles}</style>${getSummaryBodyHtml(window.location.origin)}`
     document.body.appendChild(container)
 
     const img = container.querySelector('img')
@@ -219,8 +224,26 @@ export default function PCBuilder() {
     }, 300)
   }
 
+  const shareBuild = async () => {
+    const url = window.location.href
+    if (navigator.share) {
+      try {
+        await navigator.share({ title: 'My PC Build - Monarch IT', url })
+      } catch {
+        // user cancelled the share sheet; nothing to do
+      }
+      return
+    }
+    try {
+      await navigator.clipboard.writeText(url)
+      showToast('Link copied to clipboard!')
+    } catch {
+      showToast('Could not copy link.')
+    }
+  }
+
   const topActions = [
-    { icon: 'format_list_bulleted', title: 'Build Summary', onClick: () => showToast('Feature coming soon!') },
+    { icon: 'ios_share', title: 'Share Build', onClick: shareBuild },
     { icon: 'photo_camera', title: 'Download Quotation', onClick: downloadSummary },
     { icon: 'download', title: 'Print Quotation', onClick: printSummary },
     { icon: 'shopping_cart', title: 'View Cart', onClick: () => showToast('Feature coming soon!') },
@@ -262,7 +285,7 @@ export default function PCBuilder() {
       >
         <div className="flex items-center justify-between px-4 py-3.5 bg-[#c3272b] text-white sticky top-0 z-10">
           <span className="flex items-center gap-1.5 font-bold text-[15px]">
-            <span className="mi text-[18px]">tune</span> Filter
+            <Image src="/images/pc-builder/icons/filter-icon-white.svg" alt="" width={17} height={12} /> Filter
           </span>
           <button
             type="button"
@@ -416,24 +439,58 @@ export default function PCBuilder() {
                   <button
                     type="button"
                     onClick={() => setChipset('AMD')}
-                    className={`flex items-center px-3.5 py-2 rounded-full bg-white transition-colors cursor-pointer ${
-                      chipset === 'AMD'
-                        ? 'border-2 border-[#c3272b]'
-                        : 'border border-gray-200 opacity-60 hover:opacity-100 hover:border-[#c3272b]'
+                    className={`group flex items-center px-3.5 py-2 rounded-full bg-white transition-colors cursor-pointer ${
+                      chipset === 'AMD' ? 'border-2 border-[#c3272b]' : 'border border-gray-200 hover:border-[#c3272b]'
                     }`}
                   >
-                    <Image src="/images/pc-builder/icons/amd.svg" alt="AMD" width={52} height={12} />
+                    <span className="relative w-[52px] h-[12px]">
+                      <Image
+                        src="/images/pc-builder/icons/amd-gray.svg"
+                        alt="AMD"
+                        width={52}
+                        height={12}
+                        className={`absolute inset-0 transition-opacity ${
+                          chipset === 'AMD' ? 'opacity-0' : 'opacity-100 group-hover:opacity-0'
+                        }`}
+                      />
+                      <Image
+                        src="/images/pc-builder/icons/amd.svg"
+                        alt=""
+                        width={52}
+                        height={12}
+                        className={`absolute inset-0 transition-opacity ${
+                          chipset === 'AMD' ? 'opacity-100' : 'opacity-0 group-hover:opacity-100'
+                        }`}
+                      />
+                    </span>
                   </button>
                   <button
                     type="button"
                     onClick={() => setChipset('Intel')}
-                    className={`flex items-center px-3.5 py-2 rounded-full bg-white transition-colors cursor-pointer ${
-                      chipset === 'Intel'
-                        ? 'border-2 border-[#c3272b]'
-                        : 'border border-gray-200 opacity-60 hover:opacity-100 hover:border-[#c3272b]'
+                    className={`group flex items-center px-3.5 py-2 rounded-full bg-white transition-colors cursor-pointer ${
+                      chipset === 'Intel' ? 'border-2 border-[#c3272b]' : 'border border-gray-200 hover:border-[#c3272b]'
                     }`}
                   >
-                    <Image src="/images/pc-builder/icons/intel.svg" alt="Intel" width={32} height={13} />
+                    <span className="relative w-[32px] h-[13px]">
+                      <Image
+                        src="/images/pc-builder/icons/intel-gray.svg"
+                        alt="Intel"
+                        width={32}
+                        height={13}
+                        className={`absolute inset-0 transition-opacity ${
+                          chipset === 'Intel' ? 'opacity-0' : 'opacity-100 group-hover:opacity-0'
+                        }`}
+                      />
+                      <Image
+                        src="/images/pc-builder/icons/intel-red.svg"
+                        alt=""
+                        width={32}
+                        height={13}
+                        className={`absolute inset-0 transition-opacity ${
+                          chipset === 'Intel' ? 'opacity-100' : 'opacity-0 group-hover:opacity-100'
+                        }`}
+                      />
+                    </span>
                   </button>
                 </div>
 
@@ -466,22 +523,27 @@ export default function PCBuilder() {
                     return (
                       <div
                         key={cat.key}
-                        className="flex items-center gap-2.5 border-2 border-[#c3272b] bg-white rounded-2xl px-3 py-2"
+                        className="flex items-center gap-2 border-2 border-[#c3272b] bg-white rounded-full px-2 py-1"
                       >
-                        <PartThumb icon={cat.icon} iconSvg={cat.iconSvg} accent={cat.accent} size="sm" />
+                        <PartThumb
+                          icon={cat.icon}
+                          iconSvg={cat.iconSvgActive ?? cat.iconSvg}
+                          accent={cat.accent}
+                          size="sm"
+                        />
                         <button
                           type="button"
                           onClick={() => setActiveCategory(cat.key)}
                           className="flex-1 min-w-0 text-left cursor-pointer"
                         >
-                          <div className="text-[13px] font-semibold text-gray-800 truncate">
+                          <div className="text-[12px] font-semibold text-gray-800 truncate leading-tight">
                             {cat.label}
                             {cat.required && <span className="text-[#c3272b]">*</span>}
                           </div>
-                          <div className="text-[12px] text-gray-500 truncate">{sel.product.name}</div>
+                          <div className="text-[10.5px] text-gray-500 truncate leading-tight">{sel.product.name}</div>
                         </button>
-                        <div className="shrink-0 flex items-center gap-2">
-                          <span className="text-[13px] font-bold text-gray-700 whitespace-nowrap border-r border-gray-400 pr-[7px]">
+                        <div className="shrink-0 flex items-center gap-1.5">
+                          <span className="text-[12px] font-bold text-gray-700 whitespace-nowrap border-r border-gray-400 pr-[6px]">
                             ৳{(sel.product.priceNew * sel.qty).toLocaleString()}
                           </span>
                           <button
@@ -490,7 +552,7 @@ export default function PCBuilder() {
                             onClick={() => setActiveCategory(cat.key)}
                             className="shrink-0 flex items-center text-gray-400 hover:text-[#c3272b] transition-colors cursor-pointer"
                           >
-                            <span className="mi text-[18px]">sync</span>
+                            <span className="mi text-[16px]">sync</span>
                           </button>
                           <button
                             type="button"
@@ -498,7 +560,7 @@ export default function PCBuilder() {
                             onClick={() => removeSelection(cat.key)}
                             className="shrink-0 flex items-center text-gray-400 hover:text-[#c3272b] transition-colors cursor-pointer"
                           >
-                            <span className="mi text-[18px]">close</span>
+                            <span className="mi text-[16px]">close</span>
                           </button>
                         </div>
                       </div>
@@ -510,14 +572,33 @@ export default function PCBuilder() {
                       key={cat.key}
                       type="button"
                       onClick={() => setActiveCategory(cat.key)}
-                      className={`flex items-center gap-3 rounded-full border-2 bg-white px-4 py-2.5 transition-colors cursor-pointer ${
+                      className={`group flex items-center gap-3 rounded-full border-2 bg-white px-4 py-2 transition-colors cursor-pointer ${
                         isActive
                           ? 'border-[#c3272b] text-[#c3272b]'
                           : 'border-gray-200 text-gray-600 hover:border-[#c3272b] hover:text-[#c3272b]'
                       }`}
                     >
                       {cat.iconSvg ? (
-                        <Image src={cat.iconSvg} alt="" width={19} height={19} className="shrink-0 object-contain" />
+                        <span className="relative w-[19px] h-[19px] shrink-0">
+                          <Image
+                            src={cat.iconSvg}
+                            alt=""
+                            width={19}
+                            height={19}
+                            className={`absolute inset-0 object-contain transition-opacity ${
+                              isActive ? 'opacity-0' : 'opacity-100 group-hover:opacity-0'
+                            }`}
+                          />
+                          <Image
+                            src={cat.iconSvgActive ?? cat.iconSvg}
+                            alt=""
+                            width={19}
+                            height={19}
+                            className={`absolute inset-0 object-contain transition-opacity ${
+                              isActive ? 'opacity-100' : 'opacity-0 group-hover:opacity-100'
+                            }`}
+                          />
+                        </span>
                       ) : (
                         <span className="mi text-[19px]">{cat.icon}</span>
                       )}
@@ -554,16 +635,36 @@ export default function PCBuilder() {
                 <button
                   type="button"
                   onClick={() => setFilterOpen(true)}
-                  className={`shrink-0 inline-flex items-center gap-1.5 rounded-full px-4 py-2.5 text-[13px] font-semibold transition-colors cursor-pointer ${
+                  className={`group shrink-0 inline-flex items-center gap-1.5 rounded-full px-3.5 py-2 text-[13px] font-semibold transition-colors cursor-pointer ${
                     filtersActive
                       ? 'bg-[#fdf1f1] text-[#c3272b] border-2 border-[#c3272b]'
                       : 'bg-[#f5f5f7] text-gray-600 border-2 border-transparent hover:text-[#c3272b]'
                   }`}
                 >
-                  <span className="mi text-[17px]">tune</span> Filter By
+                  <span className="relative w-[22px] h-[16px] shrink-0">
+                    <Image
+                      src="/images/pc-builder/icons/filter-icon.svg"
+                      alt=""
+                      width={22}
+                      height={16}
+                      className={`absolute inset-0 transition-opacity ${
+                        filtersActive ? 'opacity-0' : 'opacity-100 group-hover:opacity-0'
+                      }`}
+                    />
+                    <Image
+                      src="/images/pc-builder/icons/filter-icon-red.svg"
+                      alt=""
+                      width={22}
+                      height={16}
+                      className={`absolute inset-0 transition-opacity ${
+                        filtersActive ? 'opacity-100' : 'opacity-0 group-hover:opacity-100'
+                      }`}
+                    />
+                  </span>
+                  Filter By
                 </button>
-                <div className="shrink-0 flex items-center gap-1.5 bg-[#f5f5f7] rounded-full px-3 py-2">
-                  <span className="mi text-gray-500 text-[19px]">swap_vert</span>
+                <div className="shrink-0 flex items-center gap-1.5 bg-[#f5f5f7] rounded-full px-2.5 py-2">
+                  <span className="mi text-gray-500 text-[22px]">swap_vert</span>
                   <select
                     value={sort}
                     onChange={(e) => setSort(e.target.value as typeof sort)}
@@ -595,7 +696,11 @@ export default function PCBuilder() {
                           isPicked ? 'border-[#c3272b]' : 'border-transparent'
                         }`}
                       >
-                        <PartThumb icon={activeCat.icon} iconSvg={activeCat.iconSvg} accent={activeCat.accent} />
+                        <PartThumb
+                          icon={activeCat.icon}
+                          iconSvg={activeCat.iconSvgActive ?? activeCat.iconSvg}
+                          accent={activeCat.accent}
+                        />
                         <div className="pt-2.5 flex flex-col flex-1">
                           <div className="text-[12.5px] font-semibold text-gray-700 leading-[1.4] mb-2 line-clamp-2 min-h-[2.8em]">
                             {p.name}

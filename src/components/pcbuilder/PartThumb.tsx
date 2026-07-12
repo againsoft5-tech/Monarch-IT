@@ -8,12 +8,13 @@ type Props = {
 }
 
 export default function PartThumb({ icon, iconSvg, accent, size = 'lg' }: Props) {
-  const box = size === 'lg' ? 'w-full aspect-square' : 'w-11 h-11 shrink-0'
-  const iconSize = size === 'lg' ? 'text-[46px]' : 'text-[18px]'
-  const svgSize = size === 'lg' ? 56 : 22
+  const box = size === 'lg' ? 'w-full aspect-square rounded-[14px]' : 'w-9 h-9 shrink-0 rounded-[10px]'
+  const iconSize = size === 'lg' ? 'text-[46px]' : 'text-[16px]'
+  const svgSize = size === 'lg' ? 56 : 18
+  const accentPad = size === 'lg' ? 'p-2.5' : 'p-1.5'
 
   return (
-    <div className={`${box} rounded-[14px] bg-[#f4f5f7] flex items-center justify-center relative overflow-hidden`}>
+    <div className={`${box} bg-[#f4f5f7] flex items-center justify-center relative overflow-hidden`}>
       {accent && (
         <span
           className="absolute w-[70%] aspect-square rounded-full opacity-90"
@@ -30,12 +31,12 @@ export default function PartThumb({ icon, iconSvg, accent, size = 'lg' }: Props)
           alt=""
           width={svgSize}
           height={svgSize}
-          className={`relative z-10 object-contain ${accent ? 'bg-white/80 rounded-full p-2.5' : ''}`}
+          className={`relative z-10 object-contain ${accent ? `bg-white/80 rounded-full ${accentPad}` : ''}`}
           style={{ width: svgSize, height: svgSize }}
         />
       ) : (
         <span
-          className={`mi ${iconSize} relative z-10 ${accent ? 'text-gray-900 bg-white/70 rounded-full p-2' : 'text-gray-500'}`}
+          className={`mi ${iconSize} relative z-10 ${accent ? `text-gray-900 bg-white/70 rounded-full ${accentPad}` : 'text-gray-500'}`}
         >
           {icon}
         </span>
