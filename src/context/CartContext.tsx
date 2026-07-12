@@ -13,6 +13,7 @@ type CartContextType = {
   closeCart: () => void
   removeItem: (id: string) => void
   updateQty: (id: string, qty: number) => void
+  addItems: (newItems: CartItem[]) => void
   itemCount: number
   subtotal: number
   appliedCoupon: string | null
@@ -37,6 +38,21 @@ export function CartProvider({ children }: { children: ReactNode }) {
   const updateQty = (id: string, qty: number) => {
     if (qty < 1) return
     setItems((prev) => prev.map((item) => (item.id === id ? { ...item, qty } : item)))
+  }
+
+  const addItems = (newItems: CartItem[]) => {
+    setItems((prev) => {
+      const next = [...prev]
+      for (const newItem of newItems) {
+        const idx = next.findIndex((item) => item.id === newItem.id)
+        if (idx >= 0) {
+          next[idx] = { ...next[idx], qty: next[idx].qty + newItem.qty }
+        } else {
+          next.push(newItem)
+        }
+      }
+      return next
+    })
   }
 
   const { itemCount, subtotal } = useMemo(
@@ -85,6 +101,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
         closeCart: () => setIsOpen(false),
         removeItem,
         updateQty,
+        addItems,
         itemCount,
         subtotal,
         appliedCoupon,

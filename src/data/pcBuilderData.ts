@@ -116,6 +116,7 @@ export type BuildProduct = {
   discountPct: number
   platform?: 'AMD' | 'Intel'
   image?: string
+  specs?: string[]
 }
 
 function pct(oldP: number, newP: number) {
@@ -140,6 +141,24 @@ function makeItems(
 const CPU_IMAGE = '/images/pc-builder/products/processor.jpg'
 const MOTHERBOARD_IMAGE = '/images/pc-builder/products/motherboard.jpg'
 
+const CPU_SPECS: string[][] = [
+  ['Socket Supported AM4', 'Speed 3.80 up to 4.00 GHz', 'Cores- 4 & Threads- 8', '6MB Cache'],
+  ['Socket Supported AM4', 'Speed 3.60 up to 4.20 GHz', 'Cores- 6 & Threads- 12', '16MB Cache'],
+  ['Socket Supported AM4', 'Speed 3.50 up to 4.40 GHz', 'Cores- 6 & Threads- 12', '32MB Cache'],
+  ['Socket Supported AM4', 'Speed 3.90 up to 4.40 GHz', 'Cores- 6 & Threads- 12', '16MB Cache', 'Integrated Radeon Graphics'],
+  ['Socket Supported AM4', 'Speed 3.70 up to 4.60 GHz', 'Cores- 6 & Threads- 12', '32MB Cache'],
+  ['Socket Supported AM4', 'Speed 3.80 up to 4.60 GHz', 'Cores- 8 & Threads- 16', '16MB Cache', 'Integrated Radeon Graphics'],
+  ['Socket Supported AM4', 'Speed 3.40 up to 4.60 GHz', 'Cores- 8 & Threads- 16', '32MB Cache'],
+  ['Socket Supported AM4', 'Speed 3.80 up to 4.70 GHz', 'Cores- 8 & Threads- 16', '32MB Cache'],
+  ['Socket Supported AM4', 'Speed 3.70 up to 4.80 GHz', 'Cores- 12 & Threads- 24', '64MB Cache'],
+  ['Socket Supported AM4', 'Speed 3.40 up to 4.90 GHz', 'Cores- 16 & Threads- 32', '64MB Cache'],
+  ['Socket Supported LGA1700', 'Speed 3.30 up to 4.30 GHz', 'Cores- 4 & Threads- 8', '12MB Cache'],
+  ['Socket Supported LGA1700', 'Speed 2.50 up to 4.40 GHz', 'Cores- 6 & Threads- 12', '18MB Cache'],
+  ['Socket Supported LGA1700', 'Speed 2.50 up to 4.60 GHz', 'Cores- 10 & Threads- 16', '20MB Cache'],
+  ['Socket Supported LGA1700', 'Speed 2.10 up to 4.90 GHz', 'Cores- 12 & Threads- 20', '25MB Cache'],
+  ['Socket Supported LGA1700', 'Speed 2.00 up to 5.60 GHz', 'Cores- 24 & Threads- 32', '36MB Cache'],
+]
+
 export const productsByCategory: Record<string, BuildProduct[]> = {
   cpu: makeItems('cpu', [
     ['AMD Ryzen 3 4100 Desktop Processor', 8900, 9900, 'AMD'],
@@ -157,7 +176,7 @@ export const productsByCategory: Record<string, BuildProduct[]> = {
     ['Intel Core i5-13400F Processor', 21900, 24000, 'Intel'],
     ['Intel Core i7-12700F Processor', 32900, 36000, 'Intel'],
     ['Intel Core i9-13900F Processor', 59900, 65000, 'Intel'],
-  ]).map((p) => ({ ...p, image: CPU_IMAGE })),
+  ]).map((p, i) => ({ ...p, image: CPU_IMAGE, specs: CPU_SPECS[i] })),
   motherboard: makeItems('motherboard', [
     ['MSI B450-A PRO MAX AM4 Motherboard', 12500, 14000, 'AMD'],
     ['Gigabyte B550M DS3H AC Motherboard', 13900, 15500, 'AMD'],

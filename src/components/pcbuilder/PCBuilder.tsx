@@ -5,8 +5,11 @@ import Image from 'next/image'
 import Breadcrumbs from '@/components/category/Breadcrumbs'
 import PartThumb from './PartThumb'
 import WarningModal from './WarningModal'
+import SuccessModal from './SuccessModal'
 import { buildCategories, productsByCategory, type BuildProduct } from '@/data/pcBuilderData'
 import { useToast, Toast } from '@/components/ui/Toast'
+import { useCart } from '@/context/CartContext'
+import type { CartItem } from '@/data/cart'
 
 type Selection = { product: BuildProduct; qty: number }
 
@@ -29,6 +32,9 @@ export default function PCBuilder() {
   const [priceMin, setPriceMin] = useState(0)
   const [priceMax, setPriceMax] = useState(0)
   const [warningMessage, setWarningMessage] = useState<string | null>(null)
+  const [successMessage, setSuccessMessage] = useState<string | null>(null)
+  const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid')
+  const { addItems } = useCart()
   const { toast, showToast } = useToast()
 
   const leftPanelRef = useRef<HTMLDivElement>(null)
@@ -295,6 +301,23 @@ export default function PCBuilder() {
     action()
   }
 
+  const addBuildToCart = () => {
+    const cartItems: CartItem[] = buildCategories.flatMap((cat) =>
+      (builds[cat.key] ?? []).map((sel) => ({
+        id: sel.product.id,
+        name: sel.product.name,
+        slug: 'pc-builder',
+        image: sel.product.image ?? cat.iconSvg ?? '/images/catalog/view/theme/default/image/monarch-it-icon.png',
+        price: sel.product.priceNew,
+        qty: sel.qty,
+      }))
+    )
+    addItems(cartItems)
+    setSuccessMessage(
+      `${cartItems.length} item${cartItems.length !== 1 ? 's' : ''} added to your cart successfully!`
+    )
+  }
+
   const topActions = [
     {
       icon: 'ios_share',
@@ -315,8 +338,8 @@ export default function PCBuilder() {
     },
     {
       icon: 'shopping_cart',
-      title: 'View Cart',
-      onClick: () => requireCompleteBuild(() => showToast('Feature coming soon!')),
+      title: 'Add Build to Cart',
+      onClick: () => requireCompleteBuild(addBuildToCart),
     },
   ]
 
@@ -342,6 +365,7 @@ export default function PCBuilder() {
     <div className="bg-white">
       <Toast message={toast} />
       <WarningModal open={!!warningMessage} message={warningMessage ?? ''} onClose={() => setWarningMessage(null)} />
+      <SuccessModal open={!!successMessage} message={successMessage ?? ''} onClose={() => setSuccessMessage(null)} />
 
       {/* Filter drawer */}
       <div
@@ -573,11 +597,13 @@ export default function PCBuilder() {
                 <div className="flex items-center h-14 gap-2 bg-white rounded-full px-2">
                   <button
                     type="button"
-                    title="Build Summary"
-                    onClick={() => showToast('Feature coming soon!')}
-                    className="w-10 h-10 rounded-full bg-[#f4f5f7] flex items-center justify-center hover:bg-[#e8eaed] transition-colors cursor-pointer"
+                    title={viewMode === 'grid' ? 'Switch to list view' : 'Switch to grid view'}
+                    onClick={() => setViewMode((v) => (v === 'grid' ? 'list' : 'grid'))}
+                    className={`w-10 h-10 rounded-full flex items-center justify-center transition-colors cursor-pointer ${
+                      viewMode === 'list' ? 'bg-[#c3272b] text-white' : 'bg-[#f4f5f7] text-gray-600 hover:bg-[#e8eaed]'
+                    }`}
                   >
-                    <span className="mi text-[23px] text-gray-600">format_list_bulleted</span>
+                    <span className="mi text-[23px]">format_list_bulleted</span>
                   </button>
                   <button
                     type="button"
@@ -801,6 +827,87 @@ export default function PCBuilder() {
                   <div className="text-center py-16">
                     <span className="mi text-[48px] text-gray-300 block mb-3">search_off</span>
                     <p className="text-gray-500 text-[14px]">No products match your search.</p>
+                  </div>
+                ) : viewMode === 'list' ? (
+                  <div className="flex flex-col gap-3">
+                    {products.map((p) => {
+                      const isPicked = (builds[activeCategory] ?? []).some((s) => s.product.id === p.id)
+                      const qty = getQty(p.id)
+                      return (
+                        <div
+                          key={p.id}
+                          className={`bg-white rounded-2xl p-3 flex items-center gap-4 shadow-[0_2px_10px_rgba(0,0,0,0.06)] border-2 transition-colors ${
+                            isPicked ? 'border-[#c3272b]' : 'border-transparent'
+                          }`}
+                        >
+                          <div className="w-[120px] shrink-0">
+                            <PartThumb
+                              icon={activeCat.icon}
+                              iconSvg={activeCat.iconSvgActive ?? activeCat.iconSvg}
+                              image={p.image}
+                              accent={activeCat.accent}
+                            />
+                          </div>
+                          <div className="flex-1 min-w-0">
+                            <div className="text-[14px] font-semibold text-gray-800 leading-[1.3] mb-1.5">{p.name}</div>
+                            {p.specs && p.specs.length > 0 && (
+                              <ul className="list-disc pl-4 space-y-0.5">
+                                {p.specs.map((spec) => (
+                                  <li key={spec} className="text-[12px] text-gray-500">
+                                    {spec}
+                                  </li>
+                                ))}
+                              </ul>
+                            )}
+                          </div>
+                          <div className="shrink-0 flex flex-col items-end gap-2">
+                            <div className="flex items-center gap-1.5 flex-wrap justify-end">
+                              <span className="text-[15px] font-bold text-[#c3272b]">
+                                ৳{p.priceNew.toLocaleString()}
+                              </span>
+                              {p.discountPct > 0 && (
+                                <>
+                                  <span className="text-[11px] text-gray-400 line-through">
+                                    ৳{p.priceOld.toLocaleString()}
+                                  </span>
+                                  <span className="text-[10.5px] font-bold text-[#00c68b]">{p.discountPct}% OFF</span>
+                                </>
+                              )}
+                            </div>
+                            <div className="flex items-center gap-1.5">
+                              <button
+                                type="button"
+                                onClick={() => selectProduct(activeCategory, p)}
+                                className={`rounded-full px-5 py-1.5 text-[12.5px] font-bold border-2 whitespace-nowrap transition-colors cursor-pointer ${
+                                  isPicked
+                                    ? 'bg-[#c3272b] text-white border-[#c3272b]'
+                                    : 'bg-white text-[#c3272b] border-[#c3272b] hover:bg-[#c3272b] hover:text-white'
+                                }`}
+                              >
+                                {isPicked ? 'Added' : 'Add'}
+                              </button>
+                              <div className="shrink-0 flex items-center gap-1.5 bg-[#f5f6fa] rounded-full px-1.5 py-1">
+                                <button
+                                  type="button"
+                                  onClick={() => setQty(p.id, qty - 1)}
+                                  className="w-5 h-5 flex items-center justify-center text-gray-500 hover:text-[#c3272b] cursor-pointer"
+                                >
+                                  −
+                                </button>
+                                <span className="text-[12px] font-semibold text-gray-700 w-3 text-center">{qty}</span>
+                                <button
+                                  type="button"
+                                  onClick={() => setQty(p.id, qty + 1)}
+                                  className="w-5 h-5 flex items-center justify-center text-gray-500 hover:text-[#c3272b] cursor-pointer"
+                                >
+                                  +
+                                </button>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      )
+                    })}
                   </div>
                 ) : (
                   <div className="grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-4">
