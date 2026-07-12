@@ -1,9 +1,10 @@
 'use client'
 
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import Image from 'next/image'
 import Breadcrumbs from '@/components/category/Breadcrumbs'
 import PartThumb from './PartThumb'
+import WarningModal from './WarningModal'
 import { buildCategories, productsByCategory, type BuildProduct } from '@/data/pcBuilderData'
 import { useToast, Toast } from '@/components/ui/Toast'
 
@@ -17,11 +18,8 @@ const breadcrumbItems = [
 
 export default function PCBuilder() {
   const [chipset, setChipset] = useState<'AMD' | 'Intel'>('AMD')
-  const [activeCategory, setActiveCategory] = useState('cpu-cooler')
-  const [builds, setBuilds] = useState<Record<string, Selection | undefined>>(() => ({
-    cpu: { product: productsByCategory.cpu[0], qty: 1 },
-    motherboard: { product: productsByCategory.motherboard[0], qty: 1 },
-  }))
+  const [activeCategory, setActiveCategory] = useState('cpu')
+  const [builds, setBuilds] = useState<Record<string, Selection[]>>({})
   const [localQty, setLocalQty] = useState<Record<string, number>>({})
   const [search, setSearch] = useState('')
   const [sort, setSort] = useState<'default' | 'price-asc' | 'price-desc'>('default')
@@ -30,7 +28,21 @@ export default function PCBuilder() {
   const [selectedBrands, setSelectedBrands] = useState<string[]>([])
   const [priceMin, setPriceMin] = useState(0)
   const [priceMax, setPriceMax] = useState(0)
+  const [warningMessage, setWarningMessage] = useState<string | null>(null)
   const { toast, showToast } = useToast()
+
+  const leftPanelRef = useRef<HTMLDivElement>(null)
+  const [rightPanelHeight, setRightPanelHeight] = useState<number | null>(null)
+
+  useEffect(() => {
+    const el = leftPanelRef.current
+    if (!el) return
+    const observer = new ResizeObserver(() => {
+      setRightPanelHeight(el.getBoundingClientRect().height)
+    })
+    observer.observe(el)
+    return () => observer.disconnect()
+  }, [])
 
   const activeCat = buildCategories.find((c) => c.key === activeCategory)!
 
@@ -57,7 +69,11 @@ export default function PCBuilder() {
   const filtersActive = priceMin > priceBounds.min || priceMax < priceBounds.max || selectedBrands.length > 0
 
   const total = useMemo(
-    () => Object.values(builds).reduce((sum, sel) => sum + (sel ? sel.product.priceNew * sel.qty : 0), 0),
+    () =>
+      Object.values(builds).reduce(
+        (sum, items) => sum + items.reduce((s, sel) => s + sel.product.priceNew * sel.qty, 0),
+        0
+      ),
     [builds]
   )
 
@@ -65,12 +81,36 @@ export default function PCBuilder() {
   const setQty = (id: string, qty: number) => setLocalQty((prev) => ({ ...prev, [id]: Math.max(1, Math.min(9, qty)) }))
 
   const selectProduct = (categoryKey: string, product: BuildProduct) => {
-    setBuilds((prev) => ({ ...prev, [categoryKey]: { product, qty: getQty(product.id) } }))
+    const category = buildCategories.find((c) => c.key === categoryKey)
+    const qty = getQty(product.id)
+    setBuilds((prev) => {
+      const existing = prev[categoryKey] ?? []
+      if (category?.multi) {
+        const alreadyAdded = existing.some((s) => s.product.id === product.id)
+        const updated = alreadyAdded
+          ? existing.map((s) => (s.product.id === product.id ? { ...s, qty } : s))
+          : [...existing, { product, qty }]
+        return { ...prev, [categoryKey]: updated }
+      }
+      return { ...prev, [categoryKey]: [{ product, qty }] }
+    })
     showToast(`${product.name} added to your build!`)
   }
 
-  const removeSelection = (categoryKey: string) => {
-    setBuilds((prev) => ({ ...prev, [categoryKey]: undefined }))
+  const removeSelection = (categoryKey: string, productId: string) => {
+    setBuilds((prev) => ({
+      ...prev,
+      [categoryKey]: (prev[categoryKey] ?? []).filter((s) => s.product.id !== productId),
+    }))
+  }
+
+  const updateBuildQty = (categoryKey: string, productId: string, delta: number) => {
+    setBuilds((prev) => ({
+      ...prev,
+      [categoryKey]: (prev[categoryKey] ?? []).map((s) =>
+        s.product.id === productId ? { ...s, qty: Math.max(1, Math.min(9, s.qty + delta)) } : s
+      ),
+    }))
   }
 
   const resetBuild = () => {
@@ -80,24 +120,28 @@ export default function PCBuilder() {
 
   const getSummaryBodyHtml = (origin: string) => {
     const regularTotal = Object.values(builds).reduce(
-      (sum, sel) => sum + (sel ? sel.product.priceOld * sel.qty : 0),
+      (sum, items) => sum + items.reduce((s, sel) => s + sel.product.priceOld * sel.qty, 0),
       0
     )
 
     const rows = buildCategories
       .map((cat) => {
-        const sel = builds[cat.key]
-        if (!sel) {
+        const items = builds[cat.key] ?? []
+        if (items.length === 0) {
           return `<tr><td>${cat.label}</td><td></td><td></td><td></td></tr>`
         }
-        const lineNew = sel.product.priceNew * sel.qty
-        const lineOld = sel.product.priceOld * sel.qty
-        const priceCell =
-          lineOld > lineNew
-            ? `<span class="strike-wrap">৳${lineOld.toLocaleString()}</span><br/>৳${lineNew.toLocaleString()}`
-            : `৳${lineNew.toLocaleString()}`
-        const name = sel.qty > 1 ? `${sel.product.name} (x${sel.qty})` : sel.product.name
-        return `<tr><td>${cat.label}</td><td>${name}</td><td>${priceCell}</td><td>৳${lineOld.toLocaleString()}</td></tr>`
+        return items
+          .map((sel, i) => {
+            const lineNew = sel.product.priceNew * sel.qty
+            const lineOld = sel.product.priceOld * sel.qty
+            const priceCell =
+              lineOld > lineNew
+                ? `<span class="strike-wrap">৳${lineOld.toLocaleString()}</span><br/>৳${lineNew.toLocaleString()}`
+                : `৳${lineNew.toLocaleString()}`
+            const name = sel.qty > 1 ? `${sel.product.name} (x${sel.qty})` : sel.product.name
+            return `<tr><td>${i === 0 ? cat.label : ''}</td><td>${name}</td><td>${priceCell}</td><td>৳${lineOld.toLocaleString()}</td></tr>`
+          })
+          .join('')
       })
       .join('')
 
@@ -242,11 +286,38 @@ export default function PCBuilder() {
     }
   }
 
+  const requireCompleteBuild = (action: () => void) => {
+    const missing = buildCategories.filter((cat) => cat.required && !builds[cat.key]?.length)
+    if (missing.length > 0) {
+      setWarningMessage(`Please select ${missing.map((c) => c.label).join(', ')} before continuing.`)
+      return
+    }
+    action()
+  }
+
   const topActions = [
-    { icon: 'ios_share', title: 'Share Build', onClick: shareBuild },
-    { icon: 'photo_camera', title: 'Download Quotation', onClick: downloadSummary },
-    { icon: 'download', title: 'Print Quotation', onClick: printSummary },
-    { icon: 'shopping_cart', title: 'View Cart', onClick: () => showToast('Feature coming soon!') },
+    {
+      icon: 'ios_share',
+      iconSvg: '/images/pc-builder/icons/share-icon.svg',
+      title: 'Share Build',
+      onClick: () => requireCompleteBuild(shareBuild),
+    },
+    {
+      icon: 'photo_camera',
+      title: 'Download Quotation',
+      onClick: () => requireCompleteBuild(downloadSummary),
+    },
+    {
+      icon: 'download',
+      iconSvg: '/images/pc-builder/icons/download-icon.svg',
+      title: 'Print Quotation',
+      onClick: () => requireCompleteBuild(printSummary),
+    },
+    {
+      icon: 'shopping_cart',
+      title: 'View Cart',
+      onClick: () => requireCompleteBuild(() => showToast('Feature coming soon!')),
+    },
   ]
 
   const products = useMemo(() => {
@@ -270,6 +341,7 @@ export default function PCBuilder() {
   return (
     <div className="bg-white">
       <Toast message={toast} />
+      <WarningModal open={!!warningMessage} message={warningMessage ?? ''} onClose={() => setWarningMessage(null)} />
 
       {/* Filter drawer */}
       <div
@@ -420,7 +492,11 @@ export default function PCBuilder() {
                 onClick={a.onClick}
                 className="w-10 h-10 rounded-full bg-[#f4f5f7] flex items-center justify-center hover:bg-[#e8eaed] transition-colors cursor-pointer"
               >
-                <span className="mi text-[19px] text-gray-600">{a.icon}</span>
+                {a.iconSvg ? (
+                  <Image src={a.iconSvg} alt="" width={20} height={20} />
+                ) : (
+                  <span className="mi text-[19px] text-gray-600">{a.icon}</span>
+                )}
               </button>
             ))}
             <div className="ml-1 bg-[#c3272b] text-white rounded-full px-5 py-2.5 font-bold text-[14px] whitespace-nowrap">
@@ -501,7 +577,7 @@ export default function PCBuilder() {
                     onClick={() => showToast('Feature coming soon!')}
                     className="w-10 h-10 rounded-full bg-[#f4f5f7] flex items-center justify-center hover:bg-[#e8eaed] transition-colors cursor-pointer"
                   >
-                    <span className="mi text-[18px] text-gray-600">format_list_bulleted</span>
+                    <span className="mi text-[23px] text-gray-600">format_list_bulleted</span>
                   </button>
                   <button
                     type="button"
@@ -509,43 +585,70 @@ export default function PCBuilder() {
                     onClick={resetBuild}
                     className="w-10 h-10 rounded-full bg-[#f4f5f7] flex items-center justify-center hover:bg-[#e8eaed] transition-colors cursor-pointer"
                   >
-                    <span className="mi text-[18px] text-gray-600">refresh</span>
+                    <Image src="/images/pc-builder/icons/refresh-icon-gray.svg" alt="" width={24} height={24} />
                   </button>
                 </div>
               </div>
 
-              <div className="flex flex-col gap-2.5 bg-white rounded-[50px] p-4">
+              <div ref={leftPanelRef} className="flex flex-col gap-2.5 bg-white rounded-[50px] p-4">
                 {buildCategories.map((cat) => {
-                  const sel = builds[cat.key]
+                  const items = builds[cat.key] ?? []
                   const isActive = activeCategory === cat.key
+                  const showBrowsePill = items.length === 0 || cat.multi
 
-                  if (sel) {
-                    return (
-                      <div
-                        key={cat.key}
-                        className="flex items-center gap-2 border-2 border-[#c3272b] bg-white rounded-full px-2 py-1"
-                      >
-                        <PartThumb
-                          icon={cat.icon}
-                          iconSvg={cat.iconSvgActive ?? cat.iconSvg}
-                          accent={cat.accent}
-                          size="sm"
-                        />
-                        <button
-                          type="button"
-                          onClick={() => setActiveCategory(cat.key)}
-                          className="flex-1 min-w-0 text-left cursor-pointer"
+                  return (
+                    <div key={cat.key} className="flex flex-col gap-2.5">
+                      {items.map((sel) => (
+                        <div
+                          key={sel.product.id}
+                          className="flex items-center gap-2 border-2 border-[#c3272b] bg-white rounded-full px-2 py-1"
                         >
-                          <div className="text-[12px] font-semibold text-gray-800 truncate leading-tight">
-                            {cat.label}
-                            {cat.required && <span className="text-[#c3272b]">*</span>}
+                          <PartThumb
+                            icon={cat.icon}
+                            iconSvg={cat.iconSvgActive ?? cat.iconSvg}
+                            image={sel.product.image}
+                            accent={cat.accent}
+                            size="sm"
+                          />
+                          <button
+                            type="button"
+                            onClick={() => setActiveCategory(cat.key)}
+                            className="flex-1 min-w-0 text-left cursor-pointer"
+                          >
+                            <div className="text-[12px] font-semibold text-gray-800 truncate leading-tight">
+                              {cat.label}
+                              {cat.required && <span className="text-[#c3272b]">*</span>}
+                            </div>
+                            <div className="text-[10.5px] text-gray-500 truncate leading-tight">
+                              {sel.product.name}
+                            </div>
+                          </button>
+                          <div className="shrink-0 flex items-center gap-1.5 border-r border-gray-400 pr-[6px]">
+                            <span className="text-[12px] font-bold text-gray-700 whitespace-nowrap">
+                              ৳{(sel.product.priceNew * sel.qty).toLocaleString()}
+                            </span>
+                            <div className="shrink-0 flex items-center gap-0.5 bg-[#f5f6fa] rounded-full px-1 py-0.5">
+                              <button
+                                type="button"
+                                title="Decrease quantity"
+                                onClick={() => updateBuildQty(cat.key, sel.product.id, -1)}
+                                className="w-4 h-4 flex items-center justify-center text-gray-500 hover:text-[#c3272b] cursor-pointer text-[11px] leading-none"
+                              >
+                                −
+                              </button>
+                              <span className="text-[10px] font-semibold text-gray-700 w-2.5 text-center">
+                                {sel.qty}
+                              </span>
+                              <button
+                                type="button"
+                                title="Increase quantity"
+                                onClick={() => updateBuildQty(cat.key, sel.product.id, 1)}
+                                className="w-4 h-4 flex items-center justify-center text-gray-500 hover:text-[#c3272b] cursor-pointer text-[11px] leading-none"
+                              >
+                                +
+                              </button>
+                            </div>
                           </div>
-                          <div className="text-[10.5px] text-gray-500 truncate leading-tight">{sel.product.name}</div>
-                        </button>
-                        <div className="shrink-0 flex items-center gap-1.5">
-                          <span className="text-[12px] font-bold text-gray-700 whitespace-nowrap border-r border-gray-400 pr-[6px]">
-                            ৳{(sel.product.priceNew * sel.qty).toLocaleString()}
-                          </span>
                           <button
                             type="button"
                             title="Change"
@@ -557,65 +660,79 @@ export default function PCBuilder() {
                           <button
                             type="button"
                             title="Remove"
-                            onClick={() => removeSelection(cat.key)}
+                            onClick={() => removeSelection(cat.key, sel.product.id)}
                             className="shrink-0 flex items-center text-gray-400 hover:text-[#c3272b] transition-colors cursor-pointer"
                           >
                             <span className="mi text-[16px]">close</span>
                           </button>
                         </div>
-                      </div>
-                    )
-                  }
+                      ))}
 
-                  return (
-                    <button
-                      key={cat.key}
-                      type="button"
-                      onClick={() => setActiveCategory(cat.key)}
-                      className={`group flex items-center gap-3 rounded-full border-2 bg-white px-4 py-2 transition-colors cursor-pointer ${
-                        isActive
-                          ? 'border-[#c3272b] text-[#c3272b]'
-                          : 'border-gray-200 text-gray-600 hover:border-[#c3272b] hover:text-[#c3272b]'
-                      }`}
-                    >
-                      {cat.iconSvg ? (
-                        <span className="relative w-[19px] h-[19px] shrink-0">
-                          <Image
-                            src={cat.iconSvg}
-                            alt=""
-                            width={19}
-                            height={19}
-                            className={`absolute inset-0 object-contain transition-opacity ${
-                              isActive ? 'opacity-0' : 'opacity-100 group-hover:opacity-0'
-                            }`}
-                          />
-                          <Image
-                            src={cat.iconSvgActive ?? cat.iconSvg}
-                            alt=""
-                            width={19}
-                            height={19}
-                            className={`absolute inset-0 object-contain transition-opacity ${
-                              isActive ? 'opacity-100' : 'opacity-0 group-hover:opacity-100'
-                            }`}
-                          />
-                        </span>
-                      ) : (
-                        <span className="mi text-[19px]">{cat.icon}</span>
+                      {showBrowsePill && (
+                        <button
+                          type="button"
+                          onClick={() => setActiveCategory(cat.key)}
+                          className={`group flex items-center gap-3 rounded-full border-2 bg-white px-4 py-2 transition-colors cursor-pointer ${
+                            isActive
+                              ? 'border-[#c3272b] text-[#c3272b]'
+                              : 'border-gray-200 text-gray-600 hover:border-[#c3272b] hover:text-[#c3272b]'
+                          }`}
+                        >
+                          {cat.iconSvg ? (
+                            <span className="relative w-[26px] h-[26px] shrink-0">
+                              <Image
+                                src={cat.iconSvg}
+                                alt=""
+                                width={26}
+                                height={26}
+                                className={`absolute inset-0 object-contain transition-opacity ${
+                                  isActive ? 'opacity-0' : 'opacity-100 group-hover:opacity-0'
+                                }`}
+                              />
+                              <Image
+                                src={cat.iconSvgActive ?? cat.iconSvg}
+                                alt=""
+                                width={26}
+                                height={26}
+                                className={`absolute inset-0 object-contain transition-opacity ${
+                                  isActive ? 'opacity-100' : 'opacity-0 group-hover:opacity-100'
+                                }`}
+                              />
+                            </span>
+                          ) : (
+                            <span
+                              className={`mi text-[26px] ${
+                                isActive ? 'text-[#c3272b]' : 'text-[#808080] group-hover:text-[#c3272b]'
+                              }`}
+                            >
+                              {cat.icon}
+                            </span>
+                          )}
+                          <span className="flex-1 text-left text-[13px] font-semibold">
+                            {items.length > 0 ? (
+                              `Add another ${cat.label}`
+                            ) : (
+                              <>
+                                {cat.label}
+                                {cat.required && <span className="text-[#c3272b]">*</span>}
+                              </>
+                            )}
+                          </span>
+                          <span className="mi text-[19px]">add</span>
+                        </button>
                       )}
-                      <span className="flex-1 text-left text-[13px] font-semibold">
-                        {cat.label}
-                        {cat.required && <span className="text-[#c3272b]">*</span>}
-                      </span>
-                      <span className="mi text-[19px]">add</span>
-                    </button>
+                    </div>
                   )
                 })}
               </div>
             </div>
 
             {/* Right panel: product browser */}
-            <div className="flex-1 w-full min-w-0 bg-white rounded-[50px] p-4 md:p-6">
-              <div className="flex flex-wrap items-center gap-3 mb-5">
+            <div
+              className="flex-1 w-full min-w-0 bg-white rounded-[50px] p-4 md:p-6 flex flex-col"
+              style={rightPanelHeight ? { height: rightPanelHeight } : undefined}
+            >
+              <div className="flex flex-wrap items-center gap-3 mb-5 shrink-0">
                 <div className="flex-1 min-w-[180px] flex items-center bg-[#f4f5f7] rounded-full px-4 py-2.5">
                   <Image
                     src="/images/compare-icons/search-icon.svg"
@@ -677,17 +794,18 @@ export default function PCBuilder() {
                 </div>
               </div>
 
-              <h2 className="text-center text-lg font-bold text-gray-900 mb-5">{activeCat.label}</h2>
+              <h2 className="text-center text-lg font-bold text-gray-900 mb-5 shrink-0">{activeCat.label}</h2>
 
-              {products.length === 0 ? (
-                <div className="text-center py-16">
-                  <span className="mi text-[48px] text-gray-300 block mb-3">search_off</span>
-                  <p className="text-gray-500 text-[14px]">No products match your search.</p>
-                </div>
-              ) : (
-                <div className="grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-4">
+              <div className="flex-1 min-h-0 overflow-y-auto pr-1.5 thin-scroll-gray">
+                {products.length === 0 ? (
+                  <div className="text-center py-16">
+                    <span className="mi text-[48px] text-gray-300 block mb-3">search_off</span>
+                    <p className="text-gray-500 text-[14px]">No products match your search.</p>
+                  </div>
+                ) : (
+                  <div className="grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-4">
                   {products.map((p) => {
-                    const isPicked = builds[activeCategory]?.product.id === p.id
+                    const isPicked = (builds[activeCategory] ?? []).some((s) => s.product.id === p.id)
                     const qty = getQty(p.id)
                     return (
                       <div
@@ -699,6 +817,7 @@ export default function PCBuilder() {
                         <PartThumb
                           icon={activeCat.icon}
                           iconSvg={activeCat.iconSvgActive ?? activeCat.iconSvg}
+                          image={p.image}
                           accent={activeCat.accent}
                         />
                         <div className="pt-2.5 flex flex-col flex-1">
@@ -750,8 +869,9 @@ export default function PCBuilder() {
                       </div>
                     )
                   })}
-                </div>
-              )}
+                  </div>
+                )}
+              </div>
             </div>
           </div>
         </div>

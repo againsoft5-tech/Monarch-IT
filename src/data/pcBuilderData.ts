@@ -6,6 +6,8 @@ export type BuildCategory = {
   iconSvgActive?: string
   required?: boolean
   accent?: boolean
+  /** Allows more than one different product to be added under this category (e.g. two different RAM sticks). */
+  multi?: boolean
 }
 
 const ICON_BASE = '/images/pc-builder/icons'
@@ -19,7 +21,6 @@ export const buildCategories: BuildCategory[] = [
     icon: 'ac_unit',
     iconSvg: `${ICON_BASE}/cpu-cooler-gray.svg`,
     iconSvgActive: `${ICON_BASE}/cpu-cooler.svg`,
-    accent: true,
   },
   {
     key: 'memory',
@@ -28,6 +29,7 @@ export const buildCategories: BuildCategory[] = [
     iconSvg: `${ICON_BASE}/memory.svg`,
     iconSvgActive: `${ICON_BASE}/memory-active.svg`,
     required: true,
+    multi: true,
   },
   {
     key: 'storage',
@@ -35,6 +37,7 @@ export const buildCategories: BuildCategory[] = [
     icon: 'storage',
     iconSvg: `${ICON_BASE}/storage.svg`,
     iconSvgActive: `${ICON_BASE}/storage-active.svg`,
+    multi: true,
   },
   {
     key: 'graphics-card',
@@ -65,6 +68,7 @@ export const buildCategories: BuildCategory[] = [
     icon: 'air',
     iconSvg: `${ICON_BASE}/casing-cooler.svg`,
     iconSvgActive: `${ICON_BASE}/casing-cooler-active.svg`,
+    multi: true,
   },
   {
     key: 'monitor',
@@ -111,6 +115,7 @@ export type BuildProduct = {
   priceOld: number
   discountPct: number
   platform?: 'AMD' | 'Intel'
+  image?: string
 }
 
 function pct(oldP: number, newP: number) {
@@ -132,17 +137,27 @@ function makeItems(
   }))
 }
 
+const CPU_IMAGE = '/images/pc-builder/products/processor.jpg'
+const MOTHERBOARD_IMAGE = '/images/pc-builder/products/motherboard.jpg'
+
 export const productsByCategory: Record<string, BuildProduct[]> = {
   cpu: makeItems('cpu', [
+    ['AMD Ryzen 3 4100 Desktop Processor', 8900, 9900, 'AMD'],
+    ['AMD Ryzen 5 5500 Desktop Processor', 12900, 14500, 'AMD'],
     ['AMD Ryzen 5 5600 Desktop Processor', 14800, 16800, 'AMD'],
     ['AMD Ryzen 5 5600G Desktop Processor', 15800, 17500, 'AMD'],
+    ['AMD Ryzen 5 5600X Desktop Processor', 17900, 19900, 'AMD'],
+    ['AMD Ryzen 7 5700G Desktop Processor', 20900, 23000, 'AMD'],
     ['AMD Ryzen 7 5700X Desktop Processor', 22500, 25000, 'AMD'],
+    ['AMD Ryzen 7 5800X Desktop Processor', 26900, 29900, 'AMD'],
     ['AMD Ryzen 9 5900X Desktop Processor', 39900, 44000, 'AMD'],
+    ['AMD Ryzen 9 5950X Desktop Processor', 52900, 58000, 'AMD'],
     ['Intel Core i3-12100F Processor', 10900, 12000, 'Intel'],
     ['Intel Core i5-12400F Processor', 16900, 18500, 'Intel'],
     ['Intel Core i5-13400F Processor', 21900, 24000, 'Intel'],
     ['Intel Core i7-12700F Processor', 32900, 36000, 'Intel'],
-  ]),
+    ['Intel Core i9-13900F Processor', 59900, 65000, 'Intel'],
+  ]).map((p) => ({ ...p, image: CPU_IMAGE })),
   motherboard: makeItems('motherboard', [
     ['MSI B450-A PRO MAX AM4 Motherboard', 12500, 14000, 'AMD'],
     ['Gigabyte B550M DS3H AC Motherboard', 13900, 15500, 'AMD'],
@@ -150,7 +165,7 @@ export const productsByCategory: Record<string, BuildProduct[]> = {
     ['MSI PRO B660M-A DDR4 Motherboard', 15900, 17500, 'Intel'],
     ['Gigabyte H610M H DDR4 Motherboard', 9500, 10500, 'Intel'],
     ['ASUS Prime H610M-K D4 Motherboard', 10900, 12000, 'Intel'],
-  ]),
+  ]).map((p) => ({ ...p, image: MOTHERBOARD_IMAGE })),
   'cpu-cooler': makeItems('cpu-cooler', [
     ['Deepcool AG400 ARGB CPU Cooler', 2450, 2800],
     ['Cooler Master Hyper 212 ARGB Black Edition', 3450, 3900],
