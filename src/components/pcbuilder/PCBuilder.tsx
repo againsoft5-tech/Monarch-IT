@@ -201,7 +201,7 @@ export default function PCBuilder() {
   // export needs its own nudge without affecting the print page's styling above.
   const pngOnlyStyles = `.strike-wrap { background-position: center 100%; }`
 
-  const downloadSummary = async () => {
+  const generateSummaryPngBlob = async (): Promise<Blob | null> => {
     const html2canvas = (await import('html2canvas')).default
 
     // A4 at 96dpi = 794 x 1123px; fixed height keeps the exported PNG a true A4 page.
@@ -228,17 +228,27 @@ export default function PCBuilder() {
 
     try {
       const canvas = await html2canvas(container, { scale: 2, backgroundColor: '#ffffff', useCORS: true })
-      const dataUrl = canvas.toDataURL('image/png')
-      const a = document.createElement('a')
-      a.href = dataUrl
-      a.download = 'monarch-it-pc-build-quotation.png'
-      document.body.appendChild(a)
-      a.click()
-      document.body.removeChild(a)
-      showToast('Quotation image downloaded!')
+      return await new Promise((resolve) => canvas.toBlob(resolve, 'image/png'))
     } finally {
       document.body.removeChild(container)
     }
+  }
+
+  const downloadSummary = async () => {
+    const blob = await generateSummaryPngBlob()
+    if (!blob) {
+      showToast('Could not generate the quotation image.')
+      return
+    }
+    const url = URL.createObjectURL(blob)
+    const a = document.createElement('a')
+    a.href = url
+    a.download = 'monarch-it-pc-build-quotation.png'
+    document.body.appendChild(a)
+    a.click()
+    document.body.removeChild(a)
+    URL.revokeObjectURL(url)
+    showToast('Quotation image downloaded!')
   }
 
   const printSummary = () => {
@@ -275,21 +285,36 @@ export default function PCBuilder() {
   }
 
   const shareBuild = async () => {
-    const url = window.location.href
-    if (navigator.share) {
+    const blob = await generateSummaryPngBlob()
+    if (!blob) {
+      showToast('Could not generate the quotation to share.')
+      return
+    }
+    const file = new File([blob], 'monarch-it-pc-build-quotation.png', { type: 'image/png' })
+
+    if (navigator.canShare?.({ files: [file] })) {
       try {
-        await navigator.share({ title: 'My PC Build - Monarch IT', url })
+        await navigator.share({
+          title: 'My PC Build - Monarch IT',
+          text: 'Check out my PC build quotation from Monarch IT!',
+          files: [file],
+        })
       } catch {
         // user cancelled the share sheet; nothing to do
       }
       return
     }
-    try {
-      await navigator.clipboard.writeText(url)
-      showToast('Link copied to clipboard!')
-    } catch {
-      showToast('Could not copy link.')
-    }
+
+    // Sharing files isn't supported here, so download the quotation instead of sharing a link.
+    const url = URL.createObjectURL(blob)
+    const a = document.createElement('a')
+    a.href = url
+    a.download = 'monarch-it-pc-build-quotation.png'
+    document.body.appendChild(a)
+    a.click()
+    document.body.removeChild(a)
+    URL.revokeObjectURL(url)
+    showToast('Sharing not supported here — quotation downloaded instead.')
   }
 
   const requireCompleteBuild = (action: () => void) => {
