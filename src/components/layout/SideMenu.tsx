@@ -1,14 +1,19 @@
 'use client'
 
+import { useState } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
+import { useRouter } from 'next/navigation'
 import { useCompare } from '@/context/CompareContext'
+import { useAuth } from '@/context/AuthContext'
+import ChatWidget from '@/components/chat/ChatWidget'
+import { useToast, Toast } from '@/components/ui/Toast'
 
 const IMG_BASE = '/images'
 
 const menuItems = [
   { icon: `${IMG_BASE}/catalog/view/theme/default/image/svg/phone-black-icon.svg`, href: '#', label: 'Phone' },
-  { icon: `${IMG_BASE}/catalog/view/theme/default/image/message-icon.svg`, href: '#', label: 'Message' },
+  { icon: `${IMG_BASE}/catalog/view/theme/default/image/message-icon.svg`, href: '#', label: 'Message', action: 'chat' },
   { icon: `${IMG_BASE}/catalog/view/theme/default/image/compare-icon-svg.svg`, href: '/compare', label: 'Compare' },
   { icon: `${IMG_BASE}/catalog/view/theme/default/image/svg/gift-black-icon.svg`, href: '#', label: 'Gift' },
   { icon: `${IMG_BASE}/catalog/view/theme/default/image/svg/fire-black-icon.svg`, href: '#', label: 'Hot Deals' },
@@ -17,6 +22,19 @@ const menuItems = [
 
 export default function SideMenu() {
   const { count } = useCompare()
+  const { isLoggedIn } = useAuth()
+  const router = useRouter()
+  const { toast, showToast } = useToast()
+  const [chatOpen, setChatOpen] = useState(false)
+
+  const handleChatClick = () => {
+    if (!isLoggedIn) {
+      showToast('Please login to start chatting')
+      router.push('/login')
+      return
+    }
+    setChatOpen(true)
+  }
 
   return (
     <div className="fixed left-0 top-0 z-[9999] w-20 h-screen pointer-events-none max-md:top-auto max-md:bottom-0 max-md:w-full max-md:h-auto">
@@ -36,10 +54,8 @@ export default function SideMenu() {
         </Link>
 
         {menuItems.map((item) => {
-          const isPlaceholder = item.href === '#'
-          const LinkTag = isPlaceholder ? 'a' : Link
-          return (
-            <LinkTag key={item.label} href={item.href} className="relative group shrink-0 transition-transform duration-200 hover:scale-105">
+          const content = (
+            <>
               <div
                 className={`w-[45px] h-[45px] rounded-full flex items-center justify-center shadow-[0_2px_5px_rgba(0,0,0,0.05)] transition-all duration-200 ${
                   item.active
@@ -62,10 +78,34 @@ export default function SideMenu() {
                   {count}
                 </span>
               )}
+            </>
+          )
+
+          if (item.action === 'chat') {
+            return (
+              <button
+                key={item.label}
+                type="button"
+                onClick={handleChatClick}
+                className="relative group shrink-0 transition-transform duration-200 hover:scale-105 cursor-pointer"
+              >
+                {content}
+              </button>
+            )
+          }
+
+          const isPlaceholder = item.href === '#'
+          const LinkTag = isPlaceholder ? 'a' : Link
+          return (
+            <LinkTag key={item.label} href={item.href} className="relative group shrink-0 transition-transform duration-200 hover:scale-105">
+              {content}
             </LinkTag>
           )
         })}
       </div>
+
+      <ChatWidget open={chatOpen} onClose={() => setChatOpen(false)} />
+      <Toast message={toast} />
     </div>
   )
 }

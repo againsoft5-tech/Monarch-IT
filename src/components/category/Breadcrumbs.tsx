@@ -11,7 +11,7 @@ export default function Breadcrumbs({ items }: { items: Crumb[] }) {
             const isLast = i === items.length - 1
             return (
               <li
-                key={item.href}
+                key={`${item.href}-${item.label}`}
                 className={`flex items-center gap-1.5 min-w-0 ${isLast ? 'flex-1' : 'shrink-0'}`}
               >
                 {i > 0 && <span className="text-gray-300 shrink-0">/</span>}

@@ -1,11 +1,7 @@
 import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
 import "./globals.css";
-import SideMenu from "@/components/layout/SideMenu";
-import Header from "@/components/layout/Header";
-import MobileHeader from "@/components/layout/MobileHeader";
-import Footer from "@/components/layout/Footer";
-import CartDrawer from "@/components/ui/CartDrawer";
+import StorefrontChrome from "@/components/layout/StorefrontChrome";
 import { CartProvider } from "@/context/CartContext";
 import { AuthProvider } from "@/context/AuthContext";
 import { WishlistProvider } from "@/context/WishlistContext";
@@ -42,14 +38,7 @@ export default function RootLayout({
           <WishlistProvider>
             <CompareProvider>
               <CartProvider>
-                <SideMenu />
-                <div className="flex-1 flex flex-col pb-[76px] md:pb-0 relative">
-                  <Header />
-                  <MobileHeader />
-                  <main className="flex-1">{children}</main>
-                  <Footer />
-                </div>
-                <CartDrawer />
+                <StorefrontChrome>{children}</StorefrontChrome>
               </CartProvider>
             </CompareProvider>
           </WishlistProvider>

@@ -11,12 +11,13 @@ const IMG_BASE = '/images'
 
 export default function LoginPage() {
   const [showPassword, setShowPassword] = useState(false)
+  const [email, setEmail] = useState('')
   const { login } = useAuth()
   const router = useRouter()
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    login()
+    login(email)
     router.push('/')
   }
 
@@ -76,6 +77,8 @@ export default function LoginPage() {
                 <input
                   id="login-email"
                   type="text"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
                   placeholder="Email"
                   autoComplete="email"
                   className="w-full h-[42px] px-4 rounded-[20px] border border-gray-200 outline-none text-[14px] text-gray-800 focus:border-gray-400 transition-colors"
