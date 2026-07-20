@@ -24,7 +24,8 @@ export default function CategoryPage({ categoryName, products, priceMinDefault, 
   const { isLoggedIn } = useAuth()
   const { isWished, toggleWish } = useWishlist()
   const [filterOpen, setFilterOpen] = useState(false)
-  const [availability, setAvailability] = useState<string[]>([])
+  const [brandSectionOpen, setBrandSectionOpen] = useState(true)
+  const [selectedBrands, setSelectedBrands] = useState<string[]>([])
   const [priceMin, setPriceMin] = useState(priceMinDefault)
   const [priceMax, setPriceMax] = useState(priceMaxDefault)
   const [sort, setSort] = useState<'default' | 'price-asc' | 'price-desc'>('default')
@@ -46,17 +47,27 @@ export default function CategoryPage({ categoryName, products, priceMinDefault, 
     showToast(`${product.name} added to compare list!`)
   }
 
-  const toggleAvailability = (value: string) => {
-    setAvailability((prev) => (prev.includes(value) ? prev.filter((v) => v !== value) : [...prev, value]))
+  const brands = useMemo(() => {
+    const names = products.map((p) => p.name.split(' ')[0])
+    return Array.from(new Set(names))
+  }, [products])
+
+  const toggleBrand = (brand: string) => {
+    setSelectedBrands((prev) => (prev.includes(brand) ? prev.filter((b) => b !== brand) : [...prev, brand]))
     setVisibleCount(INITIAL_COUNT)
   }
 
+  const filtersActive = priceMin > priceMinDefault || priceMax < priceMaxDefault || selectedBrands.length > 0
+
   const filtered = useMemo(() => {
     let list = products.filter((p) => p.priceNew >= priceMin && p.priceNew <= priceMax)
+    if (selectedBrands.length) {
+      list = list.filter((p) => selectedBrands.includes(p.name.split(' ')[0]))
+    }
     if (sort === 'price-asc') list = [...list].sort((a, b) => a.priceNew - b.priceNew)
     if (sort === 'price-desc') list = [...list].sort((a, b) => b.priceNew - a.priceNew)
     return list
-  }, [products, priceMin, priceMax, sort])
+  }, [products, priceMin, priceMax, selectedBrands, sort])
 
   const paged = filtered.slice(0, visibleCount)
   const hasMore = visibleCount < filtered.length
@@ -104,7 +115,7 @@ export default function CategoryPage({ categoryName, products, priceMinDefault, 
             filterOpen ? 'translate-x-0' : '-translate-x-full'
           }`}
         >
-          <div className="flex items-center justify-between px-4 py-3.5 bg-[#3b5cff] text-white sticky top-0 z-10">
+          <div className="flex items-center justify-between px-4 py-3.5 bg-[#c3272b] text-white sticky top-0 z-10">
             <span className="flex items-center gap-1.5 font-bold text-[15px]">
               <Image src="/images/pc-builder/icons/filter-icon-white.svg" alt="" width={17} height={12} /> Filter
             </span>
@@ -119,11 +130,38 @@ export default function CategoryPage({ categoryName, products, priceMinDefault, 
           </div>
 
             <div className="p-4">
-              <div className="bg-white shadow-sm rounded-md p-4 mb-4">
+              <div className="bg-white shadow-sm border border-gray-100 rounded-md p-4 mb-4">
                 <div className="font-semibold text-[15px] text-gray-800 border-b border-gray-100 pb-2.5 mb-4">
                   Price Range
                 </div>
-                <div className="px-1">
+                <div className="relative h-1.5 mt-2 mb-1">
+                  <div className="absolute inset-0 rounded-full bg-gray-200" />
+                  <div
+                    className="absolute h-1.5 rounded-full bg-[#c3272b]"
+                    style={{
+                      left: `${
+                        priceMaxDefault > priceMinDefault
+                          ? ((priceMin - priceMinDefault) / (priceMaxDefault - priceMinDefault)) * 100
+                          : 0
+                      }%`,
+                      right: `${
+                        priceMaxDefault > priceMinDefault
+                          ? 100 - ((priceMax - priceMinDefault) / (priceMaxDefault - priceMinDefault)) * 100
+                          : 0
+                      }%`,
+                    }}
+                  />
+                  <input
+                    type="range"
+                    min={priceMinDefault}
+                    max={priceMaxDefault}
+                    value={priceMin}
+                    onChange={(e) => {
+                      setPriceMin(Math.min(Number(e.target.value), priceMax))
+                      setVisibleCount(INITIAL_COUNT)
+                    }}
+                    className="absolute inset-0 w-full h-1.5 appearance-none bg-transparent pointer-events-none [&::-webkit-slider-thumb]:pointer-events-auto [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:w-4 [&::-webkit-slider-thumb]:h-4 [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-white [&::-webkit-slider-thumb]:border-2 [&::-webkit-slider-thumb]:border-[#c3272b] [&::-webkit-slider-thumb]:shadow [&::-webkit-slider-thumb]:cursor-pointer [&::-moz-range-thumb]:pointer-events-auto [&::-moz-range-thumb]:w-4 [&::-moz-range-thumb]:h-4 [&::-moz-range-thumb]:rounded-full [&::-moz-range-thumb]:bg-white [&::-moz-range-thumb]:border-2 [&::-moz-range-thumb]:border-[#c3272b] [&::-moz-range-thumb]:cursor-pointer"
+                  />
                   <input
                     type="range"
                     min={priceMinDefault}
@@ -133,7 +171,7 @@ export default function CategoryPage({ categoryName, products, priceMinDefault, 
                       setPriceMax(Math.max(Number(e.target.value), priceMin))
                       setVisibleCount(INITIAL_COUNT)
                     }}
-                    className="w-full accent-[#d92128]"
+                    className="absolute inset-0 w-full h-1.5 appearance-none bg-transparent pointer-events-none [&::-webkit-slider-thumb]:pointer-events-auto [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:w-4 [&::-webkit-slider-thumb]:h-4 [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-white [&::-webkit-slider-thumb]:border-2 [&::-webkit-slider-thumb]:border-[#c3272b] [&::-webkit-slider-thumb]:shadow [&::-webkit-slider-thumb]:cursor-pointer [&::-moz-range-thumb]:pointer-events-auto [&::-moz-range-thumb]:w-4 [&::-moz-range-thumb]:h-4 [&::-moz-range-thumb]:rounded-full [&::-moz-range-thumb]:bg-white [&::-moz-range-thumb]:border-2 [&::-moz-range-thumb]:border-[#c3272b] [&::-moz-range-thumb]:cursor-pointer"
                   />
                 </div>
                 <div className="flex items-center justify-between gap-2 mt-3">
@@ -141,7 +179,7 @@ export default function CategoryPage({ categoryName, products, priceMinDefault, 
                     type="text"
                     value={priceMin}
                     onChange={(e) => {
-                      setPriceMin(Number(e.target.value) || 0)
+                      setPriceMin(Math.min(Number(e.target.value) || 0, priceMax))
                       setVisibleCount(INITIAL_COUNT)
                     }}
                     className="w-[80px] h-[30px] border border-gray-200 rounded text-center text-[13px]"
@@ -151,7 +189,7 @@ export default function CategoryPage({ categoryName, products, priceMinDefault, 
                     type="text"
                     value={priceMax}
                     onChange={(e) => {
-                      setPriceMax(Number(e.target.value) || 0)
+                      setPriceMax(Math.max(Number(e.target.value) || 0, priceMin))
                       setVisibleCount(INITIAL_COUNT)
                     }}
                     className="w-[80px] h-[30px] border border-gray-200 rounded text-center text-[13px]"
@@ -159,33 +197,53 @@ export default function CategoryPage({ categoryName, products, priceMinDefault, 
                 </div>
               </div>
 
-              <div className="bg-white border border-gray-200 rounded-lg overflow-hidden">
-                <div className="flex items-center justify-between px-4 py-3.5 border-b border-gray-100">
-                  <p className="m-0 font-semibold text-[15px] text-gray-800">Availability</p>
-                  <span className="mi text-gray-500 text-[20px]">expand_more</span>
-                </div>
-                <div className="px-3 py-2">
-                  {[
-                    { value: 'in_stock', label: 'In Stock' },
-                    { value: 'pre_order', label: 'Pre Order' },
-                    { value: 'upcoming', label: 'Up Coming' },
-                    { value: 'out_of_stock', label: 'Out of Stock' },
-                  ].map((opt) => (
-                    <label
-                      key={opt.value}
-                      className="flex items-center gap-2 px-1 py-1.5 rounded hover:bg-gray-50 cursor-pointer text-[14px] text-gray-700"
-                    >
-                      <input
-                        type="checkbox"
-                        checked={availability.includes(opt.value)}
-                        onChange={() => toggleAvailability(opt.value)}
-                        className="accent-[#d92128] w-[15px] h-[15px]"
-                      />
-                      {opt.label}
-                    </label>
-                  ))}
-                </div>
+              <div className="bg-white border border-gray-200 rounded-lg overflow-hidden mb-4">
+                <button
+                  type="button"
+                  onClick={() => setBrandSectionOpen((v) => !v)}
+                  className="w-full flex items-center justify-between px-4 py-3.5 border-b border-gray-100 cursor-pointer"
+                >
+                  <p className="m-0 font-semibold text-[15px] text-gray-800">Brand</p>
+                  <span
+                    className={`mi text-gray-500 text-[20px] transition-transform ${brandSectionOpen ? 'rotate-180' : ''}`}
+                  >
+                    expand_more
+                  </span>
+                </button>
+                {brandSectionOpen && (
+                  <div className="px-3 py-2">
+                    {brands.map((brand) => (
+                      <label
+                        key={brand}
+                        className="flex items-center gap-2 px-1 py-1.5 rounded hover:bg-gray-50 cursor-pointer text-[14px] text-gray-700"
+                      >
+                        <input
+                          type="checkbox"
+                          checked={selectedBrands.includes(brand)}
+                          onChange={() => toggleBrand(brand)}
+                          className="accent-[#c3272b] w-[15px] h-[15px]"
+                        />
+                        {brand}
+                      </label>
+                    ))}
+                  </div>
+                )}
               </div>
+
+              {filtersActive && (
+                <button
+                  type="button"
+                  onClick={() => {
+                    setPriceMin(priceMinDefault)
+                    setPriceMax(priceMaxDefault)
+                    setSelectedBrands([])
+                    setVisibleCount(INITIAL_COUNT)
+                  }}
+                  className="w-full text-center text-[13px] font-semibold text-[#c3272b] py-2 hover:underline cursor-pointer"
+                >
+                  Clear all filters
+                </button>
+              )}
             </div>
         </aside>
 
@@ -285,13 +343,13 @@ export default function CategoryPage({ categoryName, products, priceMinDefault, 
                             : 'bg-[#f5f6fa] border-[#ebebeb] hover:bg-[#c3272b] hover:border-[#c3272b]'
                         }`}
                       >
-                        <span
-                          className={`mi text-[16px] transition-colors ${
-                            isWished(p.id) ? 'text-white' : 'text-gray-500 group-hover:text-white'
-                          }`}
-                        >
-                          {isWished(p.id) ? 'favorite' : 'favorite_border'}
-                        </span>
+                        <Image
+                          src="/images/catalog/view/theme/default/image/message-icon.svg"
+                          alt="Add to Wish List"
+                          width={20}
+                          height={20}
+                          className={`w-5 h-5 transition-all ${isWished(p.id) ? 'brightness-0 invert' : 'group-hover:brightness-0 group-hover:invert'}`}
+                        />
                       </button>
                       <button
                         type="button"
@@ -299,9 +357,13 @@ export default function CategoryPage({ categoryName, products, priceMinDefault, 
                         onClick={() => handleCompareClick(p)}
                         className="group w-9 h-9 shrink-0 rounded-full bg-[#f5f6fa] border border-[#ebebeb] flex items-center justify-center hover:bg-[#c3272b] hover:border-[#c3272b] transition-colors cursor-pointer"
                       >
-                        <span className="mi text-[16px] text-gray-500 group-hover:text-white transition-colors">
-                          compare_arrows
-                        </span>
+                        <Image
+                          src="/images/catalog/view/theme/default/image/compare-icon-svg.svg"
+                          alt="Compare this Product"
+                          width={20}
+                          height={20}
+                          className="w-5 h-5 transition-all group-hover:brightness-0 group-hover:invert"
+                        />
                       </button>
                     </div>
                   </div>
