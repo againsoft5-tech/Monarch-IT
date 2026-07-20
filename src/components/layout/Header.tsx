@@ -3,8 +3,9 @@
 import { useEffect, useRef, useState } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
-import { usePathname } from 'next/navigation'
+import { usePathname, useRouter } from 'next/navigation'
 import { useCart } from '@/context/CartContext'
+import { useAuth } from '@/context/AuthContext'
 import ShopMenu from './ShopMenu'
 import SearchDropdown from './SearchDropdown'
 
@@ -13,6 +14,8 @@ const IMG_BASE = '/images'
 export default function Header() {
   const [accountOpen, setAccountOpen] = useState(false)
   const { openCart, itemCount } = useCart()
+  const { isLoggedIn, customerName, logout } = useAuth()
+  const router = useRouter()
   const isHome = usePathname() === '/'
   const headerRef = useRef<HTMLElement>(null)
   const [headerBottom, setHeaderBottom] = useState(0)
@@ -147,20 +150,56 @@ export default function Header() {
               </button>
               {accountOpen && (
                 <div className="absolute right-0 top-full bg-white border-[1.5px] border-gray-200 rounded-[10px] shadow-[0_8px_28px_rgba(0,0,0,0.13)] min-w-[175px] z-[1200] py-1.5">
-                  <Link
-                    href="/login"
-                    className="flex items-center gap-[9px] px-4 py-2.5 text-[13px] font-medium text-gray-900 no-underline hover:bg-[#f5f6fa] hover:text-[#d32f2f] transition-colors"
-                  >
-                    <span className="mi text-[17px] text-gray-400">lock</span>
-                    Login
-                  </Link>
-                  <Link
-                    href="/register"
-                    className="flex items-center gap-[9px] px-4 py-2.5 text-[13px] font-medium text-gray-900 no-underline hover:bg-[#f5f6fa] hover:text-[#d32f2f] transition-colors"
-                  >
-                    <span className="mi text-[17px] text-gray-400">person_add</span>
-                    Register
-                  </Link>
+                  {isLoggedIn ? (
+                    <>
+                      <div className="px-4 py-2 text-[12px] text-gray-400 truncate border-b border-gray-100 mb-1">
+                        {customerName}
+                      </div>
+                      <Link
+                        href="/account"
+                        className="flex items-center gap-[9px] px-4 py-2.5 text-[13px] font-medium text-gray-900 no-underline hover:bg-[#f5f6fa] hover:text-[#d32f2f] transition-colors"
+                      >
+                        <span className="mi text-[17px] text-gray-400">dashboard</span>
+                        My Account
+                      </Link>
+                      <Link
+                        href="/account/orders"
+                        className="flex items-center gap-[9px] px-4 py-2.5 text-[13px] font-medium text-gray-900 no-underline hover:bg-[#f5f6fa] hover:text-[#d32f2f] transition-colors"
+                      >
+                        <span className="mi text-[17px] text-gray-400">shopping_bag</span>
+                        Orders
+                      </Link>
+                      <button
+                        type="button"
+                        onClick={() => {
+                          logout()
+                          setAccountOpen(false)
+                          router.push('/')
+                        }}
+                        className="flex w-full items-center gap-[9px] px-4 py-2.5 text-[13px] font-medium text-gray-900 hover:bg-[#f5f6fa] hover:text-[#d32f2f] transition-colors cursor-pointer bg-transparent border-0 text-left"
+                      >
+                        <span className="mi text-[17px] text-gray-400">logout</span>
+                        Logout
+                      </button>
+                    </>
+                  ) : (
+                    <>
+                      <Link
+                        href="/login"
+                        className="flex items-center gap-[9px] px-4 py-2.5 text-[13px] font-medium text-gray-900 no-underline hover:bg-[#f5f6fa] hover:text-[#d32f2f] transition-colors"
+                      >
+                        <span className="mi text-[17px] text-gray-400">lock</span>
+                        Login
+                      </Link>
+                      <Link
+                        href="/register"
+                        className="flex items-center gap-[9px] px-4 py-2.5 text-[13px] font-medium text-gray-900 no-underline hover:bg-[#f5f6fa] hover:text-[#d32f2f] transition-colors"
+                      >
+                        <span className="mi text-[17px] text-gray-400">person_add</span>
+                        Register
+                      </Link>
+                    </>
+                  )}
                 </div>
               )}
             </div>

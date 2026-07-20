@@ -142,6 +142,13 @@ export default function ShopMenu({ headerBottom }: { headerBottom: number }) {
     return () => document.removeEventListener('mousedown', handleClick)
   }, [open])
 
+  useEffect(() => {
+    if (!open) return
+    const handleScroll = () => setOpen(false)
+    window.addEventListener('scroll', handleScroll, { passive: true })
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [open])
+
   const active = shopCategories[activeIndex]
   const subRows: ShopSub[][] = []
   for (let i = 0; i < active.sub.length; i += 3) subRows.push(active.sub.slice(i, i + 3))

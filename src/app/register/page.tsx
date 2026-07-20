@@ -3,7 +3,9 @@
 import { useState } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
+import { useRouter } from 'next/navigation'
 import Breadcrumbs from '@/components/category/Breadcrumbs'
+import { useAuth } from '@/context/AuthContext'
 
 const IMG_BASE = '/images'
 
@@ -11,9 +13,15 @@ export default function RegisterPage() {
   const [showPassword, setShowPassword] = useState(false)
   const [showConfirm, setShowConfirm] = useState(false)
   const [gender, setGender] = useState<'male' | 'female'>('male')
+  const { login } = useAuth()
+  const router = useRouter()
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
+    const fd = new FormData(e.currentTarget)
+    const email = String(fd.get('email') || '').trim()
+    login(email)
+    router.push('/account')
   }
 
   return (
@@ -140,7 +148,9 @@ export default function RegisterPage() {
                 </label>
                 <input
                   id="reg-email"
+                  name="email"
                   type="email"
+                  required
                   placeholder="Email Address"
                   autoComplete="email"
                   className="w-full h-[42px] px-4 rounded-[20px] border border-gray-200 outline-none text-[14px] text-gray-800 focus:border-gray-400 transition-colors"

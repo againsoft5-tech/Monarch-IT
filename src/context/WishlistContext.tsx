@@ -3,8 +3,11 @@
 import { createContext, useContext, useState, type ReactNode } from 'react'
 
 type WishlistContextType = {
+  wishedIds: string[]
   isWished: (id: string) => boolean
   toggleWish: (id: string) => void
+  removeWish: (id: string) => void
+  clearWishlist: () => void
 }
 
 const WishlistContext = createContext<WishlistContextType | undefined>(undefined)
@@ -18,7 +21,17 @@ export function WishlistProvider({ children }: { children: ReactNode }) {
     setIds((prev) => (prev.includes(id) ? prev.filter((x) => x !== id) : [...prev, id]))
   }
 
-  return <WishlistContext.Provider value={{ isWished, toggleWish }}>{children}</WishlistContext.Provider>
+  const removeWish = (id: string) => {
+    setIds((prev) => prev.filter((x) => x !== id))
+  }
+
+  const clearWishlist = () => setIds([])
+
+  return (
+    <WishlistContext.Provider value={{ wishedIds: ids, isWished, toggleWish, removeWish, clearWishlist }}>
+      {children}
+    </WishlistContext.Provider>
+  )
 }
 
 export function useWishlist() {

@@ -1,24 +1,25 @@
 'use client'
 
-import { useState } from 'react'
+import { Suspense, useState } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
-import { useRouter } from 'next/navigation'
+import { useRouter, useSearchParams } from 'next/navigation'
 import Breadcrumbs from '@/components/category/Breadcrumbs'
 import { useAuth } from '@/context/AuthContext'
 
 const IMG_BASE = '/images'
 
-export default function LoginPage() {
+function LoginForm() {
   const [showPassword, setShowPassword] = useState(false)
   const [email, setEmail] = useState('')
   const { login } = useAuth()
   const router = useRouter()
+  const searchParams = useSearchParams()
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     login(email)
-    router.push('/')
+    router.push(searchParams.get('next') || '/account')
   }
 
   return (
@@ -134,5 +135,13 @@ export default function LoginPage() {
         </div>
       </div>
     </>
+  )
+}
+
+export default function LoginPage() {
+  return (
+    <Suspense fallback={null}>
+      <LoginForm />
+    </Suspense>
   )
 }
