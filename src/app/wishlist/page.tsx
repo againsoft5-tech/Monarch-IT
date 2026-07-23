@@ -6,9 +6,9 @@ import Breadcrumbs from '@/components/category/Breadcrumbs'
 import { useCart } from '@/context/CartContext'
 import { useWishlist } from '@/context/WishlistContext'
 import { formatCurrency } from '@/lib/currency'
-import { mideaAcProducts, type CategoryProduct } from '@/data/categoryProducts'
+import { categoryProductsMap, type CategoryProduct } from '@/data/categoryProducts'
 
-const wishlistCatalog = mideaAcProducts.filter((p) => !p.id.startsWith('dummy'))
+const wishlistCatalog: CategoryProduct[] = Object.values(categoryProductsMap).flatMap((c) => c.products)
 
 function WishlistCard({
   item,

@@ -5,9 +5,13 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import type { CategoryProduct } from '@/data/categoryProducts'
+import { getProductDetail } from '@/data/productDetail'
 import { useAuth } from '@/context/AuthContext'
-import { useWishlist } from '@/context/WishlistContext'
+import { useCart } from '@/context/CartContext'
+import { useCompare } from '@/context/CompareContext'
+import { categoryProductToCompare } from '@/lib/compareAdapter'
 import { useToast, Toast } from '@/components/ui/Toast'
+import ChatWidget from '@/components/chat/ChatWidget'
 
 type Props = {
   categoryName: string
@@ -22,7 +26,8 @@ const LOAD_MORE_COUNT = 10
 export default function CategoryPage({ categoryName, products, priceMinDefault, priceMaxDefault }: Props) {
   const router = useRouter()
   const { isLoggedIn } = useAuth()
-  const { isWished, toggleWish } = useWishlist()
+  const { addItems } = useCart()
+  const { slots, setSlot } = useCompare()
   const [filterOpen, setFilterOpen] = useState(false)
   const [brandSectionOpen, setBrandSectionOpen] = useState(true)
   const [selectedBrands, setSelectedBrands] = useState<string[]>([])
@@ -31,20 +36,53 @@ export default function CategoryPage({ categoryName, products, priceMinDefault, 
   const [sort, setSort] = useState<'default' | 'price-asc' | 'price-desc'>('default')
   const [visibleCount, setVisibleCount] = useState(INITIAL_COUNT)
   const [descOpen, setDescOpen] = useState(false)
+  const [chatOpen, setChatOpen] = useState(false)
   const { toast, showToast } = useToast()
 
-  const handleWishlistClick = (product: CategoryProduct) => {
+  const handleChatClick = () => {
     if (!isLoggedIn) {
+      showToast('Please login to start chatting')
       router.push('/login')
       return
     }
-    const wasWished = isWished(product.id)
-    toggleWish(product.id)
-    showToast(wasWished ? 'Removed from wishlist.' : 'Added to wishlist!')
+    setChatOpen(true)
   }
 
   const handleCompareClick = (product: CategoryProduct) => {
+    const alreadyIndex = slots.findIndex((s) => s?.slug === product.slug)
+    if (alreadyIndex !== -1) {
+      showToast(`${product.name} is already in your compare list.`)
+      return
+    }
+    const emptyIndex = slots.findIndex((s) => s === null)
+    if (emptyIndex === -1) {
+      showToast('Compare list is full. Remove an item first.')
+      return
+    }
+    setSlot(emptyIndex, categoryProductToCompare(product))
     showToast(`${product.name} added to compare list!`)
+  }
+
+  const handleBuyNow = (product: CategoryProduct) => {
+    const detail = getProductDetail(product.slug)
+    const hasOptions = Boolean(detail?.options && detail.options.length > 0)
+
+    if (hasOptions) {
+      router.push(`/${product.slug}`)
+      return
+    }
+
+    addItems([
+      {
+        id: product.slug,
+        name: product.name,
+        slug: product.slug,
+        image: product.image,
+        price: product.priceNew,
+        qty: 1,
+      },
+    ])
+    router.push('/checkout')
   }
 
   const brands = useMemo(() => {
@@ -329,26 +367,23 @@ export default function CategoryPage({ categoryName, products, priceMinDefault, 
                     <div className="flex items-center gap-2">
                       <button
                         type="button"
+                        onClick={() => handleBuyNow(p)}
                         className="flex-1 bg-white text-[#c3272b] border-2 border-[#c3272b] rounded-full py-1.5 px-2 text-[13px] font-bold hover:bg-[#c3272b] hover:text-white transition-colors cursor-pointer"
                       >
                         Buy now
                       </button>
                       <button
                         type="button"
-                        title="Add to Wish List"
-                        onClick={() => handleWishlistClick(p)}
-                        className={`group w-9 h-9 shrink-0 rounded-full border flex items-center justify-center transition-colors cursor-pointer ${
-                          isWished(p.id)
-                            ? 'bg-[#c3272b] border-[#c3272b]'
-                            : 'bg-[#f5f6fa] border-[#ebebeb] hover:bg-[#c3272b] hover:border-[#c3272b]'
-                        }`}
+                        title="Chat with us"
+                        onClick={handleChatClick}
+                        className="group w-9 h-9 shrink-0 rounded-full border bg-[#f5f6fa] border-[#ebebeb] hover:bg-[#c3272b] hover:border-[#c3272b] flex items-center justify-center transition-colors cursor-pointer"
                       >
                         <Image
                           src="/images/catalog/view/theme/default/image/message-icon.svg"
-                          alt="Add to Wish List"
+                          alt="Chat with us"
                           width={20}
                           height={20}
-                          className={`w-5 h-5 transition-all ${isWished(p.id) ? 'brightness-0 invert' : 'group-hover:brightness-0 group-hover:invert'}`}
+                          className="w-5 h-5 transition-all group-hover:brightness-0 group-hover:invert"
                         />
                       </button>
                       <button
@@ -431,6 +466,7 @@ export default function CategoryPage({ categoryName, products, priceMinDefault, 
             </div>
         </div>
       </div>
+      <ChatWidget open={chatOpen} onClose={() => setChatOpen(false)} />
     </div>
   )
 }

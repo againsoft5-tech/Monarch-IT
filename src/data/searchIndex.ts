@@ -1,5 +1,5 @@
 import { componentProducts, monitorProducts, refrigeratorProducts } from './products'
-import { mideaAcProducts } from './categoryProducts'
+import { categoryProductsMap } from './categoryProducts'
 import { drawerCategories } from './categories'
 
 export type SearchProduct = {
@@ -14,7 +14,7 @@ export const searchProducts: SearchProduct[] = [
   ...monitorProducts,
   ...componentProducts,
   ...refrigeratorProducts,
-  ...mideaAcProducts.filter((p) => !p.id.startsWith('dummy')),
+  ...Object.values(categoryProductsMap).flatMap((c) => c.products),
 ].map(({ slug, name, image, priceNew, priceOld }) => ({ slug, name, image, priceNew, priceOld }))
 
 export type SearchCategory = { name: string; href: string }

@@ -10,101 +10,126 @@ type ShopCategory = { name: string; href: string; sub: ShopSub[] }
 const shopCategories: ShopCategory[] = [
   {
     name: 'Desktop',
-    href: '#',
+    href: '/desktops',
     sub: [
-      { name: 'All Desktop', href: '#' },
-      { name: 'Gaming Desktop', href: '#' },
-      { name: 'Mini PC', href: '#' },
-      { name: 'All in One PC', href: '#' },
-      { name: 'Workstation', href: '#' },
+      { name: 'All Desktop', href: '/desktops' },
+      { name: 'Gaming Desktop', href: '/desktops' },
+      { name: 'Mini PC', href: '/desktops' },
+      { name: 'All in One PC', href: '/desktops' },
+      { name: 'Workstation', href: '/desktops' },
     ],
   },
   {
     name: 'Laptop',
-    href: '#',
+    href: '/laptop',
     sub: [
-      { name: 'All Laptop', href: '#' },
-      { name: 'Gaming Laptop', href: '#' },
-      { name: 'Laptop Accessories', href: '#' },
-      { name: 'Laptop Bag', href: '#' },
-      { name: 'Premium Ultrabook', href: '#' },
+      { name: 'All Laptop', href: '/laptop' },
+      { name: 'Gaming Laptop', href: '/laptop' },
+      { name: 'Laptop Accessories', href: '/laptop' },
+      { name: 'Laptop Bag', href: '/laptop' },
+      { name: 'Premium Ultrabook', href: '/laptop' },
     ],
   },
   {
     name: 'PC Components',
-    href: '#',
+    href: '/component',
     sub: [
-      { name: 'Processor', href: '#' },
-      { name: 'Motherboard', href: '#' },
-      { name: 'Graphics Card', href: '#' },
-      { name: 'RAM', href: '#' },
-      { name: 'SSD & HDD', href: '#' },
-      { name: 'Power Supply', href: '#' },
-      { name: 'Casing', href: '#' },
-      { name: 'CPU Cooler', href: '#' },
+      { name: 'Processor', href: '/component' },
+      { name: 'Motherboard', href: '/component' },
+      { name: 'Graphics Card', href: '/component' },
+      { name: 'RAM', href: '/component' },
+      { name: 'SSD & HDD', href: '/component' },
+      { name: 'Power Supply', href: '/component' },
+      { name: 'Casing', href: '/component' },
+      { name: 'CPU Cooler', href: '/component' },
     ],
   },
   {
     name: 'Monitor',
-    href: '#',
+    href: '/monitor',
     sub: [
-      { name: 'Gaming Monitor', href: '#' },
-      { name: 'Office Monitor', href: '#' },
-      { name: 'Curved Monitor', href: '#' },
-      { name: 'Portable Monitor', href: '#' },
+      { name: 'Gaming Monitor', href: '/monitor' },
+      { name: 'Office Monitor', href: '/monitor' },
+      { name: 'Curved Monitor', href: '/monitor' },
+      { name: 'Portable Monitor', href: '/monitor' },
     ],
   },
   {
     name: 'UPS',
-    href: '#',
+    href: '/ups-ips',
     sub: [
-      { name: 'Online UPS', href: '#' },
-      { name: 'Offline UPS', href: '#' },
-      { name: 'IPS', href: '#' },
-      { name: 'Stabilizer', href: '#' },
+      { name: 'Online UPS', href: '/ups-ips' },
+      { name: 'Offline UPS', href: '/ups-ips' },
+      { name: 'IPS', href: '/ups-ips' },
+      { name: 'Stabilizer', href: '/ups-ips' },
     ],
   },
   {
     name: 'Office Equipment',
-    href: '#',
+    href: '/office-equipments',
     sub: [
-      { name: 'Printer', href: '#' },
-      { name: 'Scanner', href: '#' },
-      { name: 'Photocopier', href: '#' },
-      { name: 'Projector', href: '#' },
-      { name: 'Shredder', href: '#' },
+      { name: 'Printer', href: '/office-equipments' },
+      { name: 'Scanner', href: '/office-equipments' },
+      { name: 'Photocopier', href: '/office-equipments' },
+      { name: 'Projector', href: '/office-equipments' },
+      { name: 'Shredder', href: '/office-equipments' },
     ],
   },
   {
     name: 'Mobile Accessories',
-    href: '#',
+    href: '/mobile-accessories',
     sub: [
-      { name: 'Power Bank', href: '#' },
-      { name: 'Mobile Cover', href: '#' },
-      { name: 'Charger', href: '#' },
-      { name: 'Earphone', href: '#' },
-      { name: 'Smart Watch', href: '#' },
+      { name: 'Power Bank', href: '/mobile-accessories' },
+      { name: 'Mobile Cover', href: '/mobile-accessories' },
+      { name: 'Charger', href: '/mobile-accessories' },
+      { name: 'Earphone', href: '/mobile-accessories' },
+      { name: 'Smart Watch', href: '/mobile-accessories' },
     ],
   },
   {
+    name: 'AC',
+    href: '/air-conditioner',
+    sub: [{ name: 'All Air Conditioner', href: '/air-conditioner' }],
+  },
+  {
     name: 'Security',
-    href: '#',
+    href: '/security',
     sub: [
-      { name: 'CCTV Camera', href: '#' },
-      { name: 'DVR & NVR', href: '#' },
-      { name: 'Access Control', href: '#' },
-      { name: 'Door Lock', href: '#' },
+      { name: 'CCTV Camera', href: '/security' },
+      { name: 'DVR & NVR', href: '/security' },
+      { name: 'Access Control', href: '/security' },
+      { name: 'Door Lock', href: '/security' },
     ],
   },
   {
     name: 'Networking',
-    href: '#',
+    href: '/networking',
     sub: [
-      { name: 'Router', href: '#' },
-      { name: 'Switch', href: '#' },
-      { name: 'Access Point', href: '#' },
-      { name: 'Network Cable', href: '#' },
+      { name: 'Router', href: '/networking' },
+      { name: 'Switch', href: '/networking' },
+      { name: 'Access Point', href: '/networking' },
+      { name: 'Network Cable', href: '/networking' },
     ],
+  },
+  {
+    name: 'Accessories',
+    href: '/accessories',
+    sub: [{ name: 'All Accessories', href: '/accessories' }],
+  },
+  {
+    name: 'Server & Storage',
+    href: '/server-and-storage',
+    sub: [{ name: 'All Server & Storage', href: '/server-and-storage' }],
+  },
+  {
+    name: 'Gadget',
+    href: '/gadget',
+    sub: [{ name: 'All Gadget', href: '/gadget' }],
+  },
+  {
+    name: 'Gaming',
+    href: '/gaming',
+    sub: [{ name: 'All Gaming', href: '/gaming' }],
   },
 ]
 
@@ -216,11 +241,12 @@ export default function ShopMenu({ headerBottom }: { headerBottom: number }) {
                 <div className="w-[760px] bg-white border border-[#eccccc] rounded-2xl shadow-[0_20px_50px_rgba(0,0,0,0.15)] flex overflow-hidden">
                   <div className="w-[210px] shrink-0 max-h-[336px] overflow-y-auto thin-scroll-red border-r border-gray-200 py-2">
                     {shopCategories.map((cat, i) => (
-                      <button
+                      <Link
                         key={cat.name}
-                        type="button"
+                        href={cat.href}
                         onMouseEnter={() => setActiveIndex(i)}
-                        className={`w-full flex items-center justify-between gap-2 px-4 py-2.5 text-[14px] text-left whitespace-nowrap transition-colors cursor-pointer ${
+                        onClick={() => setOpen(false)}
+                        className={`w-full flex items-center justify-between gap-2 px-4 py-2.5 text-[14px] text-left whitespace-nowrap no-underline transition-colors cursor-pointer ${
                           i === activeIndex
                             ? 'text-[#d32f2f] bg-[#fdecea] font-semibold'
                             : 'text-gray-700 hover:bg-gray-50'
@@ -228,7 +254,7 @@ export default function ShopMenu({ headerBottom }: { headerBottom: number }) {
                       >
                         {cat.name}
                         <span className="mi text-[16px] shrink-0">chevron_right</span>
-                      </button>
+                      </Link>
                     ))}
                   </div>
 

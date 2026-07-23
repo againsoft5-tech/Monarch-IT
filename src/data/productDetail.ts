@@ -1,3 +1,19 @@
+import * as desktops from './categoryData/desktops'
+import * as laptop from './categoryData/laptop'
+import * as component from './categoryData/component'
+import * as monitor from './categoryData/monitor'
+import * as upsIps from './categoryData/ups-ips'
+import * as officeEquipments from './categoryData/office-equipments'
+import * as mobileAccessories from './categoryData/mobile-accessories'
+import * as airConditioner from './categoryData/air-conditioner'
+import * as security from './categoryData/security'
+import * as networking from './categoryData/networking'
+import * as accessories from './categoryData/accessories'
+import * as serverAndStorage from './categoryData/server-and-storage'
+import * as gadget from './categoryData/gadget'
+import * as gaming from './categoryData/gaming'
+import type { CategoryProduct } from './categoryProducts'
+
 export type ProductImage = {
   large: string
   thumb: string
@@ -22,6 +38,11 @@ export type QaItem = {
   answer: string
 }
 
+export type ProductOption = {
+  name: string
+  values: string[]
+}
+
 export type RelatedProduct = {
   slug: string
   name: string
@@ -37,7 +58,7 @@ export type ProductDetail = {
   slug: string
   name: string
   brand: string
-  model: string
+  model?: string
   breadcrumb: { label: string; href: string }[]
   images: ProductImage[]
   rating: number
@@ -45,18 +66,19 @@ export type ProductDetail = {
   priceNew: number
   priceOld: number
   discountPct: number
-  discountEndsAt: string
-  emiMonthly: number
-  emiMonths: number
+  discountEndsAt?: string
+  emiMonthly?: number
+  emiMonths?: number
   keyFeatures: string[]
   specGroups: SpecGroup[]
   descriptionTitle: string
   descriptionParagraph: string
-  descriptionSections: { heading: string; points: string[] }[]
-  reviews: Review[]
-  qa: QaItem[]
-  mostViewed: RelatedProduct
-  moreToLove: RelatedProduct[]
+  descriptionSections?: { heading: string; points: string[] }[]
+  options?: ProductOption[]
+  reviews?: Review[]
+  qa?: QaItem[]
+  mostViewed?: RelatedProduct
+  moreToLove?: RelatedProduct[]
 }
 
 const sonyBravia: ProductDetail = {
@@ -273,8 +295,50 @@ const sonyBravia: ProductDetail = {
   ],
 }
 
+const scrapedCategories = [
+  desktops,
+  laptop,
+  component,
+  monitor,
+  upsIps,
+  officeEquipments,
+  mobileAccessories,
+  airConditioner,
+  security,
+  networking,
+  accessories,
+  serverAndStorage,
+  gadget,
+  gaming,
+]
+
+function toRelated(p: CategoryProduct): RelatedProduct {
+  return {
+    slug: p.slug,
+    name: p.name,
+    image: p.image,
+    rating: p.rating,
+    reviews: p.reviews,
+    priceNew: p.priceNew,
+    priceOld: p.priceOld,
+    discountPct: p.discountPct,
+  }
+}
+
 export const productDetailMap: Record<string, ProductDetail> = {
   [sonyBravia.slug]: sonyBravia,
+}
+
+for (const cat of scrapedCategories) {
+  const siblings = cat.products
+  for (const detail of cat.details) {
+    const related = siblings.filter((p) => p.slug !== detail.slug).map(toRelated)
+    productDetailMap[detail.slug] = {
+      ...detail,
+      mostViewed: detail.mostViewed ?? related[0],
+      moreToLove: detail.moreToLove ?? related.slice(0, 8),
+    }
+  }
 }
 
 export function getProductDetail(slug: string): ProductDetail | undefined {

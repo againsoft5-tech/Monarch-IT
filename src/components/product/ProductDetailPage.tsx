@@ -36,7 +36,7 @@ export default function ProductDetailPage({ product }: { product: ProductDetail 
           <div className="flex-1 min-w-0">
             <ProductTabs product={product} tab={tab} onTabChange={setTab} />
           </div>
-          <ProductSidebar product={product.mostViewed} /> 
+          {product.mostViewed && <ProductSidebar product={product.mostViewed} />}
         </div>
       </div>
 
@@ -52,7 +52,7 @@ export default function ProductDetailPage({ product }: { product: ProductDetail 
         </div>
       </div>
 
-      <MoreToLove products={product.moreToLove} />
+      {product.moreToLove && product.moreToLove.length > 0 && <MoreToLove products={product.moreToLove} />}
     </div>
   )
 }

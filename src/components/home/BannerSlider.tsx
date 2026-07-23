@@ -6,9 +6,9 @@ import Image from 'next/image'
 const IMG_BASE = '/images/image/cache/catalog/website/banner'
 
 const banners = [
-  { img: `${IMG_BASE}/slider1-660x418.jpg`, url: '/midea-air-conditioner' },
-  { img: `${IMG_BASE}/slider2-660x418.jpg`, url: '/midea-air-conditioner' },
-  { img: `${IMG_BASE}/samrt-tv-exchange1-660x418.jpg`, url: '/midea-air-conditioner' },
+  { img: `${IMG_BASE}/slider1-660x418.jpg`, url: '/laptop' },
+  { img: `${IMG_BASE}/slider2-660x418.jpg`, url: '/desktops' },
+  { img: `${IMG_BASE}/samrt-tv-exchange1-660x418.jpg`, url: '/monitor' },
 ]
 
 export default function BannerSlider() {

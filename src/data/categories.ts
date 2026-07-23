@@ -1,21 +1,34 @@
 export const featuredCategories = [
-  { name: 'Television',      img: '/images/image/cache/catalog/website/featured-category/casing2-500x400.png',         href: '/midea-air-conditioner' },
-  { name: 'Air Conditioner', img: '/images/image/cache/catalog/website/featured-category/laptop-500x400.png',          href: '/midea-air-conditioner' },
-  { name: 'Washing Machine', img: '/images/image/cache/catalog/website/featured-category/graphics-card-500x400.png',   href: '/midea-air-conditioner' },
-  { name: 'Refrigerator',    img: '/images/image/cache/catalog/website/featured-category/monitor-500x400.png',         href: '/midea-air-conditioner' },
-  { name: 'Smart Phone',     img: '/images/image/cache/catalog/website/featured-category/smartphone-500x400.png',      href: '/midea-air-conditioner' },
-  { name: 'Laptop',          img: '/images/image/cache/catalog/website/featured-category/laptop-icon-500x400.png',     href: '/midea-air-conditioner' },
-  { name: 'Monitor',         img: '/images/image/cache/catalog/website/featured-category/monitor-500x400.png',         href: '/midea-air-conditioner' },
-  { name: 'Desktop',         img: '/images/image/cache/catalog/website/featured-category/desktop-500x400.png',         href: '/midea-air-conditioner' },
-  { name: 'Microwave Oven',  img: '/images/image/cache/catalog/website/featured-category/oven-icon-500x400.png',       href: '/midea-air-conditioner' },
-  { name: 'Drone',           img: '/images/image/cache/catalog/website/featured-category/drone-icon-500x400.png',      href: '/midea-air-conditioner' },
-  { name: 'Camera',          img: '/images/image/cache/catalog/website/featured-category/camera-icon-images-500x400.png', href: '/midea-air-conditioner' },
-  { name: 'Tablet',          img: '/images/image/cache/catalog/website/featured-category/tablet-icon-500x400.png',     href: '/midea-air-conditioner' },
+  { name: 'Desktop',         img: '/images/image/cache/catalog/website/featured-category/desktop-3d.png',              href: '/desktops' },
+  { name: 'Laptop',          img: '/images/image/cache/catalog/website/featured-category/laptop-3d.png',               href: '/laptop' },
+  { name: 'Components',      img: '/images/image/cache/catalog/website/featured-category/graphics-card-3d.png',        href: '/component' },
+  { name: 'Monitor',         img: '/images/image/cache/catalog/website/featured-category/monitor-500x400.png',         href: '/monitor' },
+  { name: 'Mobile Accessories', img: '/images/image/cache/catalog/website/featured-category/smartphone-500x400.png',   href: '/mobile-accessories' },
+  { name: 'Security',        img: '/images/image/cache/catalog/website/featured-category/camera-icon-images-500x400.png', href: '/security' },
+  { name: 'Gadget',          img: '/images/image/cache/catalog/website/featured-category/drone-icon-500x400.png',      href: '/gadget' },
+]
+
+// Top-level "Shop" categories mirroring monarchit.com.bd's IT/electronics catalog.
+// Categories that already exist above (Monitor, Air Conditioner) are intentionally
+// left out here since they're already registered with their own slug/subs.
+export const shopTopCategories = [
+  { name: 'Desktop', href: '/desktops' },
+  { name: 'Laptop', href: '/laptop' },
+  { name: 'Components', href: '/component' },
+  { name: 'UPS', href: '/ups-ips' },
+  { name: 'Office Equipment', href: '/office-equipments' },
+  { name: 'Mobile Accessories', href: '/mobile-accessories' },
+  { name: 'Security', href: '/security' },
+  { name: 'Networking', href: '/networking' },
+  { name: 'Accessories', href: '/accessories' },
+  { name: 'Server & Storage', href: '/server-and-storage' },
+  { name: 'Gadget', href: '/gadget' },
+  { name: 'Gaming', href: '/gaming' },
 ]
 
 export const drawerCategories = [
   {
-    name: 'Television', icon: 'tv', href: '/midea-air-conditioner',
+    name: 'Television', icon: 'tv', href: '/monitor',
     sub: [
       { name: 'TCL',               href: '/tcl-tv' },
       { name: 'Haier',             href: '/haier-tv' },
@@ -47,7 +60,7 @@ export const drawerCategories = [
       { name: 'Haier',       href: '/haier-air-conditioner' },
       { name: 'Gree',        href: '/gree-ac-price-in-bd' },
       { name: 'Samsung',     href: '/samsung-ac' },
-      { name: 'Midea',       href: '/midea-air-conditioner' },
+      { name: 'Midea',       href: '/air-conditioner' },
       { name: 'Hisense',     href: '/hisense-air-conditioners' },
       { name: 'More Brands', href: '/more-ac-brands' },
     ],

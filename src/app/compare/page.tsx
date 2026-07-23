@@ -82,8 +82,8 @@ function ComparePageInner() {
   const router = useRouter()
   const pathname = usePathname()
   const searchParams = useSearchParams()
-  const [started, setStarted] = useState(false)
-  const [queries, setQueries] = useState<string[]>(['', '', ''])
+  const [started, setStarted] = useState(() => Boolean(slots[0] && slots[1]))
+  const [queries, setQueries] = useState<string[]>(() => slots.map((s) => s?.name ?? ''))
   const [openSlot, setOpenSlot] = useState<number | null>(null)
   const [toast, setToast] = useState<string | null>(null)
   const [openSections, setOpenSections] = useState<Record<string, boolean>>({

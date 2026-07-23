@@ -3,9 +3,15 @@
 import { useState } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
+import { useRouter } from 'next/navigation'
 import type { ProductDetail } from '@/data/productDetail'
 import CountdownTimer from './CountdownTimer'
 import { useToast, Toast } from '@/components/ui/Toast'
+import { useCart } from '@/context/CartContext'
+import { useCompare } from '@/context/CompareContext'
+import { toCompareProduct } from '@/lib/compareAdapter'
+import { useAuth } from '@/context/AuthContext'
+import ChatWidget from '@/components/chat/ChatWidget'
 
 export default function ProductInfo({
   product,
@@ -18,9 +24,52 @@ export default function ProductInfo({
 }) {
   const [qty, setQty] = useState(1)
   const [priceOption, setPriceOption] = useState<'full' | 'emi'>('full')
+  const [chatOpen, setChatOpen] = useState(false)
   const { toast, showToast } = useToast()
+  const { addItems } = useCart()
+  const { slots, setSlot } = useCompare()
+  const { isLoggedIn } = useAuth()
+  const router = useRouter()
 
   const changeQty = (dir: number) => setQty((q) => Math.max(1, q + dir))
+
+  const cartItem = {
+    id: product.slug,
+    name: product.name,
+    slug: product.slug,
+    image: product.images[0]?.large ?? '',
+    price: product.priceNew,
+    qty,
+  }
+
+  const handleBuyNow = () => {
+    addItems([cartItem])
+    router.push('/checkout')
+  }
+
+  const handleCompare = () => {
+    const alreadyIndex = slots.findIndex((s) => s?.slug === product.slug)
+    if (alreadyIndex !== -1) {
+      showToast(`${product.name} is already in your compare list.`)
+      return
+    }
+    const emptyIndex = slots.findIndex((s) => s === null)
+    if (emptyIndex === -1) {
+      showToast('Compare list is full. Remove an item first.')
+      return
+    }
+    setSlot(emptyIndex, toCompareProduct(product))
+    showToast(`${product.name} added to compare list!`)
+  }
+
+  const handleChatClick = () => {
+    if (!isLoggedIn) {
+      showToast('Please login to start chatting')
+      router.push('/login')
+      return
+    }
+    setChatOpen(true)
+  }
 
   return (
     <div className="px-4 py-2 md:px-6">
@@ -47,9 +96,11 @@ export default function ProductInfo({
             {product.brand}
           </Link>
         </span>
-        <span className="text-gray-500">
-          Model: <strong className="text-gray-600">{product.model}</strong>
-        </span>
+        {product.model && (
+          <span className="text-gray-500">
+            Model: <strong className="text-gray-600">{product.model}</strong>
+          </span>
+        )}
       </div>
 
       <h1 className="text-xl font-bold text-gray-900 leading-snug mb-2.5">{product.name}</h1>
@@ -70,25 +121,27 @@ export default function ProductInfo({
           </div>
         </label>
 
-        <label className="cursor-pointer">
-          <input
-            type="radio"
-            name="payment_method"
-            checked={priceOption === 'emi'}
-            onChange={() => setPriceOption('emi')}
-            className="sr-only peer"
-          />
-          <div className="flex items-center gap-2 px-5 py-2.5 rounded-full border-[1.5px] border-gray-200 peer-checked:border-[#d92128] transition-colors">
-            <span className="text-[22px] font-bold text-gray-700">৳{product.emiMonthly.toLocaleString()}/</span>
-            <div className="flex flex-col leading-tight">
-              <span className="flex items-center gap-1.5 text-[13px] font-semibold text-gray-700">
-                month
-                <span className="bg-[#00b87a] text-white text-[9px] font-bold px-1.5 py-0.5 rounded">EMI</span>
-              </span>
-              <span className="text-[11px] text-gray-400">0% EMI for up to {product.emiMonths} Months</span>
+        {product.emiMonthly != null && (
+          <label className="cursor-pointer">
+            <input
+              type="radio"
+              name="payment_method"
+              checked={priceOption === 'emi'}
+              onChange={() => setPriceOption('emi')}
+              className="sr-only peer"
+            />
+            <div className="flex items-center gap-2 px-5 py-2.5 rounded-full border-[1.5px] border-gray-200 peer-checked:border-[#d92128] transition-colors">
+              <span className="text-[22px] font-bold text-gray-700">৳{product.emiMonthly.toLocaleString()}/</span>
+              <div className="flex flex-col leading-tight">
+                <span className="flex items-center gap-1.5 text-[13px] font-semibold text-gray-700">
+                  month
+                  <span className="bg-[#00b87a] text-white text-[9px] font-bold px-1.5 py-0.5 rounded">EMI</span>
+                </span>
+                <span className="text-[11px] text-gray-400">0% EMI for up to {product.emiMonths} Months</span>
+              </div>
             </div>
-          </div>
-        </label>
+          </label>
+        )}
       </div>
 
       <div className="mb-3.5">
@@ -109,7 +162,7 @@ export default function ProductInfo({
         </button>
       </div>
 
-      <CountdownTimer endDate={product.discountEndsAt} />
+      {product.discountEndsAt && <CountdownTimer endDate={product.discountEndsAt} />}
 
       <div className="flex items-center gap-2.5 flex-wrap mt-5">
         <div className="inline-flex items-center gap-1 bg-[#f3f4f6] rounded-full h-9 px-2">
@@ -132,6 +185,7 @@ export default function ProductInfo({
 
         <button
           type="button"
+          onClick={handleBuyNow}
           className="bg-[#D32F2F] text-white font-bold text-[13px] h-9 px-5 rounded-full hover:bg-[#b71c1c] transition-colors whitespace-nowrap cursor-pointer"
         >
           Buy Now
@@ -139,6 +193,7 @@ export default function ProductInfo({
 
         <button
           type="button"
+          onClick={handleChatClick}
           className="group flex items-center gap-1.5 bg-[#f3f4f6] text-gray-800 font-semibold text-[13px] h-9 px-3.5 rounded-full hover:bg-[#c3272b] hover:text-white transition-colors cursor-pointer"
         >
           <Image
@@ -154,7 +209,7 @@ export default function ProductInfo({
         <button
           type="button"
           title="Compare"
-          onClick={() => showToast(`${product.name} added to compare list!`)}
+          onClick={handleCompare}
           className="group w-9 h-9 shrink-0 bg-[#f3f4f6] rounded-full flex items-center justify-center hover:bg-[#c3272b] transition-colors cursor-pointer"
         >
           <Image
@@ -177,6 +232,8 @@ export default function ProductInfo({
           Returns &amp; Refunds Policy
         </a>
       </div>
+
+      <ChatWidget open={chatOpen} onClose={() => setChatOpen(false)} />
     </div>
   )
 }

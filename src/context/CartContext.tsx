@@ -1,8 +1,10 @@
 'use client'
 
-import { createContext, useContext, useMemo, useState, type ReactNode } from 'react'
+import { createContext, useContext, useEffect, useMemo, useState, type ReactNode } from 'react'
 import { initialCartItems, type CartItem } from '@/data/cart'
 import { COUPONS } from '@/data/coupons'
+
+const CART_STORAGE_KEY = 'monarchit_cart'
 
 type CouponMessage = { type: 'success' | 'error'; text: string }
 
@@ -30,6 +32,23 @@ export function CartProvider({ children }: { children: ReactNode }) {
   const [isOpen, setIsOpen] = useState(false)
   const [appliedCoupon, setAppliedCoupon] = useState<string | null>(null)
   const [couponMessage, setCouponMessage] = useState<CouponMessage | null>(null)
+
+  useEffect(() => {
+    try {
+      const stored = localStorage.getItem(CART_STORAGE_KEY)
+      if (stored) setItems(JSON.parse(stored))
+    } catch {
+      // ignore malformed/unavailable storage
+    }
+  }, [])
+
+  useEffect(() => {
+    try {
+      localStorage.setItem(CART_STORAGE_KEY, JSON.stringify(items))
+    } catch {
+      // ignore quota/unavailable storage errors
+    }
+  }, [items])
 
   const removeItem = (id: string) => {
     setItems((prev) => prev.filter((item) => item.id !== id))

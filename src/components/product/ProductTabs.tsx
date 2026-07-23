@@ -20,8 +20,8 @@ export default function ProductTabs({
   tab: Tab
   onTabChange: (tab: Tab) => void
 }) {
-  const [reviews, setReviews] = useState<Review[]>(product.reviews)
-  const [qaList, setQaList] = useState<QaItem[]>(product.qa)
+  const [reviews, setReviews] = useState<Review[]>(product.reviews ?? [])
+  const [qaList, setQaList] = useState<QaItem[]>(product.qa ?? [])
 
   const avgRating = reviews.length ? reviews.reduce((sum, r) => sum + r.rating, 0) / reviews.length : 0
 
@@ -133,7 +133,7 @@ export default function ProductTabs({
           <div className="prose-sm max-w-none text-gray-700">
             <h2 className="text-lg font-bold text-gray-900 mb-2">{product.descriptionTitle}</h2>
             <p className="text-[14px] leading-[1.7] mb-4">{product.descriptionParagraph}</p>
-            {product.descriptionSections.map((sec) => (
+            {(product.descriptionSections ?? []).map((sec) => (
               <div key={sec.heading} className="mb-4">
                 <h3 className="text-[15px] font-bold text-gray-900 mb-1.5">{sec.heading}</h3>
                 <ul className="list-disc pl-5 space-y-1 text-[14px] leading-[1.6]">

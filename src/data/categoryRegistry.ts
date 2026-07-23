@@ -1,4 +1,4 @@
-import { drawerCategories, featuredCategories } from './categories'
+import { drawerCategories, featuredCategories, shopTopCategories } from './categories'
 
 export type Crumb = { label: string; href: string }
 
@@ -36,6 +36,20 @@ for (const cat of drawerCategories) {
         { label: 'Home', href: '/' },
         { label: cat.name, href: cat.href },
         { label: sub.name, href: sub.href },
+      ],
+    })
+  }
+}
+
+for (const cat of shopTopCategories) {
+  const slug = stripSlash(cat.href)
+  if (!registry.has(slug)) {
+    registry.set(slug, {
+      slug,
+      name: cat.name,
+      breadcrumb: [
+        { label: 'Home', href: '/' },
+        { label: cat.name, href: cat.href },
       ],
     })
   }
