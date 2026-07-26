@@ -1,11 +1,40 @@
 'use client'
 
-import { useRef } from 'react'
+import { useEffect, useRef } from 'react'
 import Image from 'next/image'
 import { brands } from '@/data/brands'
 
+const loopBrands = [...brands, ...brands]
+
 export default function BrandSlider() {
   const trackRef = useRef<HTMLDivElement>(null)
+  const rafRef = useRef<number | null>(null)
+  const pausedRef = useRef(false)
+
+  useEffect(() => {
+    const track = trackRef.current
+    if (!track) return
+
+    const step = () => {
+      if (!pausedRef.current) {
+        const half = track.scrollWidth / 2
+        track.scrollLeft += 0.5
+        if (track.scrollLeft >= half) track.scrollLeft -= half
+      }
+      rafRef.current = requestAnimationFrame(step)
+    }
+    rafRef.current = requestAnimationFrame(step)
+    return () => {
+      if (rafRef.current) cancelAnimationFrame(rafRef.current)
+    }
+  }, [])
+
+  const pause = () => {
+    pausedRef.current = true
+  }
+  const resume = () => {
+    pausedRef.current = false
+  }
 
   const scroll = (amount: number) => {
     trackRef.current?.scrollBy({ left: amount, behavior: 'smooth' })
@@ -19,7 +48,13 @@ export default function BrandSlider() {
       </div>
 
       <div className="container mx-auto px-4 min-[992px]:px-14">
-        <div className="relative mx-auto px-6 md:px-[50px]">
+        <div
+          className="relative mx-auto px-6 md:px-[50px]"
+          onMouseEnter={pause}
+          onMouseLeave={resume}
+          onTouchStart={pause}
+          onTouchEnd={resume}
+        >
           <button
             type="button"
             onClick={() => scroll(-300)}
@@ -31,11 +66,11 @@ export default function BrandSlider() {
 
           <div
             ref={trackRef}
-            className="flex gap-[25px] overflow-x-auto scroll-smooth py-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+            className="flex gap-[25px] overflow-x-auto py-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
           >
-            {brands.map((b) => (
+            {loopBrands.map((b, i) => (
               <a
-                key={b.name}
+                key={`${b.name}-${i}`}
                 href={b.href}
                 className="flex-none bg-white border border-[#f0f0f0] rounded-2xl px-6 py-[15px] flex items-center justify-center shadow-[0_2px_10px_rgba(0,0,0,0.02)] transition-all hover:-translate-y-[3px] hover:shadow-[0_8px_20px_rgba(0,0,0,0.06)]"
               >

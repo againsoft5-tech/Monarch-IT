@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
-import { usePathname, useRouter } from 'next/navigation'
+import { useRouter } from 'next/navigation'
 import { useCart } from '@/context/CartContext'
 import { useAuth } from '@/context/AuthContext'
 import ShopMenu from './ShopMenu'
@@ -16,12 +16,12 @@ export default function Header() {
   const { openCart, itemCount } = useCart()
   const { isLoggedIn, customerName, logout } = useAuth()
   const router = useRouter()
-  const isHome = usePathname() === '/'
   const headerRef = useRef<HTMLElement>(null)
   const [headerBottom, setHeaderBottom] = useState(0)
   const searchRef = useRef<HTMLDivElement>(null)
   const [query, setQuery] = useState('')
   const [searchFocused, setSearchFocused] = useState(false)
+  const [scrolled, setScrolled] = useState(false)
 
   useEffect(() => {
     const updateHeaderBottom = () => {
@@ -30,6 +30,13 @@ export default function Header() {
     updateHeaderBottom()
     window.addEventListener('resize', updateHeaderBottom)
     return () => window.removeEventListener('resize', updateHeaderBottom)
+  }, [])
+
+  useEffect(() => {
+    const updateScrolled = () => setScrolled(window.scrollY > 20)
+    updateScrolled()
+    window.addEventListener('scroll', updateScrolled, { passive: true })
+    return () => window.removeEventListener('scroll', updateScrolled)
   }, [])
 
   useEffect(() => {
@@ -44,8 +51,8 @@ export default function Header() {
   return (
     <header
       ref={headerRef}
-      className={`z-30 hidden md:block ${
-        isHome ? 'absolute top-0 left-0 right-0 bg-transparent' : 'relative bg-white'
+      className={`fixed top-0 inset-x-0 z-30 hidden md:block transition-all duration-300 ${
+        scrolled ? 'bg-white/70 backdrop-blur-md shadow-[0_2px_20px_rgba(0,0,0,0.06)]' : 'bg-transparent'
       }`}
     >
       <div className="container mx-auto">
@@ -64,8 +71,8 @@ export default function Header() {
             </Link>
           </div>
 
-          <div className="flex-1 flex items-center justify-end px-8">
-            <div ref={searchRef} className="relative max-w-[400px] w-full">
+          <div className="flex-1 flex items-center justify-end px-4">
+            <div ref={searchRef} className="relative max-w-[340px] w-full">
               <div className="flex items-center bg-[#f4f5f7] rounded-[30px] px-5 py-2.5">
                 <button type="button" className="text-gray-500 mr-2.5 hover:text-[#d32f2f] transition-colors">
                   <Image

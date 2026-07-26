@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useEffect, useRef } from 'react'
 import Image from 'next/image'
 
 const IMG_BASE = '/images/image/cache/catalog/website/banner'
@@ -11,35 +11,62 @@ const banners = [
   { img: `${IMG_BASE}/samrt-tv-exchange1-660x418.jpg`, url: '/monitor' },
 ]
 
-export default function BannerSlider() {
-  const [index, setIndex] = useState(0)
-  const [sliding, setSliding] = useState(false)
+const REPEATS = 3
+const loopBanners = Array.from({ length: REPEATS }, () => banners).flat()
 
-  const left = banners[index]
-  const right = banners[(index + 1) % banners.length]
+function BannerColumn({ trackRef, alt }: { trackRef: React.RefObject<HTMLDivElement | null>; alt: string }) {
+  return (
+    <div
+      className="flex-1 w-1/2 relative overflow-hidden rounded-[24px] max-[640px]:rounded-[14px]"
+      style={{ aspectRatio: '660 / 418' }}
+    >
+      <div ref={trackRef} className="h-full overflow-hidden [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+        {loopBanners.map((b, i) => (
+          <a key={i} href={b.url} className="relative block h-full w-full">
+            <Image src={b.img} alt={alt} fill className="object-contain" />
+          </a>
+        ))}
+      </div>
+    </div>
+  )
+}
+
+export default function BannerSlider() {
+  const leftRef = useRef<HTMLDivElement>(null)
+  const rightRef = useRef<HTMLDivElement>(null)
+  const posRef = useRef(banners.length)
+  const busyRef = useRef(false)
+
+  useEffect(() => {
+    const itemH = leftRef.current?.clientHeight || 0
+    if (leftRef.current) leftRef.current.scrollTop = posRef.current * itemH
+    if (rightRef.current) rightRef.current.scrollTop = (posRef.current + 1) * itemH
+  }, [])
 
   const go = (dir: number) => {
-    setSliding(true)
+    if (busyRef.current || !leftRef.current || !rightRef.current) return
+    busyRef.current = true
+
+    const itemH = leftRef.current.clientHeight
+    leftRef.current.scrollBy({ top: dir * itemH, behavior: 'smooth' })
+    rightRef.current.scrollBy({ top: dir * itemH, behavior: 'smooth' })
+
     setTimeout(() => {
-      setIndex((i) => (i + dir + banners.length) % banners.length)
-      setSliding(false)
+      posRef.current += dir
+
+      if (posRef.current <= 0 || posRef.current >= banners.length * (REPEATS - 1)) {
+        posRef.current = (((posRef.current % banners.length) + banners.length) % banners.length) + banners.length
+        if (leftRef.current) leftRef.current.scrollTop = posRef.current * itemH
+        if (rightRef.current) rightRef.current.scrollTop = (posRef.current + 1) * itemH
+      }
+
+      busyRef.current = false
     }, 400)
   }
 
   return (
     <div className="container mx-auto px-4 min-[992px]:px-14 flex items-center justify-center gap-2.5 py-5">
-      <a
-        href={left.url}
-        className={`flex-1 w-1/2 block transition-all duration-400 ${sliding ? 'opacity-0 scale-95' : 'opacity-100 scale-100'}`}
-      >
-        <Image
-          src={left.img}
-          alt="Banner left"
-          width={660}
-          height={418}
-          className="w-full h-auto object-contain rounded-[24px] max-[640px]:rounded-[14px]"
-        />
-      </a>
+      <BannerColumn trackRef={leftRef} alt="Banner left" />
 
       <div className="relative flex items-center justify-center w-[110px] h-[190px] -mx-[55px] z-[5] shrink-0 max-[640px]:w-[76px] max-[640px]:h-[140px] max-[640px]:-mx-[38px]">
         <div className="absolute w-[110px] h-[110px] bg-white rotate-45 rounded-[18px] shadow-[0_4px_20px_rgba(0,0,0,0.05)] z-[1] max-[640px]:w-[55px] max-[640px]:h-[55px] max-[640px]:rounded-xl" />
@@ -73,18 +100,7 @@ export default function BannerSlider() {
         </div>
       </div>
 
-      <a
-        href={right.url}
-        className={`flex-1 w-1/2 block transition-all duration-400 ${sliding ? 'opacity-0 scale-95' : 'opacity-100 scale-100'}`}
-      >
-        <Image
-          src={right.img}
-          alt="Banner right"
-          width={660}
-          height={418}
-          className="w-full h-auto object-contain rounded-[24px] max-[640px]:rounded-[14px]"
-        />
-      </a>
+      <BannerColumn trackRef={rightRef} alt="Banner right" />
     </div>
   )
 }
