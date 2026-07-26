@@ -56,7 +56,7 @@ export default function Header() {
       }`}
     >
       <div className="container mx-auto">
-        <div className="flex items-center justify-between px-4 min-[992px]:px-14 py-3.5 relative z-[100]">
+        <div className="flex items-center justify-between py-3.5 relative z-[100]">
           <div className="flex-none flex items-center">
             <Link href="/" className="flex items-center no-underline">
               <Image

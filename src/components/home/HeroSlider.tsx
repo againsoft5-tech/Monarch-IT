@@ -10,7 +10,7 @@ const slides = [
     alt: 'Slider 1',
   },
   {
-    src: '/images/image/cache/catalog/website/slider/slider-1880x1060.jpg',
+    src: '/images/image/cache/catalog/website/slider/slider-final2-1350x600.jpg',
     href: '/offers',
     alt: 'Slider 2',
   },
