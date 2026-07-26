@@ -6,7 +6,8 @@ export default function AboutBox() {
   const [open, setOpen] = useState(false)
 
   return (
-    <div className="max-w-[1150px] mx-auto my-10 bg-white border border-[#e5e5e5] rounded-[25px] px-[25px] pt-[25px] pb-[30px] relative shadow-[0_2px_10px_rgba(0,0,0,0.03)]">
+    <div className="container mx-auto my-10">
+    <div className="bg-white border border-[#e5e5e5] rounded-[25px] px-[25px] pt-[25px] pb-[30px] relative shadow-[0_2px_10px_rgba(0,0,0,0.03)]">
       <h2 className="text-center text-[#d52b2b] text-[28px] md:text-[34px] font-bold mb-[5px]">Monarch IT Ltd</h2>
       <div className="text-center text-[#666] text-base md:text-xl mb-[15px]">
         A Trusted Computer Distributor &amp; Retailer in Bangladesh
@@ -268,6 +269,7 @@ export default function AboutBox() {
           </svg>
         </button>
       </div>
+    </div>
     </div>
   )
 }

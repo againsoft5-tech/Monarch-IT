@@ -27,7 +27,7 @@ const socialLinks = [
 export default function Footer() {
   return (
     <footer className="bg-[#1d1d1d] text-white">
-      <div className="max-w-[1400px] mx-auto px-[30px] min-[992px]:px-28 py-[70px] grid grid-cols-1 md:grid-cols-2 lg:grid-cols-[1.4fr_1.5fr_1fr] gap-10 lg:gap-[60px] text-center md:text-left">
+      <div className="container mx-auto py-[70px] grid grid-cols-1 md:grid-cols-2 lg:grid-cols-[1.4fr_1.5fr_1fr] gap-10 lg:gap-[60px] text-center md:text-left">
         <div>
           <Image
             src={`${IMG_BASE}/catalog/view/theme/default/image/monarch-it.png`}

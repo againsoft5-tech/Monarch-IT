@@ -4,13 +4,13 @@ const IMG_BASE = '/images/image/cache/catalog/website/custom'
 
 export default function SupportSection() {
   return (
-    <section className="px-5 py-5 min-[992px]:px-14">
-      <div className="text-center mb-10">
+    <section className="py-5">
+      <div className="container mx-auto text-center mb-10">
         <h2 className="m-0 text-3xl md:text-5xl font-bold leading-none text-[#3b3b3b]">Support</h2>
         <p className="mt-2 text-[15px] md:text-lg text-[#6f6f6f]">Official distributor of trusted brands.</p>
       </div>
 
-      <div className="flex flex-col md:flex-row items-center justify-center gap-10 flex-wrap">
+      <div className="container mx-auto flex flex-col md:flex-row items-center justify-center gap-10 flex-wrap">
         <div className="flex-1 max-w-[420px] w-full border-2 border-[#e53935] rounded-[25px] md:rounded-[60px] px-6 md:px-[30px] py-5 flex items-center gap-5 bg-white">
           <Image src={`${IMG_BASE}/support-phone-image-60x60.png`} alt="Phone" width={60} height={60} className="w-[60px] h-[60px] object-contain" />
           <div>
