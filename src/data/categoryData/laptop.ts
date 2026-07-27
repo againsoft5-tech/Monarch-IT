@@ -90,6 +90,94 @@ export const products: CategoryProduct[] = [
     priceOld: 101650,
     discountPct: 7,
   },
+  {
+    id: 'INS-3535-R5',
+    slug: 'dell-inspiron-15-3535-ryzen-5-laptop',
+    name: 'Dell Inspiron 15 3535 Ryzen 5 7430U 15.6" FHD Laptop',
+    image: 'https://www.monarchit.com.bd/image/cache/placeholder-250x250.png',
+    rating: 0,
+    reviews: 0,
+    priceNew: 62900,
+    priceOld: 67630,
+    discountPct: 7,
+  },
+  {
+    id: 'IP-Slim3-13IAH8',
+    slug: 'lenovo-ideapad-slim-3-i5-13420h-laptop',
+    name: 'Lenovo IdeaPad Slim 3 Core i5-13420H 15.6" FHD Laptop',
+    image: 'https://www.monarchit.com.bd/image/cache/placeholder-250x250.png',
+    rating: 0,
+    reviews: 0,
+    priceNew: 68900,
+    priceOld: 74090,
+    discountPct: 7,
+  },
+  {
+    id: 'ASP7-R7735HS',
+    slug: 'acer-aspire-7-ryzen-7-7735hs-gaming-laptop',
+    name: 'Acer Aspire 7 Ryzen 7 7735HS RTX 2050 Gaming Laptop',
+    image: 'https://www.monarchit.com.bd/image/cache/placeholder-250x250.png',
+    rating: 0,
+    reviews: 0,
+    priceNew: 89900,
+    priceOld: 96670,
+    discountPct: 7,
+  },
+  {
+    id: 'MSI-Modern14-C13M',
+    slug: 'msi-modern-14-i5-1235u-laptop',
+    name: 'MSI Modern 14 C13M Core i5-1235U 14" FHD Laptop',
+    image: 'https://www.monarchit.com.bd/image/cache/placeholder-250x250.png',
+    rating: 0,
+    reviews: 0,
+    priceNew: 64900,
+    priceOld: 69790,
+    discountPct: 7,
+  },
+  {
+    id: 'ROG-StrixG16-G614JV',
+    slug: 'asus-rog-strix-g16-i7-13650hx-gaming-laptop',
+    name: 'ASUS ROG Strix G16 Core i7-13650HX RTX 4060 Gaming Laptop',
+    image: 'https://www.monarchit.com.bd/image/cache/placeholder-250x250.png',
+    rating: 0,
+    reviews: 0,
+    priceNew: 189900,
+    priceOld: 204190,
+    discountPct: 7,
+  },
+  {
+    id: 'LOQ15-R7235HS',
+    slug: 'lenovo-loq-15-ryzen-5-7235hs-gaming-laptop',
+    name: 'Lenovo LOQ 15 Ryzen 5 7235HS RTX 3050 Gaming Laptop',
+    image: 'https://www.monarchit.com.bd/image/cache/placeholder-250x250.png',
+    rating: 0,
+    reviews: 0,
+    priceNew: 99900,
+    priceOld: 107420,
+    discountPct: 7,
+  },
+  {
+    id: 'VOS-3520-I5',
+    slug: 'dell-vostro-3520-i5-1235u-laptop',
+    name: 'Dell Vostro 3520 Core i5-1235U 15.6" FHD Laptop',
+    image: 'https://www.monarchit.com.bd/image/cache/placeholder-250x250.png',
+    rating: 0,
+    reviews: 0,
+    priceNew: 71900,
+    priceOld: 77310,
+    discountPct: 7,
+  },
+  {
+    id: 'PAV15-I5-1334U',
+    slug: 'hp-pavilion-15-i5-1334u-laptop',
+    name: 'HP Pavilion 15 Core i5-1334U 15.6" FHD Laptop',
+    image: 'https://www.monarchit.com.bd/image/cache/placeholder-250x250.png',
+    rating: 0,
+    reviews: 0,
+    priceNew: 74900,
+    priceOld: 80540,
+    discountPct: 7,
+  },
 ]
 
 export const priceMin = Math.min(...products.map((p) => p.priceNew))
@@ -638,5 +726,462 @@ export const details: ProductDetail[] = [
     descriptionTitle: 'HP ENVY x360 Ryzen 5 8GB RAM 512GB SSD 16" Touch',
     descriptionParagraph:
       'This convertible laptop blends portability with performance, featuring the AMD Ryzen 5 8640HS processor and a spacious 16-inch touchscreen for versatile computing and multimedia tasks.',
+  },
+  {
+    slug: 'dell-inspiron-15-3535-ryzen-5-laptop',
+    name: 'Dell Inspiron 15 3535 Ryzen 5 7430U 15.6" FHD Laptop',
+    brand: 'Dell',
+    model: 'Inspiron 15 3535',
+    breadcrumb: [
+      { label: 'Home', href: '/' },
+      { label: 'Laptop', href: '/laptop' },
+      { label: 'Dell Inspiron 15 3535 Ryzen 5 7430U 15.6" FHD Laptop', href: '/dell-inspiron-15-3535-ryzen-5-laptop' },
+    ],
+    images: [
+      { large: 'https://www.monarchit.com.bd/image/cache/placeholder-550x550.png', thumb: 'https://www.monarchit.com.bd/image/cache/placeholder-250x250.png' },
+    ],
+    rating: 0,
+    reviewCount: 0,
+    priceNew: 62900,
+    priceOld: 67630,
+    discountPct: 7,
+    keyFeatures: [
+      'AMD Ryzen 5 7430U processor with up to 4.3GHz boost',
+      '8GB DDR4 RAM with 512GB M.2 NVMe SSD storage',
+      '15.6-inch FHD anti-glare display',
+      'AMD Radeon Graphics',
+      'Wi-Fi 6 connectivity with Bluetooth 5.2',
+      'Windows 11 Home pre-installed',
+    ],
+    specGroups: [
+      {
+        label: 'Processor',
+        lines: ['AMD Ryzen 5 7430U; 6 cores/12 threads; up to 4.3GHz; 8MB cache'],
+      },
+      {
+        label: 'Display',
+        lines: ['15.6-inch FHD (1920x1080); anti-glare; 120 nits brightness'],
+      },
+      {
+        label: 'Memory & Storage',
+        lines: ['8GB DDR4 RAM (upgradable)', '512GB M.2 NVMe PCIe SSD'],
+      },
+      {
+        label: 'Graphics & Connectivity',
+        lines: ['AMD Radeon Graphics', 'Wi-Fi 6 (802.11ax); Bluetooth 5.2', '1x HDMI 1.4; USB-A/USB-C ports'],
+      },
+      {
+        label: 'Battery, Camera & Warranty',
+        lines: [
+          '41Whr battery; 45W AC adapter',
+          'HD camera with privacy shutter',
+          'Weight: 1.65 kg; Warranty: 1 year',
+        ],
+      },
+    ],
+    descriptionTitle: 'Dell Inspiron 15 3535 Ryzen 5 7430U 15.6" FHD Laptop',
+    descriptionParagraph:
+      'An everyday productivity laptop powered by the AMD Ryzen 5 7430U processor with 8GB RAM and a 512GB NVMe SSD, wrapped in a 15.6-inch FHD anti-glare display.',
+  },
+  {
+    slug: 'lenovo-ideapad-slim-3-i5-13420h-laptop',
+    name: 'Lenovo IdeaPad Slim 3 Core i5-13420H 15.6" FHD Laptop',
+    brand: 'Lenovo',
+    model: 'IdeaPad Slim 3 15IAH8',
+    breadcrumb: [
+      { label: 'Home', href: '/' },
+      { label: 'Laptop', href: '/laptop' },
+      { label: 'Lenovo IdeaPad Slim 3 Core i5-13420H 15.6" FHD Laptop', href: '/lenovo-ideapad-slim-3-i5-13420h-laptop' },
+    ],
+    images: [
+      { large: 'https://www.monarchit.com.bd/image/cache/placeholder-550x550.png', thumb: 'https://www.monarchit.com.bd/image/cache/placeholder-250x250.png' },
+    ],
+    rating: 0,
+    reviewCount: 0,
+    priceNew: 68900,
+    priceOld: 74090,
+    discountPct: 7,
+    keyFeatures: [
+      'Intel Core i5-13420H processor (up to 4.6GHz)',
+      '8GB DDR5 RAM with 512GB M.2 NVMe SSD storage',
+      '15.6-inch FHD IPS anti-glare display',
+      'Intel UHD Graphics',
+      'Wi-Fi 6 connectivity with Bluetooth 5.1',
+      'Windows 11 Home pre-installed',
+    ],
+    specGroups: [
+      {
+        label: 'Processor',
+        lines: ['Intel Core i5-13420H; 8 cores/12 threads; up to 4.6GHz; 12MB cache'],
+      },
+      {
+        label: 'Display',
+        lines: ['15.6-inch FHD IPS (1920x1080); anti-glare; 300 nits brightness'],
+      },
+      {
+        label: 'Memory & Storage',
+        lines: ['8GB DDR5 RAM (soldered)', '512GB M.2 NVMe PCIe SSD'],
+      },
+      {
+        label: 'Graphics & Connectivity',
+        lines: ['Intel UHD Graphics', 'Wi-Fi 6 (802.11ax); Bluetooth 5.1', '1x HDMI 1.4; USB-A/USB-C ports'],
+      },
+      {
+        label: 'Battery, Camera & Warranty',
+        lines: [
+          '45Whr battery; 65W USB-C power adapter',
+          'HD camera with privacy shutter',
+          'Weight: 1.63 kg; Warranty: 1 year',
+        ],
+      },
+    ],
+    descriptionTitle: 'Lenovo IdeaPad Slim 3 Core i5-13420H 15.6" FHD Laptop',
+    descriptionParagraph:
+      'A slim, everyday laptop featuring the Intel Core i5-13420H processor, 8GB DDR5 RAM, and a 512GB NVMe SSD in a lightweight 15.6-inch FHD chassis.',
+  },
+  {
+    slug: 'acer-aspire-7-ryzen-7-7735hs-gaming-laptop',
+    name: 'Acer Aspire 7 Ryzen 7 7735HS RTX 2050 Gaming Laptop',
+    brand: 'Acer',
+    model: 'Aspire 7 A715-51G',
+    breadcrumb: [
+      { label: 'Home', href: '/' },
+      { label: 'Laptop', href: '/laptop' },
+      { label: 'Acer Aspire 7 Ryzen 7 7735HS RTX 2050 Gaming Laptop', href: '/acer-aspire-7-ryzen-7-7735hs-gaming-laptop' },
+    ],
+    images: [
+      { large: 'https://www.monarchit.com.bd/image/cache/placeholder-550x550.png', thumb: 'https://www.monarchit.com.bd/image/cache/placeholder-250x250.png' },
+    ],
+    rating: 0,
+    reviewCount: 0,
+    priceNew: 89900,
+    priceOld: 96670,
+    discountPct: 7,
+    keyFeatures: [
+      'AMD Ryzen 7 7735HS processor with up to 4.75GHz boost',
+      'NVIDIA GeForce RTX 2050 4GB dedicated graphics',
+      '16GB DDR5 RAM with 512GB M.2 NVMe SSD storage',
+      '15.6-inch FHD 144Hz IPS display',
+      'Backlit keyboard with fast-charging support',
+      'Wi-Fi 6 connectivity',
+    ],
+    specGroups: [
+      {
+        label: 'Processor & Graphics',
+        lines: [
+          'AMD Ryzen 7 7735HS; 8 cores/16 threads; up to 4.75GHz; 16MB cache',
+          'NVIDIA GeForce RTX 2050; 4GB GDDR6',
+        ],
+      },
+      {
+        label: 'Display',
+        lines: ['15.6-inch FHD IPS; 144Hz refresh rate; 300 nits brightness'],
+      },
+      {
+        label: 'Memory & Storage',
+        lines: ['16GB DDR5 RAM', '512GB M.2 NVMe PCIe 4.0 SSD'],
+      },
+      {
+        label: 'Connectivity',
+        lines: ['Wi-Fi 6 (802.11ax); Bluetooth 5.1', '1x HDMI 2.1; USB-A/USB-C ports; RJ45 Ethernet'],
+      },
+      {
+        label: 'Battery, Camera & Warranty',
+        lines: [
+          '4-cell 55Whr battery; 135W AC adapter',
+          'HD camera; backlit keyboard',
+          'Weight: 2.15 kg; Warranty: 1 year',
+        ],
+      },
+    ],
+    descriptionTitle: 'Acer Aspire 7 Ryzen 7 7735HS RTX 2050 Gaming Laptop',
+    descriptionParagraph:
+      'An entry gaming and creator laptop pairing the AMD Ryzen 7 7735HS processor with RTX 2050 graphics, 16GB RAM, and a 144Hz FHD display for smooth everyday gaming.',
+  },
+  {
+    slug: 'msi-modern-14-i5-1235u-laptop',
+    name: 'MSI Modern 14 C13M Core i5-1235U 14" FHD Laptop',
+    brand: 'MSI',
+    model: 'Modern 14 C13M',
+    breadcrumb: [
+      { label: 'Home', href: '/' },
+      { label: 'Laptop', href: '/laptop' },
+      { label: 'MSI Modern 14 C13M Core i5-1235U 14" FHD Laptop', href: '/msi-modern-14-i5-1235u-laptop' },
+    ],
+    images: [
+      { large: 'https://www.monarchit.com.bd/image/cache/placeholder-550x550.png', thumb: 'https://www.monarchit.com.bd/image/cache/placeholder-250x250.png' },
+    ],
+    rating: 0,
+    reviewCount: 0,
+    priceNew: 64900,
+    priceOld: 69790,
+    discountPct: 7,
+    keyFeatures: [
+      'Intel Core i5-1235U processor (up to 4.4GHz)',
+      '8GB DDR4 RAM with 512GB M.2 NVMe SSD storage',
+      '14-inch FHD IPS-level display',
+      'Intel Iris Xe Graphics',
+      'Wi-Fi 6 connectivity with Bluetooth 5.2',
+      'Lightweight 1.4 kg aluminum chassis',
+    ],
+    specGroups: [
+      {
+        label: 'Processor',
+        lines: ['Intel Core i5-1235U; 10 cores/12 threads; up to 4.4GHz; 12MB cache'],
+      },
+      {
+        label: 'Display',
+        lines: ['14-inch FHD IPS-level; 250 nits brightness'],
+      },
+      {
+        label: 'Memory & Storage',
+        lines: ['8GB DDR4 RAM (soldered)', '512GB M.2 NVMe PCIe SSD'],
+      },
+      {
+        label: 'Graphics & Connectivity',
+        lines: ['Intel Iris Xe Graphics', 'Wi-Fi 6 (802.11ax); Bluetooth 5.2', '1x HDMI 1.4; USB-A/USB-C ports'],
+      },
+      {
+        label: 'Battery, Camera & Warranty',
+        lines: [
+          '39.3Whr battery; 65W USB-C power adapter',
+          'HD camera',
+          'Weight: 1.4 kg; Warranty: 1 year (2 years for battery)',
+        ],
+      },
+    ],
+    descriptionTitle: 'MSI Modern 14 C13M Core i5-1235U 14" FHD Laptop',
+    descriptionParagraph:
+      'A lightweight 14-inch business laptop built around the Intel Core i5-1235U processor, 8GB RAM, and a 512GB NVMe SSD in a slim 1.4 kg aluminum chassis.',
+  },
+  {
+    slug: 'asus-rog-strix-g16-i7-13650hx-gaming-laptop',
+    name: 'ASUS ROG Strix G16 Core i7-13650HX RTX 4060 Gaming Laptop',
+    brand: 'ASUS',
+    model: 'G614JV',
+    breadcrumb: [
+      { label: 'Home', href: '/' },
+      { label: 'Laptop', href: '/laptop' },
+      { label: 'ASUS ROG Strix G16 Core i7-13650HX RTX 4060 Gaming Laptop', href: '/asus-rog-strix-g16-i7-13650hx-gaming-laptop' },
+    ],
+    images: [
+      { large: 'https://www.monarchit.com.bd/image/cache/placeholder-550x550.png', thumb: 'https://www.monarchit.com.bd/image/cache/placeholder-250x250.png' },
+    ],
+    rating: 0,
+    reviewCount: 0,
+    priceNew: 189900,
+    priceOld: 204190,
+    discountPct: 7,
+    keyFeatures: [
+      'Intel Core i7-13650HX processor (up to 4.9GHz)',
+      'NVIDIA GeForce RTX 4060 8GB dedicated graphics',
+      '16GB DDR5 RAM with 1TB M.2 NVMe SSD storage',
+      '16-inch FHD 165Hz IPS display',
+      'Per-key RGB backlit keyboard',
+      'Wi-Fi 6E connectivity',
+    ],
+    specGroups: [
+      {
+        label: 'Processor & Graphics',
+        lines: [
+          'Intel Core i7-13650HX; 14 cores/20 threads; up to 4.9GHz; 24MB cache',
+          'NVIDIA GeForce RTX 4060; 8GB GDDR6; ROG Boost up to 140W',
+        ],
+      },
+      {
+        label: 'Display',
+        lines: ['16-inch FHD IPS; 165Hz refresh rate; 300 nits brightness'],
+      },
+      {
+        label: 'Memory & Storage',
+        lines: ['16GB DDR5 RAM (expandable to 32GB)', '1TB M.2 NVMe PCIe 4.0 SSD'],
+      },
+      {
+        label: 'Connectivity',
+        lines: ['Wi-Fi 6E (802.11ax); Bluetooth 5.3', '1x HDMI 2.1; USB-A/USB-C ports; RJ45 Ethernet'],
+      },
+      {
+        label: 'Battery, Camera & Warranty',
+        lines: [
+          '90Whr battery; 240W AC adapter',
+          'HD camera; per-key RGB backlit keyboard',
+          'Weight: 2.5 kg; Warranty: 2 years',
+        ],
+      },
+    ],
+    descriptionTitle: 'ASUS ROG Strix G16 Core i7-13650HX RTX 4060 Gaming Laptop',
+    descriptionParagraph:
+      'A high-performance gaming laptop combining the Intel Core i7-13650HX processor with RTX 4060 graphics, 16GB RAM, and a 165Hz FHD display for demanding AAA titles.',
+  },
+  {
+    slug: 'lenovo-loq-15-ryzen-5-7235hs-gaming-laptop',
+    name: 'Lenovo LOQ 15 Ryzen 5 7235HS RTX 3050 Gaming Laptop',
+    brand: 'Lenovo',
+    model: 'LOQ 15ARP9',
+    breadcrumb: [
+      { label: 'Home', href: '/' },
+      { label: 'Laptop', href: '/laptop' },
+      { label: 'Lenovo LOQ 15 Ryzen 5 7235HS RTX 3050 Gaming Laptop', href: '/lenovo-loq-15-ryzen-5-7235hs-gaming-laptop' },
+    ],
+    images: [
+      { large: 'https://www.monarchit.com.bd/image/cache/placeholder-550x550.png', thumb: 'https://www.monarchit.com.bd/image/cache/placeholder-250x250.png' },
+    ],
+    rating: 0,
+    reviewCount: 0,
+    priceNew: 99900,
+    priceOld: 107420,
+    discountPct: 7,
+    keyFeatures: [
+      'AMD Ryzen 5 7235HS processor with up to 4.35GHz boost',
+      'NVIDIA GeForce RTX 3050 6GB dedicated graphics',
+      '16GB DDR5 RAM with 512GB M.2 NVMe SSD storage',
+      '15.6-inch FHD 144Hz IPS display',
+      'Legion Coldfront cooling with dual fans',
+      'Wi-Fi 6 connectivity',
+    ],
+    specGroups: [
+      {
+        label: 'Processor & Graphics',
+        lines: [
+          'AMD Ryzen 5 7235HS; 4 cores/8 threads; up to 4.35GHz; 16MB cache',
+          'NVIDIA GeForce RTX 3050; 6GB GDDR6',
+        ],
+      },
+      {
+        label: 'Display',
+        lines: ['15.6-inch FHD IPS; 144Hz refresh rate; 300 nits brightness'],
+      },
+      {
+        label: 'Memory & Storage',
+        lines: ['16GB DDR5 RAM (expandable)', '512GB M.2 NVMe PCIe 4.0 SSD'],
+      },
+      {
+        label: 'Connectivity',
+        lines: ['Wi-Fi 6 (802.11ax); Bluetooth 5.2', '1x HDMI 2.1; USB-A/USB-C ports; RJ45 Ethernet'],
+      },
+      {
+        label: 'Battery, Camera & Warranty',
+        lines: [
+          '60Whr battery; 170W AC adapter',
+          'HD camera; Coldfront dual-fan cooling',
+          'Weight: 2.35 kg; Warranty: 1 year',
+        ],
+      },
+    ],
+    descriptionTitle: 'Lenovo LOQ 15 Ryzen 5 7235HS RTX 3050 Gaming Laptop',
+    descriptionParagraph:
+      'A budget-friendly gaming laptop pairing the AMD Ryzen 5 7235HS processor with RTX 3050 graphics, 16GB RAM, and a 144Hz FHD display backed by Legion Coldfront cooling.',
+  },
+  {
+    slug: 'dell-vostro-3520-i5-1235u-laptop',
+    name: 'Dell Vostro 3520 Core i5-1235U 15.6" FHD Laptop',
+    brand: 'Dell',
+    model: 'Vostro 3520',
+    breadcrumb: [
+      { label: 'Home', href: '/' },
+      { label: 'Laptop', href: '/laptop' },
+      { label: 'Dell Vostro 3520 Core i5-1235U 15.6" FHD Laptop', href: '/dell-vostro-3520-i5-1235u-laptop' },
+    ],
+    images: [
+      { large: 'https://www.monarchit.com.bd/image/cache/placeholder-550x550.png', thumb: 'https://www.monarchit.com.bd/image/cache/placeholder-250x250.png' },
+    ],
+    rating: 0,
+    reviewCount: 0,
+    priceNew: 71900,
+    priceOld: 77310,
+    discountPct: 7,
+    keyFeatures: [
+      'Intel Core i5-1235U processor (up to 4.4GHz)',
+      '8GB DDR4 RAM with 512GB M.2 NVMe SSD storage',
+      '15.6-inch FHD anti-glare display',
+      'Intel Iris Xe Graphics',
+      'Business-grade build with spill-resistant keyboard',
+      'Wi-Fi 6 connectivity',
+    ],
+    specGroups: [
+      {
+        label: 'Processor',
+        lines: ['Intel Core i5-1235U; 10 cores/12 threads; up to 4.4GHz; 12MB cache'],
+      },
+      {
+        label: 'Display',
+        lines: ['15.6-inch FHD (1920x1080); anti-glare; 250 nits brightness'],
+      },
+      {
+        label: 'Memory & Storage',
+        lines: ['8GB DDR4 RAM (upgradable)', '512GB M.2 NVMe PCIe SSD'],
+      },
+      {
+        label: 'Graphics & Connectivity',
+        lines: ['Intel Iris Xe Graphics', 'Wi-Fi 6 (802.11ax); Bluetooth 5.2', '1x HDMI 1.4; USB-A/USB-C; RJ45 Ethernet'],
+      },
+      {
+        label: 'Battery, Camera & Warranty',
+        lines: [
+          '41Whr battery; 65W USB-C power adapter',
+          'HD camera with privacy shutter; spill-resistant keyboard',
+          'Weight: 1.7 kg; Warranty: 1 year (ProSupport optional)',
+        ],
+      },
+    ],
+    descriptionTitle: 'Dell Vostro 3520 Core i5-1235U 15.6" FHD Laptop',
+    descriptionParagraph:
+      'A business-focused laptop built around the Intel Core i5-1235U processor with 8GB RAM and a 512GB NVMe SSD, featuring a spill-resistant keyboard and durable chassis.',
+  },
+  {
+    slug: 'hp-pavilion-15-i5-1334u-laptop',
+    name: 'HP Pavilion 15 Core i5-1334U 15.6" FHD Laptop',
+    brand: 'HP',
+    model: 'Pavilion 15-eg3',
+    breadcrumb: [
+      { label: 'Home', href: '/' },
+      { label: 'Laptop', href: '/laptop' },
+      { label: 'HP Pavilion 15 Core i5-1334U 15.6" FHD Laptop', href: '/hp-pavilion-15-i5-1334u-laptop' },
+    ],
+    images: [
+      { large: 'https://www.monarchit.com.bd/image/cache/placeholder-550x550.png', thumb: 'https://www.monarchit.com.bd/image/cache/placeholder-250x250.png' },
+    ],
+    rating: 0,
+    reviewCount: 0,
+    priceNew: 74900,
+    priceOld: 80540,
+    discountPct: 7,
+    keyFeatures: [
+      'Intel Core i5-1334U processor (up to 4.6GHz)',
+      '8GB DDR4 RAM with 512GB M.2 NVMe SSD storage',
+      '15.6-inch FHD IPS micro-edge display',
+      'Intel Iris Xe Graphics',
+      'Backlit keyboard with fingerprint reader',
+      'Wi-Fi 6 connectivity',
+    ],
+    specGroups: [
+      {
+        label: 'Processor',
+        lines: ['Intel Core i5-1334U; 10 cores/12 threads; up to 4.6GHz; 12MB cache'],
+      },
+      {
+        label: 'Display',
+        lines: ['15.6-inch FHD IPS micro-edge; 250 nits brightness'],
+      },
+      {
+        label: 'Memory & Storage',
+        lines: ['8GB DDR4 RAM (upgradable)', '512GB M.2 NVMe PCIe SSD'],
+      },
+      {
+        label: 'Graphics & Connectivity',
+        lines: ['Intel Iris Xe Graphics', 'Wi-Fi 6 (802.11ax); Bluetooth 5.3', '1x HDMI 1.4; USB-A/USB-C ports'],
+      },
+      {
+        label: 'Battery, Camera & Warranty',
+        lines: [
+          '41Whr battery; 65W USB-C power adapter',
+          'HD camera with privacy shutter; fingerprint reader',
+          'Weight: 1.75 kg; Warranty: 1 Year Parts & 2 Years Service',
+        ],
+      },
+    ],
+    descriptionTitle: 'HP Pavilion 15 Core i5-1334U 15.6" FHD Laptop',
+    descriptionParagraph:
+      'A well-rounded everyday laptop featuring the Intel Core i5-1334U processor, 8GB RAM, and a 512GB NVMe SSD, with a fingerprint reader for quick secure sign-in.',
   },
 ]

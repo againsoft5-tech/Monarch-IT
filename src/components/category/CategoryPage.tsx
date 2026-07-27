@@ -20,8 +20,8 @@ type Props = {
   priceMaxDefault: number
 }
 
-const INITIAL_COUNT = 16
-const LOAD_MORE_COUNT = 10
+const INITIAL_COUNT = 8
+const LOAD_MORE_COUNT = 8
 
 export default function CategoryPage({ categoryName, products, priceMinDefault, priceMaxDefault }: Props) {
   const router = useRouter()
@@ -114,6 +114,9 @@ export default function CategoryPage({ categoryName, products, priceMinDefault, 
   const bestPriceCount = products.filter((p) => p.discountPct > 0).length
   const priceLow = products.length ? Math.min(...products.map((p) => p.priceNew)) : 0
   const priceHigh = products.length ? Math.max(...products.map((p) => p.priceNew)) : 0
+
+  const today = new Date()
+  const updatedDate = `${String(today.getDate()).padStart(2, '0')}-${String(today.getMonth() + 1).padStart(2, '0')}-${today.getFullYear()}`
 
   if (products.length === 0) {
     return (
@@ -287,34 +290,41 @@ export default function CategoryPage({ categoryName, products, priceMinDefault, 
 
         {/* Main content */}
         <div>
+            <div className="text-center mb-6">
+              <h1 className="text-3xl md:text-4xl font-bold text-[#4d4d4d]">{categoryName}</h1>
+              <p className="mt-1.5 text-[15px] md:text-base text-gray-500">
+                Explore our best {categoryName} collection at unbeatable prices.
+              </p>
+            </div>
+
             <div className="flex items-center justify-between gap-3 mb-4 overflow-x-auto no-scrollbar">
               <button
                 type="button"
                 onClick={() => setFilterOpen(true)}
                 className="group shrink-0 inline-flex items-center gap-1.5 bg-[#f5f5f7] border border-[#f5f5f7] rounded-full px-4 py-2 text-[14px] font-semibold text-gray-600 hover:border-[#d32f2f] hover:text-[#d32f2f] transition-colors cursor-pointer"
               >
-                <span className="relative w-[17px] h-[12px]">
+                <span className="relative w-[21px] h-[15px]">
                   <Image
                     src="/images/pc-builder/icons/filter-icon.svg"
                     alt=""
-                    width={17}
-                    height={12}
+                    width={21}
+                    height={15}
                     className="absolute inset-0 transition-opacity opacity-100 group-hover:opacity-0"
                   />
                   <Image
                     src="/images/pc-builder/icons/filter-icon-red2.svg"
                     alt=""
-                    width={17}
-                    height={12}
+                    width={21}
+                    height={15}
                     className="absolute inset-0 transition-opacity opacity-0 group-hover:opacity-100"
                   />
                 </span>
                 Filter By
               </button>
 
-              <div className="shrink-0 flex items-center gap-1.5 bg-[#f5f5f7] rounded-full px-3 py-1.5">
-                <span className="mi text-gray-500 text-[20px]">swap_vert</span>
-                <span className="text-gray-500 text-[14px] font-semibold max-[400px]:hidden">Sort:</span>
+              <div className="shrink-0 flex items-center gap-1.5 bg-[#f5f5f7] rounded-full px-3 py-2">
+                <span className="mi text-gray-500 text-[24px]">swap_vert</span>
+                <span className="text-gray-500 text-[14px] font-semibold max-[400px]:hidden">Sort By:</span>
                 <select
                   value={sort}
                   onChange={(e) => {
@@ -330,14 +340,14 @@ export default function CategoryPage({ categoryName, products, priceMinDefault, 
               </div>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-3 md:gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-[50px]">
               {paged.map((p) => (
-                <div key={p.id} className="bg-white rounded-[14px] overflow-hidden flex flex-col shadow-[0_2px_10px_rgba(0,0,0,0.07)] hover:shadow-[0_10px_32px_rgba(0,0,0,0.14)] hover:-translate-y-1 transition-all">
-                  <Link href={`/${p.slug}`} className="aspect-square flex items-center justify-center">
+                <div key={p.id} className="flex flex-col">
+                  <Link href={`/${p.slug}`} className="aspect-square bg-[#f5f6fa] rounded-2xl flex items-center justify-center">
                     <Image src={p.image} alt={p.name} width={228} height={228} className="w-[78%] h-[78%] object-contain" />
                   </Link>
-                  <div className="p-3 flex flex-col flex-1">
-                    <div className="flex items-center gap-1 mb-1 flex-wrap">
+                  <div className="pt-3 flex flex-col flex-1">
+                    <div className="flex items-center gap-1 mb-2 flex-wrap">
                       <span className="text-[#ffcb39] text-lg leading-none">
                         {'★'.repeat(Math.round(p.rating)) + '☆'.repeat(5 - Math.round(p.rating))}
                       </span>
@@ -354,21 +364,21 @@ export default function CategoryPage({ categoryName, products, priceMinDefault, 
                         )
                       </span>
                     </div>
-                    <div className="text-[13px] font-bold text-[#c3272b] leading-[1.45] mb-2 flex-1 line-clamp-2">
+                    <div className="text-[14px] font-bold leading-[1.45] mb-3 flex-1 line-clamp-2 min-h-[2.9em]">
                       <Link href={`/${p.slug}`} className="text-[#4d4d4d] no-underline hover:text-[#c3272b]">
                         {p.name}
                       </Link>
                     </div>
-                    <div className="flex items-center gap-1.5 flex-wrap mb-2.5">
+                    <div className="flex items-center gap-1.5 flex-wrap mb-3.5">
                       <span className="text-base font-bold text-[#c3272b]">৳{p.priceNew.toLocaleString()}</span>
                       <span className="text-[11px] text-gray-400 line-through">৳{p.priceOld.toLocaleString()}</span>
                       <span className="text-[10.5px] font-bold text-[#00c68b]">{p.discountPct}% OFF</span>
                     </div>
-                    <div className="flex items-center gap-2">
+                    <div className="flex items-center gap-2.5">
                       <button
                         type="button"
                         onClick={() => handleBuyNow(p)}
-                        className="flex-1 bg-white text-[#c3272b] border-2 border-[#c3272b] rounded-full py-1.5 px-2 text-[13px] font-bold hover:bg-[#c3272b] hover:text-white transition-colors cursor-pointer"
+                        className="flex-1 h-10 bg-white text-[#c3272b] border-2 border-[#c3272b] rounded-full px-2 text-[13px] font-bold hover:bg-[#c3272b] hover:text-white transition-colors cursor-pointer"
                       >
                         Buy now
                       </button>
@@ -376,7 +386,7 @@ export default function CategoryPage({ categoryName, products, priceMinDefault, 
                         type="button"
                         title="Chat with us"
                         onClick={handleChatClick}
-                        className="group w-9 h-9 shrink-0 rounded-full border bg-[#f5f6fa] border-[#ebebeb] hover:bg-[#c3272b] hover:border-[#c3272b] flex items-center justify-center transition-colors cursor-pointer"
+                        className="group w-10 h-10 shrink-0 rounded-full border bg-[#f5f6fa] border-[#ebebeb] hover:bg-[#c3272b] hover:border-[#c3272b] flex items-center justify-center transition-colors cursor-pointer"
                       >
                         <Image
                           src="/images/catalog/view/theme/default/image/message-icon.svg"
@@ -390,7 +400,7 @@ export default function CategoryPage({ categoryName, products, priceMinDefault, 
                         type="button"
                         title="Compare this Product"
                         onClick={() => handleCompareClick(p)}
-                        className="group w-9 h-9 shrink-0 rounded-full bg-[#f5f6fa] border border-[#ebebeb] flex items-center justify-center hover:bg-[#c3272b] hover:border-[#c3272b] transition-colors cursor-pointer"
+                        className="group w-10 h-10 shrink-0 rounded-full bg-[#f5f6fa] border border-[#ebebeb] flex items-center justify-center hover:bg-[#c3272b] hover:border-[#c3272b] transition-colors cursor-pointer"
                       >
                         <Image
                           src="/images/catalog/view/theme/default/image/compare-icon-svg.svg"
@@ -414,27 +424,30 @@ export default function CategoryPage({ categoryName, products, priceMinDefault, 
             </div>
 
             {hasMore && (
-              <div className="flex justify-center mt-6">
+              <div className="flex justify-center mt-10">
                 <button
                   type="button"
                   onClick={() => setVisibleCount((c) => c + LOAD_MORE_COUNT)}
-                  className="inline-flex items-center gap-2 bg-[#f5f5f7] hover:bg-gray-200 text-gray-700 font-semibold text-[13px] px-6 py-2.5 rounded-full transition-colors cursor-pointer"
+                  className="inline-flex items-center gap-2 bg-white text-[#c3272b] border-2 border-[#c3272b] font-bold text-[13px] px-6 py-2.5 rounded-full hover:bg-[#c3272b] hover:text-white transition-colors cursor-pointer"
                 >
-                  <i className="fa fa-chevron-down" /> More
+                  <i className="fa fa-chevron-down text-base" /> More
                 </button>
               </div>
             )}
 
-            <div className="bg-white border-[1.5px] border-[#f1f5f9] rounded-xl px-5 py-4 mt-6">
-              <div className="font-bold text-[15px] text-gray-900 mb-2">{categoryName}</div>
+            <div className="bg-[#f5f6fa] rounded-[25px] px-5 py-4 mt-10">
+              <div className="font-bold text-[15px] text-gray-900 mb-2">
+                {categoryName} Price in Bangladesh {today.getFullYear()}
+              </div>
               <p className="text-[13px] text-gray-600 leading-[1.8] m-0">
-                Browse {products.length} {categoryName} model{products.length !== 1 ? 's' : ''} priced from ৳
-                {priceLow.toLocaleString()} to ৳{priceHigh.toLocaleString()}. {inStockCount} in stock, {bestPriceCount}{' '}
-                currently on discount.
+                Monarch IT, the premier {categoryName} shop in Bangladesh, has updated its price list as of{' '}
+                {updatedDate}. With a range spanning from ৳{priceLow.toLocaleString()} to ৳
+                {priceHigh.toLocaleString()}, they offer {products.length} different products. Among these,{' '}
+                {inStockCount} items are currently in stock, {bestPriceCount} of them with the best discount price.
               </p>
             </div>
 
-            <div className="bg-white border-[1.5px] border-[#f1f5f9] rounded-xl mt-3.5 overflow-hidden">
+            <div className="bg-white border-[1.5px] border-[#f1f5f9] rounded-[25px] mt-10">
               <div
                 className={`relative overflow-hidden transition-[max-height] duration-500 ease-in-out px-5 pt-4 ${
                   descOpen ? 'max-h-none pb-4' : 'max-h-[170px]'
@@ -455,14 +468,20 @@ export default function CategoryPage({ categoryName, products, priceMinDefault, 
                   <div className="absolute bottom-0 left-0 right-0 h-[60px] bg-gradient-to-b from-white/0 to-white pointer-events-none" />
                 )}
               </div>
-              <button
-                type="button"
-                onClick={() => setDescOpen((v) => !v)}
-                className="w-full flex items-center justify-center py-2.5 text-[#d32f2f] hover:bg-gray-50 transition-colors cursor-pointer"
-                aria-label={descOpen ? 'Collapse description' : 'Expand description'}
-              >
-                <span className={`mi text-2xl transition-transform ${descOpen ? 'rotate-180' : ''}`}>expand_more</span>
-              </button>
+              <div className="text-center pb-4">
+                <button
+                  type="button"
+                  onClick={() => setDescOpen((v) => !v)}
+                  aria-label={descOpen ? 'Collapse description' : 'Expand description'}
+                  className="w-[42px] h-[42px] rounded-full bg-[#f5f6fa] border border-[#e5e5e5] shadow-[0_2px_8px_rgba(0,0,0,0.08)] inline-flex items-center justify-center transition-transform hover:scale-105 cursor-pointer"
+                >
+                  <i
+                    className={`fa fa-chevron-down text-xl text-[#d32f2f] transition-transform duration-400 ${
+                      descOpen ? 'rotate-180' : ''
+                    }`}
+                  />
+                </button>
+              </div>
             </div>
         </div>
       </div>
