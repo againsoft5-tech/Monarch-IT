@@ -31,6 +31,7 @@ export default function CategoryPage({ categoryName, products, priceMinDefault, 
   const [filterOpen, setFilterOpen] = useState(false)
   const [brandSectionOpen, setBrandSectionOpen] = useState(true)
   const [selectedBrands, setSelectedBrands] = useState<string[]>([])
+  const [selectedAvailability, setSelectedAvailability] = useState<string[]>([])
   const [priceMin, setPriceMin] = useState(priceMinDefault)
   const [priceMax, setPriceMax] = useState(priceMaxDefault)
   const [sort, setSort] = useState<'default' | 'price-asc' | 'price-desc'>('default')
@@ -95,17 +96,23 @@ export default function CategoryPage({ categoryName, products, priceMinDefault, 
     setVisibleCount(INITIAL_COUNT)
   }
 
-  const filtersActive = priceMin > priceMinDefault || priceMax < priceMaxDefault || selectedBrands.length > 0
+  const toggleAvailability = (status: string) => {
+    setSelectedAvailability((prev) => (prev.includes(status) ? prev.filter((s) => s !== status) : [...prev, status]))
+    setVisibleCount(INITIAL_COUNT)
+  }
 
   const filtered = useMemo(() => {
     let list = products.filter((p) => p.priceNew >= priceMin && p.priceNew <= priceMax)
     if (selectedBrands.length) {
       list = list.filter((p) => selectedBrands.includes(p.name.split(' ')[0]))
     }
+    if (selectedAvailability.length) {
+      list = list.filter(() => selectedAvailability.includes('In Stock'))
+    }
     if (sort === 'price-asc') list = [...list].sort((a, b) => a.priceNew - b.priceNew)
     if (sort === 'price-desc') list = [...list].sort((a, b) => b.priceNew - a.priceNew)
     return list
-  }, [products, priceMin, priceMax, selectedBrands, sort])
+  }, [products, priceMin, priceMax, selectedBrands, selectedAvailability, sort])
 
   const paged = filtered.slice(0, visibleCount)
   const hasMore = visibleCount < filtered.length
@@ -147,75 +154,95 @@ export default function CategoryPage({ categoryName, products, priceMinDefault, 
         {/* Sidebar filters (off-canvas at every breakpoint) */}
         <div
           onClick={() => setFilterOpen(false)}
-          className={`fixed inset-0 bg-black/50 z-[9998] transition-opacity ${
+          className={`fixed inset-0 md:top-[72px] bg-black/40 backdrop-blur-sm z-[9998] transition-opacity ${
             filterOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
           }`}
         />
         <aside
-          className={`fixed top-0 left-0 h-full w-[85%] max-w-[300px] bg-white z-[9999] shadow-2xl transition-transform duration-300 overflow-y-auto ${
-            filterOpen ? 'translate-x-0' : '-translate-x-full'
+          className={`fixed top-4 md:top-[88px] left-4 h-[calc(100%-2rem)] md:h-[calc(100%-104px)] w-[88%] max-w-[320px] bg-white z-[9999] rounded-[28px] shadow-2xl transition-transform duration-300 flex flex-col overflow-hidden ${
+            filterOpen ? 'translate-x-0' : '-translate-x-[calc(100%+1rem)]'
           }`}
         >
-          <div className="flex items-center justify-between px-4 py-3.5 bg-[#c3272b] text-white sticky top-0 z-10">
-            <span className="flex items-center gap-1.5 font-bold text-[15px]">
-              <Image src="/images/pc-builder/icons/filter-icon-white.svg" alt="" width={17} height={12} /> Filter
+          <div className="flex-none flex items-center justify-between px-5 py-4 bg-white">
+            <span className="flex items-center gap-2 font-bold text-base text-gray-900">
+              <Image src="/images/pc-builder/icons/filter-icon.svg" alt="" width={24} height={17} /> Filter By
             </span>
-            <button
-              type="button"
-              onClick={() => setFilterOpen(false)}
-              className="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center cursor-pointer"
-              aria-label="Close filters"
-            >
-              <span className="mi text-[18px]">close</span>
-            </button>
+            <div className="flex items-center gap-2">
+              <button
+                type="button"
+                onClick={() => {
+                  setPriceMin(priceMinDefault)
+                  setPriceMax(priceMaxDefault)
+                  setSelectedBrands([])
+                  setSelectedAvailability([])
+                  setVisibleCount(INITIAL_COUNT)
+                }}
+                className="w-9 h-9 rounded-full bg-gray-400 hover:bg-gray-500 flex items-center justify-center transition-colors cursor-pointer"
+                aria-label="Clear all filters"
+                title="Clear all filters"
+              >
+                <span className="mi text-2xl text-white">restart_alt</span>
+              </button>
+              <button
+                type="button"
+                onClick={() => setFilterOpen(false)}
+                className="w-9 h-9 rounded-full bg-gray-400 hover:bg-gray-500 flex items-center justify-center transition-colors cursor-pointer"
+                aria-label="Close filters"
+              >
+                <span className="mi text-2xl text-white">close</span>
+              </button>
+            </div>
           </div>
 
-            <div className="p-4">
-              <div className="bg-white shadow-sm border border-gray-100 rounded-md p-4 mb-4">
-                <div className="font-semibold text-[15px] text-gray-800 border-b border-gray-100 pb-2.5 mb-4">
-                  Price Range
-                </div>
-                <div className="relative h-1.5 mt-2 mb-1">
-                  <div className="absolute inset-0 rounded-full bg-gray-200" />
-                  <div
-                    className="absolute h-1.5 rounded-full bg-[#c3272b]"
-                    style={{
-                      left: `${
-                        priceMaxDefault > priceMinDefault
-                          ? ((priceMin - priceMinDefault) / (priceMaxDefault - priceMinDefault)) * 100
-                          : 0
-                      }%`,
-                      right: `${
-                        priceMaxDefault > priceMinDefault
-                          ? 100 - ((priceMax - priceMinDefault) / (priceMaxDefault - priceMinDefault)) * 100
-                          : 0
-                      }%`,
-                    }}
-                  />
-                  <input
-                    type="range"
-                    min={priceMinDefault}
-                    max={priceMaxDefault}
-                    value={priceMin}
-                    onChange={(e) => {
-                      setPriceMin(Math.min(Number(e.target.value), priceMax))
-                      setVisibleCount(INITIAL_COUNT)
-                    }}
-                    className="absolute inset-0 w-full h-1.5 appearance-none bg-transparent pointer-events-none [&::-webkit-slider-thumb]:pointer-events-auto [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:w-4 [&::-webkit-slider-thumb]:h-4 [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-white [&::-webkit-slider-thumb]:border-2 [&::-webkit-slider-thumb]:border-[#c3272b] [&::-webkit-slider-thumb]:shadow [&::-webkit-slider-thumb]:cursor-pointer [&::-moz-range-thumb]:pointer-events-auto [&::-moz-range-thumb]:w-4 [&::-moz-range-thumb]:h-4 [&::-moz-range-thumb]:rounded-full [&::-moz-range-thumb]:bg-white [&::-moz-range-thumb]:border-2 [&::-moz-range-thumb]:border-[#c3272b] [&::-moz-range-thumb]:cursor-pointer"
-                  />
-                  <input
-                    type="range"
-                    min={priceMinDefault}
-                    max={priceMaxDefault}
-                    value={priceMax}
-                    onChange={(e) => {
-                      setPriceMax(Math.max(Number(e.target.value), priceMin))
-                      setVisibleCount(INITIAL_COUNT)
-                    }}
-                    className="absolute inset-0 w-full h-1.5 appearance-none bg-transparent pointer-events-none [&::-webkit-slider-thumb]:pointer-events-auto [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:w-4 [&::-webkit-slider-thumb]:h-4 [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-white [&::-webkit-slider-thumb]:border-2 [&::-webkit-slider-thumb]:border-[#c3272b] [&::-webkit-slider-thumb]:shadow [&::-webkit-slider-thumb]:cursor-pointer [&::-moz-range-thumb]:pointer-events-auto [&::-moz-range-thumb]:w-4 [&::-moz-range-thumb]:h-4 [&::-moz-range-thumb]:rounded-full [&::-moz-range-thumb]:bg-white [&::-moz-range-thumb]:border-2 [&::-moz-range-thumb]:border-[#c3272b] [&::-moz-range-thumb]:cursor-pointer"
-                  />
-                </div>
-                <div className="flex items-center justify-between gap-2 mt-3">
+          <div className="flex-1 overflow-y-auto thin-scroll-red p-5 flex flex-col gap-5">
+            <div className="bg-[#f8f9fb] rounded-2xl p-4 shrink-0">
+              <div className="flex items-center gap-2 font-bold text-[15px] text-gray-900 mb-4">
+                <span className="mi text-[#c3272b] text-[18px]">payments</span>
+                Price Range
+              </div>
+              <div className="relative h-1.5 mt-2 mb-1">
+                <div className="absolute inset-0 rounded-full bg-gray-200" />
+                <div
+                  className="absolute h-1.5 rounded-full bg-[#c3272b]"
+                  style={{
+                    left: `${
+                      priceMaxDefault > priceMinDefault
+                        ? ((priceMin - priceMinDefault) / (priceMaxDefault - priceMinDefault)) * 100
+                        : 0
+                    }%`,
+                    right: `${
+                      priceMaxDefault > priceMinDefault
+                        ? 100 - ((priceMax - priceMinDefault) / (priceMaxDefault - priceMinDefault)) * 100
+                        : 0
+                    }%`,
+                  }}
+                />
+                <input
+                  type="range"
+                  min={priceMinDefault}
+                  max={priceMaxDefault}
+                  value={priceMin}
+                  onChange={(e) => {
+                    setPriceMin(Math.min(Number(e.target.value), priceMax))
+                    setVisibleCount(INITIAL_COUNT)
+                  }}
+                  className="absolute inset-0 w-full h-1.5 appearance-none bg-transparent pointer-events-none [&::-webkit-slider-thumb]:pointer-events-auto [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:w-4 [&::-webkit-slider-thumb]:h-4 [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-white [&::-webkit-slider-thumb]:border-2 [&::-webkit-slider-thumb]:border-[#c3272b] [&::-webkit-slider-thumb]:shadow [&::-webkit-slider-thumb]:cursor-pointer [&::-moz-range-thumb]:pointer-events-auto [&::-moz-range-thumb]:w-4 [&::-moz-range-thumb]:h-4 [&::-moz-range-thumb]:rounded-full [&::-moz-range-thumb]:bg-white [&::-moz-range-thumb]:border-2 [&::-moz-range-thumb]:border-[#c3272b] [&::-moz-range-thumb]:cursor-pointer"
+                />
+                <input
+                  type="range"
+                  min={priceMinDefault}
+                  max={priceMaxDefault}
+                  value={priceMax}
+                  onChange={(e) => {
+                    setPriceMax(Math.max(Number(e.target.value), priceMin))
+                    setVisibleCount(INITIAL_COUNT)
+                  }}
+                  className="absolute inset-0 w-full h-1.5 appearance-none bg-transparent pointer-events-none [&::-webkit-slider-thumb]:pointer-events-auto [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:w-4 [&::-webkit-slider-thumb]:h-4 [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-white [&::-webkit-slider-thumb]:border-2 [&::-webkit-slider-thumb]:border-[#c3272b] [&::-webkit-slider-thumb]:shadow [&::-webkit-slider-thumb]:cursor-pointer [&::-moz-range-thumb]:pointer-events-auto [&::-moz-range-thumb]:w-4 [&::-moz-range-thumb]:h-4 [&::-moz-range-thumb]:rounded-full [&::-moz-range-thumb]:bg-white [&::-moz-range-thumb]:border-2 [&::-moz-range-thumb]:border-[#c3272b] [&::-moz-range-thumb]:cursor-pointer"
+                />
+              </div>
+              <div className="flex items-center justify-between gap-2.5 mt-4">
+                <div className="flex-1 flex items-center gap-1 bg-white border border-gray-200 rounded-full px-3 h-10">
+                  <span className="text-[#c3272b] text-[13px] font-bold">৳</span>
                   <input
                     type="text"
                     value={priceMin}
@@ -223,9 +250,12 @@ export default function CategoryPage({ categoryName, products, priceMinDefault, 
                       setPriceMin(Math.min(Number(e.target.value) || 0, priceMax))
                       setVisibleCount(INITIAL_COUNT)
                     }}
-                    className="w-[80px] h-[30px] border border-gray-200 rounded text-center text-[13px]"
+                    className="w-full min-w-0 text-center text-[13px] font-semibold text-gray-700 outline-none bg-transparent"
                   />
-                  <span className="text-gray-300">—</span>
+                </div>
+                <span className="text-gray-300 shrink-0">—</span>
+                <div className="flex-1 flex items-center gap-1 bg-white border border-gray-200 rounded-full px-3 h-10">
+                  <span className="text-[#c3272b] text-[13px] font-bold">৳</span>
                   <input
                     type="text"
                     value={priceMax}
@@ -233,59 +263,71 @@ export default function CategoryPage({ categoryName, products, priceMinDefault, 
                       setPriceMax(Math.max(Number(e.target.value) || 0, priceMin))
                       setVisibleCount(INITIAL_COUNT)
                     }}
-                    className="w-[80px] h-[30px] border border-gray-200 rounded text-center text-[13px]"
+                    className="w-full min-w-0 text-center text-[13px] font-semibold text-gray-700 outline-none bg-transparent"
                   />
                 </div>
               </div>
+            </div>
 
-              <div className="bg-white border border-gray-200 rounded-lg overflow-hidden mb-4">
-                <button
-                  type="button"
-                  onClick={() => setBrandSectionOpen((v) => !v)}
-                  className="w-full flex items-center justify-between px-4 py-3.5 border-b border-gray-100 cursor-pointer"
-                >
-                  <p className="m-0 font-semibold text-[15px] text-gray-800">Brand</p>
-                  <span
-                    className={`mi text-gray-500 text-[20px] transition-transform ${brandSectionOpen ? 'rotate-180' : ''}`}
-                  >
-                    expand_more
-                  </span>
-                </button>
-                {brandSectionOpen && (
-                  <div className="px-3 py-2">
-                    {brands.map((brand) => (
-                      <label
-                        key={brand}
-                        className="flex items-center gap-2 px-1 py-1.5 rounded hover:bg-gray-50 cursor-pointer text-[14px] text-gray-700"
-                      >
-                        <input
-                          type="checkbox"
-                          checked={selectedBrands.includes(brand)}
-                          onChange={() => toggleBrand(brand)}
-                          className="accent-[#c3272b] w-[15px] h-[15px]"
-                        />
-                        {brand}
-                      </label>
-                    ))}
-                  </div>
-                )}
+            <div className="bg-[#f8f9fb] rounded-2xl p-4 shrink-0">
+              <div className="flex items-center gap-2 font-bold text-[15px] text-gray-900 mb-3">
+                <span className="mi text-[#c3272b] text-[18px]">inventory_2</span>
+                Availability
               </div>
+              <div className="flex flex-col gap-0.5">
+                {['In Stock', 'Pre Order', 'Up Coming'].map((status) => (
+                  <label
+                    key={status}
+                    className="flex items-center gap-2.5 px-2 py-2 rounded-lg hover:bg-white cursor-pointer text-[14px] text-gray-700 transition-colors"
+                  >
+                    <input
+                      type="checkbox"
+                      checked={selectedAvailability.includes(status)}
+                      onChange={() => toggleAvailability(status)}
+                      className="accent-[#c3272b] w-4 h-4 shrink-0"
+                    />
+                    {status}
+                  </label>
+                ))}
+              </div>
+            </div>
 
-              {filtersActive && (
-                <button
-                  type="button"
-                  onClick={() => {
-                    setPriceMin(priceMinDefault)
-                    setPriceMax(priceMaxDefault)
-                    setSelectedBrands([])
-                    setVisibleCount(INITIAL_COUNT)
-                  }}
-                  className="w-full text-center text-[13px] font-semibold text-[#c3272b] py-2 hover:underline cursor-pointer"
+            <div className="bg-[#f8f9fb] rounded-2xl overflow-hidden shrink-0">
+              <button
+                type="button"
+                onClick={() => setBrandSectionOpen((v) => !v)}
+                className="w-full flex items-center justify-between px-4 py-3.5 cursor-pointer"
+              >
+                <span className="flex items-center gap-2 font-bold text-[15px] text-gray-900">
+                  <span className="mi text-[#c3272b] text-[18px]">sell</span>
+                  Brand
+                </span>
+                <span
+                  className={`mi text-gray-500 text-[20px] transition-transform ${brandSectionOpen ? 'rotate-180' : ''}`}
                 >
-                  Clear all filters
-                </button>
+                  expand_more
+                </span>
+              </button>
+              {brandSectionOpen && (
+                <div className="px-3 pb-3 flex flex-col gap-0.5 max-h-[210px] overflow-y-auto thin-scroll-red">
+                  {brands.map((brand) => (
+                    <label
+                      key={brand}
+                      className="flex items-center gap-2.5 px-2 py-2 rounded-lg hover:bg-white cursor-pointer text-[14px] text-gray-700 transition-colors"
+                    >
+                      <input
+                        type="checkbox"
+                        checked={selectedBrands.includes(brand)}
+                        onChange={() => toggleBrand(brand)}
+                        className="accent-[#c3272b] w-4 h-4 shrink-0"
+                      />
+                      {brand}
+                    </label>
+                  ))}
+                </div>
               )}
             </div>
+          </div>
         </aside>
 
         {/* Main content */}
