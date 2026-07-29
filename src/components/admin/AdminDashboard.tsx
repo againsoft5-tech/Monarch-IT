@@ -266,6 +266,14 @@ export default function AdminDashboard() {
           </div>
           <button
             type="button"
+            title="Combo Campaigns"
+            onClick={() => router.push('/admin/combo')}
+            className="w-11 h-11 shrink-0 rounded-full bg-[#f5f5f7] hover:bg-gray-200 flex items-center justify-center text-gray-600 transition-colors cursor-pointer"
+          >
+            <span className="mi text-[18px]">inventory_2</span>
+          </button>
+          <button
+            type="button"
             title="Logout"
             onClick={handleLogout}
             className="w-11 h-11 shrink-0 rounded-full bg-[#f5f5f7] hover:bg-gray-200 flex items-center justify-center text-gray-600 transition-colors cursor-pointer"
