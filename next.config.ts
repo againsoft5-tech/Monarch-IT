@@ -11,6 +11,10 @@ const nextConfig: NextConfig = {
         protocol: "https",
         hostname: "monarchit.com.bd",
       },
+      {
+        protocol: "https",
+        hostname: "www.startech.com.bd",
+      },
     ],
   },
 };

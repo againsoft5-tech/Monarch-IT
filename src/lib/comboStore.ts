@@ -1,10 +1,18 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import { DEFAULT_CAMPAIGNS, priceNewOf, type ComboBonusTier, type ComboCampaign, type ComboGroup, type ComboProduct } from '@/data/comboData'
+import {
+  DEFAULT_CAMPAIGNS,
+  priceNewOf,
+  discountAmountOf,
+  type ComboBonusTier,
+  type ComboCampaign,
+  type ComboGroup,
+  type ComboProduct,
+} from '@/data/comboData'
 import { categoryProductsMap, type CategoryProduct } from '@/data/categoryProducts'
 
-type ComboDB = Record<string, ComboCampaign>
+export type ComboDB = Record<string, ComboCampaign>
 
 const DB_KEY = 'monarch_combo_campaigns'
 const CHANNEL_NAME = 'monarch-combo-sync'
@@ -208,6 +216,7 @@ export function addCatalogProductToGroup(campaignId: string, groupKey: string, p
         priceOld: product.priceOld,
         discountType: 'fixed',
         discountValue: Math.max(0, product.priceOld - product.priceNew),
+        slug: product.slug,
       }
       return { ...g, products: [added, ...g.products] }
     }),
@@ -252,6 +261,7 @@ export function importCategoryIntoGroup(campaignId: string, groupKey: string, ca
           priceOld: p.priceOld,
           discountType: 'fixed' as const,
           discountValue: Math.max(0, p.priceOld - p.priceNew),
+          slug: p.slug,
         }))
       return { ...g, products: [...g.products, ...imported] }
     }),
@@ -300,4 +310,49 @@ export function computeComboPricing(campaign: ComboCampaign, selections: ComboSe
   const total = Math.max(0, subtotal - comboBonus)
 
   return { subtotal, regularTotal, productDiscount, comboBonus, total, unlockedGroups }
+}
+
+export type ProductComboMatch = {
+  campaign: ComboCampaign
+  ownGroupKey: string
+  selections: ComboSelections
+}
+
+/**
+ * If the given product slug is part of one or more active combo campaigns, auto-builds a combo
+ * selection for it: the product itself, plus the single best-discounted item from every other
+ * group in that campaign. When the product belongs to several campaigns, the one that yields the
+ * highest total savings for the customer wins.
+ */
+export function findBestComboForProductSlug(db: ComboDB, slug: string): ProductComboMatch | undefined {
+  let best: ProductComboMatch | undefined
+  let bestSavings = -1
+
+  for (const campaign of Object.values(db)) {
+    if (!campaign.active) continue
+    const nonEmptyGroups = campaign.groups.filter((g) => g.products.length > 0)
+    if (nonEmptyGroups.length < 2) continue
+
+    // Older imports may predate the `slug` field — those products still encode it in
+    // their id as `${groupKey}-${slug}` (see importCategoryIntoGroup/addCatalogProductToGroup).
+    const ownGroup = campaign.groups.find((g) => g.products.some((p) => p.slug === slug || p.id === `${g.key}-${slug}`))
+    if (!ownGroup) continue
+    const ownProduct = ownGroup.products.find((p) => p.slug === slug || p.id === `${ownGroup.key}-${slug}`)!
+
+    const selections: ComboSelections = { [ownGroup.key]: [ownProduct] }
+    for (const other of nonEmptyGroups) {
+      if (other.key === ownGroup.key) continue
+      const bestItem = other.products.reduce((a, b) => (discountAmountOf(b) > discountAmountOf(a) ? b : a))
+      selections[other.key] = [bestItem]
+    }
+
+    const pricing = computeComboPricing(campaign, selections)
+    const savings = pricing.regularTotal - pricing.total
+    if (savings > bestSavings) {
+      bestSavings = savings
+      best = { campaign, ownGroupKey: ownGroup.key, selections }
+    }
+  }
+
+  return best
 }

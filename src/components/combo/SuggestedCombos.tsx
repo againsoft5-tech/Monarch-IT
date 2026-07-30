@@ -73,7 +73,11 @@ export default function SuggestedCombos({
               <div className="flex items-center gap-2 flex-wrap mb-4">
                 {products.map((p, i) => (
                   <div key={p.id} className="flex items-center gap-2">
-                    {i > 0 && <span className="text-gray-400 font-bold shrink-0">+</span>}
+                    {i > 0 && (
+                      <span className="mi text-[26px] shrink-0" style={{ color: preset.accent }}>
+                        add
+                      </span>
+                    )}
                     <div className="w-12 h-12 shrink-0 rounded-lg bg-white border border-gray-200 overflow-hidden relative">
                       {p.image && <Image src={p.image} alt="" fill className="object-contain p-1" />}
                     </div>

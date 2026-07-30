@@ -104,8 +104,9 @@ export default function ComboSummarySidebar({ campaign, selections, pricing, onR
         <button
           type="button"
           onClick={onAddAllToCart}
-          disabled={!hasAnySelection}
-          className="flex-1 h-10 rounded-full text-white text-[12.5px] font-semibold disabled:opacity-40 cursor-pointer flex items-center justify-center gap-1"
+          disabled={!canAddToCart}
+          title={canAddToCart ? undefined : 'Select at least 2 categories to unlock combo savings'}
+          className="flex-1 h-10 rounded-full text-white text-[12.5px] font-semibold disabled:opacity-40 disabled:cursor-not-allowed cursor-pointer flex items-center justify-center gap-1"
           style={{ backgroundColor: color }}
         >
           Add all to cart

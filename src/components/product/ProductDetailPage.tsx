@@ -6,6 +6,7 @@ import ProductInfo from './ProductInfo'
 import ProductTabs, { type ProductTab } from './ProductTabs'
 import ProductSidebar from './ProductSidebar'
 import MoreToLove from './MoreToLove'
+import ProductComboSection from './ProductComboSection'
 import type { ProductDetail } from '@/data/productDetail'
 
 export default function ProductDetailPage({ product }: { product: ProductDetail }) {
@@ -30,6 +31,8 @@ export default function ProductDetailPage({ product }: { product: ProductDetail 
           </div>
         </div>
       </div>
+
+      <ProductComboSection slug={product.slug} />
 
       <div className="container mx-auto px-4 min-[992px]:px-14 py-6">
         <div className="flex flex-col lg:flex-row gap-5">

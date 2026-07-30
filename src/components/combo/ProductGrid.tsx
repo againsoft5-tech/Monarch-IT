@@ -16,6 +16,7 @@ type Props = {
 export default function ProductGrid({ group, selectedIds, color, onToggle }: Props) {
   const [selectedBrands, setSelectedBrands] = useState<string[]>([])
   const [sort, setSort] = useState<'default' | 'price-asc' | 'price-desc'>('default')
+  const [search, setSearch] = useState('')
 
   const brands = useMemo(() => Array.from(new Set(group.products.map((p) => p.brand))), [group.products])
 
@@ -26,11 +27,13 @@ export default function ProductGrid({ group, selectedIds, color, onToggle }: Pro
   const products = useMemo(() => {
     let list = group.products
     if (selectedBrands.length > 0) list = list.filter((p) => selectedBrands.includes(p.brand))
+    const query = search.trim().toLowerCase()
+    if (query) list = list.filter((p) => p.name.toLowerCase().includes(query))
     list = [...list]
     if (sort === 'price-asc') list.sort((a, b) => priceNewOf(a) - priceNewOf(b))
     if (sort === 'price-desc') list.sort((a, b) => priceNewOf(b) - priceNewOf(a))
     return list
-  }, [group.products, selectedBrands, sort])
+  }, [group.products, selectedBrands, search, sort])
 
   const isMulti = group.maxQuantity > 1
   const atLimit = isMulti && selectedIds.length >= group.maxQuantity
@@ -61,15 +64,25 @@ export default function ProductGrid({ group, selectedIds, color, onToggle }: Pro
         </div>
       )}
 
-      <div className="flex items-center justify-between mb-3">
-        <p className="text-[12.5px] text-gray-400 m-0">
+      <div className="flex items-center gap-3 flex-wrap mb-3">
+        <p className="text-[12.5px] text-gray-400 m-0 shrink-0">
           {products.length} product{products.length !== 1 ? 's' : ''}
           {isMulti ? ` · select up to ${group.maxQuantity}` : ''}
         </p>
+        <div className="relative flex-1 min-w-[160px]">
+          <span className="mi absolute left-3 top-1/2 -translate-y-1/2 text-[16px] text-gray-400">search</span>
+          <input
+            type="text"
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+            placeholder="Search products..."
+            className="w-full h-8 pl-9 pr-3 rounded-lg border border-gray-200 outline-none text-[12.5px] text-gray-700 placeholder-gray-400 focus:border-gray-400 transition-colors"
+          />
+        </div>
         <select
           value={sort}
           onChange={(e) => setSort(e.target.value as typeof sort)}
-          className="h-8 px-2.5 rounded-lg border border-gray-200 outline-none text-[12px] text-gray-600"
+          className="h-8 px-2.5 rounded-lg border border-gray-200 outline-none text-[12px] text-gray-600 shrink-0"
         >
           <option value="default">Combo Offer</option>
           <option value="price-asc">Price: Low to High</option>
@@ -79,7 +92,7 @@ export default function ProductGrid({ group, selectedIds, color, onToggle }: Pro
 
       {products.length === 0 ? (
         <div className="bg-white rounded-2xl border border-gray-100 p-8 text-center text-gray-400 text-[13px]">
-          No products in this category yet.
+          {search.trim() ? `No products match "${search}".` : 'No products in this category yet.'}
         </div>
       ) : (
         <div className="space-y-2.5">

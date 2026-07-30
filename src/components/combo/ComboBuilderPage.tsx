@@ -159,6 +159,7 @@ export default function ComboBuilderPage({ campaignId }: { campaignId: string })
                   />
                   {activeGroup && (
                     <ProductGrid
+                      key={activeGroup.key}
                       group={activeGroup}
                       selectedIds={(selections[activeGroup.key] ?? []).map((p) => p.id)}
                       color={campaign.themeColor ?? '#c3272b'}
