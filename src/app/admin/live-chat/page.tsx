@@ -3,9 +3,9 @@
 import { useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import { useAdminAuth } from '@/context/AdminAuthContext'
-import AdminOverview from '@/components/admin/AdminOverview'
+import AdminDashboard from '@/components/admin/AdminDashboard'
 
-export default function AdminPage() {
+export default function AdminLiveChatPage() {
   const { isAdminLoggedIn, adminChecked } = useAdminAuth()
   const router = useRouter()
 
@@ -19,5 +19,5 @@ export default function AdminPage() {
     return <div className="min-h-full flex items-center justify-center bg-[#eef0f3] text-gray-400 text-[14px]">Loading...</div>
   }
 
-  return <AdminOverview />
+  return <AdminDashboard />
 }

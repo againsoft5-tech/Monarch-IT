@@ -1,8 +1,8 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import { DEFAULT_CAMPAIGNS, priceNewOf, type ComboCampaign, type ComboGroup, type ComboProduct } from '@/data/comboData'
-import { categoryProductsMap } from '@/data/categoryProducts'
+import { DEFAULT_CAMPAIGNS, priceNewOf, type ComboBonusTier, type ComboCampaign, type ComboGroup, type ComboProduct } from '@/data/comboData'
+import { categoryProductsMap, type CategoryProduct } from '@/data/categoryProducts'
 
 type ComboDB = Record<string, ComboCampaign>
 
@@ -15,11 +15,6 @@ function getChannel(): BroadcastChannel | null {
   if (typeof window === 'undefined') return null
   if (!channel) channel = new BroadcastChannel(CHANNEL_NAME)
   return channel
-}
-
-function makeId(prefix: string) {
-  const rand = typeof crypto !== 'undefined' && crypto.randomUUID ? crypto.randomUUID() : `${Date.now()}-${Math.random()}`
-  return `${prefix}-${rand}`
 }
 
 function slugify(text: string) {
@@ -198,12 +193,24 @@ export function deleteGroup(campaignId: string, groupKey: string) {
   }))
 }
 
-export function addProduct(campaignId: string, groupKey: string, product: Omit<ComboProduct, 'id'>) {
+export function addCatalogProductToGroup(campaignId: string, groupKey: string, product: CategoryProduct) {
+  const id = `${groupKey}-${product.slug}`
   updateCampaign(campaignId, (c) => ({
     ...c,
-    groups: c.groups.map((g) =>
-      g.key === groupKey ? { ...g, products: [...g.products, { ...product, id: makeId(groupKey) }] } : g
-    ),
+    groups: c.groups.map((g) => {
+      if (g.key !== groupKey) return g
+      if (g.products.some((p) => p.id === id)) return g
+      const added: ComboProduct = {
+        id,
+        name: product.name,
+        image: product.image,
+        brand: product.name.split(' ')[0],
+        priceOld: product.priceOld,
+        discountType: 'fixed',
+        discountValue: Math.max(0, product.priceOld - product.priceNew),
+      }
+      return { ...g, products: [added, ...g.products] }
+    }),
   }))
 }
 
@@ -279,11 +286,16 @@ export function computeComboPricing(campaign: ComboCampaign, selections: ComboSe
 
   const productDiscount = regularTotal - subtotal
 
-  let comboBonus = 0
+  let bestTier: ComboBonusTier | null = null
   for (const tier of campaign.bonusTiers) {
-    if (unlockedGroups >= tier.minGroups) comboBonus = Math.max(comboBonus, tier.bonusAmount)
+    if (unlockedGroups < tier.minGroups) continue
+    if (!bestTier || tier.minGroups > bestTier.minGroups) bestTier = tier
   }
-  if (subtotal === 0) comboBonus = 0
+  let comboBonus = 0
+  if (bestTier) {
+    comboBonus = (bestTier.bonusType ?? 'fixed') === 'percent' ? subtotal * (bestTier.bonusAmount / 100) : bestTier.bonusAmount
+  }
+  comboBonus = subtotal === 0 ? 0 : Math.round(comboBonus)
 
   const total = Math.max(0, subtotal - comboBonus)
 

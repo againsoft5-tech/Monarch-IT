@@ -21,6 +21,7 @@ export type ComboGroup = {
 
 export type ComboBonusTier = {
   minGroups: number
+  bonusType: DiscountType
   bonusAmount: number
 }
 
@@ -62,9 +63,9 @@ export const DEFAULT_CAMPAIGNS: ComboCampaign[] = [
     createdAt: new Date().toISOString(),
     updatedAt: new Date().toISOString(),
     bonusTiers: [
-      { minGroups: 2, bonusAmount: 1500 },
-      { minGroups: 3, bonusAmount: 3000 },
-      { minGroups: 4, bonusAmount: 5000 },
+      { minGroups: 2, bonusType: 'fixed', bonusAmount: 1500 },
+      { minGroups: 3, bonusType: 'fixed', bonusAmount: 3000 },
+      { minGroups: 4, bonusType: 'percent', bonusAmount: 5 },
     ],
     groups: [
       {

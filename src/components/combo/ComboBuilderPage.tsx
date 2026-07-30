@@ -8,6 +8,7 @@ import SuccessModal from '@/components/pcbuilder/SuccessModal'
 import CategoryTabs from './CategoryTabs'
 import ProductGrid from './ProductGrid'
 import ComboSummarySidebar from './ComboSummarySidebar'
+import SuggestedCombos from './SuggestedCombos'
 import { useComboStore, computeComboPricing, type ComboSelections } from '@/lib/comboStore'
 import { priceNewOf, type ComboProduct } from '@/data/comboData'
 import { useCart } from '@/context/CartContext'
@@ -76,21 +77,17 @@ export default function ComboBuilderPage({ campaignId }: { campaignId: string })
 
   const removeAll = () => setSelections({})
 
-  const addAllToCart = () => {
-    const missing = campaign.groups.filter((g) => g.required && !(selections[g.key]?.length))
-    if (missing.length > 0) {
-      setWarningMessage(`Please select ${missing.map((g) => g.label).join(', ')} before continuing.`)
-      return
-    }
-
-    const selectedProducts = campaign.groups.flatMap((g) => selections[g.key] ?? [])
+  const commitSelectionsToCart = (selectionsToCommit: ComboSelections) => {
+    const selectedProducts = campaign.groups.flatMap((g) => selectionsToCommit[g.key] ?? [])
     if (selectedProducts.length === 0) return
+
+    const selectionPricing = computeComboPricing(campaign, selectionsToCommit)
 
     // Spread the combo bonus proportionally across each item's price so the cart/checkout
     // total exactly matches the "Subtotal" the customer saw in the builder sidebar.
     const basePrices = selectedProducts.map((p) => priceNewOf(p))
     const basePriceTotal = basePrices.reduce((sum, price) => sum + price, 0)
-    const bonus = pricing.comboBonus
+    const bonus = selectionPricing.comboBonus
 
     const finalPrices = basePrices.map((price) =>
       bonus > 0 && basePriceTotal > 0 ? Math.round(price - (bonus * price) / basePriceTotal) : price
@@ -108,10 +105,24 @@ export default function ComboBuilderPage({ campaignId }: { campaignId: string })
     }))
 
     addItems(cartItems)
-    const savings = pricing.regularTotal - pricing.total
+    const savings = selectionPricing.regularTotal - selectionPricing.total
     setSuccessMessage(
       `${cartItems.length} item${cartItems.length !== 1 ? 's' : ''} added to your cart successfully! You saved ${formatCurrency(savings)} on this combo.`
     )
+  }
+
+  const addAllToCart = () => {
+    const missing = campaign.groups.filter((g) => g.required && !(selections[g.key]?.length))
+    if (missing.length > 0) {
+      setWarningMessage(`Please select ${missing.map((g) => g.label).join(', ')} before continuing.`)
+      return
+    }
+    commitSelectionsToCart(selections)
+  }
+
+  const applyPreset = (preset: ComboSelections) => {
+    setSelections(preset)
+    setActiveGroupKey(campaign.groups[0]?.key ?? null)
   }
 
   return (
@@ -138,6 +149,7 @@ export default function ComboBuilderPage({ campaignId }: { campaignId: string })
                 </div>
               ) : (
                 <>
+                  <SuggestedCombos campaign={campaign} onEdit={applyPreset} onAddToCart={commitSelectionsToCart} />
                   <CategoryTabs
                     groups={campaign.groups}
                     activeKey={activeGroup?.key ?? ''}

@@ -18,6 +18,7 @@ type Props = {
 export default function ComboSummarySidebar({ campaign, selections, pricing, onRemove, onRemoveAll, onAddAllToCart }: Props) {
   const color = campaign.themeColor ?? '#c3272b'
   const hasAnySelection = pricing.subtotal > 0
+  const canAddToCart = pricing.unlockedGroups >= 2
 
   return (
     <aside className="w-full lg:w-[300px] shrink-0 bg-white rounded-2xl shadow-sm border border-gray-100 p-5 h-fit lg:sticky lg:top-5">

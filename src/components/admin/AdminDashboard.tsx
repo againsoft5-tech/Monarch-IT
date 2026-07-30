@@ -1,11 +1,9 @@
 'use client'
 
 import { useEffect, useMemo, useRef, useState } from 'react'
-import { useRouter } from 'next/navigation'
 import Image from 'next/image'
 import { productsByCategory } from '@/data/pcBuilderData'
 import { useToast, Toast } from '@/components/ui/Toast'
-import { useAdminAuth } from '@/context/AdminAuthContext'
 import ReadReceipt from '@/components/chat/ReadReceipt'
 import AttachMenu from '@/components/chat/AttachMenu'
 import FileBubble from '@/components/chat/FileBubble'
@@ -109,8 +107,6 @@ const mockVouchers = [
 ]
 
 export default function AdminDashboard() {
-  const { logoutAdmin } = useAdminAuth()
-  const router = useRouter()
   const { toast, showToast } = useToast()
   const db = useChatStore()
 
@@ -223,11 +219,6 @@ export default function AdminDashboard() {
 
   const voiceRecorder = useVoiceRecorder(handleVoiceSend, (message) => showToast(message))
 
-  const handleLogout = () => {
-    logoutAdmin()
-    router.push('/admin/login')
-  }
-
   const productResults = productsByCategory.cpu
     .filter((p) => p.name.toLowerCase().includes(productSearch.toLowerCase()))
     .slice(0, 8)
@@ -244,7 +235,7 @@ export default function AdminDashboard() {
   })
 
   return (
-    <div className="h-screen w-screen bg-[#eef0f3] flex flex-col lg:grid lg:grid-cols-[320px_1fr_360px] lg:gap-5 lg:p-5">
+    <div className="h-full w-full bg-[#eef0f3] flex flex-col lg:grid lg:grid-cols-[320px_1fr_360px] lg:gap-5 lg:p-5">
       <Toast message={toast} />
 
       {/* Conversation list */}
@@ -264,22 +255,6 @@ export default function AdminDashboard() {
               className="w-full bg-[#f5f5f7] rounded-full pl-11 pr-3 py-3 text-[13px] font-medium text-gray-700 placeholder-gray-400 outline-none"
             />
           </div>
-          <button
-            type="button"
-            title="Combo Campaigns"
-            onClick={() => router.push('/admin/combo')}
-            className="w-11 h-11 shrink-0 rounded-full bg-[#f5f5f7] hover:bg-gray-200 flex items-center justify-center text-gray-600 transition-colors cursor-pointer"
-          >
-            <span className="mi text-[18px]">inventory_2</span>
-          </button>
-          <button
-            type="button"
-            title="Logout"
-            onClick={handleLogout}
-            className="w-11 h-11 shrink-0 rounded-full bg-[#f5f5f7] hover:bg-gray-200 flex items-center justify-center text-gray-600 transition-colors cursor-pointer"
-          >
-            <span className="mi text-[18px]">logout</span>
-          </button>
         </div>
 
         <div className="shrink-0 flex bg-[#f5f5f7] rounded-full mb-3 p-1">

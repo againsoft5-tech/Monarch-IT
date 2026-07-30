@@ -11,10 +11,10 @@ import { useComboStore,
   addGroup,
   updateGroup,
   deleteGroup,
-  addProduct,
   updateProduct,
   removeProduct,
   importCategoryIntoGroup,
+  addCatalogProductToGroup,
 } from '@/lib/comboStore'
 import { priceNewOf, type DiscountType } from '@/data/comboData'
 import { categoryProductsMap } from '@/data/categoryProducts'
@@ -45,8 +45,10 @@ export default function ComboCampaignEditor({ campaignId }: { campaignId: string
   const [activeGroupKey, setActiveGroupKey] = useState<string | null>(null)
   const [newGroupLabel, setNewGroupLabel] = useState('')
   const [importCategory, setImportCategory] = useState('')
-  const [newProduct, setNewProduct] = useState({ name: '', image: '', brand: '', priceOld: '', discountType: 'fixed' as DiscountType, discountValue: '' })
-  const [newTier, setNewTier] = useState({ minGroups: '', bonusAmount: '' })
+  const [productSearch, setProductSearch] = useState('')
+  const [catalogSearch, setCatalogSearch] = useState('')
+  const [catalogFocused, setCatalogFocused] = useState(false)
+  const [newTier, setNewTier] = useState({ minGroups: '', bonusType: 'fixed' as DiscountType, bonusAmount: '' })
 
   useEffect(() => {
     if (adminChecked && !isAdminLoggedIn) router.replace('/admin/login')
@@ -58,13 +60,21 @@ export default function ComboCampaignEditor({ campaignId }: { campaignId: string
 
   const categorySlugs = useMemo(() => Object.keys(categoryProductsMap).sort(), [])
 
+  const allCatalogProducts = useMemo(() => Object.values(categoryProductsMap).flatMap((c) => c.products), [])
+
+  const catalogMatches = useMemo(() => {
+    const q = catalogSearch.trim().toLowerCase()
+    if (!q) return []
+    return allCatalogProducts.filter((p) => p.name.toLowerCase().includes(q)).slice(0, 8)
+  }, [catalogSearch, allCatalogProducts])
+
   if (!adminChecked || !isAdminLoggedIn) {
-    return <div className="min-h-screen flex items-center justify-center bg-[#eef0f3] text-gray-400 text-[14px]">Loading...</div>
+    return <div className="min-h-full flex items-center justify-center bg-[#eef0f3] text-gray-400 text-[14px]">Loading...</div>
   }
 
   if (!campaign) {
     return (
-      <div className="min-h-screen flex flex-col items-center justify-center gap-3 bg-[#eef0f3] text-gray-500 text-[14px]">
+      <div className="min-h-full flex flex-col items-center justify-center gap-3 bg-[#eef0f3] text-gray-500 text-[14px]">
         Campaign not found.
         <Link href="/admin/combo" className="text-[#bd2026] font-semibold no-underline">
           Back to campaigns
@@ -82,32 +92,17 @@ export default function ComboCampaignEditor({ campaignId }: { campaignId: string
     setNewGroupLabel('')
   }
 
-  const handleAddProduct = () => {
-    if (!activeGroup) return
-    const priceOld = Number(newProduct.priceOld)
-    const discountValue = Number(newProduct.discountValue) || 0
-    if (!newProduct.name.trim() || !priceOld) return
-    addProduct(campaignId, activeGroup.key, {
-      name: newProduct.name.trim(),
-      image: newProduct.image.trim() || '/images/pc-builder/icons/storage-active.svg',
-      brand: newProduct.brand.trim() || newProduct.name.trim().split(' ')[0],
-      priceOld,
-      discountType: newProduct.discountType,
-      discountValue,
-    })
-    setNewProduct({ name: '', image: '', brand: '', priceOld: '', discountType: 'fixed', discountValue: '' })
-  }
-
   const handleAddTier = () => {
     const minGroups = Number(newTier.minGroups)
-    const bonusAmount = Number(newTier.bonusAmount)
+    const rawAmount = Number(newTier.bonusAmount)
+    const bonusAmount = newTier.bonusType === 'percent' ? Math.max(0, Math.min(100, rawAmount)) : Math.max(0, rawAmount)
     if (!minGroups || !bonusAmount) return
-    updateBonusTiers(campaignId, [...campaign.bonusTiers, { minGroups, bonusAmount }])
-    setNewTier({ minGroups: '', bonusAmount: '' })
+    updateBonusTiers(campaignId, [...campaign.bonusTiers, { minGroups, bonusType: newTier.bonusType, bonusAmount }])
+    setNewTier({ minGroups: '', bonusType: 'fixed', bonusAmount: '' })
   }
 
   return (
-    <div className="min-h-screen bg-[#eef0f3] px-4 py-8 lg:px-10">
+    <div className="min-h-full bg-[#eef0f3] px-4 py-8 lg:px-10">
       <div className="max-w-4xl mx-auto">
         <div className="flex items-center justify-between mb-5 flex-wrap gap-3">
           <div>
@@ -313,120 +308,125 @@ export default function ComboCampaignEditor({ campaignId }: { campaignId: string
                         >
                           Import
                         </button>
-                      </div>
 
-                      {activeGroup.products.length > 0 && (
-                        <div className="grid grid-cols-[1fr_96px_96px_64px_80px_92px] gap-2 border border-transparent p-3 mb-1.5">
-                          <span className="text-[11px] font-semibold text-gray-400 uppercase">Product Name</span>
-                          <span className="text-[11px] font-semibold text-gray-400 uppercase">Regular Price</span>
-                          <span className="text-[11px] font-semibold text-gray-400 uppercase">Special Price</span>
-                          <span className="text-[11px] font-semibold text-gray-400 uppercase">Type</span>
-                          <span className="text-[11px] font-semibold text-gray-400 uppercase">Discount</span>
-                          <span className="text-[11px] font-semibold text-gray-400 uppercase">Action</span>
-                        </div>
-                      )}
-                      <div className="space-y-2 mb-5">
-                        {activeGroup.products.map((p) => (
-                          <div key={p.id} className="grid grid-cols-[1fr_96px_96px_64px_80px_92px] items-center gap-2 border border-gray-100 rounded-xl p-3">
+                        <div className="ml-auto flex items-center gap-2">
+                          <span className="text-[12.5px] font-semibold text-gray-700 whitespace-nowrap">Import from product</span>
+                          <div className="relative w-64">
                             <input
                               type="text"
-                              value={p.name}
-                              onChange={(e) => updateProduct(campaignId, activeGroup.key, p.id, { name: e.target.value })}
-                              className="h-9 px-3 rounded-lg border border-gray-200 outline-none text-[13px]"
+                              value={catalogSearch}
+                              onChange={(e) => setCatalogSearch(e.target.value)}
+                              onFocus={() => setCatalogFocused(true)}
+                              onBlur={() => setTimeout(() => setCatalogFocused(false), 150)}
+                              placeholder="Search catalog to add a product..."
+                              className="h-9 w-full px-3 rounded-lg border border-gray-200 outline-none text-[12.5px] text-gray-800 focus:border-gray-400 transition-colors"
                             />
-                            <input
-                              type="number"
-                              value={p.priceOld}
-                              onChange={(e) => updateProduct(campaignId, activeGroup.key, p.id, { priceOld: Number(e.target.value) || 0 })}
-                              className="h-9 px-2 rounded-lg border border-gray-200 outline-none text-[13px]"
-                              title="Regular price"
-                            />
-                            <div className="h-9 px-2 rounded-lg bg-[#ecfdf5] flex items-center text-[13px] font-semibold text-[#10b981]" title="Special price (auto-calculated)">
-                              {formatCurrency(priceNewOf(p))}
-                            </div>
-                            <select
-                              value={p.discountType}
-                              onChange={(e) => updateProduct(campaignId, activeGroup.key, p.id, { discountType: e.target.value as DiscountType })}
-                              className="h-9 px-2 rounded-lg border border-gray-200 outline-none text-[12.5px]"
-                            >
-                              <option value="percent">%</option>
-                              <option value="fixed">৳</option>
-                            </select>
-                            <input
-                              type="number"
-                              value={p.discountValue}
-                              onChange={(e) => {
-                                const raw = Number(e.target.value) || 0
-                                const value = p.discountType === 'percent' ? Math.max(0, Math.min(100, raw)) : Math.max(0, raw)
-                                updateProduct(campaignId, activeGroup.key, p.id, { discountValue: value })
-                              }}
-                              className="h-9 px-2 rounded-lg border border-gray-200 outline-none text-[13px]"
-                              title="Discount value"
-                            />
-                            <button
-                              type="button"
-                              onClick={() => removeProduct(campaignId, activeGroup.key, p.id)}
-                              className="h-8 px-3 rounded-full border border-gray-200 text-[12px] font-semibold text-[#bd2026] hover:bg-red-50 cursor-pointer"
-                            >
-                              Remove
-                            </button>
+                            {catalogFocused && catalogSearch.trim() && (
+                              <div className="absolute right-0 top-[calc(100%+4px)] z-10 w-96 bg-white border border-gray-200 rounded-xl shadow-lg max-h-80 overflow-y-auto thin-scroll-gray">
+                                {catalogMatches.length === 0 ? (
+                                  <p className="text-[13px] text-gray-400 px-4 py-3 m-0">No products match &quot;{catalogSearch}&quot;.</p>
+                                ) : (
+                                  catalogMatches.map((p) => (
+                                    <button
+                                      key={p.id}
+                                      type="button"
+                                      onMouseDown={() => {
+                                        addCatalogProductToGroup(campaignId, activeGroup.key, p)
+                                        setCatalogSearch('')
+                                      }}
+                                      className="w-full flex items-center justify-between gap-3 px-4 py-2.5 text-left hover:bg-gray-50 cursor-pointer border-b border-gray-50 last:border-b-0"
+                                    >
+                                      <span className="text-[13px] font-medium text-gray-800 truncate">{p.name}</span>
+                                      <span className="shrink-0 text-[12.5px] font-semibold" style={{ color: RED }}>
+                                        {formatCurrency(p.priceNew)}
+                                      </span>
+                                    </button>
+                                  ))
+                                )}
+                              </div>
+                            )}
                           </div>
-                        ))}
+                        </div>
                       </div>
 
-                      <div className="grid gap-2 sm:grid-cols-2 border-t border-gray-100 pt-4">
-                        <input
-                          type="text"
-                          value={newProduct.name}
-                          onChange={(e) => setNewProduct((s) => ({ ...s, name: e.target.value }))}
-                          placeholder="Product name"
-                          className={inputCls}
-                        />
-                        <input
-                          type="text"
-                          value={newProduct.brand}
-                          onChange={(e) => setNewProduct((s) => ({ ...s, brand: e.target.value }))}
-                          placeholder="Brand"
-                          className={inputCls}
-                        />
-                        <input
-                          type="text"
-                          value={newProduct.image}
-                          onChange={(e) => setNewProduct((s) => ({ ...s, image: e.target.value }))}
-                          placeholder="Image URL (optional)"
-                          className={inputCls}
-                        />
-                        <input
-                          type="number"
-                          value={newProduct.priceOld}
-                          onChange={(e) => setNewProduct((s) => ({ ...s, priceOld: e.target.value }))}
-                          placeholder="Regular price"
-                          className={inputCls}
-                        />
-                        <select
-                          value={newProduct.discountType}
-                          onChange={(e) => setNewProduct((s) => ({ ...s, discountType: e.target.value as DiscountType }))}
-                          className={inputCls}
-                        >
-                          <option value="fixed">Fixed amount (৳)</option>
-                          <option value="percent">Percent (%)</option>
-                        </select>
-                        <input
-                          type="number"
-                          value={newProduct.discountValue}
-                          onChange={(e) => setNewProduct((s) => ({ ...s, discountValue: e.target.value }))}
-                          placeholder="Discount value"
-                          className={inputCls}
-                        />
-                        <button
-                          type="button"
-                          onClick={handleAddProduct}
-                          className="h-10 px-4 rounded-full text-white text-[13px] font-semibold cursor-pointer sm:col-span-2"
-                          style={{ backgroundColor: RED }}
-                        >
-                          + Add Product
-                        </button>
-                      </div>
+                      <input
+                        type="text"
+                        value={productSearch}
+                        onChange={(e) => setProductSearch(e.target.value)}
+                        placeholder="Search products in this group..."
+                        className={`${inputCls} mb-4`}
+                      />
+
+                      {(() => {
+                        const filteredProducts = activeGroup.products.filter((p) =>
+                          p.name.toLowerCase().includes(productSearch.trim().toLowerCase())
+                        )
+                        return (
+                          <>
+                            {filteredProducts.length > 0 && (
+                              <div className="grid grid-cols-[1fr_96px_96px_64px_80px_92px] gap-2 border border-transparent p-3 mb-1.5">
+                                <span className="text-[11px] font-semibold text-gray-400 uppercase">Product Name</span>
+                                <span className="text-[11px] font-semibold text-gray-400 uppercase">Regular Price</span>
+                                <span className="text-[11px] font-semibold text-gray-400 uppercase">Special Price</span>
+                                <span className="text-[11px] font-semibold text-gray-400 uppercase">Type</span>
+                                <span className="text-[11px] font-semibold text-gray-400 uppercase">Discount</span>
+                                <span className="text-[11px] font-semibold text-gray-400 uppercase">Action</span>
+                              </div>
+                            )}
+                            {activeGroup.products.length > 0 && filteredProducts.length === 0 && (
+                              <p className="text-[13px] text-gray-400 py-4">No products match &quot;{productSearch}&quot;.</p>
+                            )}
+                            <div className="space-y-2 mb-5">
+                              {filteredProducts.map((p) => (
+                                <div key={p.id} className="grid grid-cols-[1fr_96px_96px_64px_80px_92px] items-center gap-2 border border-gray-100 rounded-xl p-3">
+                                  <input
+                                    type="text"
+                                    value={p.name}
+                                    onChange={(e) => updateProduct(campaignId, activeGroup.key, p.id, { name: e.target.value })}
+                                    className="h-9 px-3 rounded-lg border border-gray-200 outline-none text-[13px]"
+                                  />
+                                  <input
+                                    type="number"
+                                    value={p.priceOld}
+                                    onChange={(e) => updateProduct(campaignId, activeGroup.key, p.id, { priceOld: Number(e.target.value) || 0 })}
+                                    className="h-9 px-2 rounded-lg border border-gray-200 outline-none text-[13px]"
+                                    title="Regular price"
+                                  />
+                                  <div className="h-9 px-2 rounded-lg bg-[#ecfdf5] flex items-center text-[13px] font-semibold text-[#10b981]" title="Special price (auto-calculated)">
+                                    {formatCurrency(priceNewOf(p))}
+                                  </div>
+                                  <select
+                                    value={p.discountType}
+                                    onChange={(e) => updateProduct(campaignId, activeGroup.key, p.id, { discountType: e.target.value as DiscountType })}
+                                    className="h-9 px-2 rounded-lg border border-gray-200 outline-none text-[12.5px]"
+                                  >
+                                    <option value="percent">%</option>
+                                    <option value="fixed">৳</option>
+                                  </select>
+                                  <input
+                                    type="number"
+                                    value={p.discountValue}
+                                    onChange={(e) => {
+                                      const raw = Number(e.target.value) || 0
+                                      const value = p.discountType === 'percent' ? Math.max(0, Math.min(100, raw)) : Math.max(0, raw)
+                                      updateProduct(campaignId, activeGroup.key, p.id, { discountValue: value })
+                                    }}
+                                    className="h-9 px-2 rounded-lg border border-gray-200 outline-none text-[13px]"
+                                    title="Discount value"
+                                  />
+                                  <button
+                                    type="button"
+                                    onClick={() => removeProduct(campaignId, activeGroup.key, p.id)}
+                                    className="h-8 px-3 rounded-full border border-gray-200 text-[12px] font-semibold text-[#bd2026] hover:bg-red-50 cursor-pointer"
+                                  >
+                                    Remove
+                                  </button>
+                                </div>
+                              ))}
+                            </div>
+                          </>
+                        )
+                      })()}
                     </>
                   )}
                 </>
@@ -445,7 +445,8 @@ export default function ComboCampaignEditor({ campaignId }: { campaignId: string
                 {campaign.bonusTiers.map((tier, i) => (
                   <div key={i} className="flex items-center gap-3 border border-gray-100 rounded-xl p-3">
                     <span className="text-[13px] text-gray-600">
-                      {tier.minGroups}+ groups &rarr; {formatCurrency(tier.bonusAmount)} off
+                      {tier.minGroups}+ groups &rarr;{' '}
+                      {(tier.bonusType ?? 'fixed') === 'percent' ? `${tier.bonusAmount}%` : formatCurrency(tier.bonusAmount)} off
                     </span>
                     <button
                       type="button"
@@ -471,11 +472,19 @@ export default function ComboCampaignEditor({ campaignId }: { campaignId: string
                   placeholder="Min groups"
                   className="h-10 w-28 px-3 rounded-xl border border-gray-200 outline-none text-[13px]"
                 />
+                <select
+                  value={newTier.bonusType}
+                  onChange={(e) => setNewTier((s) => ({ ...s, bonusType: e.target.value as DiscountType }))}
+                  className="h-10 px-3 rounded-xl border border-gray-200 outline-none text-[13px] text-gray-700"
+                >
+                  <option value="fixed">Fixed amount (৳)</option>
+                  <option value="percent">Percent (%)</option>
+                </select>
                 <input
                   type="number"
                   value={newTier.bonusAmount}
                   onChange={(e) => setNewTier((s) => ({ ...s, bonusAmount: e.target.value }))}
-                  placeholder="Bonus amount (৳)"
+                  placeholder={newTier.bonusType === 'percent' ? 'Bonus percent (%)' : 'Bonus amount (৳)'}
                   className="h-10 w-40 px-3 rounded-xl border border-gray-200 outline-none text-[13px]"
                 />
                 <button

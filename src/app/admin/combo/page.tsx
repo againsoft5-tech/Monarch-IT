@@ -20,7 +20,7 @@ export default function AdminComboListPage() {
   }, [adminChecked, isAdminLoggedIn, router])
 
   if (!adminChecked || !isAdminLoggedIn) {
-    return <div className="min-h-screen flex items-center justify-center bg-[#eef0f3] text-gray-400 text-[14px]">Loading...</div>
+    return <div className="min-h-full flex items-center justify-center bg-[#eef0f3] text-gray-400 text-[14px]">Loading...</div>
   }
 
   const campaigns = Object.values(db).sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())
@@ -39,7 +39,7 @@ export default function AdminComboListPage() {
   }
 
   return (
-    <div className="min-h-screen bg-[#eef0f3] px-4 py-8 lg:px-10">
+    <div className="min-h-full bg-[#eef0f3] px-4 py-8 lg:px-10">
       <div className="max-w-5xl mx-auto">
         <div className="flex items-center justify-between mb-6">
           <div>
