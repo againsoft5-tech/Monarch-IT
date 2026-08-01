@@ -1,6 +1,6 @@
 import HeroSlider from '@/components/home/HeroSlider'
 import CategoryCarousel from '@/components/home/CategoryCarousel'
-import BannerSlider from '@/components/home/BannerSlider'
+import PromoBanner from '@/components/home/PromoBanner'
 import FeaturedProducts from '@/components/home/FeaturedProducts'
 import BrandSlider from '@/components/home/BrandSlider'
 import DreamPcBanner from '@/components/home/DreamPcBanner'
@@ -12,7 +12,7 @@ export default function HomePage() {
     <>
       <HeroSlider />
       <CategoryCarousel />
-      <BannerSlider />
+      <PromoBanner />
       <FeaturedProducts />
       <DreamPcBanner />
       <BrandSlider />

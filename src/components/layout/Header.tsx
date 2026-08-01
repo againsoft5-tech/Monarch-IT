@@ -127,7 +127,7 @@ export default function Header() {
 
               <Link
                 href="/pc-builder"
-                className="border-2 border-[#d32f2f] text-[#d32f2f] bg-white px-5 py-[9px] rounded-[30px] font-bold text-[13px] hover:bg-[#d32f2f] hover:text-white transition-all whitespace-nowrap"
+                className="border-[1.8px] border-[#d32f2f] text-[#d32f2f] bg-white px-5 py-[9px] rounded-[30px] font-bold text-[13px] hover:bg-[#d32f2f] hover:text-white transition-all whitespace-nowrap"
               >
                 PC Builder
               </Link>
