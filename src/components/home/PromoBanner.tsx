@@ -6,9 +6,12 @@ import { usePromoBannerStore, type PromoSlide } from '@/lib/promoBannerStore'
 
 const REPEATS = 3
 
-function SlideContent({ slide }: { slide: PromoSlide }) {
-  return (
-    <div className="h-full w-full flex flex-col items-center justify-center px-4 py-6 max-[640px]:px-3 max-[640px]:py-4 max-[480px]:py-3">
+function SlideContent({ slide, linkWholeCard = false }: { slide: PromoSlide; linkWholeCard?: boolean }) {
+  const wrapperClassName =
+    'h-full w-full flex flex-col items-center justify-center px-4 py-6 min-[1200px]:py-10 max-[640px]:px-3 max-[640px]:py-4 max-[480px]:py-3'
+
+  const inner = (
+    <>
       <p className="text-[13px] text-gray-500 m-0 text-center max-[640px]:text-[11px] max-[480px]:text-[9px]">
         {slide.label}
       </p>
@@ -18,12 +21,14 @@ function SlideContent({ slide }: { slide: PromoSlide }) {
       <p className="text-[18px] text-[#4d4d4d] m-0 mt-0.5 text-center max-[640px]:text-[14px] max-[480px]:text-[11px]">
         {slide.subtitle}
       </p>
-      <Link
-        href={slide.buttonLink || '#'}
-        className="mt-3 inline-flex items-center justify-center rounded-full border border-[#e22a28] text-[#e22a28] hover:bg-[#e22a28] hover:text-white text-[18px] font-medium px-[18px] py-[10px] transition-colors max-[640px]:mt-2 max-[640px]:text-[13px] max-[640px]:px-3.5 max-[640px]:py-2 max-[480px]:mt-1 max-[480px]:text-[11px] max-[480px]:px-3 max-[480px]:py-1.5"
-      >
-        {slide.buttonText || 'Buy'}
-      </Link>
+      {!linkWholeCard && (
+        <Link
+          href={slide.buttonLink || '#'}
+          className="mt-3 inline-flex items-center justify-center rounded-full border border-[#e22a28] text-[#e22a28] hover:bg-[#e22a28] hover:text-white text-[18px] font-medium px-[18px] py-[10px] transition-colors max-[640px]:mt-2 max-[640px]:text-[13px] max-[640px]:px-3.5 max-[640px]:py-2 max-[480px]:mt-1 max-[480px]:text-[11px] max-[480px]:px-3 max-[480px]:py-1.5"
+        >
+          {slide.buttonText || 'Buy'}
+        </Link>
+      )}
       <div className="w-full mt-4 flex items-center justify-center px-16 max-[640px]:mt-3 max-[640px]:px-9 max-[480px]:mt-2 max-[480px]:px-5">
         {slide.image && (
           // eslint-disable-next-line @next/next/no-img-element
@@ -34,15 +39,25 @@ function SlideContent({ slide }: { slide: PromoSlide }) {
           />
         )}
       </div>
-    </div>
+    </>
   )
+
+  if (linkWholeCard) {
+    return (
+      <Link href={slide.buttonLink || '#'} className={wrapperClassName}>
+        {inner}
+      </Link>
+    )
+  }
+
+  return <div className={wrapperClassName}>{inner}</div>
 }
 
 function PromoColumn({ slides, trackRef }: { slides: PromoSlide[]; trackRef: React.RefObject<HTMLDivElement | null> }) {
   const loop = useMemo(() => (slides.length > 0 ? Array.from({ length: REPEATS }, () => slides).flat() : []), [slides])
 
   return (
-    <div className="flex-1 w-1/2 relative overflow-hidden rounded-[24px] bg-[#f4f5f7] h-[380px]">
+    <div className="flex-1 w-1/2 relative overflow-hidden rounded-[24px] bg-[#f4f5f7] h-[380px] min-[1200px]:h-[420px]">
       {slides.length === 0 ? (
         <div className="absolute inset-0 flex items-center justify-center text-[13px] text-gray-400">No product set</div>
       ) : (
@@ -100,7 +115,7 @@ function MobileCarousel({
         <div ref={trackRef} className="flex h-full overflow-hidden [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
           {loop.map((slide, i) => (
             <div key={`${slide.id}-${i}`} className="h-full w-full shrink-0">
-              <SlideContent slide={slide} />
+              <SlideContent slide={slide} linkWholeCard />
             </div>
           ))}
         </div>
