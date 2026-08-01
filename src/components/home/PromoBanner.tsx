@@ -42,7 +42,7 @@ function PromoColumn({ slides, trackRef }: { slides: PromoSlide[]; trackRef: Rea
   const loop = useMemo(() => (slides.length > 0 ? Array.from({ length: REPEATS }, () => slides).flat() : []), [slides])
 
   return (
-    <div className="flex-1 w-1/2 relative overflow-hidden rounded-[24px] bg-[#f4f5f7] h-[380px] max-[640px]:rounded-[14px] max-[640px]:h-[300px] max-[480px]:h-[235px]">
+    <div className="flex-1 w-1/2 relative overflow-hidden rounded-[24px] bg-[#f4f5f7] h-[380px]">
       {slides.length === 0 ? (
         <div className="absolute inset-0 flex items-center justify-center text-[13px] text-gray-400">No product set</div>
       ) : (
@@ -58,18 +58,75 @@ function PromoColumn({ slides, trackRef }: { slides: PromoSlide[]; trackRef: Rea
   )
 }
 
+function MobileCarousel({
+  slides,
+  trackRef,
+  go,
+}: {
+  slides: PromoSlide[]
+  trackRef: React.RefObject<HTMLDivElement | null>
+  go: (dir: number) => void
+}) {
+  const loop = useMemo(() => (slides.length > 0 ? Array.from({ length: REPEATS }, () => slides).flat() : []), [slides])
+
+  if (slides.length === 0) return null
+
+  return (
+    <div className="hidden max-[640px]:flex flex-col items-center w-full">
+      <div className="relative z-[5] flex items-center justify-center -mb-[38px]">
+        <button
+          type="button"
+          onClick={() => go(-1)}
+          aria-label="Previous product"
+          className="relative z-10 mr-[-14px] hover:scale-125 transition-transform cursor-pointer"
+        >
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src="/images/promo-banner/left-arrow.svg" alt="" className="w-2.5" />
+        </button>
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img src="/images/promo-banner/fire-icon-with-bg-mobile.svg" alt="" className="w-[130px]" />
+        <button
+          type="button"
+          onClick={() => go(1)}
+          aria-label="Next product"
+          className="relative z-10 ml-[-14px] hover:scale-125 transition-transform cursor-pointer"
+        >
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src="/images/promo-banner/right-arrow.svg" alt="" className="w-2.5" />
+        </button>
+      </div>
+
+      <div className="relative overflow-hidden rounded-[14px] bg-[#f4f5f7] w-full h-[300px]">
+        <div ref={trackRef} className="flex h-full overflow-hidden [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+          {loop.map((slide, i) => (
+            <div key={`${slide.id}-${i}`} className="h-full w-full shrink-0">
+              <SlideContent slide={slide} />
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  )
+}
+
 export default function PromoBanner() {
   const db = usePromoBannerStore()
   const leftRef = useRef<HTMLDivElement>(null)
   const rightRef = useRef<HTMLDivElement>(null)
+  const mobileRef = useRef<HTMLDivElement>(null)
   const leftPos = useRef(0)
   const rightPos = useRef(0)
+  const mobilePos = useRef(0)
   const busyRef = useRef(false)
+  const mobileBusyRef = useRef(false)
   const timerRef = useRef<ReturnType<typeof setInterval> | null>(null)
 
   const leftLen = db.left.length
   const rightLen = db.right.length
   const maxLen = Math.max(leftLen, rightLen)
+
+  const mobileSlides = useMemo(() => [...db.left, ...db.right], [db.left, db.right])
+  const mobileLen = mobileSlides.length
 
   useEffect(() => {
     const leftItemH = leftRef.current?.clientHeight || 0
@@ -83,6 +140,14 @@ export default function PromoBanner() {
       rightRef.current.scrollTop = rightPos.current * rightItemH
     }
   }, [leftLen, rightLen])
+
+  useEffect(() => {
+    const itemW = mobileRef.current?.clientWidth || 0
+    if (mobileRef.current && mobileLen > 0) {
+      mobilePos.current = mobileLen
+      mobileRef.current.scrollLeft = mobilePos.current * itemW
+    }
+  }, [mobileLen])
 
   const go = (dir: number) => {
     if (busyRef.current) return
@@ -112,9 +177,25 @@ export default function PromoBanner() {
     }, 420)
   }
 
+  const goMobile = (dir: number) => {
+    if (mobileBusyRef.current || mobileLen === 0) return
+    mobileBusyRef.current = true
+
+    const itemW = mobileRef.current?.clientWidth || 0
+    mobileRef.current?.scrollBy({ left: dir * itemW, behavior: 'smooth' })
+
+    setTimeout(() => {
+      mobilePos.current += dir
+      if (mobilePos.current <= 0 || mobilePos.current >= mobileLen * (REPEATS - 1)) {
+        mobilePos.current = (((mobilePos.current % mobileLen) + mobileLen) % mobileLen) + mobileLen
+        if (mobileRef.current) mobileRef.current.scrollLeft = mobilePos.current * itemW
+      }
+      mobileBusyRef.current = false
+    }, 420)
+  }
+
   const start = () => {
-    if (maxLen <= 1) return
-    timerRef.current = setInterval(() => go(1), 4000)
+    if (maxLen > 1) timerRef.current = setInterval(() => go(1), 4000)
   }
   const stop = () => {
     if (timerRef.current) clearInterval(timerRef.current)
@@ -126,46 +207,49 @@ export default function PromoBanner() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [maxLen])
 
+  useEffect(() => {
+    if (mobileLen <= 1) return
+    const id = setInterval(() => goMobile(1), 4000)
+    return () => clearInterval(id)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [mobileLen])
+
   if (maxLen === 0) return null
 
   return (
-    <div
-      className="container mx-auto px-4 min-[992px]:px-14 flex items-stretch justify-center gap-2.5 py-5"
-      onMouseEnter={stop}
-      onMouseLeave={start}
-    >
-      <PromoColumn slides={db.left} trackRef={leftRef} />
+    <div className="container mx-auto px-4 min-[992px]:px-14 py-5" onMouseEnter={stop} onMouseLeave={start}>
+      <div className="flex items-stretch justify-center gap-2.5 max-[640px]:hidden">
+        <PromoColumn slides={db.left} trackRef={leftRef} />
 
-      <div className="relative flex items-center justify-center w-[130px] -mx-[65px] z-[5] shrink-0 max-[640px]:w-[76px] max-[640px]:-mx-[38px] max-[480px]:w-[54px] max-[480px]:-mx-[27px]">
-        <div className="flex flex-col items-center justify-center h-full">
-          <button
-            type="button"
-            onClick={() => go(-1)}
-            aria-label="Previous products"
-            className="relative z-10 mb-[-30px] hover:scale-125 transition-transform cursor-pointer max-[640px]:mb-[-17px] max-[480px]:mb-[-12px]"
-          >
+        <div className="relative flex items-center justify-center w-[130px] -mx-[65px] z-[5] shrink-0">
+          <div className="flex flex-col items-center justify-center h-full">
+            <button
+              type="button"
+              onClick={() => go(-1)}
+              aria-label="Previous products"
+              className="relative z-10 mb-[-30px] hover:scale-125 transition-transform cursor-pointer"
+            >
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src="/images/promo-banner/top-arrow.svg" alt="" className="w-5" />
+            </button>
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/images/promo-banner/top-arrow.svg" alt="" className="w-5 max-[640px]:w-3 max-[480px]:w-2" />
-          </button>
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            src="/images/promo-banner/fire-icon-with-bg.svg"
-            alt=""
-            className="w-[170px] max-[640px]:w-[95px] max-[480px]:w-[66px]"
-          />
-          <button
-            type="button"
-            onClick={() => go(1)}
-            aria-label="Next products"
-            className="relative z-10 mt-[-30px] hover:scale-125 transition-transform cursor-pointer max-[640px]:mt-[-17px] max-[480px]:mt-[-12px]"
-          >
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/images/promo-banner/down-arrow.svg" alt="" className="w-5 max-[640px]:w-3 max-[480px]:w-2" />
-          </button>
+            <img src="/images/promo-banner/fire-icon-with-bg.svg" alt="" className="w-[170px]" />
+            <button
+              type="button"
+              onClick={() => go(1)}
+              aria-label="Next products"
+              className="relative z-10 mt-[-30px] hover:scale-125 transition-transform cursor-pointer"
+            >
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src="/images/promo-banner/down-arrow.svg" alt="" className="w-5" />
+            </button>
+          </div>
         </div>
+
+        <PromoColumn slides={db.right} trackRef={rightRef} />
       </div>
 
-      <PromoColumn slides={db.right} trackRef={rightRef} />
+      <MobileCarousel slides={mobileSlides} trackRef={mobileRef} go={goMobile} />
     </div>
   )
 }
