@@ -5,7 +5,15 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { searchCategories, searchProducts } from '@/data/searchIndex'
 
-export default function SearchDropdown({ query, onNavigate }: { query: string; onNavigate?: () => void }) {
+export default function SearchDropdown({
+  query,
+  onNavigate,
+  positionClassName = 'absolute left-0 right-0 top-full mt-2',
+}: {
+  query: string
+  onNavigate?: () => void
+  positionClassName?: string
+}) {
   const [tab, setTab] = useState<'products' | 'categories'>('products')
 
   const q = query.trim().toLowerCase()
@@ -25,7 +33,7 @@ export default function SearchDropdown({ query, onNavigate }: { query: string; o
   const totalCount = tab === 'products' ? matchedProducts.length : matchedCategories.length
 
   return (
-    <div className="absolute left-0 right-0 top-full mt-2 bg-white border border-gray-200 rounded-xl shadow-[0_16px_40px_rgba(0,0,0,0.14)] z-50 overflow-hidden">
+    <div className={`${positionClassName} bg-white border border-gray-200 rounded-xl shadow-[0_16px_40px_rgba(0,0,0,0.14)] z-50 overflow-hidden`}>
       <div className="flex items-center gap-2 px-3 pt-3 pb-2">
         <button
           type="button"

@@ -26,6 +26,135 @@ export const shopTopCategories = [
   { name: 'Gaming', href: '/gaming' },
 ]
 
+export type ShopSub = { name: string; href: string }
+export type ShopCategory = { name: string; href: string; sub: ShopSub[] }
+
+export const shopCategories: ShopCategory[] = [
+  {
+    name: 'Desktop',
+    href: '/desktops',
+    sub: [
+      { name: 'All Desktop', href: '/desktops' },
+      { name: 'Gaming Desktop', href: '/desktops' },
+      { name: 'Mini PC', href: '/desktops' },
+      { name: 'All in One PC', href: '/desktops' },
+      { name: 'Workstation', href: '/desktops' },
+    ],
+  },
+  {
+    name: 'Laptop',
+    href: '/laptop',
+    sub: [
+      { name: 'All Laptop', href: '/laptop' },
+      { name: 'Gaming Laptop', href: '/laptop' },
+      { name: 'Laptop Accessories', href: '/laptop' },
+      { name: 'Laptop Bag', href: '/laptop' },
+      { name: 'Premium Ultrabook', href: '/laptop' },
+    ],
+  },
+  {
+    name: 'PC Components',
+    href: '/component',
+    sub: [
+      { name: 'Processor', href: '/component' },
+      { name: 'Motherboard', href: '/component' },
+      { name: 'Graphics Card', href: '/component' },
+      { name: 'RAM', href: '/component' },
+      { name: 'SSD & HDD', href: '/component' },
+      { name: 'Power Supply', href: '/component' },
+      { name: 'Casing', href: '/component' },
+      { name: 'CPU Cooler', href: '/component' },
+    ],
+  },
+  {
+    name: 'Monitor',
+    href: '/monitor',
+    sub: [
+      { name: 'Gaming Monitor', href: '/monitor' },
+      { name: 'Office Monitor', href: '/monitor' },
+      { name: 'Curved Monitor', href: '/monitor' },
+      { name: 'Portable Monitor', href: '/monitor' },
+    ],
+  },
+  {
+    name: 'UPS',
+    href: '/ups-ips',
+    sub: [
+      { name: 'Online UPS', href: '/ups-ips' },
+      { name: 'Offline UPS', href: '/ups-ips' },
+      { name: 'IPS', href: '/ups-ips' },
+      { name: 'Stabilizer', href: '/ups-ips' },
+    ],
+  },
+  {
+    name: 'Office Equipment',
+    href: '/office-equipments',
+    sub: [
+      { name: 'Printer', href: '/office-equipments' },
+      { name: 'Scanner', href: '/office-equipments' },
+      { name: 'Photocopier', href: '/office-equipments' },
+      { name: 'Projector', href: '/office-equipments' },
+      { name: 'Shredder', href: '/office-equipments' },
+    ],
+  },
+  {
+    name: 'Mobile Accessories',
+    href: '/mobile-accessories',
+    sub: [
+      { name: 'Power Bank', href: '/mobile-accessories' },
+      { name: 'Mobile Cover', href: '/mobile-accessories' },
+      { name: 'Charger', href: '/mobile-accessories' },
+      { name: 'Earphone', href: '/mobile-accessories' },
+      { name: 'Smart Watch', href: '/mobile-accessories' },
+    ],
+  },
+  {
+    name: 'AC',
+    href: '/air-conditioner',
+    sub: [{ name: 'All Air Conditioner', href: '/air-conditioner' }],
+  },
+  {
+    name: 'Security',
+    href: '/security',
+    sub: [
+      { name: 'CCTV Camera', href: '/security' },
+      { name: 'DVR & NVR', href: '/security' },
+      { name: 'Access Control', href: '/security' },
+      { name: 'Door Lock', href: '/security' },
+    ],
+  },
+  {
+    name: 'Networking',
+    href: '/networking',
+    sub: [
+      { name: 'Router', href: '/networking' },
+      { name: 'Switch', href: '/networking' },
+      { name: 'Access Point', href: '/networking' },
+      { name: 'Network Cable', href: '/networking' },
+    ],
+  },
+  {
+    name: 'Accessories',
+    href: '/accessories',
+    sub: [{ name: 'All Accessories', href: '/accessories' }],
+  },
+  {
+    name: 'Server & Storage',
+    href: '/server-and-storage',
+    sub: [{ name: 'All Server & Storage', href: '/server-and-storage' }],
+  },
+  {
+    name: 'Gadget',
+    href: '/gadget',
+    sub: [{ name: 'All Gadget', href: '/gadget' }],
+  },
+  {
+    name: 'Gaming',
+    href: '/gaming',
+    sub: [{ name: 'All Gaming', href: '/gaming' }],
+  },
+]
+
 export const drawerCategories = [
   {
     name: 'Television', icon: 'tv', href: '/monitor',

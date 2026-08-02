@@ -1,95 +1,114 @@
 'use client'
 
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import MobileDrawer from './MobileDrawer'
 import SearchDropdown from './SearchDropdown'
 import { useCart } from '@/context/CartContext'
+import { useAuth } from '@/context/AuthContext'
 
 const IMG_BASE = '/images'
 
 export default function MobileHeader() {
   const [drawerOpen, setDrawerOpen] = useState(false)
-  const [searchOpen, setSearchOpen] = useState(false)
+  const [searchFocused, setSearchFocused] = useState(false)
   const [query, setQuery] = useState('')
   const { openCart, itemCount } = useCart()
+  const { isLoggedIn } = useAuth()
+  const searchRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    if (!searchFocused) return
+    const handleClick = (e: MouseEvent) => {
+      if (searchRef.current && !searchRef.current.contains(e.target as Node)) setSearchFocused(false)
+    }
+    document.addEventListener('mousedown', handleClick)
+    return () => document.removeEventListener('mousedown', handleClick)
+  }, [searchFocused])
 
   return (
     <>
-      <div className="md:hidden flex items-center justify-between gap-3 bg-white px-4 py-3 border-b border-gray-100">
-        <button
-          type="button"
-          onClick={() => setDrawerOpen(true)}
-          className="w-9 h-9 flex items-center justify-center text-gray-700"
-          aria-label="Open menu"
-        >
-          <span className="mi text-[26px]">menu</span>
-        </button>
-
-        <Link href="/" className="flex-1 flex justify-center">
+      <div ref={searchRef} className="md:hidden relative flex items-center gap-2.5 bg-[#f4f5f7] px-4 py-3">
+        <Link href="/" className="shrink-0 flex items-center">
           <Image
-            src={`${IMG_BASE}/image/catalog/website/logo/monarch-it-logo.png`}
+            src={`${IMG_BASE}/catalog/view/theme/default/image/monarch-it-icon.png`}
             alt="Monarch IT"
-            width={140}
+            width={40}
             height={34}
-            className="h-8 w-auto object-contain"
+            className="h-9 w-auto object-contain"
           />
         </Link>
 
-        <div className="flex items-center gap-1">
-          <button
-            type="button"
-            onClick={() => setSearchOpen((v) => !v)}
-            className="w-9 h-9 flex items-center justify-center text-gray-700"
-            aria-label="Toggle search"
-          >
-            <Image src="/images/compare-icons/search-icon.svg" alt="" width={20} height={20} className="w-5 h-5" />
-          </button>
+        <div className="flex-1 min-w-0">
+          <div className="flex items-center bg-white rounded-full px-4 py-2.5">
+            <Image src="/images/compare-icons/search-icon.svg" alt="" width={18} height={18} className="w-[18px] h-[18px] mr-2.5 shrink-0" />
+            <input
+              type="text"
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
+              onFocus={() => setSearchFocused(true)}
+              placeholder="Search Products"
+              autoComplete="off"
+              className="flex-1 min-w-0 border-none bg-transparent outline-none text-[14px] text-gray-700 placeholder-gray-400"
+            />
+          </div>
+        </div>
+
+        <div className="shrink-0 flex items-center gap-2">
           <button
             type="button"
             onClick={openCart}
-            className="relative w-9 h-9 flex items-center justify-center text-gray-700"
+            className="relative w-9 h-9 bg-white rounded-full flex items-center justify-center text-gray-700 cursor-pointer"
             aria-label="Cart"
           >
             <Image
               src={`${IMG_BASE}/catalog/view/theme/default/image/cart-icon.svg`}
               alt="Cart"
-              width={22}
-              height={22}
-              className="w-[22px] h-[22px]"
+              width={20}
+              height={20}
+              className="w-[20px] h-[20px]"
             />
-            <span className="absolute top-0 right-0 bg-[#d32f2f] text-white text-[9px] font-bold min-w-[15px] h-[15px] rounded-full flex items-center justify-center border-2 border-white leading-none">
-              {itemCount}
-            </span>
+            {itemCount > 0 && (
+              <span className="absolute top-1 right-1 w-2 h-2 rounded-full bg-[#d32f2f] border border-white" />
+            )}
+          </button>
+
+          <Link
+            href={isLoggedIn ? '/account' : '/login'}
+            className="w-9 h-9 bg-white rounded-full flex items-center justify-center text-gray-700 no-underline"
+            aria-label="Account"
+          >
+            <Image
+              src={`${IMG_BASE}/catalog/view/theme/default/image/account-icon.svg`}
+              alt="Account"
+              width={20}
+              height={20}
+              className="w-[20px] h-[20px]"
+            />
+          </Link>
+
+          <button
+            type="button"
+            onClick={() => setDrawerOpen(true)}
+            className="w-9 h-9 flex items-center justify-center text-gray-700 cursor-pointer"
+            aria-label="Open menu"
+          >
+            <span className="mi text-[26px]">menu</span>
           </button>
         </div>
-      </div>
 
-      {searchOpen && (
-        <div className="md:hidden bg-white px-4 pb-3 border-b border-gray-100">
-          <div className="relative">
-            <div className="flex items-center bg-[#f4f5f7] rounded-full px-4 py-2.5">
-              <Image src="/images/compare-icons/search-icon.svg" alt="" width={18} height={18} className="w-[18px] h-[18px] mr-2.5 shrink-0" />
-              <input
-                type="text"
-                value={query}
-                onChange={(e) => setQuery(e.target.value)}
-                placeholder="Search Products"
-                autoComplete="off"
-                className="flex-1 min-w-0 border-none bg-transparent outline-none text-[14px] text-gray-700 placeholder-gray-400"
-              />
-            </div>
-            <SearchDropdown
-              query={query}
-              onNavigate={() => {
-                setSearchOpen(false)
-                setQuery('')
-              }}
-            />
-          </div>
-        </div>
-      )}
+        {searchFocused && (
+          <SearchDropdown
+            query={query}
+            onNavigate={() => {
+              setSearchFocused(false)
+              setQuery('')
+            }}
+            positionClassName="absolute left-3 right-3 top-full mt-2"
+          />
+        )}
+      </div>
 
       <MobileDrawer open={drawerOpen} onClose={() => setDrawerOpen(false)} />
     </>
