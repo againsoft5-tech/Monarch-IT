@@ -29,7 +29,7 @@ function renderMobileItem(item: (typeof menuItems)[number], count: number, handl
       <div
         className={`rounded-full flex items-center justify-center transition-all duration-200 ${
           item.active
-            ? 'w-[76px] h-[76px] bg-[#e0272e] shadow-[0_0_0_8px_rgba(224,39,46,0.15),0_10px_25px_rgba(224,39,46,0.5)]'
+            ? 'w-[76px] h-[76px] bg-[#e0272e] shadow-[0_0_12px_2px_rgba(224,39,46,0.9)]'
             : 'w-11 h-11 bg-white shadow-[0_2px_5px_rgba(0,0,0,0.08)]'
         }`}
       >
