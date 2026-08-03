@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
+import { usePathname } from 'next/navigation'
 import MobileDrawer from './MobileDrawer'
 import SearchDropdown from './SearchDropdown'
 import { useCart } from '@/context/CartContext'
@@ -17,6 +18,12 @@ export default function MobileHeader() {
   const { openCart, itemCount } = useCart()
   const { isLoggedIn } = useAuth()
   const searchRef = useRef<HTMLDivElement>(null)
+  const pathname = usePathname()
+
+  useEffect(() => {
+    setQuery('')
+    setSearchFocused(false)
+  }, [pathname])
 
   useEffect(() => {
     if (!searchFocused) return

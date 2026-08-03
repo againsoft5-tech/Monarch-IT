@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
 import { useCart } from "@/context/CartContext";
 import { useAuth } from "@/context/AuthContext";
 import ShopMenu from "./ShopMenu";
@@ -16,12 +16,18 @@ export default function Header() {
   const { openCart, itemCount } = useCart();
   const { isLoggedIn, customerName, logout } = useAuth();
   const router = useRouter();
+  const pathname = usePathname();
   const headerRef = useRef<HTMLElement>(null);
   const [headerBottom, setHeaderBottom] = useState(0);
   const searchRef = useRef<HTMLDivElement>(null);
   const [query, setQuery] = useState("");
   const [searchFocused, setSearchFocused] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    setQuery("");
+    setSearchFocused(false);
+  }, [pathname]);
 
   useEffect(() => {
     const updateHeaderBottom = () => {

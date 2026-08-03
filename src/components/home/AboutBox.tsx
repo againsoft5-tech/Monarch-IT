@@ -1,26 +1,37 @@
 'use client'
 
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 
 export default function AboutBox() {
   const [open, setOpen] = useState(false)
+  const contentRef = useRef<HTMLDivElement>(null)
+  const [contentHeight, setContentHeight] = useState(0)
+
+  useEffect(() => {
+    const measure = () => {
+      if (contentRef.current) setContentHeight(contentRef.current.scrollHeight)
+    }
+    measure()
+    window.addEventListener('resize', measure)
+    return () => window.removeEventListener('resize', measure)
+  }, [])
 
   return (
     <div className="container mx-auto my-10">
     <div className="bg-white border border-[#e5e5e5] rounded-[25px] px-[25px] pt-[25px] pb-[30px] relative shadow-[0_2px_10px_rgba(0,0,0,0.03)]">
-      <h2 className="text-center text-[#d52b2b] text-[28px] md:text-[34px] font-bold mb-[5px]">Monarch IT Ltd</h2>
-      <div className="text-center text-[#666] text-base md:text-xl mb-[15px]">
+      <h2 className="text-center text-[#d52b2b] text-[22px] md:text-[34px] font-bold mb-[5px]">Monarch IT Ltd</h2>
+      <div className="text-center text-[#666] text-[13px] md:text-xl mb-[15px]">
         A Trusted Computer Distributor &amp; Retailer in Bangladesh
       </div>
       <div className="h-px bg-[#e7e7e7] mb-5" />
 
       <div className="relative text-center">
         <div
-          className={`text-[#666] text-[15px] md:text-base leading-[1.7] text-left overflow-hidden transition-[height] duration-500 ease-in-out ${
-            open ? 'h-auto' : 'h-[110px]'
-          }`}
+          ref={contentRef}
+          className="text-[#666] text-[13px] md:text-base leading-[1.7] text-left overflow-hidden transition-[height] duration-500 ease-in-out"
+          style={{ height: open ? contentHeight : 110 }}
         >
-          <h3 className="text-lg font-semibold text-[#333] mt-0 mb-2">
+          <h3 className="text-[15px] md:text-lg font-semibold text-[#333] mt-0 mb-2">
             Leading Computer, Laptop &amp; Gaming PC Retail and Online Shop in Bangladesh
           </h3>
           <p className="mb-4">
@@ -35,7 +46,7 @@ export default function AboutBox() {
             and loyalty of countless customers nationwide, offering a wide range of tech products and services.
           </p>
 
-          <h3 className="text-lg font-semibold text-[#333] mb-2">
+          <h3 className="text-[15px] md:text-lg font-semibold text-[#333] mb-2">
             Monarch IT – Authorized Importer &amp; Exclusive Distributor in Bangladesh
           </h3>
           <p className="mb-4">
@@ -56,7 +67,7 @@ export default function AboutBox() {
             customers and corporate clients with reliable and original tech solutions.
           </p>
 
-          <h3 className="text-lg font-semibold text-[#333] mb-2">Best Laptop Shop in Bangladesh</h3>
+          <h3 className="text-[15px] md:text-lg font-semibold text-[#333] mb-2">Best Laptop Shop in Bangladesh</h3>
           <p className="mb-4">
             When it comes to finding the best laptop shop in Bangladesh, Monarch IT Limited is the ultimate
             destination. Whether you&rsquo;re a freelancer, office professional, student, or gamer, Monarch IT
@@ -75,7 +86,7 @@ export default function AboutBox() {
             budget-friendly option, Monarch IT Limited ensures expert guidance to help you make informed decisions.
           </p>
 
-          <h3 className="text-lg font-semibold text-[#333] mb-2">Best Desktop PC Shop in Bangladesh</h3>
+          <h3 className="text-[15px] md:text-lg font-semibold text-[#333] mb-2">Best Desktop PC Shop in Bangladesh</h3>
           <p className="mb-4">
             For those seeking the best desktop PC shop in Bangladesh, Monarch IT Limited stands out as the most
             trusted retailer. They offer a wide variety of options, including Custom PCs, Brand PCs, All-in-One PCs,
@@ -90,7 +101,7 @@ export default function AboutBox() {
             guided by experienced professionals.
           </p>
 
-          <h3 className="text-lg font-semibold text-[#333] mb-2">Gaming PC Shop in Bangladesh</h3>
+          <h3 className="text-[15px] md:text-lg font-semibold text-[#333] mb-2">Gaming PC Shop in Bangladesh</h3>
           <p className="mb-4">
             Gaming is at the heart of Monarch IT Limited. Their specialized Gaming PC shop in Bangladesh, located at
             the IDB Bhaban &amp; Elephant Road, is a paradise for gamers. Monarch IT Limited offers an extensive
@@ -106,7 +117,7 @@ export default function AboutBox() {
             your existing setup, Monarch IT Limited is the go-to destination.
           </p>
 
-          <h3 className="text-lg font-semibold text-[#333] mb-2">Best Office Equipment Shop in Bangladesh</h3>
+          <h3 className="text-[15px] md:text-lg font-semibold text-[#333] mb-2">Best Office Equipment Shop in Bangladesh</h3>
           <p className="mb-4">
             For over 34 years, Monarch IT Limited has been the best office equipment shop in BD, offering reliable
             solutions for home offices, startups, and corporate workspaces. Their comprehensive inventory includes
@@ -115,7 +126,7 @@ export default function AboutBox() {
             Limited ensures your workspace is equipped with the latest technology for seamless operations.
           </p>
 
-          <h3 className="text-lg font-semibold text-[#333] mb-2">Largest Gadget Shop in Bangladesh</h3>
+          <h3 className="text-[15px] md:text-lg font-semibold text-[#333] mb-2">Largest Gadget Shop in Bangladesh</h3>
           <p className="mb-4">
             Monarch IT Limited has earned its reputation as the largest gadget shop in Bangladesh. From daily
             lifestyle gadgets like smartwatches, earbuds, and power banks to professional equipment like drones, DSLR
@@ -126,7 +137,7 @@ export default function AboutBox() {
             one-stop solution.
           </p>
 
-          <h3 className="text-lg font-semibold text-[#333] mb-2">Best Home Appliance Shop in Bangladesh</h3>
+          <h3 className="text-[15px] md:text-lg font-semibold text-[#333] mb-2">Best Home Appliance Shop in Bangladesh</h3>
           <p className="mb-4">
             Monarch IT Limited is committed to meeting the needs of modern households with a wide range of
             high-quality home appliances. From air conditioners and refrigerators to washing machines, ovens, and
@@ -135,7 +146,7 @@ export default function AboutBox() {
             competitive prices.
           </p>
 
-          <h3 className="text-lg font-semibold text-[#333] mb-2">Trusted Online Shopping Experience in Bangladesh</h3>
+          <h3 className="text-[15px] md:text-lg font-semibold text-[#333] mb-2">Trusted Online Shopping Experience in Bangladesh</h3>
           <p className="mb-4">
             Monarch IT Limited takes pride in providing a seamless and secure online shopping experience in
             Bangladesh. Their eCommerce website is highly regarded for its user-friendly interface and efficient
@@ -150,7 +161,7 @@ export default function AboutBox() {
             experience.
           </p>
 
-          <h3 className="text-lg font-semibold text-[#333] mb-2">Best Price, Service, and Fastest Delivery in Bangladesh</h3>
+          <h3 className="text-[15px] md:text-lg font-semibold text-[#333] mb-2">Best Price, Service, and Fastest Delivery in Bangladesh</h3>
           <p className="mb-4">
             Customer satisfaction has always been a top priority for Monarch IT Limited. They ensure the best price
             tech shop BD, offering competitive prices, extended after-sales support, and exceptional customer
@@ -158,7 +169,7 @@ export default function AboutBox() {
             Monarch IT Limited delivers products quickly and efficiently.
           </p>
 
-          <h3 className="text-lg font-semibold text-[#333] mb-2">Why Choose Monarch IT Limited?</h3>
+          <h3 className="text-[15px] md:text-lg font-semibold text-[#333] mb-2">Why Choose Monarch IT Limited?</h3>
           <ul className="list-disc pl-5 mb-4 space-y-1">
             <li>
               <strong>Best computer shop in Bangladesh</strong>: Offering a wide range of laptops, desktops, and
@@ -178,7 +189,7 @@ export default function AboutBox() {
             </li>
           </ul>
 
-          <h3 className="text-lg font-semibold text-[#333] mb-2">FAQs About Monarch IT Limited</h3>
+          <h3 className="text-[15px] md:text-lg font-semibold text-[#333] mb-2">FAQs About Monarch IT Limited</h3>
           <ol className="list-decimal pl-5 mb-4 space-y-3">
             <li>
               <strong>What makes Monarch IT Limited the best laptop shop in Bangladesh?</strong>
@@ -257,16 +268,14 @@ export default function AboutBox() {
           type="button"
           onClick={() => setOpen((v) => !v)}
           aria-label={open ? 'Collapse description' : 'Expand description'}
-          className="w-[50px] h-[50px] rounded-full bg-[#f3f3f3] shadow-[0_2px_8px_rgba(0,0,0,0.08)] mt-[15px] inline-flex items-center justify-center transition-transform hover:scale-105 cursor-pointer"
+          className="w-[40px] h-[40px] rounded-full bg-[#f5f5f7] shadow-[0_2px_8px_rgba(0,0,0,0.08)] mt-[15px] inline-flex items-center justify-center transition-transform hover:scale-105 cursor-pointer"
         >
-          <svg
-            viewBox="0 0 24 24"
-            className={`w-[26px] h-[26px] stroke-[#d52b2b] stroke-[3] fill-none transition-transform duration-400 ${
-              open ? 'rotate-180' : ''
-            }`}
-          >
-            <polyline points="6 9 12 15 18 9" />
-          </svg>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src="/images/promo-banner/down-arrow.svg"
+            alt=""
+            className={`w-5 transition-transform duration-400 ${open ? 'rotate-180' : ''}`}
+          />
         </button>
       </div>
     </div>
