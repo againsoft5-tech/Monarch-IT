@@ -23,6 +23,52 @@ const menuItems = [
 const mobileOrder = ['Message', 'Compare', 'PC Builder', 'Gift', 'Hot Deals']
 const mobileMenuItems = mobileOrder.map((label) => menuItems.find((m) => m.label === label)!)
 
+function renderMobileItem(item: (typeof menuItems)[number], count: number, handleChatClick: () => void) {
+  const content = (
+    <>
+      <div
+        className={`rounded-full flex items-center justify-center transition-all duration-200 ${
+          item.active
+            ? 'w-[76px] h-[76px] bg-[#e0272e] shadow-[0_0_0_8px_rgba(224,39,46,0.15),0_10px_25px_rgba(224,39,46,0.5)]'
+            : 'w-11 h-11 bg-white shadow-[0_2px_5px_rgba(0,0,0,0.08)]'
+        }`}
+      >
+        <Image
+          src={item.icon}
+          alt={item.label}
+          width={item.active ? 36 : 22}
+          height={item.active ? 36 : 22}
+          className={`object-contain ${item.active ? 'w-9 h-9 brightness-0 invert' : 'w-[22px] h-[22px]'}`}
+        />
+      </div>
+      {item.label === 'Compare' && count > 0 && (
+        <span className="absolute top-0 right-1.5 w-2.5 h-2.5 rounded-full bg-[#e0272e] border-2 border-[#F0F0F2]" />
+      )}
+    </>
+  )
+
+  if (item.action === 'chat') {
+    return (
+      <button
+        key={item.label}
+        type="button"
+        onClick={handleChatClick}
+        className="relative flex items-center justify-center cursor-pointer shrink-0"
+      >
+        {content}
+      </button>
+    )
+  }
+
+  const isPlaceholder = item.href === '#'
+  const LinkTag = isPlaceholder ? 'a' : Link
+  return (
+    <LinkTag key={item.label} href={item.href} className="relative flex items-center justify-center no-underline shrink-0">
+      {content}
+    </LinkTag>
+  )
+}
+
 export default function SideMenu() {
   const { count } = useCompare()
   const { isLoggedIn } = useAuth()
@@ -105,57 +151,9 @@ export default function SideMenu() {
         </div>
       </div>
 
-      <div className="md:hidden fixed inset-x-0 bottom-0 z-[9999] flex justify-center pointer-events-none pb-3 px-3">
-        <div className="inline-flex items-center h-16 px-[10px] gap-[10px] pointer-events-auto bg-white/40 backdrop-blur-md rounded-full shadow-[0_6px_20px_rgba(0,0,0,0.12)]">
-          {mobileMenuItems.map((item) => {
-            const content = (
-              <>
-                <div
-                  className={`rounded-full flex items-center justify-center transition-all duration-200 ${
-                    item.active
-                      ? 'w-[76px] h-[76px] bg-[#e0272e] shadow-[0_0_0_8px_rgba(224,39,46,0.15),0_10px_25px_rgba(224,39,46,0.5)]'
-                      : 'w-11 h-11 bg-white shadow-[0_2px_5px_rgba(0,0,0,0.08)]'
-                  }`}
-                >
-                  <Image
-                    src={item.icon}
-                    alt={item.label}
-                    width={item.active ? 36 : 22}
-                    height={item.active ? 36 : 22}
-                    className={`object-contain ${item.active ? 'w-9 h-9 brightness-0 invert' : 'w-[22px] h-[22px]'}`}
-                  />
-                </div>
-                {item.label === 'Compare' && count > 0 && (
-                  <span className="absolute top-0 right-1.5 w-2.5 h-2.5 rounded-full bg-[#e0272e] border-2 border-[#F0F0F2]" />
-                )}
-              </>
-            )
-
-            if (item.action === 'chat') {
-              return (
-                <button
-                  key={item.label}
-                  type="button"
-                  onClick={handleChatClick}
-                  className="relative flex items-center justify-center cursor-pointer"
-                >
-                  {content}
-                </button>
-              )
-            }
-
-            const isPlaceholder = item.href === '#'
-            const LinkTag = isPlaceholder ? 'a' : Link
-            return (
-              <LinkTag
-                key={item.label}
-                href={item.href}
-                className="relative flex items-center justify-center no-underline"
-              >
-                {content}
-              </LinkTag>
-            )
-          })}
+      <div className="md:hidden fixed inset-x-0 bottom-0 z-[9999] pointer-events-none pb-3 px-[10px]">
+        <div className="flex items-center justify-between h-16 px-[10px] pointer-events-auto bg-white/40 backdrop-blur-md rounded-full shadow-[0_6px_20px_rgba(0,0,0,0.12)]">
+          {mobileMenuItems.map((item) => renderMobileItem(item, count, handleChatClick))}
         </div>
       </div>
 
