@@ -42,7 +42,7 @@ export default function OrderTrackPage() {
             alt="Order Track"
             width={520}
             height={520}
-            className="w-[220px] md:w-[420px] h-auto object-contain shrink-0"
+            className="hidden md:block md:w-[420px] h-auto object-contain shrink-0"
           />
 
           <div className="w-full max-w-[460px] bg-[#f4f5f7] rounded-[32px] p-4 md:p-5">
