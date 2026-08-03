@@ -106,23 +106,23 @@ export default function SideMenu() {
       </div>
 
       <div className="md:hidden fixed inset-x-0 bottom-0 z-[9999] flex justify-center pointer-events-none pb-3 px-3">
-        <div className="flex items-center gap-1 h-12 px-3 pointer-events-auto bg-white/40 backdrop-blur-md rounded-full shadow-[0_6px_20px_rgba(0,0,0,0.12)] w-full max-w-[420px]">
+        <div className="inline-flex items-center h-16 px-[10px] gap-[10px] pointer-events-auto bg-white/40 backdrop-blur-md rounded-full shadow-[0_6px_20px_rgba(0,0,0,0.12)]">
           {mobileMenuItems.map((item) => {
             const content = (
               <>
                 <div
                   className={`rounded-full flex items-center justify-center transition-all duration-200 ${
                     item.active
-                      ? 'w-[60px] h-[60px] bg-[#e0272e] shadow-[0_0_0_8px_rgba(224,39,46,0.15),0_10px_25px_rgba(224,39,46,0.5)]'
+                      ? 'w-[76px] h-[76px] bg-[#e0272e] shadow-[0_0_0_8px_rgba(224,39,46,0.15),0_10px_25px_rgba(224,39,46,0.5)]'
                       : 'w-11 h-11 bg-white shadow-[0_2px_5px_rgba(0,0,0,0.08)]'
                   }`}
                 >
                   <Image
                     src={item.icon}
                     alt={item.label}
-                    width={item.active ? 28 : 22}
-                    height={item.active ? 28 : 22}
-                    className={`object-contain ${item.active ? 'w-7 h-7 brightness-0 invert' : 'w-[22px] h-[22px]'}`}
+                    width={item.active ? 36 : 22}
+                    height={item.active ? 36 : 22}
+                    className={`object-contain ${item.active ? 'w-9 h-9 brightness-0 invert' : 'w-[22px] h-[22px]'}`}
                   />
                 </div>
                 {item.label === 'Compare' && count > 0 && (
@@ -137,7 +137,7 @@ export default function SideMenu() {
                   key={item.label}
                   type="button"
                   onClick={handleChatClick}
-                  className="relative flex-1 flex items-center justify-center cursor-pointer"
+                  className="relative flex items-center justify-center cursor-pointer"
                 >
                   {content}
                 </button>
@@ -150,7 +150,7 @@ export default function SideMenu() {
               <LinkTag
                 key={item.label}
                 href={item.href}
-                className="relative flex-1 flex items-center justify-center no-underline"
+                className="relative flex items-center justify-center no-underline"
               >
                 {content}
               </LinkTag>
