@@ -152,7 +152,7 @@ export default function SideMenu() {
       </div>
 
       <div className="md:hidden fixed inset-x-0 bottom-0 z-[9999] pointer-events-none pb-3 px-[10px]">
-        <div className="flex items-center justify-between h-16 px-[10px] pointer-events-auto bg-white/40 backdrop-blur-md rounded-full shadow-[0_6px_20px_rgba(0,0,0,0.12)]">
+        <div className="flex items-center justify-between h-16 px-[10px] pointer-events-auto bg-[#f4f5f7]/70 backdrop-blur-md rounded-full shadow-[0_6px_20px_rgba(0,0,0,0.12)]">
           {mobileMenuItems.map((item) => renderMobileItem(item, count, handleChatClick))}
         </div>
       </div>

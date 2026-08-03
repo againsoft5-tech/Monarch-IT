@@ -19,11 +19,20 @@ export default function MobileHeader() {
   const { isLoggedIn } = useAuth()
   const searchRef = useRef<HTMLDivElement>(null)
   const pathname = usePathname()
+  const [scrolled, setScrolled] = useState(false)
 
   useEffect(() => {
     setQuery('')
     setSearchFocused(false)
+    setDrawerOpen(false)
   }, [pathname])
+
+  useEffect(() => {
+    const updateScrolled = () => setScrolled(window.scrollY > 20)
+    updateScrolled()
+    window.addEventListener('scroll', updateScrolled, { passive: true })
+    return () => window.removeEventListener('scroll', updateScrolled)
+  }, [])
 
   useEffect(() => {
     if (!searchFocused) return
@@ -36,7 +45,12 @@ export default function MobileHeader() {
 
   return (
     <>
-      <div ref={searchRef} className="md:hidden sticky top-0 z-40 flex items-center gap-2.5 bg-[#f4f5f7] px-4 py-3">
+      <div
+        ref={searchRef}
+        className={`md:hidden sticky top-0 z-40 flex items-center gap-2.5 px-4 py-3 transition-all duration-300 ${
+          scrolled ? 'bg-[#f4f5f7]/70 backdrop-blur-md shadow-[0_2px_20px_rgba(0,0,0,0.06)]' : 'bg-[#f4f5f7]'
+        }`}
+      >
         <Link href="/" className="shrink-0 flex items-center">
           <Image
             src={`${IMG_BASE}/catalog/view/theme/default/image/monarch-it-icon.png`}

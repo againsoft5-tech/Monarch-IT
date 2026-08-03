@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { shopCategories } from '@/data/categories'
@@ -9,6 +9,10 @@ const IMG_BASE = '/images'
 
 export default function MobileDrawer({ open, onClose }: { open: boolean; onClose: () => void }) {
   const [expanded, setExpanded] = useState<string | null>(null)
+
+  useEffect(() => {
+    if (!open) setExpanded(null)
+  }, [open])
 
   return (
     <>
@@ -66,6 +70,7 @@ export default function MobileDrawer({ open, onClose }: { open: boolean; onClose
                     href={cat.href}
                     onClick={(e) => {
                       e.stopPropagation()
+                      setExpanded(null)
                       onClose()
                     }}
                     className="flex-1 text-[15px] text-gray-800 no-underline"
@@ -81,7 +86,10 @@ export default function MobileDrawer({ open, onClose }: { open: boolean; onClose
                       <Link
                         key={s.name}
                         href={s.href}
-                        onClick={onClose}
+                        onClick={() => {
+                          setExpanded(null)
+                          onClose()
+                        }}
                         className="py-2 text-[13px] text-gray-600 no-underline hover:text-[#d32f2f]"
                       >
                         {s.name}
