@@ -36,7 +36,7 @@ export default function MobileHeader() {
 
   return (
     <>
-      <div ref={searchRef} className="md:hidden relative flex items-center gap-2.5 bg-[#f4f5f7] px-4 py-3">
+      <div ref={searchRef} className="md:hidden sticky top-0 z-40 flex items-center gap-2.5 bg-[#f4f5f7] px-4 py-3">
         <Link href="/" className="shrink-0 flex items-center">
           <Image
             src={`${IMG_BASE}/catalog/view/theme/default/image/monarch-it-icon.png`}
