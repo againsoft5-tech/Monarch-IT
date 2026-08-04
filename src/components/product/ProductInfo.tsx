@@ -139,61 +139,64 @@ export default function ProductInfo({
           )}
         </div>
 
-        <div className="order-5 md:order-8 inline-flex items-center gap-1 bg-[#f3f4f6] rounded-full h-9 px-2">
+        <div className="order-5 w-full flex items-center gap-1.5 md:gap-2 md:contents md:w-auto">
+          <div className="shrink-0 inline-flex items-center gap-1 bg-[#f3f4f6] rounded-full h-9 px-2 md:order-8">
+            <button
+              type="button"
+              onClick={() => changeQty(-1)}
+              className="w-6 font-semibold text-gray-700 hover:text-[#d92128] cursor-pointer"
+            >
+              −
+            </button>
+            <span className="w-6 text-center font-bold text-gray-800">{qty}</span>
+            <button
+              type="button"
+              onClick={() => changeQty(1)}
+              className="w-6 font-semibold text-gray-700 hover:text-[#d92128] cursor-pointer"
+            >
+              +
+            </button>
+          </div>
+
           <button
             type="button"
-            onClick={() => changeQty(-1)}
-            className="w-6 font-semibold text-gray-700 hover:text-[#d92128] cursor-pointer"
+            onClick={handleBuyNow}
+            className="flex-1 md:flex-none md:order-9 bg-[#D32F2F] text-white font-bold text-[13px] h-9 px-4 md:px-5 rounded-full hover:bg-[#b71c1c] transition-colors whitespace-nowrap cursor-pointer"
           >
-            −
+            Buy Now
           </button>
-          <span className="w-6 text-center font-bold text-gray-800">{qty}</span>
+
           <button
             type="button"
-            onClick={() => changeQty(1)}
-            className="w-6 font-semibold text-gray-700 hover:text-[#d92128] cursor-pointer"
+            onClick={handleChatClick}
+            title="Chat Now"
+            className="shrink-0 md:order-10 group flex items-center justify-center gap-1.5 bg-[#f3f4f6] text-gray-800 font-semibold text-[13px] w-9 md:w-auto h-9 px-0 md:px-3.5 rounded-full hover:bg-[#c3272b] hover:text-white transition-colors cursor-pointer"
           >
-            +
+            <Image
+              src="/images/catalog/view/theme/default/image/message-icon.svg"
+              alt="Message Icon"
+              width={22}
+              height={22}
+              className="w-[22px] h-[22px] shrink-0 transition-[filter] group-hover:brightness-0 group-hover:invert"
+            />
+            <span className="hidden md:inline">Chat Now</span>
+          </button>
+
+          <button
+            type="button"
+            title="Compare"
+            onClick={handleCompare}
+            className="shrink-0 md:order-11 group w-9 h-9 bg-[#f3f4f6] rounded-full flex items-center justify-center hover:bg-[#c3272b] transition-colors cursor-pointer"
+          >
+            <Image
+              src="/images/catalog/view/theme/default/image/compare-icon-svg.svg"
+              alt="Compare Icon"
+              width={22}
+              height={22}
+              className="w-[22px] h-[22px] transition-[filter] group-hover:brightness-0 group-hover:invert"
+            />
           </button>
         </div>
-
-        <button
-          type="button"
-          onClick={handleBuyNow}
-          className="order-6 md:order-9 bg-[#D32F2F] text-white font-bold text-[13px] h-9 px-5 rounded-full hover:bg-[#b71c1c] transition-colors whitespace-nowrap cursor-pointer"
-        >
-          Buy Now
-        </button>
-
-        <button
-          type="button"
-          onClick={handleChatClick}
-          className="order-7 md:order-10 group flex items-center gap-1.5 bg-[#f3f4f6] text-gray-800 font-semibold text-[13px] h-9 px-3.5 rounded-full hover:bg-[#c3272b] hover:text-white transition-colors cursor-pointer"
-        >
-          <Image
-            src="/images/catalog/view/theme/default/image/message-icon.svg"
-            alt="Message Icon"
-            width={22}
-            height={22}
-            className="w-[22px] h-[22px] transition-[filter] group-hover:brightness-0 group-hover:invert"
-          />
-          Chat Now
-        </button>
-
-        <button
-          type="button"
-          title="Compare"
-          onClick={handleCompare}
-          className="order-8 md:order-11 group w-9 h-9 shrink-0 bg-[#f3f4f6] rounded-full flex items-center justify-center hover:bg-[#c3272b] transition-colors cursor-pointer"
-        >
-          <Image
-            src="/images/catalog/view/theme/default/image/compare-icon-svg.svg"
-            alt="Compare Icon"
-            width={22}
-            height={22}
-            className="w-[22px] h-[22px] transition-[filter] group-hover:brightness-0 group-hover:invert"
-          />
-        </button>
 
         {hasVariants && onSelectVariant && (
           <div className="w-full order-9 md:order-6">
