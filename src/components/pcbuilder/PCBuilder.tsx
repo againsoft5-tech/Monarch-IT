@@ -34,11 +34,22 @@ export default function PCBuilder() {
   const [warningMessage, setWarningMessage] = useState<string | null>(null)
   const [successMessage, setSuccessMessage] = useState<string | null>(null)
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid')
+  const [mobileBuilderOpen, setMobileBuilderOpen] = useState(false)
+  const [sortOpenDesktop, setSortOpenDesktop] = useState(false)
+  const [sortOpenMobile, setSortOpenMobile] = useState(false)
   const { addItems } = useCart()
   const { toast, showToast } = useToast()
 
   const leftPanelRef = useRef<HTMLDivElement>(null)
   const [rightPanelHeight, setRightPanelHeight] = useState<number | null>(null)
+  const sortRefDesktop = useRef<HTMLDivElement>(null)
+  const sortRefMobile = useRef<HTMLDivElement>(null)
+
+  const sortLabels: Record<typeof sort, string> = {
+    default: 'Default',
+    'price-asc': 'Low To High',
+    'price-desc': 'High To Low',
+  }
 
   useEffect(() => {
     const el = leftPanelRef.current
@@ -50,7 +61,30 @@ export default function PCBuilder() {
     return () => observer.disconnect()
   }, [])
 
+  useEffect(() => {
+    if (!sortOpenDesktop) return
+    const handleClick = (e: MouseEvent) => {
+      if (sortRefDesktop.current && !sortRefDesktop.current.contains(e.target as Node)) setSortOpenDesktop(false)
+    }
+    document.addEventListener('mousedown', handleClick)
+    return () => document.removeEventListener('mousedown', handleClick)
+  }, [sortOpenDesktop])
+
+  useEffect(() => {
+    if (!sortOpenMobile) return
+    const handleClick = (e: MouseEvent) => {
+      if (sortRefMobile.current && !sortRefMobile.current.contains(e.target as Node)) setSortOpenMobile(false)
+    }
+    document.addEventListener('mousedown', handleClick)
+    return () => document.removeEventListener('mousedown', handleClick)
+  }, [sortOpenMobile])
+
   const activeCat = buildCategories.find((c) => c.key === activeCategory)!
+
+  const openCategory = (key: string) => {
+    setActiveCategory(key)
+    setMobileBuilderOpen(true)
+  }
 
   const priceBounds = useMemo(() => {
     const prices = (productsByCategory[activeCategory] ?? []).map((p) => p.priceNew)
@@ -386,6 +420,389 @@ export default function PCBuilder() {
     return list
   }, [activeCategory, activeCat.key, chipset, search, priceMin, priceMax, selectedBrands, sort])
 
+  const renderBrowserContent = () => (
+    <>
+      <div className="flex flex-wrap items-center gap-3 mb-5 shrink-0">
+        <div className="flex-1 min-w-[180px] flex items-center bg-[#f4f5f7] rounded-full px-4 py-2.5">
+          <Image
+            src="/images/compare-icons/search-icon.svg"
+            alt=""
+            width={18}
+            height={18}
+            className="w-[18px] h-[18px] mr-2.5 shrink-0"
+          />
+          <input
+            type="text"
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+            placeholder="Search Products"
+            className="border-none bg-transparent outline-none flex-1 text-[14px] text-gray-700 placeholder-gray-400"
+          />
+        </div>
+        <button
+          type="button"
+          onClick={() => setFilterOpen(true)}
+          className={`group shrink-0 inline-flex items-center gap-1.5 rounded-full px-3.5 py-2 text-[13px] font-semibold transition-colors cursor-pointer ${
+            filtersActive
+              ? 'bg-[#fdf1f1] text-[#c3272b] border-2 border-[#c3272b]'
+              : 'bg-[#f5f5f7] text-gray-600 border-2 border-transparent hover:text-[#c3272b]'
+          }`}
+        >
+          <span className="relative w-[22px] h-[16px] shrink-0">
+            <Image
+              src="/images/pc-builder/icons/filter-icon.svg"
+              alt=""
+              width={22}
+              height={16}
+              className={`absolute inset-0 transition-opacity ${
+                filtersActive ? 'opacity-0' : 'opacity-100 group-hover:opacity-0'
+              }`}
+            />
+            <Image
+              src="/images/pc-builder/icons/filter-icon-red.svg"
+              alt=""
+              width={22}
+              height={16}
+              className={`absolute inset-0 transition-opacity ${
+                filtersActive ? 'opacity-100' : 'opacity-0 group-hover:opacity-100'
+              }`}
+            />
+          </span>
+          Filter By
+        </button>
+        <div ref={sortRefDesktop} className="relative shrink-0">
+          <button
+            type="button"
+            onClick={() => setSortOpenDesktop((v) => !v)}
+            className="flex items-center gap-1.5 bg-[#f5f5f7] rounded-full px-3 py-2 cursor-pointer"
+          >
+            <span className="mi text-gray-500 text-[22px]">swap_vert</span>
+            <span className="text-gray-500 text-[13px] font-semibold max-[1200px]:hidden">Sort By:</span>
+            <span className="text-[13px] font-medium text-gray-500">{sortLabels[sort]}</span>
+          </button>
+
+          {sortOpenDesktop && (
+            <div className="absolute right-0 top-full mt-2 w-[190px] bg-white border border-gray-100 rounded-2xl shadow-[0_16px_40px_rgba(0,0,0,0.14)] z-50 p-3.5 flex flex-col gap-3.5">
+              {(['price-asc', 'price-desc'] as const).map((value) => (
+                <label key={value} className="flex items-center gap-2.5 cursor-pointer select-none">
+                  <input
+                    type="checkbox"
+                    checked={sort === value}
+                    onChange={() => {
+                      setSort(sort === value ? 'default' : value)
+                      setSortOpenDesktop(false)
+                    }}
+                    className="w-[18px] h-[18px] accent-[#c3272b] cursor-pointer"
+                  />
+                  <span className="text-[14px] text-gray-800">{sortLabels[value]}</span>
+                </label>
+              ))}
+            </div>
+          )}
+        </div>
+      </div>
+
+      <h2 className="text-center text-lg font-bold text-gray-900 mb-5 shrink-0">{activeCat.label}</h2>
+
+      <div className="flex-1 min-h-0 overflow-y-auto pr-1.5 thin-scroll-gray">
+        {products.length === 0 ? (
+          <div className="text-center py-16">
+            <span className="mi text-[48px] text-gray-300 block mb-3">search_off</span>
+            <p className="text-gray-500 text-[14px]">No products match your search.</p>
+          </div>
+        ) : viewMode === 'list' ? (
+          <div className="flex flex-col gap-3">
+            {products.map((p) => {
+              const isPicked = (builds[activeCategory] ?? []).some((s) => s.product.id === p.id)
+              const qty = getQty(p.id)
+              return (
+                <div
+                  key={p.id}
+                  className={`bg-white rounded-2xl p-3 flex items-center gap-4 shadow-[0_2px_10px_rgba(0,0,0,0.06)] border-2 transition-colors ${
+                    isPicked ? 'border-[#c3272b]' : 'border-transparent'
+                  }`}
+                >
+                  <div className="w-[120px] shrink-0">
+                    <PartThumb
+                      icon={activeCat.icon}
+                      iconSvg={activeCat.iconSvgActive ?? activeCat.iconSvg}
+                      image={p.image}
+                      accent={activeCat.accent}
+                    />
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <div className="text-[14px] font-semibold text-gray-800 leading-[1.3] mb-1.5">{p.name}</div>
+                    {p.specs && p.specs.length > 0 && (
+                      <ul className="list-disc pl-4 space-y-0.5">
+                        {p.specs.map((spec) => (
+                          <li key={spec} className="text-[12px] text-gray-500">
+                            {spec}
+                          </li>
+                        ))}
+                      </ul>
+                    )}
+                  </div>
+                  <div className="shrink-0 flex flex-col items-end gap-2">
+                    <div className="flex items-center gap-1.5 flex-wrap justify-end">
+                      <span className="text-[15px] font-bold text-[#c3272b]">
+                        ৳{p.priceNew.toLocaleString()}
+                      </span>
+                      {p.discountPct > 0 && (
+                        <>
+                          <span className="text-[11px] text-gray-400 line-through">
+                            ৳{p.priceOld.toLocaleString()}
+                          </span>
+                          <span className="text-[10.5px] font-bold text-[#00c68b]">{p.discountPct}% OFF</span>
+                        </>
+                      )}
+                    </div>
+                    <div className="flex items-center gap-1.5">
+                      <button
+                        type="button"
+                        onClick={() => selectProduct(activeCategory, p)}
+                        className={`rounded-full px-5 py-1.5 text-[12.5px] font-bold border-2 whitespace-nowrap transition-colors cursor-pointer ${
+                          isPicked
+                            ? 'bg-[#c3272b] text-white border-[#c3272b]'
+                            : 'bg-white text-[#c3272b] border-[#c3272b] hover:bg-[#c3272b] hover:text-white'
+                        }`}
+                      >
+                        {isPicked ? 'Added' : 'Add'}
+                      </button>
+                      <div className="shrink-0 flex items-center gap-1.5 bg-[#f5f6fa] rounded-full px-1.5 py-1">
+                        <button
+                          type="button"
+                          onClick={() => setQty(p.id, qty - 1)}
+                          className="w-5 h-5 flex items-center justify-center text-gray-500 hover:text-[#c3272b] cursor-pointer"
+                        >
+                          −
+                        </button>
+                        <span className="text-[12px] font-semibold text-gray-700 w-3 text-center">{qty}</span>
+                        <button
+                          type="button"
+                          onClick={() => setQty(p.id, qty + 1)}
+                          className="w-5 h-5 flex items-center justify-center text-gray-500 hover:text-[#c3272b] cursor-pointer"
+                        >
+                          +
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              )
+            })}
+          </div>
+        ) : (
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-4">
+          {products.map((p) => {
+            const isPicked = (builds[activeCategory] ?? []).some((s) => s.product.id === p.id)
+            const qty = getQty(p.id)
+            return (
+              <div
+                key={p.id}
+                className={`bg-white rounded-[14px] p-2.5 flex flex-col shadow-[0_2px_10px_rgba(0,0,0,0.06)] border-2 transition-colors ${
+                  isPicked ? 'border-[#c3272b]' : 'border-transparent'
+                }`}
+              >
+                <PartThumb
+                  icon={activeCat.icon}
+                  iconSvg={activeCat.iconSvgActive ?? activeCat.iconSvg}
+                  image={p.image}
+                  accent={activeCat.accent}
+                />
+                <div className="pt-2.5 flex flex-col flex-1">
+                  <div className="text-[12.5px] font-semibold text-gray-700 leading-[1.4] mb-2 line-clamp-2 min-h-[2.8em]">
+                    {p.name}
+                  </div>
+                  <div className="flex items-center gap-1.5 flex-wrap mb-2.5">
+                    <span className="text-[14px] font-bold text-[#c3272b]">৳{p.priceNew.toLocaleString()}</span>
+                    {p.discountPct > 0 && (
+                      <>
+                        <span className="text-[11px] text-gray-400 line-through">
+                          ৳{p.priceOld.toLocaleString()}
+                        </span>
+                        <span className="text-[10.5px] font-bold text-[#00c68b]">{p.discountPct}% OFF</span>
+                      </>
+                    )}
+                  </div>
+                  <div className="flex items-center gap-1.5 mt-auto">
+                    <button
+                      type="button"
+                      onClick={() => selectProduct(activeCategory, p)}
+                      className={`flex-1 rounded-full py-1.5 text-[12.5px] font-bold border-2 transition-colors cursor-pointer ${
+                        isPicked
+                          ? 'bg-[#c3272b] text-white border-[#c3272b]'
+                          : 'bg-white text-[#c3272b] border-[#c3272b] hover:bg-[#c3272b] hover:text-white'
+                      }`}
+                    >
+                      {isPicked ? 'Added' : 'Add'}
+                    </button>
+                    <div className="shrink-0 flex items-center gap-1.5 bg-[#f5f6fa] rounded-full px-1.5 py-1">
+                      <button
+                        type="button"
+                        onClick={() => setQty(p.id, qty - 1)}
+                        className="w-5 h-5 flex items-center justify-center text-gray-500 hover:text-[#c3272b] cursor-pointer"
+                      >
+                        −
+                      </button>
+                      <span className="text-[12px] font-semibold text-gray-700 w-3 text-center">{qty}</span>
+                      <button
+                        type="button"
+                        onClick={() => setQty(p.id, qty + 1)}
+                        className="w-5 h-5 flex items-center justify-center text-gray-500 hover:text-[#c3272b] cursor-pointer"
+                      >
+                        +
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            )
+          })}
+          </div>
+        )}
+      </div>
+    </>
+  )
+
+  const renderMobileBrowserContent = () => (
+    <>
+      <div className="shrink-0 mb-3 flex items-center bg-[#f4f5f7] rounded-full px-4 py-2.5">
+        <Image
+          src="/images/compare-icons/search-icon.svg"
+          alt=""
+          width={18}
+          height={18}
+          className="w-[18px] h-[18px] mr-2.5 shrink-0"
+        />
+        <input
+          type="text"
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+          placeholder="Search Products"
+          className="border-none bg-transparent outline-none flex-1 text-[14px] text-gray-700 placeholder-gray-400"
+        />
+      </div>
+
+      <div className="flex-1 min-h-0 overflow-y-auto thin-scroll-gray">
+        {products.length === 0 ? (
+          <div className="text-center py-16">
+            <span className="mi text-[48px] text-gray-300 block mb-3">search_off</span>
+            <p className="text-gray-500 text-[14px]">No products match your search.</p>
+          </div>
+        ) : (
+          <div className="flex flex-col divide-y divide-gray-100">
+            {products.map((p) => {
+              const isPicked = (builds[activeCategory] ?? []).some((s) => s.product.id === p.id)
+              const qty = getQty(p.id)
+              return (
+                <div key={p.id} className="flex items-center gap-3 py-3">
+                  <div className="w-20 h-20 shrink-0">
+                    <PartThumb
+                      icon={activeCat.icon}
+                      iconSvg={activeCat.iconSvgActive ?? activeCat.iconSvg}
+                      image={p.image}
+                      accent={activeCat.accent}
+                    />
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <div className="text-[13px] font-semibold text-gray-800 leading-snug mb-1 line-clamp-2">
+                      {p.name}
+                    </div>
+                    <div className="flex items-center gap-1.5 flex-wrap mb-2">
+                      <span className="text-[14px] font-bold text-[#c3272b]">৳{p.priceNew.toLocaleString()}</span>
+                      {p.discountPct > 0 && (
+                        <>
+                          <span className="text-[11px] text-gray-400 line-through">
+                            ৳{p.priceOld.toLocaleString()}
+                          </span>
+                          <span className="text-[10.5px] font-bold text-[#00c68b]">{p.discountPct}% OFF</span>
+                        </>
+                      )}
+                    </div>
+                    <div className="flex items-center gap-1.5">
+                      <button
+                        type="button"
+                        onClick={() => selectProduct(activeCategory, p)}
+                        className={`rounded-full px-5 py-1.5 text-[12.5px] font-bold border-2 whitespace-nowrap transition-colors cursor-pointer ${
+                          isPicked
+                            ? 'bg-[#c3272b] text-white border-[#c3272b]'
+                            : 'bg-white text-[#c3272b] border-[#c3272b] hover:bg-[#c3272b] hover:text-white'
+                        }`}
+                      >
+                        {isPicked ? 'Added' : 'Buy now'}
+                      </button>
+                      <div className="shrink-0 flex items-center gap-1.5 bg-[#f5f6fa] rounded-full px-1.5 py-1">
+                        <button
+                          type="button"
+                          onClick={() => setQty(p.id, qty - 1)}
+                          className="w-5 h-5 flex items-center justify-center text-gray-500 hover:text-[#c3272b] cursor-pointer"
+                        >
+                          −
+                        </button>
+                        <span className="text-[12px] font-semibold text-gray-700 w-3 text-center">{qty}</span>
+                        <button
+                          type="button"
+                          onClick={() => setQty(p.id, qty + 1)}
+                          className="w-5 h-5 flex items-center justify-center text-gray-500 hover:text-[#c3272b] cursor-pointer"
+                        >
+                          +
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              )
+            })}
+          </div>
+        )}
+      </div>
+
+      <div className="shrink-0 flex items-center gap-3 pt-3 mt-1 border-t border-gray-100">
+        <button
+          type="button"
+          onClick={() => setFilterOpen(true)}
+          className={`flex-1 inline-flex items-center justify-center gap-1.5 rounded-full px-3.5 py-2.5 text-[13px] font-semibold transition-colors cursor-pointer ${
+            filtersActive
+              ? 'bg-[#fdf1f1] text-[#c3272b] border-2 border-[#c3272b]'
+              : 'bg-[#f5f5f7] text-gray-600 border-2 border-transparent'
+          }`}
+        >
+          <Image src="/images/pc-builder/icons/filter-icon.svg" alt="" width={22} height={16} className="shrink-0" />
+          Filter By
+        </button>
+        <div ref={sortRefMobile} className="relative flex-1">
+          <button
+            type="button"
+            onClick={() => setSortOpenMobile((v) => !v)}
+            className="w-full flex items-center justify-center gap-1.5 bg-[#f5f5f7] rounded-full px-3.5 py-2.5 cursor-pointer"
+          >
+            <span className="mi text-gray-500 text-[20px] shrink-0">swap_vert</span>
+            <span className="text-[13px] font-semibold text-gray-500 truncate">{sortLabels[sort]}</span>
+          </button>
+
+          {sortOpenMobile && (
+            <div className="absolute right-0 bottom-full mb-2 w-[190px] bg-white border border-gray-100 rounded-2xl shadow-[0_16px_40px_rgba(0,0,0,0.14)] z-50 p-3.5 flex flex-col gap-3.5">
+              {(['price-asc', 'price-desc'] as const).map((value) => (
+                <label key={value} className="flex items-center gap-2.5 cursor-pointer select-none">
+                  <input
+                    type="checkbox"
+                    checked={sort === value}
+                    onChange={() => {
+                      setSort(sort === value ? 'default' : value)
+                      setSortOpenMobile(false)
+                    }}
+                    className="w-[18px] h-[18px] accent-[#c3272b] cursor-pointer"
+                  />
+                  <span className="text-[14px] text-gray-800">{sortLabels[value]}</span>
+                </label>
+              ))}
+            </div>
+          )}
+        </div>
+      </div>
+    </>
+  )
+
   return (
     <div className="bg-white">
       <Toast message={toast} />
@@ -395,32 +812,48 @@ export default function PCBuilder() {
       {/* Filter drawer */}
       <div
         onClick={() => setFilterOpen(false)}
-        className={`fixed inset-0 bg-black/50 z-[10000] transition-opacity ${
+        className={`fixed inset-0 bg-black/50 z-[10010] transition-opacity ${
           filterOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
         }`}
       />
       <aside
-        className={`fixed top-0 right-0 h-full w-[85%] max-w-[300px] bg-white z-[10001] shadow-2xl transition-opacity duration-300 overflow-y-auto ${
-          filterOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
+        className={`fixed inset-4 lg:inset-auto lg:top-[88px] lg:right-4 lg:h-[calc(100%-104px)] lg:w-[88%] lg:max-w-[320px] bg-white z-[10011] rounded-[28px] shadow-2xl transition-transform duration-300 flex flex-col overflow-hidden ${
+          filterOpen ? 'translate-x-0' : 'translate-x-[calc(100%+2rem)]'
         }`}
       >
-        <div className="flex items-center justify-between px-4 py-3.5 bg-[#c3272b] text-white sticky top-0 z-10">
-          <span className="flex items-center gap-1.5 font-bold text-[15px]">
-            <Image src="/images/pc-builder/icons/filter-icon-white.svg" alt="" width={17} height={12} /> Filter
+        <div className="flex-none flex items-center justify-between px-5 py-4 bg-white">
+          <span className="flex items-center gap-2 font-bold text-base text-gray-900">
+            <Image src="/images/pc-builder/icons/filter-icon.svg" alt="" width={24} height={17} /> Filter By
           </span>
-          <button
-            type="button"
-            onClick={() => setFilterOpen(false)}
-            className="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center cursor-pointer"
-            aria-label="Close filters"
-          >
-            <span className="mi text-[18px]">close</span>
-          </button>
+          <div className="flex items-center gap-2">
+            <button
+              type="button"
+              onClick={() => {
+                setPriceMin(priceBounds.min)
+                setPriceMax(priceBounds.max)
+                setSelectedBrands([])
+              }}
+              className="w-9 h-9 rounded-full bg-gray-400 hover:bg-gray-500 flex items-center justify-center transition-colors cursor-pointer"
+              aria-label="Clear all filters"
+              title="Clear all filters"
+            >
+              <span className="mi text-2xl text-white">restart_alt</span>
+            </button>
+            <button
+              type="button"
+              onClick={() => setFilterOpen(false)}
+              className="w-9 h-9 rounded-full bg-gray-400 hover:bg-gray-500 flex items-center justify-center transition-colors cursor-pointer"
+              aria-label="Close filters"
+            >
+              <span className="mi text-2xl text-white">close</span>
+            </button>
+          </div>
         </div>
 
-        <div className="p-4">
-          <div className="bg-white shadow-sm border border-gray-100 rounded-md p-4 mb-4">
-            <div className="font-semibold text-[15px] text-gray-800 border-b border-gray-100 pb-2.5 mb-4">
+        <div className="flex-1 overflow-y-auto thin-scroll-red p-5 flex flex-col gap-5">
+          <div className="bg-[#f8f9fb] rounded-2xl p-4 shrink-0">
+            <div className="flex items-center gap-2 font-bold text-[15px] text-gray-900 mb-4">
+              <span className="mi text-[#c3272b] text-[18px]">payments</span>
               Price Range
             </div>
             <div className="relative h-1.5 mt-2 mb-1">
@@ -457,30 +890,39 @@ export default function PCBuilder() {
                 className="absolute inset-0 w-full h-1.5 appearance-none bg-transparent pointer-events-none [&::-webkit-slider-thumb]:pointer-events-auto [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:w-4 [&::-webkit-slider-thumb]:h-4 [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-white [&::-webkit-slider-thumb]:border-2 [&::-webkit-slider-thumb]:border-[#c3272b] [&::-webkit-slider-thumb]:shadow [&::-webkit-slider-thumb]:cursor-pointer [&::-moz-range-thumb]:pointer-events-auto [&::-moz-range-thumb]:w-4 [&::-moz-range-thumb]:h-4 [&::-moz-range-thumb]:rounded-full [&::-moz-range-thumb]:bg-white [&::-moz-range-thumb]:border-2 [&::-moz-range-thumb]:border-[#c3272b] [&::-moz-range-thumb]:cursor-pointer"
               />
             </div>
-            <div className="flex items-center justify-between gap-2 mt-3">
-              <input
-                type="text"
-                value={priceMin}
-                onChange={(e) => setPriceMin(Math.min(Number(e.target.value) || 0, priceMax))}
-                className="w-[80px] h-[30px] border border-gray-200 rounded text-center text-[13px] text-black"
-              />
-              <span className="text-gray-300">—</span>
-              <input
-                type="text"
-                value={priceMax}
-                onChange={(e) => setPriceMax(Math.max(Number(e.target.value) || 0, priceMin))}
-                className="w-[80px] h-[30px] border border-gray-200 rounded text-center text-[13px] text-black"
-              />
+            <div className="flex items-center justify-between gap-2.5 mt-4">
+              <div className="flex-1 flex items-center gap-1 bg-white border border-gray-200 rounded-full px-3 h-10">
+                <span className="text-[#c3272b] text-[13px] font-bold">৳</span>
+                <input
+                  type="text"
+                  value={priceMin}
+                  onChange={(e) => setPriceMin(Math.min(Number(e.target.value) || 0, priceMax))}
+                  className="w-full min-w-0 text-center text-[13px] font-semibold text-gray-700 outline-none bg-transparent"
+                />
+              </div>
+              <span className="text-gray-300 shrink-0">—</span>
+              <div className="flex-1 flex items-center gap-1 bg-white border border-gray-200 rounded-full px-3 h-10">
+                <span className="text-[#c3272b] text-[13px] font-bold">৳</span>
+                <input
+                  type="text"
+                  value={priceMax}
+                  onChange={(e) => setPriceMax(Math.max(Number(e.target.value) || 0, priceMin))}
+                  className="w-full min-w-0 text-center text-[13px] font-semibold text-gray-700 outline-none bg-transparent"
+                />
+              </div>
             </div>
           </div>
 
-          <div className="bg-white border border-gray-200 rounded-lg overflow-hidden mb-4">
+          <div className="bg-[#f8f9fb] rounded-2xl overflow-hidden shrink-0">
             <button
               type="button"
               onClick={() => setBrandSectionOpen((v) => !v)}
-              className="w-full flex items-center justify-between px-4 py-3.5 border-b border-gray-100 cursor-pointer"
+              className="w-full flex items-center justify-between px-4 py-3.5 cursor-pointer"
             >
-              <p className="m-0 font-semibold text-[15px] text-gray-800">Brand</p>
+              <span className="flex items-center gap-2 font-bold text-[15px] text-gray-900">
+                <span className="mi text-[#c3272b] text-[18px]">sell</span>
+                Brand
+              </span>
               <span
                 className={`mi text-gray-500 text-[20px] transition-transform ${brandSectionOpen ? 'rotate-180' : ''}`}
               >
@@ -488,17 +930,17 @@ export default function PCBuilder() {
               </span>
             </button>
             {brandSectionOpen && (
-              <div className="px-3 py-2">
+              <div className="px-3 pb-3 flex flex-col gap-0.5 max-h-[210px] overflow-y-auto thin-scroll-red">
                 {brands.map((brand) => (
                   <label
                     key={brand}
-                    className="flex items-center gap-2 px-1 py-1.5 rounded hover:bg-gray-50 cursor-pointer text-[14px] text-gray-700"
+                    className="flex items-center gap-2.5 px-2 py-2 rounded-lg hover:bg-white cursor-pointer text-[14px] text-gray-700 transition-colors"
                   >
                     <input
                       type="checkbox"
                       checked={selectedBrands.includes(brand)}
                       onChange={() => toggleBrand(brand)}
-                      className="accent-[#c3272b] w-[15px] h-[15px]"
+                      className="accent-[#c3272b] w-4 h-4 shrink-0"
                     />
                     {brand}
                   </label>
@@ -506,20 +948,6 @@ export default function PCBuilder() {
               </div>
             )}
           </div>
-
-          {filtersActive && (
-            <button
-              type="button"
-              onClick={() => {
-                setPriceMin(priceBounds.min)
-                setPriceMax(priceBounds.max)
-                setSelectedBrands([])
-              }}
-              className="w-full text-center text-[13px] font-semibold text-[#c3272b] py-2 hover:underline cursor-pointer"
-            >
-              Clear all filters
-            </button>
-          )}
         </div>
       </aside>
 
@@ -527,28 +955,30 @@ export default function PCBuilder() {
 
       <div className="container mx-auto px-4 min-[992px]:px-14 pb-10">
         <div className="flex flex-wrap items-start justify-between gap-4 py-4">
-          <div>
+          <div className="w-full text-center sm:w-auto sm:text-left">
             <h1 className="text-2xl font-bold text-gray-900">Build Your PC</h1>
             <p className="text-[13px] text-gray-500 mt-0.5">By Monarch IT</p>
           </div>
 
-          <div className="flex items-center gap-2">
-            {topActions.map((a) => (
-              <button
-                key={a.icon}
-                type="button"
-                title={a.title}
-                onClick={a.onClick}
-                className="w-10 h-10 rounded-full bg-[#f4f5f7] flex items-center justify-center hover:bg-[#e8eaed] transition-colors cursor-pointer"
-              >
-                {a.iconSvg ? (
-                  <Image src={a.iconSvg} alt="" width={20} height={20} />
-                ) : (
-                  <span className="mi text-[19px] text-gray-600">{a.icon}</span>
-                )}
-              </button>
-            ))}
-            <div className="ml-1 bg-[#c3272b] text-white rounded-full px-5 py-2.5 font-bold text-[14px] whitespace-nowrap">
+          <div className="flex items-center gap-2 w-full sm:w-auto justify-between sm:justify-normal">
+            <div className="flex items-center gap-2">
+              {topActions.map((a) => (
+                <button
+                  key={a.icon}
+                  type="button"
+                  title={a.title}
+                  onClick={a.onClick}
+                  className="w-10 h-10 rounded-full bg-[#f4f5f7] flex items-center justify-center hover:bg-[#e8eaed] transition-colors cursor-pointer"
+                >
+                  {a.iconSvg ? (
+                    <Image src={a.iconSvg} alt="" width={20} height={20} />
+                  ) : (
+                    <span className="mi text-[19px] text-gray-600">{a.icon}</span>
+                  )}
+                </button>
+              ))}
+            </div>
+            <div className="bg-[#c3272b] text-white rounded-full px-5 py-2.5 font-bold text-[14px] whitespace-nowrap">
               Total: ৳{total.toLocaleString()}
             </div>
           </div>
@@ -557,14 +987,14 @@ export default function PCBuilder() {
         <div className="bg-[#f3f4f6] rounded-[50px] p-3 md:p-6">
           <div className="flex flex-col lg:flex-row gap-4 md:gap-6 items-start">
             {/* Left panel: build list */}
-            <div className="w-full lg:w-[400px] shrink-0">
-              <div className="flex items-center justify-between gap-2.5 mb-4 flex-wrap">
-                <div className="flex items-center h-14 gap-1.5 bg-white rounded-full px-3.5">
-                  <span className="text-[14px] font-semibold text-gray-800 mr-0.5 whitespace-nowrap">Chipset</span>
+            <div ref={leftPanelRef} className="w-full lg:w-[400px] shrink-0">
+              <div className="flex items-center justify-between gap-1.5 sm:gap-2.5 mb-4">
+                <div className="flex items-center h-11 sm:h-14 gap-1 sm:gap-1.5 bg-white rounded-full px-2 sm:px-3.5">
+                  <span className="text-[11px] sm:text-[14px] font-semibold text-gray-800 mr-0 sm:mr-0.5 whitespace-nowrap">Chipset</span>
                   <button
                     type="button"
                     onClick={() => setChipset('AMD')}
-                    className={`group flex items-center px-3.5 py-2 rounded-full bg-white transition-colors cursor-pointer ${
+                    className={`group flex items-center px-2 py-1.5 sm:px-3.5 sm:py-2 rounded-full bg-white transition-colors cursor-pointer ${
                       chipset === 'AMD' ? 'border-2 border-[#c3272b]' : 'border border-gray-200 hover:border-[#c3272b]'
                     }`}
                   >
@@ -592,7 +1022,7 @@ export default function PCBuilder() {
                   <button
                     type="button"
                     onClick={() => setChipset('Intel')}
-                    className={`group flex items-center px-3.5 py-2 rounded-full bg-white transition-colors cursor-pointer ${
+                    className={`group flex items-center px-2 py-1.5 sm:px-3.5 sm:py-2 rounded-full bg-white transition-colors cursor-pointer ${
                       chipset === 'Intel' ? 'border-2 border-[#c3272b]' : 'border border-gray-200 hover:border-[#c3272b]'
                     }`}
                   >
@@ -619,29 +1049,35 @@ export default function PCBuilder() {
                   </button>
                 </div>
 
-                <div className="flex items-center h-14 gap-2 bg-white rounded-full px-2">
+                <div className="flex items-center h-11 sm:h-14 gap-1 sm:gap-2 bg-white rounded-full px-1.5 sm:px-2">
                   <button
                     type="button"
                     title={viewMode === 'grid' ? 'Switch to list view' : 'Switch to grid view'}
                     onClick={() => setViewMode((v) => (v === 'grid' ? 'list' : 'grid'))}
-                    className={`w-10 h-10 rounded-full flex items-center justify-center transition-colors cursor-pointer ${
+                    className={`w-8 h-8 sm:w-10 sm:h-10 rounded-full flex items-center justify-center transition-colors cursor-pointer ${
                       viewMode === 'list' ? 'bg-[#c3272b] text-white' : 'bg-[#f4f5f7] text-gray-600 hover:bg-[#e8eaed]'
                     }`}
                   >
-                    <span className="mi text-[23px]">format_list_bulleted</span>
+                    <span className="mi text-[18px] sm:text-[23px]">format_list_bulleted</span>
                   </button>
                   <button
                     type="button"
                     title="Reset Build"
                     onClick={resetBuild}
-                    className="w-10 h-10 rounded-full bg-[#f4f5f7] flex items-center justify-center hover:bg-[#e8eaed] transition-colors cursor-pointer"
+                    className="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-[#f4f5f7] flex items-center justify-center hover:bg-[#e8eaed] transition-colors cursor-pointer"
                   >
-                    <Image src="/images/pc-builder/icons/refresh-icon-gray.svg" alt="" width={24} height={24} />
+                    <Image
+                      src="/images/pc-builder/icons/refresh-icon-gray.svg"
+                      alt=""
+                      width={24}
+                      height={24}
+                      className="w-5 h-5 sm:w-6 sm:h-6"
+                    />
                   </button>
                 </div>
               </div>
 
-              <div ref={leftPanelRef} className="flex flex-col gap-2.5 bg-white rounded-[50px] p-4">
+              <div className="flex flex-col gap-2.5 bg-white rounded-[50px] p-4">
                 {buildCategories.map((cat) => {
                   const items = builds[cat.key] ?? []
                   const isActive = activeCategory === cat.key
@@ -663,7 +1099,7 @@ export default function PCBuilder() {
                           />
                           <button
                             type="button"
-                            onClick={() => setActiveCategory(cat.key)}
+                            onClick={() => openCategory(cat.key)}
                             className="flex-1 min-w-0 text-left cursor-pointer"
                           >
                             <div className="text-[12px] font-semibold text-gray-800 truncate leading-tight">
@@ -703,7 +1139,7 @@ export default function PCBuilder() {
                           <button
                             type="button"
                             title="Change"
-                            onClick={() => setActiveCategory(cat.key)}
+                            onClick={() => openCategory(cat.key)}
                             className="shrink-0 flex items-center text-gray-400 hover:text-[#c3272b] transition-colors cursor-pointer"
                           >
                             <span className="mi text-[16px]">sync</span>
@@ -722,7 +1158,7 @@ export default function PCBuilder() {
                       {showBrowsePill && (
                         <button
                           type="button"
-                          onClick={() => setActiveCategory(cat.key)}
+                          onClick={() => openCategory(cat.key)}
                           className={`group flex items-center gap-3 rounded-full border-2 bg-white px-4 py-2 transition-colors cursor-pointer ${
                             isActive
                               ? 'border-[#c3272b] text-[#c3272b]'
@@ -778,234 +1214,40 @@ export default function PCBuilder() {
               </div>
             </div>
 
-            {/* Right panel: product browser */}
+            {/* Right panel: product browser (desktop, inline) */}
             <div
-              className="flex-1 w-full min-w-0 bg-white rounded-[50px] p-4 md:p-6 flex flex-col"
+              className="hidden lg:flex flex-1 w-full min-w-0 bg-white rounded-[50px] p-4 md:p-6 flex-col"
               style={rightPanelHeight ? { height: rightPanelHeight } : undefined}
             >
-              <div className="flex flex-wrap items-center gap-3 mb-5 shrink-0">
-                <div className="flex-1 min-w-[180px] flex items-center bg-[#f4f5f7] rounded-full px-4 py-2.5">
-                  <Image
-                    src="/images/compare-icons/search-icon.svg"
-                    alt=""
-                    width={18}
-                    height={18}
-                    className="w-[18px] h-[18px] mr-2.5 shrink-0"
-                  />
-                  <input
-                    type="text"
-                    value={search}
-                    onChange={(e) => setSearch(e.target.value)}
-                    placeholder="Search Products"
-                    className="border-none bg-transparent outline-none flex-1 text-[14px] text-gray-700 placeholder-gray-400"
-                  />
-                </div>
-                <button
-                  type="button"
-                  onClick={() => setFilterOpen(true)}
-                  className={`group shrink-0 inline-flex items-center gap-1.5 rounded-full px-3.5 py-2 text-[13px] font-semibold transition-colors cursor-pointer ${
-                    filtersActive
-                      ? 'bg-[#fdf1f1] text-[#c3272b] border-2 border-[#c3272b]'
-                      : 'bg-[#f5f5f7] text-gray-600 border-2 border-transparent hover:text-[#c3272b]'
-                  }`}
-                >
-                  <span className="relative w-[22px] h-[16px] shrink-0">
-                    <Image
-                      src="/images/pc-builder/icons/filter-icon.svg"
-                      alt=""
-                      width={22}
-                      height={16}
-                      className={`absolute inset-0 transition-opacity ${
-                        filtersActive ? 'opacity-0' : 'opacity-100 group-hover:opacity-0'
-                      }`}
-                    />
-                    <Image
-                      src="/images/pc-builder/icons/filter-icon-red.svg"
-                      alt=""
-                      width={22}
-                      height={16}
-                      className={`absolute inset-0 transition-opacity ${
-                        filtersActive ? 'opacity-100' : 'opacity-0 group-hover:opacity-100'
-                      }`}
-                    />
-                  </span>
-                  Filter By
-                </button>
-                <div className="shrink-0 flex items-center gap-1.5 bg-[#f5f5f7] rounded-full px-2.5 py-2">
-                  <span className="mi text-gray-500 text-[22px]">swap_vert</span>
-                  <select
-                    value={sort}
-                    onChange={(e) => setSort(e.target.value as typeof sort)}
-                    className="bg-transparent border-none text-[13px] font-semibold text-gray-600 outline-none cursor-pointer"
-                  >
-                    <option value="default">Short By</option>
-                    <option value="price-asc">Price (Low &gt; High)</option>
-                    <option value="price-desc">Price (High &gt; Low)</option>
-                  </select>
-                </div>
-              </div>
-
-              <h2 className="text-center text-lg font-bold text-gray-900 mb-5 shrink-0">{activeCat.label}</h2>
-
-              <div className="flex-1 min-h-0 overflow-y-auto pr-1.5 thin-scroll-gray">
-                {products.length === 0 ? (
-                  <div className="text-center py-16">
-                    <span className="mi text-[48px] text-gray-300 block mb-3">search_off</span>
-                    <p className="text-gray-500 text-[14px]">No products match your search.</p>
-                  </div>
-                ) : viewMode === 'list' ? (
-                  <div className="flex flex-col gap-3">
-                    {products.map((p) => {
-                      const isPicked = (builds[activeCategory] ?? []).some((s) => s.product.id === p.id)
-                      const qty = getQty(p.id)
-                      return (
-                        <div
-                          key={p.id}
-                          className={`bg-white rounded-2xl p-3 flex items-center gap-4 shadow-[0_2px_10px_rgba(0,0,0,0.06)] border-2 transition-colors ${
-                            isPicked ? 'border-[#c3272b]' : 'border-transparent'
-                          }`}
-                        >
-                          <div className="w-[120px] shrink-0">
-                            <PartThumb
-                              icon={activeCat.icon}
-                              iconSvg={activeCat.iconSvgActive ?? activeCat.iconSvg}
-                              image={p.image}
-                              accent={activeCat.accent}
-                            />
-                          </div>
-                          <div className="flex-1 min-w-0">
-                            <div className="text-[14px] font-semibold text-gray-800 leading-[1.3] mb-1.5">{p.name}</div>
-                            {p.specs && p.specs.length > 0 && (
-                              <ul className="list-disc pl-4 space-y-0.5">
-                                {p.specs.map((spec) => (
-                                  <li key={spec} className="text-[12px] text-gray-500">
-                                    {spec}
-                                  </li>
-                                ))}
-                              </ul>
-                            )}
-                          </div>
-                          <div className="shrink-0 flex flex-col items-end gap-2">
-                            <div className="flex items-center gap-1.5 flex-wrap justify-end">
-                              <span className="text-[15px] font-bold text-[#c3272b]">
-                                ৳{p.priceNew.toLocaleString()}
-                              </span>
-                              {p.discountPct > 0 && (
-                                <>
-                                  <span className="text-[11px] text-gray-400 line-through">
-                                    ৳{p.priceOld.toLocaleString()}
-                                  </span>
-                                  <span className="text-[10.5px] font-bold text-[#00c68b]">{p.discountPct}% OFF</span>
-                                </>
-                              )}
-                            </div>
-                            <div className="flex items-center gap-1.5">
-                              <button
-                                type="button"
-                                onClick={() => selectProduct(activeCategory, p)}
-                                className={`rounded-full px-5 py-1.5 text-[12.5px] font-bold border-2 whitespace-nowrap transition-colors cursor-pointer ${
-                                  isPicked
-                                    ? 'bg-[#c3272b] text-white border-[#c3272b]'
-                                    : 'bg-white text-[#c3272b] border-[#c3272b] hover:bg-[#c3272b] hover:text-white'
-                                }`}
-                              >
-                                {isPicked ? 'Added' : 'Add'}
-                              </button>
-                              <div className="shrink-0 flex items-center gap-1.5 bg-[#f5f6fa] rounded-full px-1.5 py-1">
-                                <button
-                                  type="button"
-                                  onClick={() => setQty(p.id, qty - 1)}
-                                  className="w-5 h-5 flex items-center justify-center text-gray-500 hover:text-[#c3272b] cursor-pointer"
-                                >
-                                  −
-                                </button>
-                                <span className="text-[12px] font-semibold text-gray-700 w-3 text-center">{qty}</span>
-                                <button
-                                  type="button"
-                                  onClick={() => setQty(p.id, qty + 1)}
-                                  className="w-5 h-5 flex items-center justify-center text-gray-500 hover:text-[#c3272b] cursor-pointer"
-                                >
-                                  +
-                                </button>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      )
-                    })}
-                  </div>
-                ) : (
-                  <div className="grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-4">
-                  {products.map((p) => {
-                    const isPicked = (builds[activeCategory] ?? []).some((s) => s.product.id === p.id)
-                    const qty = getQty(p.id)
-                    return (
-                      <div
-                        key={p.id}
-                        className={`bg-white rounded-[14px] p-2.5 flex flex-col shadow-[0_2px_10px_rgba(0,0,0,0.06)] border-2 transition-colors ${
-                          isPicked ? 'border-[#c3272b]' : 'border-transparent'
-                        }`}
-                      >
-                        <PartThumb
-                          icon={activeCat.icon}
-                          iconSvg={activeCat.iconSvgActive ?? activeCat.iconSvg}
-                          image={p.image}
-                          accent={activeCat.accent}
-                        />
-                        <div className="pt-2.5 flex flex-col flex-1">
-                          <div className="text-[12.5px] font-semibold text-gray-700 leading-[1.4] mb-2 line-clamp-2 min-h-[2.8em]">
-                            {p.name}
-                          </div>
-                          <div className="flex items-center gap-1.5 flex-wrap mb-2.5">
-                            <span className="text-[14px] font-bold text-[#c3272b]">৳{p.priceNew.toLocaleString()}</span>
-                            {p.discountPct > 0 && (
-                              <>
-                                <span className="text-[11px] text-gray-400 line-through">
-                                  ৳{p.priceOld.toLocaleString()}
-                                </span>
-                                <span className="text-[10.5px] font-bold text-[#00c68b]">{p.discountPct}% OFF</span>
-                              </>
-                            )}
-                          </div>
-                          <div className="flex items-center gap-1.5 mt-auto">
-                            <button
-                              type="button"
-                              onClick={() => selectProduct(activeCategory, p)}
-                              className={`flex-1 rounded-full py-1.5 text-[12.5px] font-bold border-2 transition-colors cursor-pointer ${
-                                isPicked
-                                  ? 'bg-[#c3272b] text-white border-[#c3272b]'
-                                  : 'bg-white text-[#c3272b] border-[#c3272b] hover:bg-[#c3272b] hover:text-white'
-                              }`}
-                            >
-                              {isPicked ? 'Added' : 'Add'}
-                            </button>
-                            <div className="shrink-0 flex items-center gap-1.5 bg-[#f5f6fa] rounded-full px-1.5 py-1">
-                              <button
-                                type="button"
-                                onClick={() => setQty(p.id, qty - 1)}
-                                className="w-5 h-5 flex items-center justify-center text-gray-500 hover:text-[#c3272b] cursor-pointer"
-                              >
-                                −
-                              </button>
-                              <span className="text-[12px] font-semibold text-gray-700 w-3 text-center">{qty}</span>
-                              <button
-                                type="button"
-                                onClick={() => setQty(p.id, qty + 1)}
-                                className="w-5 h-5 flex items-center justify-center text-gray-500 hover:text-[#c3272b] cursor-pointer"
-                              >
-                                +
-                              </button>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    )
-                  })}
-                  </div>
-                )}
-              </div>
+              {renderBrowserContent()}
             </div>
           </div>
+        </div>
+
+        {/* Mobile product browser popup */}
+        <div
+          onClick={() => setMobileBuilderOpen(false)}
+          className={`fixed inset-0 bg-black/50 z-[10002] lg:hidden transition-opacity ${
+            mobileBuilderOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
+          }`}
+        />
+        <div
+          className={`fixed inset-x-3 top-16 bottom-3 z-[10003] lg:hidden bg-white rounded-[28px] border-2 border-[#c3272b] shadow-2xl flex flex-col p-4 transition-all duration-200 ${
+            mobileBuilderOpen ? 'opacity-100 translate-y-0 pointer-events-auto' : 'opacity-0 translate-y-3 pointer-events-none'
+          }`}
+        >
+          <div className="flex items-center justify-between mb-3 shrink-0">
+            <span className="text-[13px] font-bold text-gray-500">Select {activeCat.label}</span>
+            <button
+              type="button"
+              onClick={() => setMobileBuilderOpen(false)}
+              className="w-8 h-8 rounded-full bg-[#f4f5f7] flex items-center justify-center cursor-pointer"
+              aria-label="Close"
+            >
+              <span className="mi text-[18px] text-gray-600">close</span>
+            </button>
+          </div>
+          {renderMobileBrowserContent()}
         </div>
       </div>
     </div>
