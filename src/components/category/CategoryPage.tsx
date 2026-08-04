@@ -1,6 +1,6 @@
 'use client'
 
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
@@ -34,11 +34,29 @@ export default function CategoryPage({ categoryName, products, priceMinDefault, 
   const [selectedAvailability, setSelectedAvailability] = useState<string[]>([])
   const [priceMin, setPriceMin] = useState(priceMinDefault)
   const [priceMax, setPriceMax] = useState(priceMaxDefault)
-  const [sort, setSort] = useState<'default' | 'price-asc' | 'price-desc'>('default')
+  const [sort, setSort] = useState<'default' | 'best-seller' | 'price-asc' | 'price-desc'>('default')
+  const [sortOpen, setSortOpen] = useState(false)
+  const sortRef = useRef<HTMLDivElement>(null)
   const [visibleCount, setVisibleCount] = useState(INITIAL_COUNT)
   const [descOpen, setDescOpen] = useState(false)
   const [chatOpen, setChatOpen] = useState(false)
   const { toast, showToast } = useToast()
+
+  useEffect(() => {
+    if (!sortOpen) return
+    const handleClick = (e: MouseEvent) => {
+      if (sortRef.current && !sortRef.current.contains(e.target as Node)) setSortOpen(false)
+    }
+    document.addEventListener('mousedown', handleClick)
+    return () => document.removeEventListener('mousedown', handleClick)
+  }, [sortOpen])
+
+  const sortLabels: Record<typeof sort, string> = {
+    default: 'Default',
+    'best-seller': 'Best Selling',
+    'price-asc': 'Low To High',
+    'price-desc': 'High To Low',
+  }
 
   const handleChatClick = () => {
     if (!isLoggedIn) {
@@ -80,6 +98,8 @@ export default function CategoryPage({ categoryName, products, priceMinDefault, 
         slug: product.slug,
         image: product.image,
         price: product.priceNew,
+        priceOld: product.priceOld,
+        discountPct: product.discountPct,
         qty: 1,
       },
     ])
@@ -109,6 +129,7 @@ export default function CategoryPage({ categoryName, products, priceMinDefault, 
     if (selectedAvailability.length) {
       list = list.filter(() => selectedAvailability.includes('In Stock'))
     }
+    if (sort === 'best-seller') list = [...list].sort((a, b) => b.reviews - a.reviews)
     if (sort === 'price-asc') list = [...list].sort((a, b) => a.priceNew - b.priceNew)
     if (sort === 'price-desc') list = [...list].sort((a, b) => b.priceNew - a.priceNew)
     return list
@@ -339,7 +360,7 @@ export default function CategoryPage({ categoryName, products, priceMinDefault, 
               </p>
             </div>
 
-            <div className="flex items-center justify-between gap-3 mb-4 overflow-x-auto no-scrollbar">
+            <div className="flex items-center justify-between gap-3 mb-4">
               <button
                 type="button"
                 onClick={() => setFilterOpen(true)}
@@ -364,21 +385,36 @@ export default function CategoryPage({ categoryName, products, priceMinDefault, 
                 Filter By
               </button>
 
-              <div className="shrink-0 flex items-center gap-1.5 bg-[#f5f5f7] rounded-full px-3 py-2">
-                <span className="mi text-gray-500 text-[24px]">swap_vert</span>
-                <span className="text-gray-500 text-[14px] font-semibold max-[400px]:hidden">Sort By:</span>
-                <select
-                  value={sort}
-                  onChange={(e) => {
-                    setSort(e.target.value as typeof sort)
-                    setVisibleCount(INITIAL_COUNT)
-                  }}
-                  className="bg-transparent border-none text-[13px] font-medium text-gray-500 outline-none cursor-pointer"
+              <div ref={sortRef} className="relative shrink-0">
+                <button
+                  type="button"
+                  onClick={() => setSortOpen((v) => !v)}
+                  className="flex items-center gap-1.5 bg-[#f5f5f7] rounded-full px-3 py-2 cursor-pointer"
                 >
-                  <option value="default">Default</option>
-                  <option value="price-asc">Price (Low &gt; High)</option>
-                  <option value="price-desc">Price (High &gt; Low)</option>
-                </select>
+                  <span className="mi text-gray-500 text-[24px]">swap_vert</span>
+                  <span className="text-gray-500 text-[14px] font-semibold max-[400px]:hidden">Sort By:</span>
+                  <span className="text-[13px] font-medium text-gray-500">{sortLabels[sort]}</span>
+                </button>
+
+                {sortOpen && (
+                  <div className="absolute left-1/2 -translate-x-1/2 top-full mt-2 w-[190px] bg-white border border-gray-100 rounded-2xl shadow-[0_16px_40px_rgba(0,0,0,0.14)] z-50 p-3.5 flex flex-col gap-3.5">
+                    {(['best-seller', 'price-asc', 'price-desc'] as const).map((value) => (
+                      <label key={value} className="flex items-center gap-2.5 cursor-pointer select-none">
+                        <input
+                          type="checkbox"
+                          checked={sort === value}
+                          onChange={() => {
+                            setSort(sort === value ? 'default' : value)
+                            setVisibleCount(INITIAL_COUNT)
+                            setSortOpen(false)
+                          }}
+                          className="w-[18px] h-[18px] accent-[#c3272b] cursor-pointer"
+                        />
+                        <span className="text-[14px] text-gray-800">{sortLabels[value]}</span>
+                      </label>
+                    ))}
+                  </div>
+                )}
               </div>
             </div>
 

@@ -4,6 +4,8 @@ export type CartItem = {
   slug: string
   image: string
   price: number
+  priceOld?: number
+  discountPct?: number
   qty: number
 }
 

@@ -7,6 +7,33 @@ import Breadcrumbs from '@/components/category/Breadcrumbs'
 import { useCart } from '@/context/CartContext'
 import { DISTRICTS, UPAZILAS } from '@/data/bdLocations'
 
+function CashOnDeliveryIcon({ className = '' }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 470 453.21" className={className} fill="currentColor">
+      <path d="M482.7,233.13a16.79,16.79,0,0,0-14.49-8.31,117.89,117.89,0,0,0-33.57,5.07V57c0-19.45-14.11-33.57-33.57-33.57h-235C146.62,23.4,132.5,37.52,132.5,57v179.5a158.69,158.69,0,0,0-71.34,60.08L17.52,367.06a16.78,16.78,0,1,0,28.54,17.67l43.43-70.18c22.94-35.16,60.35-56.16,100.08-56.16H280.7A50.45,50.45,0,0,1,233.21,292H199.64a16.79,16.79,0,0,0,0,33.57H367.5a16.79,16.79,0,0,0,13.42-6.7l20.26-27a81.7,81.7,0,0,1,34.74-27.05L408.1,314.22c-20.16,37.46-61.12,61.67-104.38,61.67a415.06,415.06,0,0,0-230.89,70,16.79,16.79,0,0,0,18.63,27.93,381.58,381.58,0,0,1,212.26-64.32c55.44,0,108-31.14,133.79-79.06l45.32-80.56A16.73,16.73,0,0,0,482.7,233.13ZM266.79,57h33.57V73.75H266.79ZM374.22,271.82,359.11,292H299.93a83.11,83.11,0,0,0,17.21-50.35,16.79,16.79,0,0,0-16.78-16.79H189.57a145.93,145.93,0,0,0-23.5,2.12V57h67.14V90.54A16.79,16.79,0,0,0,250,107.32h67.14a16.78,16.78,0,0,0,16.79-16.78V57h67.14V245.91A113.09,113.09,0,0,0,374.22,271.82Z" transform="translate(-15 -23.4)" />
+    </svg>
+  )
+}
+
+function MobileBankingIcon({ className = '' }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 255.1 452" className={className} fill="currentColor">
+      <path fillRule="evenodd" d="M250,423.47a20.09,20.09,0,1,1-20.09,20.09v0a20.05,20.05,0,0,1,20-20ZM328.74,24H171.15a48.74,48.74,0,0,0-48.7,48.78V427.15A48.85,48.85,0,0,0,171.3,476H328.85a48.78,48.78,0,0,0,48.7-48.85V72.74A48.77,48.77,0,0,0,328.74,24Zm34.39,384.17H136.84v-331H363.13Z" transform="translate(-122.45 -24)" />
+    </svg>
+  )
+}
+
+function OnlineBankingIcon({ className = '' }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 446.76 454" className={className} fill="currentColor">
+      <path d="M235.14,125.41l-.16.15a22.33,22.33,0,1,0,30,33.06l.17-.15a22.34,22.34,0,1,0-30.05-33.06Z" transform="translate(-26.62 -23)" />
+      <path d="M451,432.32H49A22.34,22.34,0,0,0,49,477H451a22.34,22.34,0,0,0,0-44.68Z" transform="translate(-26.62 -23)" />
+      <path d="M116,253.62A22.34,22.34,0,0,0,93.64,276v89.35H71.3a22.34,22.34,0,1,0,0,44.68H428.7a22.34,22.34,0,1,0,0-44.68H406.36V276a22.34,22.34,0,1,0-44.67,0v89.35H317V276a22.34,22.34,0,1,0-44.67,0v89.35H227.66V276A22.34,22.34,0,1,0,183,276v89.35H138.31V276A22.34,22.34,0,0,0,116,253.62Z" transform="translate(-26.62 -23)" />
+      <path d="M49,231.29H451a22.34,22.34,0,0,0,14.84-39L312.33,55.76c-18.64-16.56-28.9-25.69-43.13-29.94a66.81,66.81,0,0,0-38.41,0c-14.22,4.25-24.48,13.38-43.12,29.94L34.12,192.25a22.34,22.34,0,0,0,14.84,39ZM217.36,89.15C230.3,77.64,238.86,70,243.6,68.62a22.31,22.31,0,0,1,12.8,0c4.74,1.42,13.3,9,26.25,20.53l109.64,97.46H107.71Z" transform="translate(-26.62 -23)" />
+    </svg>
+  )
+}
+
 function LocationDropdown({
   value,
   options,
@@ -68,12 +95,15 @@ type Mode = 'guest' | 'login' | 'register'
 type Payment = 'cod' | 'mobile' | 'online'
 
 export default function CheckoutPage() {
-  const { items, subtotal, discount, total: cartTotal, couponMessage, applyCoupon, updateQty } = useCart()
+  const { items, subtotal, discount, total: cartTotal, couponMessage, applyCoupon, updateQty, removeItem } = useCart()
   const [mode, setMode] = useState<Mode>('guest')
   const [district, setDistrict] = useState('Dhaka')
   const [upazila, setUpazila] = useState(UPAZILAS['Dhaka'][0])
   const [payment, setPayment] = useState<Payment>('cod')
   const [coupon, setCoupon] = useState('')
+  const [showLoginPassword, setShowLoginPassword] = useState(false)
+  const [showPassword, setShowPassword] = useState(false)
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false)
 
   const handleDistrictChange = (value: string) => {
     setDistrict(value)
@@ -113,7 +143,7 @@ export default function CheckoutPage() {
             className="bg-[#f5f5f7] rounded-[24px] md:rounded-[36px] p-3.5 md:p-7 max-w-[1320px] mx-auto grid grid-cols-1 lg:grid-cols-[1.9fr_1fr] gap-4 md:gap-6"
           >
             {/* LEFT: FORM */}
-            <div className="bg-white rounded-[20px] md:rounded-[26px] p-5 md:p-8 flex flex-col gap-4">
+            <div className="order-2 lg:order-1 bg-white rounded-[20px] md:rounded-[26px] p-5 md:p-8 flex flex-col gap-4">
               <div className="inline-flex self-start bg-[#f5f5f7] rounded-full p-1">
                 {(['guest', 'login', 'register'] as Mode[]).map((m) => (
                   <button
@@ -145,10 +175,18 @@ export default function CheckoutPage() {
                     <div className="flex items-center gap-1 px-5 py-2.5 rounded-full border border-gray-200 focus-within:border-gray-400 transition-colors">
                       <span className="text-[13px] font-semibold text-gray-800 shrink-0 whitespace-nowrap mr-1">Password:</span>
                       <input
-                        type="password"
+                        type={showLoginPassword ? 'text' : 'password'}
                         autoComplete="current-password"
                         className="flex-1 min-w-0 bg-transparent outline-none text-[13px] text-gray-800"
                       />
+                      <button
+                        type="button"
+                        onClick={() => setShowLoginPassword((v) => !v)}
+                        aria-label={showLoginPassword ? 'Hide password' : 'Show password'}
+                        className="shrink-0 text-gray-400 hover:text-gray-600 transition-colors cursor-pointer"
+                      >
+                        <i className={`fa-solid ${showLoginPassword ? 'fa-eye-slash' : 'fa-eye'} text-[13px]`} />
+                      </button>
                     </div>
                   </div>
                   <button
@@ -227,18 +265,34 @@ export default function CheckoutPage() {
                         <div className="flex items-center gap-1 px-5 py-2.5 rounded-full border border-gray-200 focus-within:border-gray-400 transition-colors">
                           <span className="text-[13px] font-semibold text-gray-800 shrink-0 whitespace-nowrap mr-1">Password*:</span>
                           <input
-                            type="password"
+                            type={showPassword ? 'text' : 'password'}
                             autoComplete="new-password"
                             className="flex-1 min-w-0 bg-transparent outline-none text-[13px] text-gray-800"
                           />
+                          <button
+                            type="button"
+                            onClick={() => setShowPassword((v) => !v)}
+                            aria-label={showPassword ? 'Hide password' : 'Show password'}
+                            className="shrink-0 text-gray-400 hover:text-gray-600 transition-colors cursor-pointer"
+                          >
+                            <i className={`fa-solid ${showPassword ? 'fa-eye-slash' : 'fa-eye'} text-[13px]`} />
+                          </button>
                         </div>
                         <div className="flex items-center gap-1 px-5 py-2.5 rounded-full border border-gray-200 focus-within:border-gray-400 transition-colors">
                           <span className="text-[13px] font-semibold text-gray-800 shrink-0 whitespace-nowrap mr-1">Confirm*:</span>
                           <input
-                            type="password"
+                            type={showConfirmPassword ? 'text' : 'password'}
                             autoComplete="new-password"
                             className="flex-1 min-w-0 bg-transparent outline-none text-[13px] text-gray-800"
                           />
+                          <button
+                            type="button"
+                            onClick={() => setShowConfirmPassword((v) => !v)}
+                            aria-label={showConfirmPassword ? 'Hide password' : 'Show password'}
+                            className="shrink-0 text-gray-400 hover:text-gray-600 transition-colors cursor-pointer"
+                          >
+                            <i className={`fa-solid ${showConfirmPassword ? 'fa-eye-slash' : 'fa-eye'} text-[13px]`} />
+                          </button>
                         </div>
                       </div>
                     )}
@@ -247,10 +301,10 @@ export default function CheckoutPage() {
                   <div className="grid grid-cols-1 min-[480px]:grid-cols-3 gap-2.5 mt-1">
                     {(
                       [
-                        { key: 'cod', label: 'Cash On Delivery', icon: 'fa-solid fa-money-bill-wave' },
-                        { key: 'mobile', label: 'Mobile Banking', icon: 'fa-solid fa-mobile-screen-button' },
-                        { key: 'online', label: 'Online Banking', icon: 'fa-solid fa-building-columns' },
-                      ] as { key: Payment; label: string; icon: string }[]
+                        { key: 'cod', label: 'Cash On Delivery', Icon: CashOnDeliveryIcon, w: 'w-[17px]' },
+                        { key: 'mobile', label: 'Mobile Banking', Icon: MobileBankingIcon, w: 'w-[9px]' },
+                        { key: 'online', label: 'Online Banking', Icon: OnlineBankingIcon, w: 'w-[16px]' },
+                      ] as { key: Payment; label: string; Icon: typeof CashOnDeliveryIcon; w: string }[]
                     ).map((opt) => (
                       <button
                         key={opt.key}
@@ -269,7 +323,7 @@ export default function CheckoutPage() {
                         >
                           {payment === opt.key && <span className="w-2.5 h-2.5 rounded-full bg-[#d32f2f]" />}
                         </span>
-                        <i className={`${opt.icon} shrink-0`} />
+                        <opt.Icon className={`${opt.w} h-4 shrink-0`} />
                         {opt.label}
                       </button>
                     ))}
@@ -304,7 +358,7 @@ export default function CheckoutPage() {
             </div>
 
             {/* RIGHT: SUMMARY */}
-            <div className="bg-white rounded-[20px] md:rounded-[26px] p-5 md:p-8 flex flex-col justify-between">
+            <div className="order-1 lg:order-2 bg-white rounded-[20px] md:rounded-[26px] p-5 md:p-8 flex flex-col justify-between">
               <div>
                 <div className="flex flex-col gap-4">
                   {items.map((item) => (
@@ -319,7 +373,7 @@ export default function CheckoutPage() {
                         />
                       </div>
 
-                      <div className="flex-1 min-w-0 flex flex-col gap-1.5">
+                      <div className="flex-1 min-w-0 flex flex-col gap-2">
                         <Link
                           href={`/${item.slug}`}
                           className="text-[13px] font-semibold text-gray-800 leading-snug line-clamp-2 no-underline hover:text-[#d32f2f]"
@@ -327,12 +381,24 @@ export default function CheckoutPage() {
                           {item.name}
                         </Link>
 
-                        <div className="flex items-center justify-between flex-wrap gap-2">
+                        <div className="flex items-center gap-1.5 flex-wrap">
                           <span className="text-[13.5px] font-bold text-[#d32f2f]">
                             ৳{item.price.toLocaleString()}
                           </span>
+                          {!!item.priceOld && item.priceOld > item.price && (
+                            <span className="text-[11px] text-gray-400 line-through">
+                              ৳{item.priceOld.toLocaleString()}
+                            </span>
+                          )}
+                          {!!item.discountPct && (
+                            <span className="text-[10.5px] font-semibold text-green-600">
+                              {item.discountPct}% OFF
+                            </span>
+                          )}
+                        </div>
 
-                          <div className="flex items-center gap-2.5 bg-[#f5f5f7] rounded-full px-3 py-1 text-[12px] font-bold text-gray-600">
+                        <div className="flex items-center gap-2.5">
+                          <div className="flex items-center gap-2.5 h-8 bg-[#f5f5f7] rounded-full px-3 text-[12px] font-bold text-gray-600">
                             <button
                               type="button"
                               onClick={() => updateQty(item.id, item.qty - 1)}
@@ -349,6 +415,15 @@ export default function CheckoutPage() {
                               +
                             </button>
                           </div>
+
+                          <button
+                            type="button"
+                            onClick={() => removeItem(item.id)}
+                            aria-label={`Remove ${item.name}`}
+                            className="w-8 h-8 rounded-full bg-[#f5f5f7] flex items-center justify-center shrink-0 hover:bg-gray-200 transition-colors cursor-pointer"
+                          >
+                            <Image src="/icons/delete-button.svg" alt="" width={14} height={16} />
+                          </button>
                         </div>
                       </div>
                     </div>

@@ -39,6 +39,8 @@ export default function ProductInfo({
     slug: product.slug,
     image: product.images[0]?.large ?? '',
     price: product.priceNew,
+    priceOld: product.priceOld,
+    discountPct: product.discountPct,
     qty,
   }
 

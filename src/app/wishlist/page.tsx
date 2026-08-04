@@ -101,7 +101,18 @@ export default function WishlistPage() {
   const count = items.length
 
   const handleAddToCart = (item: CategoryProduct) => {
-    addItems([{ id: item.id, name: item.name, slug: item.slug, image: item.image, price: item.priceNew, qty: 1 }])
+    addItems([
+      {
+        id: item.id,
+        name: item.name,
+        slug: item.slug,
+        image: item.image,
+        price: item.priceNew,
+        priceOld: item.priceOld,
+        discountPct: item.discountPct,
+        qty: 1,
+      },
+    ])
   }
 
   return (
