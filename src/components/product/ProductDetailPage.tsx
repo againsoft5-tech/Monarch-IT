@@ -1,33 +1,54 @@
 'use client'
 
-import { useState } from 'react'
+import { useMemo, useState } from 'react'
 import ProductGallery from './ProductGallery'
 import ProductInfo from './ProductInfo'
+import ProductMeta from './ProductMeta'
 import ProductTabs, { type ProductTab } from './ProductTabs'
 import ProductSidebar from './ProductSidebar'
 import MoreToLove from './MoreToLove'
 import ProductComboSection from './ProductComboSection'
 import type { ProductDetail } from '@/data/productDetail'
+import { applySelection, defaultSelection, findCombo, resolveGalleryImages } from '@/lib/productVariants'
 
 export default function ProductDetailPage({ product }: { product: ProductDetail }) {
   const [tab, setTab] = useState<ProductTab>('spec')
+  const variantGroups = useMemo(() => product.variantGroups ?? [], [product.variantGroups])
+  const variantCombos = useMemo(() => product.variantCombos ?? [], [product.variantCombos])
+  const [selection, setSelection] = useState(() => defaultSelection(variantGroups, variantCombos))
 
   const goToTab = (target: ProductTab) => {
     setTab(target)
     document.getElementById('tabs')?.scrollIntoView({ behavior: 'smooth', block: 'start' })
   }
 
+  const activeCombo = findCombo(variantCombos, selection)
+  const galleryImages = resolveGalleryImages(variantGroups, selection, product.images)
+
   return (
     <div className="bg-[#f6f7f9]">
       <div className="bg-white">
         <div className="container mx-auto px-4 min-[992px]:px-14 py-6">
-          <div className="grid grid-cols-1 md:grid-cols-[40%_60%] gap-5 items-start">
-            <ProductGallery images={product.images} name={product.name} />
-            <ProductInfo
-              product={product}
-              onShowSpecs={() => goToTab('spec')}
-              onShowReviews={() => goToTab('rev')}
-            />
+          <div className="grid grid-cols-1 md:grid-cols-[40%_60%] gap-5 md:gap-y-2 items-start">
+            <div className="order-1 md:order-2 md:col-start-2 md:row-start-1 md:pt-4">
+              <ProductMeta product={product} onShowReviews={() => goToTab('rev')} />
+            </div>
+            <div className="order-2 md:order-1 md:col-start-1 md:row-start-1 md:row-span-2">
+              <ProductGallery images={galleryImages} name={product.name} />
+            </div>
+            <div className="order-3 md:order-3 md:col-start-2 md:row-start-2">
+              <ProductInfo
+                product={product}
+                onShowSpecs={() => goToTab('spec')}
+                variantGroups={variantGroups}
+                variantCombos={variantCombos}
+                selection={selection}
+                onSelectVariant={(groupKey, optionId) =>
+                  setSelection((prev) => applySelection(variantGroups, variantCombos, prev, groupKey, optionId))
+                }
+                activeCombo={activeCombo}
+              />
+            </div>
           </div>
         </div>
       </div>

@@ -1,0 +1,562 @@
+[28-Jun-2026 04:18:20 UTC] PHP Fatal error:  Uncaught Exception: Error: Could not make a database link using monarch_root@localhost! in /home/monarch/public_html/system/library/db/mysqli.php:19
+Stack trace:
+#0 /home/monarch/public_html/system/storage/modification/system/library/db.php(36): DB\MySQLi->__construct('localhost', 'monarch_root', '7Zco^TCGwsZh', 'monarch_main', '3306')
+#1 /home/monarch/public_html/system/framework.php(80): DB->__construct('mysqli', 'localhost', 'monarch_root', '7Zco^TCGwsZh', 'monarch_main', '3306')
+#2 /home/monarch/public_html/system/startup.php(104): require_once('/home/monarch/p...')
+#3 /home/monarch/public_html/admin/index.php(19): start('admin')
+#4 {main}
+  thrown in /home/monarch/public_html/system/library/db/mysqli.php on line 19
+[28-Jun-2026 04:18:26 UTC] PHP Fatal error:  Uncaught Exception: Error: Could not make a database link using monarch_root@localhost! in /home/monarch/public_html/system/library/db/mysqli.php:19
+Stack trace:
+#0 /home/monarch/public_html/system/storage/modification/system/library/db.php(36): DB\MySQLi->__construct('localhost', 'monarch_root', '7Zco^TCGwsZh', 'monarch_main', '3306')
+#1 /home/monarch/public_html/system/framework.php(80): DB->__construct('mysqli', 'localhost', 'monarch_root', '7Zco^TCGwsZh', 'monarch_main', '3306')
+#2 /home/monarch/public_html/system/startup.php(104): require_once('/home/monarch/p...')
+#3 /home/monarch/public_html/admin/index.php(19): start('admin')
+#4 {main}
+  thrown in /home/monarch/public_html/system/library/db/mysqli.php on line 19
+[28-Jun-2026 04:18:38 UTC] PHP Fatal error:  Uncaught Exception: Error: Could not make a database link using monarch_root@localhost! in /home/monarch/public_html/system/library/db/mysqli.php:19
+Stack trace:
+#0 /home/monarch/public_html/system/storage/modification/system/library/db.php(36): DB\MySQLi->__construct('localhost', 'monarch_root', '7Zco^TCGwsZh', 'monarch_main', '3306')
+#1 /home/monarch/public_html/system/framework.php(80): DB->__construct('mysqli', 'localhost', 'monarch_root', '7Zco^TCGwsZh', 'monarch_main', '3306')
+#2 /home/monarch/public_html/system/startup.php(104): require_once('/home/monarch/p...')
+#3 /home/monarch/public_html/admin/index.php(19): start('admin')
+#4 {main}
+  thrown in /home/monarch/public_html/system/library/db/mysqli.php on line 19
+[29-Jul-2026 04:10:50 UTC] PHP Fatal error:  Uncaught Exception: Error: Could not make a database link using monarch_root@localhost! in /home/monarch/public_html/system/library/db/mysqli.php:19
+Stack trace:
+#0 /home/monarch/public_html/system/storage/modification/system/library/db.php(36): DB\MySQLi->__construct('localhost', 'monarch_root', '7Zco^TCGwsZh', 'monarch_main', '3306')
+#1 /home/monarch/public_html/system/framework.php(80): DB->__construct('mysqli', 'localhost', 'monarch_root', '7Zco^TCGwsZh', 'monarch_main', '3306')
+#2 /home/monarch/public_html/system/startup.php(104): require_once('/home/monarch/p...')
+#3 /home/monarch/public_html/admin/index.php(19): start('admin')
+#4 {main}
+  thrown in /home/monarch/public_html/system/library/db/mysqli.php on line 19
+[29-Jul-2026 04:10:51 UTC] PHP Fatal error:  Uncaught Exception: Error: Could not make a database link using monarch_root@localhost! in /home/monarch/public_html/system/library/db/mysqli.php:19
+Stack trace:
+#0 /home/monarch/public_html/system/storage/modification/system/library/db.php(36): DB\MySQLi->__construct('localhost', 'monarch_root', '7Zco^TCGwsZh', 'monarch_main', '3306')
+#1 /home/monarch/public_html/system/framework.php(80): DB->__construct('mysqli', 'localhost', 'monarch_root', '7Zco^TCGwsZh', 'monarch_main', '3306')
+#2 /home/monarch/public_html/system/startup.php(104): require_once('/home/monarch/p...')
+#3 /home/monarch/public_html/admin/index.php(19): start('admin')
+#4 {main}
+  thrown in /home/monarch/public_html/system/library/db/mysqli.php on line 19
+[29-Jul-2026 04:11:00 UTC] PHP Fatal error:  Uncaught Exception: Error: Could not make a database link using monarch_root@localhost! in /home/monarch/public_html/system/library/db/mysqli.php:19
+Stack trace:
+#0 /home/monarch/public_html/system/storage/modification/system/library/db.php(36): DB\MySQLi->__construct('localhost', 'monarch_root', '7Zco^TCGwsZh', 'monarch_main', '3306')
+#1 /home/monarch/public_html/system/framework.php(80): DB->__construct('mysqli', 'localhost', 'monarch_root', '7Zco^TCGwsZh', 'monarch_main', '3306')
+#2 /home/monarch/public_html/system/startup.php(104): require_once('/home/monarch/p...')
+#3 /home/monarch/public_html/admin/index.php(19): start('admin')
+#4 {main}
+  thrown in /home/monarch/public_html/system/library/db/mysqli.php on line 19
+[29-Jul-2026 04:11:00 UTC] PHP Fatal error:  Uncaught Exception: Error: Could not make a database link using monarch_root@localhost! in /home/monarch/public_html/system/library/db/mysqli.php:19
+Stack trace:
+#0 /home/monarch/public_html/system/storage/modification/system/library/db.php(36): DB\MySQLi->__construct('localhost', 'monarch_root', '7Zco^TCGwsZh', 'monarch_main', '3306')
+#1 /home/monarch/public_html/system/framework.php(80): DB->__construct('mysqli', 'localhost', 'monarch_root', '7Zco^TCGwsZh', 'monarch_main', '3306')
+#2 /home/monarch/public_html/system/startup.php(104): require_once('/home/monarch/p...')
+#3 /home/monarch/public_html/admin/index.php(19): start('admin')
+#4 {main}
+  thrown in /home/monarch/public_html/system/library/db/mysqli.php on line 19
+[29-Jul-2026 04:11:01 UTC] PHP Fatal error:  Uncaught Exception: Error: Could not make a database link using monarch_root@localhost! in /home/monarch/public_html/system/library/db/mysqli.php:19
+Stack trace:
+#0 /home/monarch/public_html/system/storage/modification/system/library/db.php(36): DB\MySQLi->__construct('localhost', 'monarch_root', '7Zco^TCGwsZh', 'monarch_main', '3306')
+#1 /home/monarch/public_html/system/framework.php(80): DB->__construct('mysqli', 'localhost', 'monarch_root', '7Zco^TCGwsZh', 'monarch_main', '3306')
+#2 /home/monarch/public_html/system/startup.php(104): require_once('/home/monarch/p...')
+#3 /home/monarch/public_html/admin/index.php(19): start('admin')
+#4 {main}
+  thrown in /home/monarch/public_html/system/library/db/mysqli.php on line 19
+[29-Jul-2026 04:11:03 UTC] PHP Fatal error:  Uncaught Exception: Error: Could not make a database link using monarch_root@localhost! in /home/monarch/public_html/system/library/db/mysqli.php:19
+Stack trace:
+#0 /home/monarch/public_html/system/storage/modification/system/library/db.php(36): DB\MySQLi->__construct('localhost', 'monarch_root', '7Zco^TCGwsZh', 'monarch_main', '3306')
+#1 /home/monarch/public_html/system/framework.php(80): DB->__construct('mysqli', 'localhost', 'monarch_root', '7Zco^TCGwsZh', 'monarch_main', '3306')
+#2 /home/monarch/public_html/system/startup.php(104): require_once('/home/monarch/p...')
+#3 /home/monarch/public_html/admin/index.php(19): start('admin')
+#4 {main}
+  thrown in /home/monarch/public_html/system/library/db/mysqli.php on line 19
+[29-Jul-2026 04:11:03 UTC] PHP Fatal error:  Uncaught Exception: Error: Could not make a database link using monarch_root@localhost! in /home/monarch/public_html/system/library/db/mysqli.php:19
+Stack trace:
+#0 /home/monarch/public_html/system/storage/modification/system/library/db.php(36): DB\MySQLi->__construct('localhost', 'monarch_root', '7Zco^TCGwsZh', 'monarch_main', '3306')
+#1 /home/monarch/public_html/system/framework.php(80): DB->__construct('mysqli', 'localhost', 'monarch_root', '7Zco^TCGwsZh', 'monarch_main', '3306')
+#2 /home/monarch/public_html/system/startup.php(104): require_once('/home/monarch/p...')
+#3 /home/monarch/public_html/admin/index.php(19): start('admin')
+#4 {main}
+  thrown in /home/monarch/public_html/system/library/db/mysqli.php on line 19
+[29-Jul-2026 04:11:04 UTC] PHP Fatal error:  Uncaught Exception: Error: Could not make a database link using monarch_root@localhost! in /home/monarch/public_html/system/library/db/mysqli.php:19
+Stack trace:
+#0 /home/monarch/public_html/system/storage/modification/system/library/db.php(36): DB\MySQLi->__construct('localhost', 'monarch_root', '7Zco^TCGwsZh', 'monarch_main', '3306')
+#1 /home/monarch/public_html/system/framework.php(80): DB->__construct('mysqli', 'localhost', 'monarch_root', '7Zco^TCGwsZh', 'monarch_main', '3306')
+#2 /home/monarch/public_html/system/startup.php(104): require_once('/home/monarch/p...')
+#3 /home/monarch/public_html/admin/index.php(19): start('admin')
+#4 {main}
+  thrown in /home/monarch/public_html/system/library/db/mysqli.php on line 19
+[29-Jul-2026 04:11:04 UTC] PHP Fatal error:  Uncaught Exception: Error: Could not make a database link using monarch_root@localhost! in /home/monarch/public_html/system/library/db/mysqli.php:19
+Stack trace:
+#0 /home/monarch/public_html/system/storage/modification/system/library/db.php(36): DB\MySQLi->__construct('localhost', 'monarch_root', '7Zco^TCGwsZh', 'monarch_main', '3306')
+#1 /home/monarch/public_html/system/framework.php(80): DB->__construct('mysqli', 'localhost', 'monarch_root', '7Zco^TCGwsZh', 'monarch_main', '3306')
+#2 /home/monarch/public_html/system/startup.php(104): require_once('/home/monarch/p...')
+#3 /home/monarch/public_html/admin/index.php(19): start('admin')
+#4 {main}
+  thrown in /home/monarch/public_html/system/library/db/mysqli.php on line 19
+[29-Jul-2026 04:11:04 UTC] PHP Fatal error:  Uncaught Exception: Error: Could not make a database link using monarch_root@localhost! in /home/monarch/public_html/system/library/db/mysqli.php:19
+Stack trace:
+#0 /home/monarch/public_html/system/storage/modification/system/library/db.php(36): DB\MySQLi->__construct('localhost', 'monarch_root', '7Zco^TCGwsZh', 'monarch_main', '3306')
+#1 /home/monarch/public_html/system/framework.php(80): DB->__construct('mysqli', 'localhost', 'monarch_root', '7Zco^TCGwsZh', 'monarch_main', '3306')
+#2 /home/monarch/public_html/system/startup.php(104): require_once('/home/monarch/p...')
+#3 /home/monarch/public_html/admin/index.php(19): start('admin')
+#4 {main}
+  thrown in /home/monarch/public_html/system/library/db/mysqli.php on line 19
+[29-Jul-2026 04:11:04 UTC] PHP Fatal error:  Uncaught Exception: Error: Could not make a database link using monarch_root@localhost! in /home/monarch/public_html/system/library/db/mysqli.php:19
+Stack trace:
+#0 /home/monarch/public_html/system/storage/modification/system/library/db.php(36): DB\MySQLi->__construct('localhost', 'monarch_root', '7Zco^TCGwsZh', 'monarch_main', '3306')
+#1 /home/monarch/public_html/system/framework.php(80): DB->__construct('mysqli', 'localhost', 'monarch_root', '7Zco^TCGwsZh', 'monarch_main', '3306')
+#2 /home/monarch/public_html/system/startup.php(104): require_once('/home/monarch/p...')
+#3 /home/monarch/public_html/admin/index.php(19): start('admin')
+#4 {main}
+  thrown in /home/monarch/public_html/system/library/db/mysqli.php on line 19
+[29-Jul-2026 04:11:05 UTC] PHP Fatal error:  Uncaught Exception: Error: Could not make a database link using monarch_root@localhost! in /home/monarch/public_html/system/library/db/mysqli.php:19
+Stack trace:
+#0 /home/monarch/public_html/system/storage/modification/system/library/db.php(36): DB\MySQLi->__construct('localhost', 'monarch_root', '7Zco^TCGwsZh', 'monarch_main', '3306')
+#1 /home/monarch/public_html/system/framework.php(80): DB->__construct('mysqli', 'localhost', 'monarch_root', '7Zco^TCGwsZh', 'monarch_main', '3306')
+#2 /home/monarch/public_html/system/startup.php(104): require_once('/home/monarch/p...')
+#3 /home/monarch/public_html/admin/index.php(19): start('admin')
+#4 {main}
+  thrown in /home/monarch/public_html/system/library/db/mysqli.php on line 19
+[29-Jul-2026 04:11:05 UTC] PHP Fatal error:  Uncaught Exception: Error: Could not make a database link using monarch_root@localhost! in /home/monarch/public_html/system/library/db/mysqli.php:19
+Stack trace:
+#0 /home/monarch/public_html/system/storage/modification/system/library/db.php(36): DB\MySQLi->__construct('localhost', 'monarch_root', '7Zco^TCGwsZh', 'monarch_main', '3306')
+#1 /home/monarch/public_html/system/framework.php(80): DB->__construct('mysqli', 'localhost', 'monarch_root', '7Zco^TCGwsZh', 'monarch_main', '3306')
+#2 /home/monarch/public_html/system/startup.php(104): require_once('/home/monarch/p...')
+#3 /home/monarch/public_html/admin/index.php(19): start('admin')
+#4 {main}
+  thrown in /home/monarch/public_html/system/library/db/mysqli.php on line 19
+[29-Jul-2026 04:11:08 UTC] PHP Fatal error:  Uncaught Exception: Error: Could not make a database link using monarch_root@localhost! in /home/monarch/public_html/system/library/db/mysqli.php:19
+Stack trace:
+#0 /home/monarch/public_html/system/storage/modification/system/library/db.php(36): DB\MySQLi->__construct('localhost', 'monarch_root', '7Zco^TCGwsZh', 'monarch_main', '3306')
+#1 /home/monarch/public_html/system/framework.php(80): DB->__construct('mysqli', 'localhost', 'monarch_root', '7Zco^TCGwsZh', 'monarch_main', '3306')
+#2 /home/monarch/public_html/system/startup.php(104): require_once('/home/monarch/p...')
+#3 /home/monarch/public_html/admin/index.php(19): start('admin')
+#4 {main}
+  thrown in /home/monarch/public_html/system/library/db/mysqli.php on line 19
+[29-Jul-2026 04:11:12 UTC] PHP Fatal error:  Uncaught Exception: Error: Could not make a database link using monarch_root@localhost! in /home/monarch/public_html/system/library/db/mysqli.php:19
+Stack trace:
+#0 /home/monarch/public_html/system/storage/modification/system/library/db.php(36): DB\MySQLi->__construct('localhost', 'monarch_root', '7Zco^TCGwsZh', 'monarch_main', '3306')
+#1 /home/monarch/public_html/system/framework.php(80): DB->__construct('mysqli', 'localhost', 'monarch_root', '7Zco^TCGwsZh', 'monarch_main', '3306')
+#2 /home/monarch/public_html/system/startup.php(104): require_once('/home/monarch/p...')
+#3 /home/monarch/public_html/admin/index.php(19): start('admin')
+#4 {main}
+  thrown in /home/monarch/public_html/system/library/db/mysqli.php on line 19
+[29-Jul-2026 04:11:13 UTC] PHP Fatal error:  Uncaught Exception: Error: Could not make a database link using monarch_root@localhost! in /home/monarch/public_html/system/library/db/mysqli.php:19
+Stack trace:
+#0 /home/monarch/public_html/system/storage/modification/system/library/db.php(36): DB\MySQLi->__construct('localhost', 'monarch_root', '7Zco^TCGwsZh', 'monarch_main', '3306')
+#1 /home/monarch/public_html/system/framework.php(80): DB->__construct('mysqli', 'localhost', 'monarch_root', '7Zco^TCGwsZh', 'monarch_main', '3306')
+#2 /home/monarch/public_html/system/startup.php(104): require_once('/home/monarch/p...')
+#3 /home/monarch/public_html/admin/index.php(19): start('admin')
+#4 {main}
+  thrown in /home/monarch/public_html/system/library/db/mysqli.php on line 19
+[29-Jul-2026 04:11:14 UTC] PHP Fatal error:  Uncaught Exception: Error: Could not make a database link using monarch_root@localhost! in /home/monarch/public_html/system/library/db/mysqli.php:19
+Stack trace:
+#0 /home/monarch/public_html/system/storage/modification/system/library/db.php(36): DB\MySQLi->__construct('localhost', 'monarch_root', '7Zco^TCGwsZh', 'monarch_main', '3306')
+#1 /home/monarch/public_html/system/framework.php(80): DB->__construct('mysqli', 'localhost', 'monarch_root', '7Zco^TCGwsZh', 'monarch_main', '3306')
+#2 /home/monarch/public_html/system/startup.php(104): require_once('/home/monarch/p...')
+#3 /home/monarch/public_html/admin/index.php(19): start('admin')
+#4 {main}
+  thrown in /home/monarch/public_html/system/library/db/mysqli.php on line 19
+[29-Jul-2026 04:11:15 UTC] PHP Fatal error:  Uncaught Exception: Error: Could not make a database link using monarch_root@localhost! in /home/monarch/public_html/system/library/db/mysqli.php:19
+Stack trace:
+#0 /home/monarch/public_html/system/storage/modification/system/library/db.php(36): DB\MySQLi->__construct('localhost', 'monarch_root', '7Zco^TCGwsZh', 'monarch_main', '3306')
+#1 /home/monarch/public_html/system/framework.php(80): DB->__construct('mysqli', 'localhost', 'monarch_root', '7Zco^TCGwsZh', 'monarch_main', '3306')
+#2 /home/monarch/public_html/system/startup.php(104): require_once('/home/monarch/p...')
+#3 /home/monarch/public_html/admin/index.php(19): start('admin')
+#4 {main}
+  thrown in /home/monarch/public_html/system/library/db/mysqli.php on line 19
+[29-Jul-2026 04:11:15 UTC] PHP Fatal error:  Uncaught Exception: Error: Could not make a database link using monarch_root@localhost! in /home/monarch/public_html/system/library/db/mysqli.php:19
+Stack trace:
+#0 /home/monarch/public_html/system/storage/modification/system/library/db.php(36): DB\MySQLi->__construct('localhost', 'monarch_root', '7Zco^TCGwsZh', 'monarch_main', '3306')
+#1 /home/monarch/public_html/system/framework.php(80): DB->__construct('mysqli', 'localhost', 'monarch_root', '7Zco^TCGwsZh', 'monarch_main', '3306')
+#2 /home/monarch/public_html/system/startup.php(104): require_once('/home/monarch/p...')
+#3 /home/monarch/public_html/admin/index.php(19): start('admin')
+#4 {main}
+  thrown in /home/monarch/public_html/system/library/db/mysqli.php on line 19
+[29-Jul-2026 04:11:16 UTC] PHP Fatal error:  Uncaught Exception: Error: Could not make a database link using monarch_root@localhost! in /home/monarch/public_html/system/library/db/mysqli.php:19
+Stack trace:
+#0 /home/monarch/public_html/system/storage/modification/system/library/db.php(36): DB\MySQLi->__construct('localhost', 'monarch_root', '7Zco^TCGwsZh', 'monarch_main', '3306')
+#1 /home/monarch/public_html/system/framework.php(80): DB->__construct('mysqli', 'localhost', 'monarch_root', '7Zco^TCGwsZh', 'monarch_main', '3306')
+#2 /home/monarch/public_html/system/startup.php(104): require_once('/home/monarch/p...')
+#3 /home/monarch/public_html/admin/index.php(19): start('admin')
+#4 {main}
+  thrown in /home/monarch/public_html/system/library/db/mysqli.php on line 19
+[29-Jul-2026 04:11:16 UTC] PHP Fatal error:  Uncaught Exception: Error: Could not make a database link using monarch_root@localhost! in /home/monarch/public_html/system/library/db/mysqli.php:19
+Stack trace:
+#0 /home/monarch/public_html/system/storage/modification/system/library/db.php(36): DB\MySQLi->__construct('localhost', 'monarch_root', '7Zco^TCGwsZh', 'monarch_main', '3306')
+#1 /home/monarch/public_html/system/framework.php(80): DB->__construct('mysqli', 'localhost', 'monarch_root', '7Zco^TCGwsZh', 'monarch_main', '3306')
+#2 /home/monarch/public_html/system/startup.php(104): require_once('/home/monarch/p...')
+#3 /home/monarch/public_html/admin/index.php(19): start('admin')
+#4 {main}
+  thrown in /home/monarch/public_html/system/library/db/mysqli.php on line 19
+[29-Jul-2026 04:11:16 UTC] PHP Fatal error:  Uncaught Exception: Error: Could not make a database link using monarch_root@localhost! in /home/monarch/public_html/system/library/db/mysqli.php:19
+Stack trace:
+#0 /home/monarch/public_html/system/storage/modification/system/library/db.php(36): DB\MySQLi->__construct('localhost', 'monarch_root', '7Zco^TCGwsZh', 'monarch_main', '3306')
+#1 /home/monarch/public_html/system/framework.php(80): DB->__construct('mysqli', 'localhost', 'monarch_root', '7Zco^TCGwsZh', 'monarch_main', '3306')
+#2 /home/monarch/public_html/system/startup.php(104): require_once('/home/monarch/p...')
+#3 /home/monarch/public_html/admin/index.php(19): start('admin')
+#4 {main}
+  thrown in /home/monarch/public_html/system/library/db/mysqli.php on line 19
+[29-Jul-2026 04:11:16 UTC] PHP Fatal error:  Uncaught Exception: Error: Could not make a database link using monarch_root@localhost! in /home/monarch/public_html/system/library/db/mysqli.php:19
+Stack trace:
+#0 /home/monarch/public_html/system/storage/modification/system/library/db.php(36): DB\MySQLi->__construct('localhost', 'monarch_root', '7Zco^TCGwsZh', 'monarch_main', '3306')
+#1 /home/monarch/public_html/system/framework.php(80): DB->__construct('mysqli', 'localhost', 'monarch_root', '7Zco^TCGwsZh', 'monarch_main', '3306')
+#2 /home/monarch/public_html/system/startup.php(104): require_once('/home/monarch/p...')
+#3 /home/monarch/public_html/admin/index.php(19): start('admin')
+#4 {main}
+  thrown in /home/monarch/public_html/system/library/db/mysqli.php on line 19
+[29-Jul-2026 04:11:17 UTC] PHP Fatal error:  Uncaught Exception: Error: Could not make a database link using monarch_root@localhost! in /home/monarch/public_html/system/library/db/mysqli.php:19
+Stack trace:
+#0 /home/monarch/public_html/system/storage/modification/system/library/db.php(36): DB\MySQLi->__construct('localhost', 'monarch_root', '7Zco^TCGwsZh', 'monarch_main', '3306')
+#1 /home/monarch/public_html/system/framework.php(80): DB->__construct('mysqli', 'localhost', 'monarch_root', '7Zco^TCGwsZh', 'monarch_main', '3306')
+#2 /home/monarch/public_html/system/startup.php(104): require_once('/home/monarch/p...')
+#3 /home/monarch/public_html/admin/index.php(19): start('admin')
+#4 {main}
+  thrown in /home/monarch/public_html/system/library/db/mysqli.php on line 19
+[29-Jul-2026 04:11:17 UTC] PHP Fatal error:  Uncaught Exception: Error: Could not make a database link using monarch_root@localhost! in /home/monarch/public_html/system/library/db/mysqli.php:19
+Stack trace:
+#0 /home/monarch/public_html/system/storage/modification/system/library/db.php(36): DB\MySQLi->__construct('localhost', 'monarch_root', '7Zco^TCGwsZh', 'monarch_main', '3306')
+#1 /home/monarch/public_html/system/framework.php(80): DB->__construct('mysqli', 'localhost', 'monarch_root', '7Zco^TCGwsZh', 'monarch_main', '3306')
+#2 /home/monarch/public_html/system/startup.php(104): require_once('/home/monarch/p...')
+#3 /home/monarch/public_html/admin/index.php(19): start('admin')
+#4 {main}
+  thrown in /home/monarch/public_html/system/library/db/mysqli.php on line 19
+[29-Jul-2026 04:11:17 UTC] PHP Fatal error:  Uncaught Exception: Error: Could not make a database link using monarch_root@localhost! in /home/monarch/public_html/system/library/db/mysqli.php:19
+Stack trace:
+#0 /home/monarch/public_html/system/storage/modification/system/library/db.php(36): DB\MySQLi->__construct('localhost', 'monarch_root', '7Zco^TCGwsZh', 'monarch_main', '3306')
+#1 /home/monarch/public_html/system/framework.php(80): DB->__construct('mysqli', 'localhost', 'monarch_root', '7Zco^TCGwsZh', 'monarch_main', '3306')
+#2 /home/monarch/public_html/system/startup.php(104): require_once('/home/monarch/p...')
+#3 /home/monarch/public_html/admin/index.php(19): start('admin')
+#4 {main}
+  thrown in /home/monarch/public_html/system/library/db/mysqli.php on line 19
+[29-Jul-2026 04:11:17 UTC] PHP Fatal error:  Uncaught Exception: Error: Could not make a database link using monarch_root@localhost! in /home/monarch/public_html/system/library/db/mysqli.php:19
+Stack trace:
+#0 /home/monarch/public_html/system/storage/modification/system/library/db.php(36): DB\MySQLi->__construct('localhost', 'monarch_root', '7Zco^TCGwsZh', 'monarch_main', '3306')
+#1 /home/monarch/public_html/system/framework.php(80): DB->__construct('mysqli', 'localhost', 'monarch_root', '7Zco^TCGwsZh', 'monarch_main', '3306')
+#2 /home/monarch/public_html/system/startup.php(104): require_once('/home/monarch/p...')
+#3 /home/monarch/public_html/admin/index.php(19): start('admin')
+#4 {main}
+  thrown in /home/monarch/public_html/system/library/db/mysqli.php on line 19
+[29-Jul-2026 04:11:18 UTC] PHP Fatal error:  Uncaught Exception: Error: Could not make a database link using monarch_root@localhost! in /home/monarch/public_html/system/library/db/mysqli.php:19
+Stack trace:
+#0 /home/monarch/public_html/system/storage/modification/system/library/db.php(36): DB\MySQLi->__construct('localhost', 'monarch_root', '7Zco^TCGwsZh', 'monarch_main', '3306')
+#1 /home/monarch/public_html/system/framework.php(80): DB->__construct('mysqli', 'localhost', 'monarch_root', '7Zco^TCGwsZh', 'monarch_main', '3306')
+#2 /home/monarch/public_html/system/startup.php(104): require_once('/home/monarch/p...')
+#3 /home/monarch/public_html/admin/index.php(19): start('admin')
+#4 {main}
+  thrown in /home/monarch/public_html/system/library/db/mysqli.php on line 19
+[29-Jul-2026 04:11:18 UTC] PHP Fatal error:  Uncaught Exception: Error: Could not make a database link using monarch_root@localhost! in /home/monarch/public_html/system/library/db/mysqli.php:19
+Stack trace:
+#0 /home/monarch/public_html/system/storage/modification/system/library/db.php(36): DB\MySQLi->__construct('localhost', 'monarch_root', '7Zco^TCGwsZh', 'monarch_main', '3306')
+#1 /home/monarch/public_html/system/framework.php(80): DB->__construct('mysqli', 'localhost', 'monarch_root', '7Zco^TCGwsZh', 'monarch_main', '3306')
+#2 /home/monarch/public_html/system/startup.php(104): require_once('/home/monarch/p...')
+#3 /home/monarch/public_html/admin/index.php(19): start('admin')
+#4 {main}
+  thrown in /home/monarch/public_html/system/library/db/mysqli.php on line 19
+[29-Jul-2026 04:11:23 UTC] PHP Fatal error:  Uncaught Exception: Error: Could not make a database link using monarch_root@localhost! in /home/monarch/public_html/system/library/db/mysqli.php:19
+Stack trace:
+#0 /home/monarch/public_html/system/storage/modification/system/library/db.php(36): DB\MySQLi->__construct('localhost', 'monarch_root', '7Zco^TCGwsZh', 'monarch_main', '3306')
+#1 /home/monarch/public_html/system/framework.php(80): DB->__construct('mysqli', 'localhost', 'monarch_root', '7Zco^TCGwsZh', 'monarch_main', '3306')
+#2 /home/monarch/public_html/system/startup.php(104): require_once('/home/monarch/p...')
+#3 /home/monarch/public_html/admin/index.php(19): start('admin')
+#4 {main}
+  thrown in /home/monarch/public_html/system/library/db/mysqli.php on line 19
+[29-Jul-2026 04:11:23 UTC] PHP Fatal error:  Uncaught Exception: Error: Could not make a database link using monarch_root@localhost! in /home/monarch/public_html/system/library/db/mysqli.php:19
+Stack trace:
+#0 /home/monarch/public_html/system/storage/modification/system/library/db.php(36): DB\MySQLi->__construct('localhost', 'monarch_root', '7Zco^TCGwsZh', 'monarch_main', '3306')
+#1 /home/monarch/public_html/system/framework.php(80): DB->__construct('mysqli', 'localhost', 'monarch_root', '7Zco^TCGwsZh', 'monarch_main', '3306')
+#2 /home/monarch/public_html/system/startup.php(104): require_once('/home/monarch/p...')
+#3 /home/monarch/public_html/admin/index.php(19): start('admin')
+#4 {main}
+  thrown in /home/monarch/public_html/system/library/db/mysqli.php on line 19
+[29-Jul-2026 04:11:25 UTC] PHP Fatal error:  Uncaught Exception: Error: Could not make a database link using monarch_root@localhost! in /home/monarch/public_html/system/library/db/mysqli.php:19
+Stack trace:
+#0 /home/monarch/public_html/system/storage/modification/system/library/db.php(36): DB\MySQLi->__construct('localhost', 'monarch_root', '7Zco^TCGwsZh', 'monarch_main', '3306')
+#1 /home/monarch/public_html/system/framework.php(80): DB->__construct('mysqli', 'localhost', 'monarch_root', '7Zco^TCGwsZh', 'monarch_main', '3306')
+#2 /home/monarch/public_html/system/startup.php(104): require_once('/home/monarch/p...')
+#3 /home/monarch/public_html/admin/index.php(19): start('admin')
+#4 {main}
+  thrown in /home/monarch/public_html/system/library/db/mysqli.php on line 19
+[29-Jul-2026 04:27:50 UTC] PHP Fatal error:  Uncaught Exception: Error: Could not make a database link using monarch_root@localhost! in /home/monarch/public_html/system/library/db/mysqli.php:19
+Stack trace:
+#0 /home/monarch/public_html/system/storage/modification/system/library/db.php(36): DB\MySQLi->__construct('localhost', 'monarch_root', '7Zco^TCGwsZh', 'monarch_main', '3306')
+#1 /home/monarch/public_html/system/framework.php(80): DB->__construct('mysqli', 'localhost', 'monarch_root', '7Zco^TCGwsZh', 'monarch_main', '3306')
+#2 /home/monarch/public_html/system/startup.php(104): require_once('/home/monarch/p...')
+#3 /home/monarch/public_html/admin/index.php(19): start('admin')
+#4 {main}
+  thrown in /home/monarch/public_html/system/library/db/mysqli.php on line 19
+[29-Jul-2026 04:27:56 UTC] PHP Fatal error:  Uncaught Exception: Error: Could not make a database link using monarch_root@localhost! in /home/monarch/public_html/system/library/db/mysqli.php:19
+Stack trace:
+#0 /home/monarch/public_html/system/storage/modification/system/library/db.php(36): DB\MySQLi->__construct('localhost', 'monarch_root', '7Zco^TCGwsZh', 'monarch_main', '3306')
+#1 /home/monarch/public_html/system/framework.php(80): DB->__construct('mysqli', 'localhost', 'monarch_root', '7Zco^TCGwsZh', 'monarch_main', '3306')
+#2 /home/monarch/public_html/system/startup.php(104): require_once('/home/monarch/p...')
+#3 /home/monarch/public_html/admin/index.php(19): start('admin')
+#4 {main}
+  thrown in /home/monarch/public_html/system/library/db/mysqli.php on line 19
+[29-Jul-2026 04:28:01 UTC] PHP Fatal error:  Uncaught Exception: Error: MySQL server has gone away<br />Error No: 2006<br />SELECT `data` FROM `ac_session` WHERE `session_id` = '80e23cb9719c87cc7165c3bb02' AND `expire` > '2026-07-29 04:27:50' in /home/monarch/public_html/system/library/db/mysqli.php:48
+Stack trace:
+#0 /home/monarch/public_html/system/storage/modification/system/library/db.php(55): DB\MySQLi->query('SELECT `data` F...')
+#1 /home/monarch/public_html/system/library/session/db.php(16): DB->query('SELECT `data` F...')
+#2 /home/monarch/public_html/system/library/session.php(72): Session\DB->read('80e23cb9719c87c...')
+#3 /home/monarch/public_html/system/framework.php(110): Session->start('80e23cb9719c87c...')
+#4 /home/monarch/public_html/system/startup.php(104): require_once('/home/monarch/p...')
+#5 /home/monarch/public_html/admin/index.php(19): start('admin')
+#6 {main}
+  thrown in /home/monarch/public_html/system/library/db/mysqli.php on line 48
+[29-Jul-2026 04:36:22 UTC] PHP Fatal error:  Uncaught Exception: Error: Could not make a database link using monarch_root@localhost! in /home/monarch/public_html/system/library/db/mysqli.php:19
+Stack trace:
+#0 /home/monarch/public_html/system/storage/modification/system/library/db.php(36): DB\MySQLi->__construct('localhost', 'monarch_root', '7Zco^TCGwsZh', 'monarch_main', '3306')
+#1 /home/monarch/public_html/system/framework.php(80): DB->__construct('mysqli', 'localhost', 'monarch_root', '7Zco^TCGwsZh', 'monarch_main', '3306')
+#2 /home/monarch/public_html/system/startup.php(104): require_once('/home/monarch/p...')
+#3 /home/monarch/public_html/admin/index.php(19): start('admin')
+#4 {main}
+  thrown in /home/monarch/public_html/system/library/db/mysqli.php on line 19
+[29-Jul-2026 04:36:24 UTC] PHP Fatal error:  Uncaught Exception: Error: Could not make a database link using monarch_root@localhost! in /home/monarch/public_html/system/library/db/mysqli.php:19
+Stack trace:
+#0 /home/monarch/public_html/system/storage/modification/system/library/db.php(36): DB\MySQLi->__construct('localhost', 'monarch_root', '7Zco^TCGwsZh', 'monarch_main', '3306')
+#1 /home/monarch/public_html/system/framework.php(80): DB->__construct('mysqli', 'localhost', 'monarch_root', '7Zco^TCGwsZh', 'monarch_main', '3306')
+#2 /home/monarch/public_html/system/startup.php(104): require_once('/home/monarch/p...')
+#3 /home/monarch/public_html/admin/index.php(19): start('admin')
+#4 {main}
+  thrown in /home/monarch/public_html/system/library/db/mysqli.php on line 19
+[29-Jul-2026 04:55:34 UTC] PHP Fatal error:  Uncaught Exception: Error: Could not make a database link using monarch_root@localhost! in /home/monarch/public_html/system/library/db/mysqli.php:19
+Stack trace:
+#0 /home/monarch/public_html/system/storage/modification/system/library/db.php(36): DB\MySQLi->__construct('localhost', 'monarch_root', '7Zco^TCGwsZh', 'monarch_main', '3306')
+#1 /home/monarch/public_html/system/framework.php(80): DB->__construct('mysqli', 'localhost', 'monarch_root', '7Zco^TCGwsZh', 'monarch_main', '3306')
+#2 /home/monarch/public_html/system/startup.php(104): require_once('/home/monarch/p...')
+#3 /home/monarch/public_html/admin/index.php(19): start('admin')
+#4 {main}
+  thrown in /home/monarch/public_html/system/library/db/mysqli.php on line 19
+[29-Jul-2026 04:55:40 UTC] PHP Fatal error:  Uncaught Exception: Error: Could not make a database link using monarch_root@localhost! in /home/monarch/public_html/system/library/db/mysqli.php:19
+Stack trace:
+#0 /home/monarch/public_html/system/storage/modification/system/library/db.php(36): DB\MySQLi->__construct('localhost', 'monarch_root', '7Zco^TCGwsZh', 'monarch_main', '3306')
+#1 /home/monarch/public_html/system/framework.php(80): DB->__construct('mysqli', 'localhost', 'monarch_root', '7Zco^TCGwsZh', 'monarch_main', '3306')
+#2 /home/monarch/public_html/system/startup.php(104): require_once('/home/monarch/p...')
+#3 /home/monarch/public_html/admin/index.php(19): start('admin')
+#4 {main}
+  thrown in /home/monarch/public_html/system/library/db/mysqli.php on line 19
+[29-Jul-2026 04:55:42 UTC] PHP Fatal error:  Uncaught Exception: Error: Could not make a database link using monarch_root@localhost! in /home/monarch/public_html/system/library/db/mysqli.php:19
+Stack trace:
+#0 /home/monarch/public_html/system/storage/modification/system/library/db.php(36): DB\MySQLi->__construct('localhost', 'monarch_root', '7Zco^TCGwsZh', 'monarch_main', '3306')
+#1 /home/monarch/public_html/system/framework.php(80): DB->__construct('mysqli', 'localhost', 'monarch_root', '7Zco^TCGwsZh', 'monarch_main', '3306')
+#2 /home/monarch/public_html/system/startup.php(104): require_once('/home/monarch/p...')
+#3 /home/monarch/public_html/admin/index.php(19): start('admin')
+#4 {main}
+  thrown in /home/monarch/public_html/system/library/db/mysqli.php on line 19
+[29-Jul-2026 04:55:42 UTC] PHP Fatal error:  Uncaught Exception: Error: Could not make a database link using monarch_root@localhost! in /home/monarch/public_html/system/library/db/mysqli.php:19
+Stack trace:
+#0 /home/monarch/public_html/system/storage/modification/system/library/db.php(36): DB\MySQLi->__construct('localhost', 'monarch_root', '7Zco^TCGwsZh', 'monarch_main', '3306')
+#1 /home/monarch/public_html/system/framework.php(80): DB->__construct('mysqli', 'localhost', 'monarch_root', '7Zco^TCGwsZh', 'monarch_main', '3306')
+#2 /home/monarch/public_html/system/startup.php(104): require_once('/home/monarch/p...')
+#3 /home/monarch/public_html/admin/index.php(19): start('admin')
+#4 {main}
+  thrown in /home/monarch/public_html/system/library/db/mysqli.php on line 19
+[29-Jul-2026 04:55:48 UTC] PHP Fatal error:  Uncaught Exception: Error: Could not make a database link using monarch_root@localhost! in /home/monarch/public_html/system/library/db/mysqli.php:19
+Stack trace:
+#0 /home/monarch/public_html/system/storage/modification/system/library/db.php(36): DB\MySQLi->__construct('localhost', 'monarch_root', '7Zco^TCGwsZh', 'monarch_main', '3306')
+#1 /home/monarch/public_html/system/framework.php(80): DB->__construct('mysqli', 'localhost', 'monarch_root', '7Zco^TCGwsZh', 'monarch_main', '3306')
+#2 /home/monarch/public_html/system/startup.php(104): require_once('/home/monarch/p...')
+#3 /home/monarch/public_html/admin/index.php(19): start('admin')
+#4 {main}
+  thrown in /home/monarch/public_html/system/library/db/mysqli.php on line 19
+[29-Jul-2026 04:55:53 UTC] PHP Fatal error:  Uncaught Exception: Error: Could not make a database link using monarch_root@localhost! in /home/monarch/public_html/system/library/db/mysqli.php:19
+Stack trace:
+#0 /home/monarch/public_html/system/storage/modification/system/library/db.php(36): DB\MySQLi->__construct('localhost', 'monarch_root', '7Zco^TCGwsZh', 'monarch_main', '3306')
+#1 /home/monarch/public_html/system/framework.php(80): DB->__construct('mysqli', 'localhost', 'monarch_root', '7Zco^TCGwsZh', 'monarch_main', '3306')
+#2 /home/monarch/public_html/system/startup.php(104): require_once('/home/monarch/p...')
+#3 /home/monarch/public_html/admin/index.php(19): start('admin')
+#4 {main}
+  thrown in /home/monarch/public_html/system/library/db/mysqli.php on line 19
+[29-Jul-2026 04:55:54 UTC] PHP Fatal error:  Uncaught Exception: Error: Could not make a database link using monarch_root@localhost! in /home/monarch/public_html/system/library/db/mysqli.php:19
+Stack trace:
+#0 /home/monarch/public_html/system/storage/modification/system/library/db.php(36): DB\MySQLi->__construct('localhost', 'monarch_root', '7Zco^TCGwsZh', 'monarch_main', '3306')
+#1 /home/monarch/public_html/system/framework.php(80): DB->__construct('mysqli', 'localhost', 'monarch_root', '7Zco^TCGwsZh', 'monarch_main', '3306')
+#2 /home/monarch/public_html/system/startup.php(104): require_once('/home/monarch/p...')
+#3 /home/monarch/public_html/admin/index.php(19): start('admin')
+#4 {main}
+  thrown in /home/monarch/public_html/system/library/db/mysqli.php on line 19
+[29-Jul-2026 04:56:18 UTC] PHP Fatal error:  Uncaught Exception: Error: Could not make a database link using monarch_root@localhost! in /home/monarch/public_html/system/library/db/mysqli.php:19
+Stack trace:
+#0 /home/monarch/public_html/system/storage/modification/system/library/db.php(36): DB\MySQLi->__construct('localhost', 'monarch_root', '7Zco^TCGwsZh', 'monarch_main', '3306')
+#1 /home/monarch/public_html/system/framework.php(80): DB->__construct('mysqli', 'localhost', 'monarch_root', '7Zco^TCGwsZh', 'monarch_main', '3306')
+#2 /home/monarch/public_html/system/startup.php(104): require_once('/home/monarch/p...')
+#3 /home/monarch/public_html/admin/index.php(19): start('admin')
+#4 {main}
+  thrown in /home/monarch/public_html/system/library/db/mysqli.php on line 19
+[29-Jul-2026 04:56:18 UTC] PHP Fatal error:  Uncaught Exception: Error: Could not make a database link using monarch_root@localhost! in /home/monarch/public_html/system/library/db/mysqli.php:19
+Stack trace:
+#0 /home/monarch/public_html/system/storage/modification/system/library/db.php(36): DB\MySQLi->__construct('localhost', 'monarch_root', '7Zco^TCGwsZh', 'monarch_main', '3306')
+#1 /home/monarch/public_html/system/framework.php(80): DB->__construct('mysqli', 'localhost', 'monarch_root', '7Zco^TCGwsZh', 'monarch_main', '3306')
+#2 /home/monarch/public_html/system/startup.php(104): require_once('/home/monarch/p...')
+#3 /home/monarch/public_html/admin/index.php(19): start('admin')
+#4 {main}
+  thrown in /home/monarch/public_html/system/library/db/mysqli.php on line 19
+[29-Jul-2026 04:56:19 UTC] PHP Fatal error:  Uncaught Exception: Error: Could not make a database link using monarch_root@localhost! in /home/monarch/public_html/system/library/db/mysqli.php:19
+Stack trace:
+#0 /home/monarch/public_html/system/storage/modification/system/library/db.php(36): DB\MySQLi->__construct('localhost', 'monarch_root', '7Zco^TCGwsZh', 'monarch_main', '3306')
+#1 /home/monarch/public_html/system/framework.php(80): DB->__construct('mysqli', 'localhost', 'monarch_root', '7Zco^TCGwsZh', 'monarch_main', '3306')
+#2 /home/monarch/public_html/system/startup.php(104): require_once('/home/monarch/p...')
+#3 /home/monarch/public_html/admin/index.php(19): start('admin')
+#4 {main}
+  thrown in /home/monarch/public_html/system/library/db/mysqli.php on line 19
+[29-Jul-2026 04:56:19 UTC] PHP Fatal error:  Uncaught Exception: Error: Could not make a database link using monarch_root@localhost! in /home/monarch/public_html/system/library/db/mysqli.php:19
+Stack trace:
+#0 /home/monarch/public_html/system/storage/modification/system/library/db.php(36): DB\MySQLi->__construct('localhost', 'monarch_root', '7Zco^TCGwsZh', 'monarch_main', '3306')
+#1 /home/monarch/public_html/system/framework.php(80): DB->__construct('mysqli', 'localhost', 'monarch_root', '7Zco^TCGwsZh', 'monarch_main', '3306')
+#2 /home/monarch/public_html/system/startup.php(104): require_once('/home/monarch/p...')
+#3 /home/monarch/public_html/admin/index.php(19): start('admin')
+#4 {main}
+  thrown in /home/monarch/public_html/system/library/db/mysqli.php on line 19
+[29-Jul-2026 04:56:20 UTC] PHP Fatal error:  Uncaught Exception: Error: Could not make a database link using monarch_root@localhost! in /home/monarch/public_html/system/library/db/mysqli.php:19
+Stack trace:
+#0 /home/monarch/public_html/system/storage/modification/system/library/db.php(36): DB\MySQLi->__construct('localhost', 'monarch_root', '7Zco^TCGwsZh', 'monarch_main', '3306')
+#1 /home/monarch/public_html/system/framework.php(80): DB->__construct('mysqli', 'localhost', 'monarch_root', '7Zco^TCGwsZh', 'monarch_main', '3306')
+#2 /home/monarch/public_html/system/startup.php(104): require_once('/home/monarch/p...')
+#3 /home/monarch/public_html/admin/index.php(19): start('admin')
+#4 {main}
+  thrown in /home/monarch/public_html/system/library/db/mysqli.php on line 19
+[29-Jul-2026 04:56:24 UTC] PHP Fatal error:  Uncaught Exception: Error: Could not make a database link using monarch_root@localhost! in /home/monarch/public_html/system/library/db/mysqli.php:19
+Stack trace:
+#0 /home/monarch/public_html/system/storage/modification/system/library/db.php(36): DB\MySQLi->__construct('localhost', 'monarch_root', '7Zco^TCGwsZh', 'monarch_main', '3306')
+#1 /home/monarch/public_html/system/framework.php(80): DB->__construct('mysqli', 'localhost', 'monarch_root', '7Zco^TCGwsZh', 'monarch_main', '3306')
+#2 /home/monarch/public_html/system/startup.php(104): require_once('/home/monarch/p...')
+#3 /home/monarch/public_html/admin/index.php(19): start('admin')
+#4 {main}
+  thrown in /home/monarch/public_html/system/library/db/mysqli.php on line 19
+[29-Jul-2026 04:56:24 UTC] PHP Fatal error:  Uncaught Exception: Error: Could not make a database link using monarch_root@localhost! in /home/monarch/public_html/system/library/db/mysqli.php:19
+Stack trace:
+#0 /home/monarch/public_html/system/storage/modification/system/library/db.php(36): DB\MySQLi->__construct('localhost', 'monarch_root', '7Zco^TCGwsZh', 'monarch_main', '3306')
+#1 /home/monarch/public_html/system/framework.php(80): DB->__construct('mysqli', 'localhost', 'monarch_root', '7Zco^TCGwsZh', 'monarch_main', '3306')
+#2 /home/monarch/public_html/system/startup.php(104): require_once('/home/monarch/p...')
+#3 /home/monarch/public_html/admin/index.php(19): start('admin')
+#4 {main}
+  thrown in /home/monarch/public_html/system/library/db/mysqli.php on line 19
+[29-Jul-2026 04:56:24 UTC] PHP Fatal error:  Uncaught Exception: Error: Could not make a database link using monarch_root@localhost! in /home/monarch/public_html/system/library/db/mysqli.php:19
+Stack trace:
+#0 /home/monarch/public_html/system/storage/modification/system/library/db.php(36): DB\MySQLi->__construct('localhost', 'monarch_root', '7Zco^TCGwsZh', 'monarch_main', '3306')
+#1 /home/monarch/public_html/system/framework.php(80): DB->__construct('mysqli', 'localhost', 'monarch_root', '7Zco^TCGwsZh', 'monarch_main', '3306')
+#2 /home/monarch/public_html/system/startup.php(104): require_once('/home/monarch/p...')
+#3 /home/monarch/public_html/admin/index.php(19): start('admin')
+#4 {main}
+  thrown in /home/monarch/public_html/system/library/db/mysqli.php on line 19
+[29-Jul-2026 05:00:10 UTC] PHP Fatal error:  Uncaught Exception: Error: Could not make a database link using monarch_root@localhost! in /home/monarch/public_html/system/library/db/mysqli.php:19
+Stack trace:
+#0 /home/monarch/public_html/system/storage/modification/system/library/db.php(36): DB\MySQLi->__construct('localhost', 'monarch_root', '7Zco^TCGwsZh', 'monarch_main', '3306')
+#1 /home/monarch/public_html/system/framework.php(80): DB->__construct('mysqli', 'localhost', 'monarch_root', '7Zco^TCGwsZh', 'monarch_main', '3306')
+#2 /home/monarch/public_html/system/startup.php(104): require_once('/home/monarch/p...')
+#3 /home/monarch/public_html/admin/index.php(19): start('admin')
+#4 {main}
+  thrown in /home/monarch/public_html/system/library/db/mysqli.php on line 19
+[29-Jul-2026 05:06:19 UTC] PHP Fatal error:  Uncaught Exception: Error: Could not make a database link using monarch_root@localhost! in /home/monarch/public_html/system/library/db/mysqli.php:19
+Stack trace:
+#0 /home/monarch/public_html/system/storage/modification/system/library/db.php(36): DB\MySQLi->__construct('localhost', 'monarch_root', '7Zco^TCGwsZh', 'monarch_main', '3306')
+#1 /home/monarch/public_html/system/framework.php(80): DB->__construct('mysqli', 'localhost', 'monarch_root', '7Zco^TCGwsZh', 'monarch_main', '3306')
+#2 /home/monarch/public_html/system/startup.php(104): require_once('/home/monarch/p...')
+#3 /home/monarch/public_html/admin/index.php(19): start('admin')
+#4 {main}
+  thrown in /home/monarch/public_html/system/library/db/mysqli.php on line 19
+[29-Jul-2026 05:18:45 UTC] PHP Fatal error:  Uncaught Exception: Error: Could not make a database link using monarch_root@localhost! in /home/monarch/public_html/system/library/db/mysqli.php:19
+Stack trace:
+#0 /home/monarch/public_html/system/storage/modification/system/library/db.php(36): DB\MySQLi->__construct('localhost', 'monarch_root', '7Zco^TCGwsZh', 'monarch_main', '3306')
+#1 /home/monarch/public_html/system/framework.php(80): DB->__construct('mysqli', 'localhost', 'monarch_root', '7Zco^TCGwsZh', 'monarch_main', '3306')
+#2 /home/monarch/public_html/system/startup.php(104): require_once('/home/monarch/p...')
+#3 /home/monarch/public_html/admin/index.php(19): start('admin')
+#4 {main}
+  thrown in /home/monarch/public_html/system/library/db/mysqli.php on line 19
+[29-Jul-2026 05:31:50 UTC] PHP Fatal error:  Uncaught Exception: Error: Could not make a database link using monarch_root@localhost! in /home/monarch/public_html/system/library/db/mysqli.php:19
+Stack trace:
+#0 /home/monarch/public_html/system/storage/modification/system/library/db.php(36): DB\MySQLi->__construct('localhost', 'monarch_root', '7Zco^TCGwsZh', 'monarch_main', '3306')
+#1 /home/monarch/public_html/system/framework.php(80): DB->__construct('mysqli', 'localhost', 'monarch_root', '7Zco^TCGwsZh', 'monarch_main', '3306')
+#2 /home/monarch/public_html/system/startup.php(104): require_once('/home/monarch/p...')
+#3 /home/monarch/public_html/admin/index.php(19): start('admin')
+#4 {main}
+  thrown in /home/monarch/public_html/system/library/db/mysqli.php on line 19
+[29-Jul-2026 05:42:26 UTC] PHP Fatal error:  Uncaught Exception: Error: Could not make a database link using monarch_root@localhost! in /home/monarch/public_html/system/library/db/mysqli.php:19
+Stack trace:
+#0 /home/monarch/public_html/system/storage/modification/system/library/db.php(36): DB\MySQLi->__construct('localhost', 'monarch_root', '7Zco^TCGwsZh', 'monarch_main', '3306')
+#1 /home/monarch/public_html/system/framework.php(80): DB->__construct('mysqli', 'localhost', 'monarch_root', '7Zco^TCGwsZh', 'monarch_main', '3306')
+#2 /home/monarch/public_html/system/startup.php(104): require_once('/home/monarch/p...')
+#3 /home/monarch/public_html/admin/index.php(19): start('admin')
+#4 {main}
+  thrown in /home/monarch/public_html/system/library/db/mysqli.php on line 19
+[29-Jul-2026 07:34:56 UTC] PHP Fatal error:  Uncaught Exception: Error: Could not make a database link using monarch_root@localhost! in /home/monarch/public_html/system/library/db/mysqli.php:19
+Stack trace:
+#0 /home/monarch/public_html/system/storage/modification/system/library/db.php(36): DB\MySQLi->__construct('localhost', 'monarch_root', '7Zco^TCGwsZh', 'monarch_main', '3306')
+#1 /home/monarch/public_html/system/framework.php(80): DB->__construct('mysqli', 'localhost', 'monarch_root', '7Zco^TCGwsZh', 'monarch_main', '3306')
+#2 /home/monarch/public_html/system/startup.php(104): require_once('/home/monarch/p...')
+#3 /home/monarch/public_html/admin/index.php(19): start('admin')
+#4 {main}
+  thrown in /home/monarch/public_html/system/library/db/mysqli.php on line 19
+[29-Jul-2026 07:36:46 UTC] PHP Fatal error:  Uncaught Exception: Error: Could not make a database link using monarch_root@localhost! in /home/monarch/public_html/system/library/db/mysqli.php:19
+Stack trace:
+#0 /home/monarch/public_html/system/storage/modification/system/library/db.php(36): DB\MySQLi->__construct('localhost', 'monarch_root', '7Zco^TCGwsZh', 'monarch_main', '3306')
+#1 /home/monarch/public_html/system/framework.php(80): DB->__construct('mysqli', 'localhost', 'monarch_root', '7Zco^TCGwsZh', 'monarch_main', '3306')
+#2 /home/monarch/public_html/system/startup.php(104): require_once('/home/monarch/p...')
+#3 /home/monarch/public_html/admin/index.php(19): start('admin')
+#4 {main}
+  thrown in /home/monarch/public_html/system/library/db/mysqli.php on line 19
+[29-Jul-2026 08:19:52 UTC] PHP Fatal error:  Uncaught Exception: Error: Could not make a database link using monarch_root@localhost! in /home/monarch/public_html/system/library/db/mysqli.php:19
+Stack trace:
+#0 /home/monarch/public_html/system/storage/modification/system/library/db.php(36): DB\MySQLi->__construct('localhost', 'monarch_root', '7Zco^TCGwsZh', 'monarch_main', '3306')
+#1 /home/monarch/public_html/system/framework.php(80): DB->__construct('mysqli', 'localhost', 'monarch_root', '7Zco^TCGwsZh', 'monarch_main', '3306')
+#2 /home/monarch/public_html/system/startup.php(104): require_once('/home/monarch/p...')
+#3 /home/monarch/public_html/admin/index.php(19): start('admin')
+#4 {main}
+  thrown in /home/monarch/public_html/system/library/db/mysqli.php on line 19
+[29-Jul-2026 08:19:54 UTC] PHP Fatal error:  Uncaught Exception: Error: Could not make a database link using monarch_root@localhost! in /home/monarch/public_html/system/library/db/mysqli.php:19
+Stack trace:
+#0 /home/monarch/public_html/system/storage/modification/system/library/db.php(36): DB\MySQLi->__construct('localhost', 'monarch_root', '7Zco^TCGwsZh', 'monarch_main', '3306')
+#1 /home/monarch/public_html/system/framework.php(80): DB->__construct('mysqli', 'localhost', 'monarch_root', '7Zco^TCGwsZh', 'monarch_main', '3306')
+#2 /home/monarch/public_html/system/startup.php(104): require_once('/home/monarch/p...')
+#3 /home/monarch/public_html/admin/index.php(19): start('admin')
+#4 {main}
+  thrown in /home/monarch/public_html/system/library/db/mysqli.php on line 19
+[29-Jul-2026 08:19:58 UTC] PHP Fatal error:  Uncaught Exception: Error: Could not make a database link using monarch_root@localhost! in /home/monarch/public_html/system/library/db/mysqli.php:19
+Stack trace:
+#0 /home/monarch/public_html/system/storage/modification/system/library/db.php(36): DB\MySQLi->__construct('localhost', 'monarch_root', '7Zco^TCGwsZh', 'monarch_main', '3306')
+#1 /home/monarch/public_html/system/framework.php(80): DB->__construct('mysqli', 'localhost', 'monarch_root', '7Zco^TCGwsZh', 'monarch_main', '3306')
+#2 /home/monarch/public_html/system/startup.php(104): require_once('/home/monarch/p...')
+#3 /home/monarch/public_html/admin/index.php(19): start('admin')
+#4 {main}
+  thrown in /home/monarch/public_html/system/library/db/mysqli.php on line 19
+[29-Jul-2026 08:20:08 UTC] PHP Fatal error:  Uncaught Exception: Error: Could not make a database link using monarch_root@localhost! in /home/monarch/public_html/system/library/db/mysqli.php:19
+Stack trace:
+#0 /home/monarch/public_html/system/storage/modification/system/library/db.php(36): DB\MySQLi->__construct('localhost', 'monarch_root', '7Zco^TCGwsZh', 'monarch_main', '3306')
+#1 /home/monarch/public_html/system/framework.php(80): DB->__construct('mysqli', 'localhost', 'monarch_root', '7Zco^TCGwsZh', 'monarch_main', '3306')
+#2 /home/monarch/public_html/system/startup.php(104): require_once('/home/monarch/p...')
+#3 /home/monarch/public_html/admin/index.php(19): start('admin')
+#4 {main}
+  thrown in /home/monarch/public_html/system/library/db/mysqli.php on line 19
+[29-Jul-2026 08:20:56 UTC] PHP Fatal error:  Uncaught Exception: Error: Could not make a database link using monarch_root@localhost! in /home/monarch/public_html/system/library/db/mysqli.php:19
+Stack trace:
+#0 /home/monarch/public_html/system/storage/modification/system/library/db.php(36): DB\MySQLi->__construct('localhost', 'monarch_root', '7Zco^TCGwsZh', 'monarch_main', '3306')
+#1 /home/monarch/public_html/system/framework.php(80): DB->__construct('mysqli', 'localhost', 'monarch_root', '7Zco^TCGwsZh', 'monarch_main', '3306')
+#2 /home/monarch/public_html/system/startup.php(104): require_once('/home/monarch/p...')
+#3 /home/monarch/public_html/admin/index.php(19): start('admin')
+#4 {main}
+  thrown in /home/monarch/public_html/system/library/db/mysqli.php on line 19
+[29-Jul-2026 15:05:32 Asia/Dhaka] PHP Fatal error:  Uncaught Exception: Error: Disk got full writing 'information_schema.(temporary)' (Errcode: 28 "No space left on device")<br />Error No: 1021<br />SELECT * FROM information_schema.COLUMNS WHERE TABLE_SCHEMA = 'monarch_main' AND TABLE_NAME = 'ac_preorder_product' AND COLUMN_NAME = 'preorder_quantity'; in /home/monarch/public_html/system/library/db/mysqli.php:48
+Stack trace:
+#0 /home/monarch/public_html/system/storage/modification/system/library/db.php(55): DB\MySQLi->query('SELECT * FROM i...')
+#1 /home/monarch/public_html/admin/model/extension/module/preorder.php(180): DB->query('SELECT * FROM i...')
+#2 /home/monarch/public_html/system/storage/modification/system/engine/loader.php(256): ModelExtensionModulePreOrder->update()
+#3 /home/monarch/public_html/system/engine/proxy.php(47): Loader->{closure}(Array, Array)
+#4 /home/monarch/public_html/admin/controller/extension/module/preorder.php(506): Proxy->__call('update', Array)
+#5 /home/monarch/public_html/admin/controller/extension/module/preorder.php(43): Contr in /home/monarch/public_html/system/library/db/mysqli.php on line 48
+[29-Jul-2026 15:17:32 Asia/Dhaka] PHP Fatal error:  Uncaught Exception: Error: Disk got full writing 'information_schema.(temporary)' (Errcode: 28 "No space left on device")<br />Error No: 1021<br />SELECT * FROM information_schema.COLUMNS WHERE TABLE_SCHEMA = 'monarch_main' AND TABLE_NAME = 'ac_preorder_product' AND COLUMN_NAME = 'preorder_quantity'; in /home/monarch/public_html/system/library/db/mysqli.php:48
+Stack trace:
+#0 /home/monarch/public_html/system/storage/modification/system/library/db.php(55): DB\MySQLi->query('SELECT * FROM i...')
+#1 /home/monarch/public_html/admin/model/extension/module/preorder.php(180): DB->query('SELECT * FROM i...')
+#2 /home/monarch/public_html/system/storage/modification/system/engine/loader.php(256): ModelExtensionModulePreOrder->update()
+#3 /home/monarch/public_html/system/engine/proxy.php(47): Loader->{closure}(Array, Array)
+#4 /home/monarch/public_html/admin/controller/extension/module/preorder.php(506): Proxy->__call('update', Array)
+#5 /home/monarch/public_html/admin/controller/extension/module/preorder.php(43): Contr in /home/monarch/public_html/system/library/db/mysqli.php on line 48
+[29-Jul-2026 15:41:28 Asia/Dhaka] PHP Fatal error:  Uncaught Exception: Error: Disk got full writing 'information_schema.(temporary)' (Errcode: 28 "No space left on device")<br />Error No: 1021<br />SELECT * FROM information_schema.COLUMNS WHERE TABLE_SCHEMA = 'monarch_main' AND TABLE_NAME = 'ac_preorder_product' AND COLUMN_NAME = 'preorder_quantity'; in /home/monarch/public_html/system/library/db/mysqli.php:48
+Stack trace:
+#0 /home/monarch/public_html/system/storage/modification/system/library/db.php(55): DB\MySQLi->query('SELECT * FROM i...')
+#1 /home/monarch/public_html/admin/model/extension/module/preorder.php(180): DB->query('SELECT * FROM i...')
+#2 /home/monarch/public_html/system/storage/modification/system/engine/loader.php(256): ModelExtensionModulePreOrder->update()
+#3 /home/monarch/public_html/system/engine/proxy.php(47): Loader->{closure}(Array, Array)
+#4 /home/monarch/public_html/admin/controller/extension/module/preorder.php(506): Proxy->__call('update', Array)
+#5 /home/monarch/public_html/admin/controller/extension/module/preorder.php(43): Contr in /home/monarch/public_html/system/library/db/mysqli.php on line 48

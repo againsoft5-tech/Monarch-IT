@@ -13,6 +13,7 @@ import * as serverAndStorage from './categoryData/server-and-storage'
 import * as gadget from './categoryData/gadget'
 import * as gaming from './categoryData/gaming'
 import type { CategoryProduct } from './categoryProducts'
+import type { VariantGroup, VariantCombo } from '@/lib/productVariants'
 
 export type ProductImage = {
   large: string
@@ -43,6 +44,8 @@ export type ProductOption = {
   values: string[]
 }
 
+export type { VariantGroup, VariantCombo, VariantOption } from '@/lib/productVariants'
+
 export type RelatedProduct = {
   slug: string
   name: string
@@ -67,14 +70,14 @@ export type ProductDetail = {
   priceOld: number
   discountPct: number
   discountEndsAt?: string
-  emiMonthly?: number
-  emiMonths?: number
   keyFeatures: string[]
   specGroups: SpecGroup[]
   descriptionTitle: string
   descriptionParagraph: string
   descriptionSections?: { heading: string; points: string[] }[]
   options?: ProductOption[]
+  variantGroups?: VariantGroup[]
+  variantCombos?: VariantCombo[]
   reviews?: Review[]
   qa?: QaItem[]
   mostViewed?: RelatedProduct
@@ -106,8 +109,6 @@ const sonyBravia: ProductDetail = {
   priceOld: 724900,
   discountPct: 38,
   discountEndsAt: '2026-07-30T23:59:59',
-  emiMonthly: 14747,
-  emiMonths: 6,
   keyFeatures: ['Screen Speaker Technology', 'Harmonic Presence', 'Pure Black OLED', 'Ultimate Gaming Experience'],
   specGroups: [
     {

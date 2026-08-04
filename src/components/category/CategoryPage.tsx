@@ -84,7 +84,9 @@ export default function CategoryPage({ categoryName, products, priceMinDefault, 
 
   const handleBuyNow = (product: CategoryProduct) => {
     const detail = getProductDetail(product.slug)
-    const hasOptions = Boolean(detail?.options && detail.options.length > 0)
+    const hasOptions = Boolean(
+      (detail?.options && detail.options.length > 0) || (detail?.variantGroups && detail.variantGroups.length > 0)
+    )
 
     if (hasOptions) {
       router.push(`/${product.slug}`)

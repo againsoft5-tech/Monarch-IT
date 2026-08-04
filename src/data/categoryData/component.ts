@@ -80,6 +80,17 @@ export const products: CategoryProduct[] = [
     discountPct: 0,
   },
   {
+    id: 'monarch-mystery-box-x5-gaming-case',
+    slug: 'monarch-mystery-box-x5-gaming-case',
+    name: 'Monarch Mystery Box X5 Gaming Case',
+    image: 'https://www.startech.com.bd/image/cache/catalog/casing/monarch/mystery-box-x5/mystery-box-x5-01-500x500.webp',
+    rating: 0,
+    reviews: 0,
+    priceNew: 10000,
+    priceOld: 13000,
+    discountPct: 23,
+  },
+  {
     id: 'powercolor-fighter-rx-7700-xt',
     slug: 'powercolor-fighter-amd-radeon-rx-7700-xt-12gb-gddr6-graphics-card',
     name: 'PowerColor Fighter AMD Radeon RX 7700 XT 12GB GDDR6 Graphics Card',
@@ -376,6 +387,94 @@ export const details: ProductDetail[] = [
     descriptionTitle: 'T-Wolf Infinity X10 ARGB ATX Gaming Case Black',
     descriptionParagraph:
       'This mid-tower gaming case supports multiple motherboard sizes and features dual tempered glass panels for visibility. The case includes 10 pre-installed fans and accommodates standard ATX configurations with comprehensive I/O connectivity.',
+  },
+  {
+    slug: 'monarch-mystery-box-x5-gaming-case',
+    name: 'Monarch Mystery Box X5 Gaming Case',
+    brand: 'Monarch',
+    model: 'Mystery Box X5',
+    breadcrumb: [
+      { label: 'Home', href: '/' },
+      { label: 'Components', href: '/component' },
+      { label: 'Monarch Mystery Box X5 Gaming Case', href: '/monarch-mystery-box-x5-gaming-case' },
+    ],
+    images: [
+      { large: 'https://www.startech.com.bd/image/cache/catalog/casing/monarch/mystery-box-x5/mystery-box-x5-01-500x500.webp', thumb: 'https://www.startech.com.bd/image/cache/catalog/casing/monarch/mystery-box-x5/mystery-box-x5-01-500x500.webp' },
+      { large: 'https://www.startech.com.bd/image/cache/catalog/casing/monarch/mystery-box-x5/mystery-box-x5-02-500x500.webp', thumb: 'https://www.startech.com.bd/image/cache/catalog/casing/monarch/mystery-box-x5/mystery-box-x5-02-500x500.webp' },
+      { large: 'https://www.startech.com.bd/image/cache/catalog/casing/monarch/mystery-box-x5/mystery-box-x5-03-500x500.webp', thumb: 'https://www.startech.com.bd/image/cache/catalog/casing/monarch/mystery-box-x5/mystery-box-x5-03-500x500.webp' },
+      { large: 'https://www.startech.com.bd/image/cache/catalog/casing/monarch/mystery-box-x5/mystery-box-x5-04-500x500.webp', thumb: 'https://www.startech.com.bd/image/cache/catalog/casing/monarch/mystery-box-x5/mystery-box-x5-04-500x500.webp' },
+    ],
+    rating: 0,
+    reviewCount: 0,
+    priceNew: 10000,
+    priceOld: 13000,
+    discountPct: 23,
+    keyFeatures: [
+      'Motherboard Support: ITX, M-ATX',
+      'Tempered Glass Panel: Front Glass, Left Glass',
+      'Pre-Installed Fans: 5 x 120mm ARGB',
+      'Interface: USB3.0 x1, USB2.0 x2',
+      'Available in Black & White across Mini, Mid & Full Tower form factors',
+    ],
+    specGroups: [
+      { label: 'Case Type', lines: ['Motherboard Support: ITX, M-ATX', 'Tempered Glass Panel: Front Glass, Left Glass'] },
+      {
+        label: 'External Features',
+        lines: ['Dimensions: 350 x 270 x 350mm', 'Pre-Installed Fans: 5x 120mm ARGB Fan', 'I/O Port: USB3.0 x 1, USB2.0 x 2'],
+      },
+      { label: 'Additional Feature', lines: ['PSU: No Built-In Power Supply', 'Side Panel: Tempered Glass'] },
+      { label: 'Warranty', lines: ['Coverage: No Warranty'] },
+    ],
+    descriptionTitle: 'Monarch Mystery Box X5 Gaming Case',
+    descriptionParagraph:
+      'The Monarch Mystery Box X5 is a gaming case built for both ITX and M-ATX motherboards, with tempered glass panels on the front and left sides for a clear view of your build. It ships with five pre-installed 120mm ARGB fans for strong airflow and thermal performance, plus USB 3.0 and USB 2.0 front-panel connectivity. Choose between Black and White finishes, each available in Mini Tower, Mid Tower and Full Tower form factors.',
+    variantGroups: [
+      {
+        key: 'color',
+        label: 'Choose color',
+        options: [
+          {
+            id: 'black',
+            label: 'Black',
+            swatch: 'https://www.startech.com.bd/image/cache/catalog/casing/monarch/mystery-box-x5/mystery-box-x5-01-500x500.webp',
+            images: [
+              { large: 'https://www.startech.com.bd/image/cache/catalog/casing/monarch/mystery-box-x5/mystery-box-x5-01-500x500.webp', thumb: 'https://www.startech.com.bd/image/cache/catalog/casing/monarch/mystery-box-x5/mystery-box-x5-01-500x500.webp' },
+              { large: 'https://www.startech.com.bd/image/cache/catalog/casing/monarch/mystery-box-x5/mystery-box-x5-02-500x500.webp', thumb: 'https://www.startech.com.bd/image/cache/catalog/casing/monarch/mystery-box-x5/mystery-box-x5-02-500x500.webp' },
+              { large: 'https://www.startech.com.bd/image/cache/catalog/casing/monarch/mystery-box-x5/mystery-box-x5-03-500x500.webp', thumb: 'https://www.startech.com.bd/image/cache/catalog/casing/monarch/mystery-box-x5/mystery-box-x5-03-500x500.webp' },
+              { large: 'https://www.startech.com.bd/image/cache/catalog/casing/monarch/mystery-box-x5/mystery-box-x5-04-500x500.webp', thumb: 'https://www.startech.com.bd/image/cache/catalog/casing/monarch/mystery-box-x5/mystery-box-x5-04-500x500.webp' },
+            ],
+          },
+          {
+            id: 'white',
+            label: 'White',
+            swatch: 'https://www.startech.com.bd/image/cache/catalog/casing/monarch/mystery-box-x5-white/mystery-box-x5-white-01-500x500.webp',
+            images: [
+              { large: 'https://www.startech.com.bd/image/cache/catalog/casing/monarch/mystery-box-x5-white/mystery-box-x5-white-01-500x500.webp', thumb: 'https://www.startech.com.bd/image/cache/catalog/casing/monarch/mystery-box-x5-white/mystery-box-x5-white-01-500x500.webp' },
+              { large: 'https://www.startech.com.bd/image/cache/catalog/casing/monarch/mystery-box-x5-white/mystery-box-x5-white-02-500x500.webp', thumb: 'https://www.startech.com.bd/image/cache/catalog/casing/monarch/mystery-box-x5-white/mystery-box-x5-white-02-500x500.webp' },
+              { large: 'https://www.startech.com.bd/image/cache/catalog/casing/monarch/mystery-box-x5-white/mystery-box-x5-white-03-500x500.webp', thumb: 'https://www.startech.com.bd/image/cache/catalog/casing/monarch/mystery-box-x5-white/mystery-box-x5-white-03-500x500.webp' },
+              { large: 'https://www.startech.com.bd/image/cache/catalog/casing/monarch/mystery-box-x5-white/mystery-box-x5-white-04-500x500.webp', thumb: 'https://www.startech.com.bd/image/cache/catalog/casing/monarch/mystery-box-x5-white/mystery-box-x5-white-04-500x500.webp' },
+            ],
+          },
+        ],
+      },
+      {
+        key: 'size',
+        label: 'Size / Form Factor',
+        options: [
+          { id: 'mini-tower', label: 'Mini Tower' },
+          { id: 'mid-tower', label: 'Mid Tower' },
+          { id: 'full-tower', label: 'Full Tower' },
+        ],
+      },
+    ],
+    variantCombos: [
+      { selection: { color: 'black', size: 'mid-tower' }, inStock: true, price: 10000, priceOld: 13000, discountPct: 23 },
+      { selection: { color: 'black', size: 'mini-tower' }, inStock: true, price: 10000, priceOld: 13000, discountPct: 23 },
+      { selection: { color: 'black', size: 'full-tower' }, inStock: false, price: 10000, priceOld: 13000, discountPct: 23 },
+      { selection: { color: 'white', size: 'mid-tower' }, inStock: true, price: 10500, priceOld: 13000, discountPct: 19 },
+      { selection: { color: 'white', size: 'mini-tower' }, inStock: false, price: 10500, priceOld: 13000, discountPct: 19 },
+      { selection: { color: 'white', size: 'full-tower' }, inStock: true, price: 10500, priceOld: 13000, discountPct: 19 },
+    ],
   },
   {
     slug: 'powercolor-fighter-amd-radeon-rx-7700-xt-12gb-gddr6-graphics-card',

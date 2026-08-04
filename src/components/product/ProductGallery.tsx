@@ -37,7 +37,7 @@ export default function ProductGallery({ images, name }: { images: ProductImage[
     <div className="p-4">
       <div
         onClick={() => openLightbox(active)}
-        className="relative rounded-[20px] h-[320px] md:h-[400px] flex items-center justify-center bg-white border border-gray-100 overflow-hidden cursor-zoom-in"
+        className="relative rounded-[20px] h-[320px] md:h-[400px] flex items-center justify-center bg-[#f5f5f7] border border-gray-100 overflow-hidden cursor-zoom-in"
       >
         <Image
           src={images[active].large}
@@ -68,7 +68,7 @@ export default function ProductGallery({ images, name }: { images: ProductImage[
                 setActive(i)
                 openLightbox(i)
               }}
-              className={`w-16 h-16 shrink-0 rounded-lg border-2 bg-[#fafbfe] flex items-center justify-center overflow-hidden transition-colors cursor-pointer ${
+              className={`w-16 h-16 shrink-0 rounded-lg border bg-[#fafbfe] flex items-center justify-center overflow-hidden transition-colors cursor-pointer ${
                 i === active ? 'border-[#d92128]' : 'border-gray-200 hover:border-[#d92128]'
               }`}
             >
