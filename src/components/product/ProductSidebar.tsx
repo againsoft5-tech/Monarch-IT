@@ -4,14 +4,16 @@ import type { RelatedProduct } from '@/data/productDetail'
 
 export default function ProductSidebar({ product }: { product: RelatedProduct }) {
   return (
-    <aside className="lg:w-[280px] shrink-0">
-      <div className="bg-white rounded-[40px] p-5 text-center mt-0 lg:mt-20">
-        <div className="text-[15px] font-bold text-gray-900 mb-2.5">Most Viewed</div>
-        <div className="bg-white rounded-2xl overflow-hidden shadow-[0_2px_10px_rgba(0,0,0,0.07)] text-left">
-          <Link href={`/${product.slug}`} className="aspect-square flex items-center justify-center">
+    <aside className="lg:w-[280px] shrink-0 flex flex-col h-full">
+      <div className="bg-white rounded-[40px] p-5 text-center flex-1 flex flex-col lg:mt-[55px]">
+        <div className="text-[15px] font-normal text-gray-900 mb-2.5">
+          Frequently <strong className="font-bold">Paired</strong>
+        </div>
+        <div className="flex-1 flex flex-col bg-white rounded-2xl overflow-hidden shadow-[0_2px_10px_rgba(0,0,0,0.07)] text-left">
+          <Link href={`/${product.slug}`} className="aspect-square shrink-0 flex items-center justify-center">
             <Image src={product.image} alt={product.name} width={200} height={200} className="w-[78%] h-[78%] object-contain" />
           </Link>
-          <div className="p-3">
+          <div className="flex-1 p-3">
             <div className="flex items-center gap-1 mb-1 flex-wrap">
               <span className="text-[#ffcb39] text-lg leading-none">
                 {'★'.repeat(Math.round(product.rating)) + '☆'.repeat(5 - Math.round(product.rating))}

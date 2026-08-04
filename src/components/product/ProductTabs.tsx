@@ -81,19 +81,19 @@ export default function ProductTabs({
   const tabs: { id: Tab; label: string }[] = [
     { id: 'spec', label: 'Specifications' },
     { id: 'desc', label: 'Description' },
-    { id: 'rev', label: `Reviews (${reviews.length})` },
-    { id: 'qa', label: `Q&A (${qaList.length})` },
+    { id: 'rev', label: 'Reviews' },
+    { id: 'qa', label: 'Q&A' },
   ]
 
   return (
-    <div id="tabs" className="mt-6">
-      <div className="inline-flex gap-1 bg-white rounded-full shadow-[0_2px_5px_rgba(0,0,0,0.05)] mb-5 overflow-x-auto max-w-full [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+    <div id="tabs" className="flex flex-col h-full">
+      <div className="flex w-full md:inline-flex md:w-auto md:self-start gap-1 bg-white rounded-full shadow-[0_2px_5px_rgba(0,0,0,0.05)] mb-5 overflow-x-auto max-w-full [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
         {tabs.map((t) => (
           <button
             key={t.id}
             type="button"
             onClick={() => onTabChange(t.id)}
-            className={`shrink-0 px-4 py-2 rounded-full text-[13px] font-semibold whitespace-nowrap transition-colors cursor-pointer ${
+            className={`flex-1 md:flex-none md:shrink-0 px-2.5 py-1.5 md:px-4 md:py-2 rounded-full text-[12px] md:text-[13px] font-semibold whitespace-nowrap transition-colors cursor-pointer ${
               tab === t.id ? 'bg-[#d92128] text-white' : 'text-gray-600 hover:bg-[#d92128]/10 hover:text-[#d92128]'
             }`}
           >
@@ -102,11 +102,11 @@ export default function ProductTabs({
         ))}
       </div>
 
-      <div className="bg-white border-[1.5px] border-gray-100 rounded-[40px] p-5 md:p-6">
+      <div className="flex-1 bg-white border-[1.5px] border-gray-100 rounded-[40px] p-5 md:p-6">
         {tab === 'spec' && (
           <div>
-            <h3 className="text-[17px] font-bold text-gray-900 mb-1">
-              Product <strong>Specifications</strong>
+            <h3 className="text-[16px] font-normal text-gray-900 mb-2.5">
+              Product <strong className="font-bold">Specifications</strong>
             </h3>
             <span className="block text-[13px] font-bold text-[#d92128] pt-4 pb-1.5">{product.brand} Specification</span>
             <table className="w-full border-collapse">

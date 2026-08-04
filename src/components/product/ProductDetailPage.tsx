@@ -56,8 +56,8 @@ export default function ProductDetailPage({ product }: { product: ProductDetail 
       <ProductComboSection slug={product.slug} />
 
       <div className="container mx-auto px-4 min-[992px]:px-14 py-6">
-        <div className="flex flex-col lg:flex-row gap-5">
-          <div className="flex-1 min-w-0">
+        <div className="flex flex-col lg:flex-row gap-5 items-stretch">
+          <div className="flex-1 min-w-0 flex flex-col">
             <ProductTabs product={product} tab={tab} onTabChange={setTab} />
           </div>
           {product.mostViewed && <ProductSidebar product={product.mostViewed} />}
