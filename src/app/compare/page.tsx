@@ -6,6 +6,7 @@ import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 import Breadcrumbs from '@/components/category/Breadcrumbs'
 import { compareProducts, type CompareProduct } from '@/data/compareProducts'
 import { useCompare } from '@/context/CompareContext'
+import { useCart } from '@/context/CartContext'
 
 const GRID_COLS_3 = 'grid-cols-[minmax(120px,160px)_repeat(3,minmax(180px,1fr))]'
 const GRID_COLS_2 = 'grid-cols-[minmax(120px,160px)_repeat(2,minmax(220px,1fr))]'
@@ -68,6 +69,17 @@ function ProductSummary({ product }: { product: CompareProduct }) {
   )
 }
 
+function ramImageDataUri(accent: string) {
+  const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 76">
+    <rect x="8" y="8" width="224" height="36" rx="4" fill="#1f2430"/>
+    <rect x="24" y="17" width="72" height="9" rx="2" fill="${accent}"/>
+    <text x="24" y="40" fill="#fff" font-size="9" font-family="Arial, sans-serif" font-weight="700" letter-spacing="0.5">OSCOO</text>
+    <rect x="8" y="44" width="224" height="12" rx="2" fill="#111318"/>
+    ${Array.from({ length: 26 }, (_, i) => `<rect x="${13 + i * 8.5}" y="50" width="4" height="8" fill="#d4af37"/>`).join('')}
+  </svg>`
+  return `data:image/svg+xml;utf8,${encodeURIComponent(svg)}`
+}
+
 function EmptySlot() {
   return (
     <div className="text-gray-400 flex flex-col items-center gap-2">
@@ -79,6 +91,7 @@ function EmptySlot() {
 
 function ComparePageInner() {
   const { slots, setSlot, reset } = useCompare()
+  const { addItems } = useCart()
   const router = useRouter()
   const pathname = usePathname()
   const searchParams = useSearchParams()
@@ -150,6 +163,22 @@ function ComparePageInner() {
     setOpenSlot(null)
     setStarted(false)
     router.replace(pathname, { scroll: false })
+  }
+
+  const handleBuyNow = (product: CompareProduct) => {
+    addItems([
+      {
+        id: product.slug,
+        name: product.name,
+        slug: product.slug,
+        image: ramImageDataUri(product.accent),
+        price: product.priceNew,
+        priceOld: product.priceOld ?? undefined,
+        discountPct: product.discountPct ?? undefined,
+        qty: 1,
+      },
+    ])
+    router.push('/checkout')
   }
 
   const toggleSection = (title: string) => {
@@ -495,6 +524,7 @@ function ComparePageInner() {
                         <button
                           type="button"
                           disabled={!product}
+                          onClick={() => product && handleBuyNow(product)}
                           className="bg-white text-[#c3272b] border-2 border-[#c3272b] rounded-full py-2 px-6 text-[13px] font-bold hover:bg-[#c3272b] hover:text-white transition-colors cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:bg-white disabled:hover:text-[#c3272b]"
                         >
                           Buy now
@@ -612,6 +642,7 @@ function ComparePageInner() {
                       <button
                         type="button"
                         disabled={!product}
+                        onClick={() => product && handleBuyNow(product)}
                         className="bg-white text-[#c3272b] border-2 border-[#c3272b] rounded-full py-2 px-4 text-[12.5px] font-bold hover:bg-[#c3272b] hover:text-white transition-colors cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:bg-white disabled:hover:text-[#c3272b]"
                       >
                         Buy now
