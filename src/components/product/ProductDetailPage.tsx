@@ -8,7 +8,7 @@ import ProductTabs, { type ProductTab } from './ProductTabs'
 import ProductSidebar from './ProductSidebar'
 import MoreToLove from './MoreToLove'
 import ProductComboSection from './ProductComboSection'
-import type { ProductDetail } from '@/data/productDetail'
+import type { ProductDetail, RelatedProduct } from '@/data/productDetail'
 import { applySelection, defaultSelection, findCombo, resolveGalleryImages } from '@/lib/productVariants'
 
 export default function ProductDetailPage({ product }: { product: ProductDetail }) {
@@ -16,6 +16,14 @@ export default function ProductDetailPage({ product }: { product: ProductDetail 
   const variantGroups = useMemo(() => product.variantGroups ?? [], [product.variantGroups])
   const variantCombos = useMemo(() => product.variantCombos ?? [], [product.variantCombos])
   const [selection, setSelection] = useState(() => defaultSelection(variantGroups, variantCombos))
+
+  const pairedProducts = useMemo(() => {
+    const candidates = [product.mostViewed, ...(product.moreToLove ?? [])].filter(
+      (p): p is RelatedProduct => Boolean(p),
+    )
+    const seen = new Set<string>()
+    return candidates.filter((p) => (seen.has(p.slug) ? false : (seen.add(p.slug), true))).slice(0, 6)
+  }, [product.mostViewed, product.moreToLove])
 
   const goToTab = (target: ProductTab) => {
     setTab(target)
@@ -60,23 +68,29 @@ export default function ProductDetailPage({ product }: { product: ProductDetail 
           <div className="flex-1 min-w-0 flex flex-col">
             <ProductTabs product={product} tab={tab} onTabChange={setTab} />
           </div>
-          {product.mostViewed && <ProductSidebar product={product.mostViewed} />}
+          {pairedProducts.length > 0 && <ProductSidebar products={pairedProducts} />}
         </div>
       </div>
 
-      <div className="container mx-auto px-4 min-[992px]:px-14 py-6">
-        <div className="bg-white border-[1.5px] border-gray-100 rounded-[40px] p-5 md:p-6">
-          <h2 className="text-[17px] font-bold text-gray-900 mb-2">
-            What is the price of {product.name}?
-          </h2>
-          <p className="text-[13px] text-gray-600 leading-[1.8]">
-            The latest price of {product.name} in Bangladesh is ৳{product.priceNew.toLocaleString()}. You can buy it
-            at the best price from our website or visit any of our showrooms.
-          </p>
+      <div className="flex flex-col">
+        <div className="order-2 md:order-1 container mx-auto px-4 min-[992px]:px-14 py-6">
+          <div className="bg-white border-[1.5px] border-gray-100 rounded-[40px] p-5 md:p-6">
+            <h2 className="text-[17px] font-bold text-gray-900 mb-2">
+              What is the price of {product.name}?
+            </h2>
+            <p className="text-[13px] text-gray-600 leading-[1.8]">
+              The latest price of {product.name} in Bangladesh is ৳{product.priceNew.toLocaleString()}. You can buy
+              it at the best price from our website or visit any of our showrooms.
+            </p>
+          </div>
         </div>
-      </div>
 
-      {product.moreToLove && product.moreToLove.length > 0 && <MoreToLove products={product.moreToLove} />}
+        {product.moreToLove && product.moreToLove.length > 0 && (
+          <div className="order-1 md:order-2">
+            <MoreToLove products={product.moreToLove} />
+          </div>
+        )}
+      </div>
     </div>
   )
 }
