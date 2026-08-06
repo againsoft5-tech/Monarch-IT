@@ -93,7 +93,7 @@ export default function SideMenu() {
   return (
     <>
       <div className="hidden md:flex fixed left-0 top-0 z-[9999] w-24 h-screen pointer-events-none items-center">
-        <div className="flex flex-col items-center gap-3 py-3 px-3 pointer-events-auto bg-[#F5F5F7] rounded-[40px] border border-[#eee] ml-3.5 shadow-[5px_5px_15px_rgba(0,0,0,0.05)]">
+        <div className="flex flex-col items-center gap-3 py-3 px-3 pointer-events-auto bg-[#F5F5F7]/70 backdrop-blur-md rounded-[40px] border border-[#eee] ml-3.5 shadow-[5px_5px_15px_rgba(0,0,0,0.05)]">
           <Link href="/" className="shrink-0 transition-transform duration-200 hover:scale-105">
             <Image
               src={`${IMG_BASE}/catalog/view/theme/default/image/monarch-it-icon.png`}

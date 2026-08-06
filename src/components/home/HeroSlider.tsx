@@ -89,17 +89,33 @@ export default function HeroSlider() {
           aria-label="Previous slide"
           className="hidden md:flex absolute bottom-[35px] left-10 min-[992px]:left-28 z-20 w-[38px] h-[38px] bg-[#f5f5f7] rounded-full items-center justify-center cursor-pointer hover:bg-white hover:scale-105 transition-all"
         >
-          <span className="mi text-[20px] font-bold text-[#d32f2e]">chevron_left</span>
+          <Image src="/images/promo-banner/left-arrow.svg" alt="Previous" width={9} height={16} className="w-[9px] h-4" />
         </button>
         <button
           type="button"
           onClick={() => changeSlide(1)}
           aria-label="Next slide"
-          className="hidden md:flex absolute bottom-[35px] left-[88px] min-[992px]:left-[176px] z-20 w-[38px] h-[38px] bg-[#f5f5f7] rounded-full items-center justify-center cursor-pointer hover:bg-white hover:scale-105 transition-all"
+          className="hidden md:flex absolute bottom-[35px] left-[84px] min-[992px]:left-[156px] z-20 w-[38px] h-[38px] bg-[#f5f5f7] rounded-full items-center justify-center cursor-pointer hover:bg-white hover:scale-105 transition-all"
         >
-          <span className="mi text-[20px] font-bold text-[#d32f2e]">chevron_right</span>
+          <Image src="/images/promo-banner/right-arrow.svg" alt="Next" width={9} height={16} className="w-[9px] h-4" />
         </button>
       </div>
+
+      {slides.length > 1 && (
+        <div className="flex md:hidden items-center justify-center gap-1.5 py-3">
+          {slides.map((_, i) => (
+            <button
+              key={i}
+              type="button"
+              onClick={() => setCurrent(i)}
+              aria-label={`Go to slide ${i + 1}`}
+              className={`h-2 rounded-full transition-all cursor-pointer ${
+                i === current ? 'w-5 bg-gray-600' : 'w-2 bg-gray-300'
+              }`}
+            />
+          ))}
+        </div>
+      )}
     </div>
   )
 }
