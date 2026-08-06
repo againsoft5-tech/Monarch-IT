@@ -91,7 +91,9 @@ export default function MobileHeader() {
               className="w-[20px] h-[20px]"
             />
             {itemCount > 0 && (
-              <span className="absolute top-1 right-1 w-2 h-2 rounded-full bg-[#d32f2f] border border-white" />
+              <span className="absolute top-0 right-0 bg-[#d32f2f] text-white text-[9px] font-bold min-w-[15px] h-[15px] px-[3px] rounded-full flex items-center justify-center border border-white leading-none">
+                {itemCount}
+              </span>
             )}
           </button>
 

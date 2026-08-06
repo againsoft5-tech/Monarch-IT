@@ -14,7 +14,7 @@ export default function Breadcrumbs({ items }: { items: Crumb[] }) {
                 key={`${item.href}-${item.label}`}
                 className={`flex items-center gap-1.5 min-w-0 ${isLast ? 'flex-1' : 'shrink-0'}`}
               >
-                {i > 0 && <span className="text-gray-300 shrink-0">/</span>}
+                {i > 0 && <span className="mi text-[16px] text-gray-300 shrink-0">chevron_right</span>}
                 {isLast ? (
                   <span className="text-gray-700 font-medium truncate block" title={item.label}>
                     {item.label}
