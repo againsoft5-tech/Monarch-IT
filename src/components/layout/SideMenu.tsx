@@ -15,7 +15,7 @@ const menuItems = [
   { icon: `${IMG_BASE}/catalog/view/theme/default/image/svg/phone-black-icon.svg`, href: '#', label: 'Phone' },
   { icon: `${IMG_BASE}/catalog/view/theme/default/image/message-icon.svg`, href: '#', label: 'Message', action: 'chat' },
   { icon: `${IMG_BASE}/catalog/view/theme/default/image/compare-icon-svg.svg`, href: '/compare', label: 'Compare' },
-  { icon: `${IMG_BASE}/catalog/view/theme/default/image/svg/gift-black-icon.svg`, href: '#', label: 'Gift' },
+  { icon: `${IMG_BASE}/catalog/view/theme/default/image/svg/gift-black-icon.svg`, href: '/offers', label: 'Gift' },
   { icon: `${IMG_BASE}/catalog/view/theme/default/image/svg/fire-black-icon.svg`, href: '#', label: 'Hot Deals' },
   { icon: `${IMG_BASE}/catalog/view/theme/default/image/svg/pc-icon.svg`, href: '/pc-builder', label: 'PC Builder', active: true },
 ]
