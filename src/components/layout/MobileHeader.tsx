@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
-import { usePathname } from 'next/navigation'
+import { usePathname, useRouter } from 'next/navigation'
 import MobileDrawer from './MobileDrawer'
 import SearchDropdown from './SearchDropdown'
 import { useCart } from '@/context/CartContext'
@@ -19,6 +19,7 @@ export default function MobileHeader() {
   const { isLoggedIn } = useAuth()
   const searchRef = useRef<HTMLDivElement>(null)
   const pathname = usePathname()
+  const router = useRouter()
   const [scrolled, setScrolled] = useState(false)
 
   useEffect(() => {
@@ -26,6 +27,14 @@ export default function MobileHeader() {
     setSearchFocused(false)
     setDrawerOpen(false)
   }, [pathname])
+
+  const handleSearchKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key !== 'Enter') return
+    const q = query.trim()
+    if (!q) return
+    setSearchFocused(false)
+    router.push(`/search?q=${encodeURIComponent(q)}`)
+  }
 
   useEffect(() => {
     const updateScrolled = () => setScrolled(window.scrollY > 20)
@@ -69,6 +78,7 @@ export default function MobileHeader() {
               value={query}
               onChange={(e) => setQuery(e.target.value)}
               onFocus={() => setSearchFocused(true)}
+              onKeyDown={handleSearchKeyDown}
               placeholder="Search Products"
               autoComplete="off"
               className="flex-1 min-w-0 border-none bg-transparent outline-none text-[14px] text-gray-700 placeholder-gray-400"
@@ -90,10 +100,12 @@ export default function MobileHeader() {
               height={20}
               className="w-[20px] h-[20px]"
             />
-            {itemCount > 0 && (
-              <span className="absolute top-0 right-0 bg-[#d32f2f] text-white text-[9px] font-bold min-w-[15px] h-[15px] px-[3px] rounded-full flex items-center justify-center border border-white leading-none">
+            {itemCount > 0 ? (
+              <span className="absolute -top-1 right-0 bg-[#d32f2f] text-white text-[9px] font-bold min-w-[15px] h-[15px] px-[3px] rounded-full flex items-center justify-center border border-white leading-none">
                 {itemCount}
               </span>
+            ) : (
+              <span className="absolute -top-0.5 right-0 w-2.5 h-2.5 bg-[#d32f2f] rounded-full border-2 border-white" />
             )}
           </button>
 

@@ -41,11 +41,14 @@ function renderMobileItem(item: (typeof menuItems)[number], count: number, handl
           className={`object-contain ${item.active ? 'w-9 h-9 brightness-0 invert' : 'w-[22px] h-[22px]'}`}
         />
       </div>
-      {item.label === 'Compare' && count > 0 && (
-        <span className="absolute top-0 right-0 min-w-[16px] h-4 px-1 bg-[#e0272e] text-white text-[10px] font-bold rounded-full flex items-center justify-center border-2 border-[#F0F0F2] leading-none">
-          {count}
-        </span>
-      )}
+      {item.label === 'Compare' &&
+        (count > 0 ? (
+          <span className="absolute -top-1 right-0 min-w-[16px] h-4 px-1 bg-[#e0272e] text-white text-[10px] font-bold rounded-full flex items-center justify-center border-2 border-[#F0F0F2] leading-none">
+            {count}
+          </span>
+        ) : (
+          <span className="absolute -top-0.5 right-0 w-2.5 h-2.5 bg-[#e0272e] rounded-full border-2 border-[#F0F0F2]" />
+        ))}
     </>
   )
 
@@ -121,11 +124,14 @@ export default function SideMenu() {
                     }`}
                   />
                 </div>
-                {item.label === 'Compare' && count > 0 && (
-                  <span className="absolute -top-1 -right-1 min-w-[18px] h-[18px] px-1 bg-[#d92128] text-white text-[10px] font-bold rounded-full flex items-center justify-center border-2 border-white leading-none">
-                    {count}
-                  </span>
-                )}
+                {item.label === 'Compare' &&
+                  (count > 0 ? (
+                    <span className="absolute -top-1.5 right-0 min-w-[18px] h-[18px] px-1 bg-[#d92128] text-white text-[10px] font-bold rounded-full flex items-center justify-center border-2 border-white leading-none">
+                      {count}
+                    </span>
+                  ) : (
+                    <span className="absolute -top-0.5 right-0 w-4 h-4 bg-[#d92128] rounded-full border-2 border-white" />
+                  ))}
               </>
             )
 

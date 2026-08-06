@@ -29,6 +29,14 @@ export default function Header() {
     setSearchFocused(false);
   }, [pathname]);
 
+  const handleSearchKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key !== "Enter") return;
+    const q = query.trim();
+    if (!q) return;
+    setSearchFocused(false);
+    router.push(`/search?q=${encodeURIComponent(q)}`);
+  };
+
   useEffect(() => {
     const updateHeaderBottom = () => {
       if (headerRef.current)
@@ -101,6 +109,7 @@ export default function Header() {
                   value={query}
                   onChange={(e) => setQuery(e.target.value)}
                   onFocus={() => setSearchFocused(true)}
+                  onKeyDown={handleSearchKeyDown}
                   placeholder="Search Products"
                   autoComplete="off"
                   className="border-none bg-transparent outline-none flex-1 text-[15px] text-gray-700 placeholder-gray-400"
@@ -150,9 +159,13 @@ export default function Header() {
                   height={22}
                   className="w-1/2"
                 />
-                <span className="absolute top-0.5 right-0.5 bg-[#d32f2f] text-white text-[10px] font-bold min-w-[16px] h-4 rounded-full flex items-center justify-center border-2 border-white leading-none">
-                  {itemCount}
-                </span>
+                {itemCount > 0 ? (
+                  <span className="absolute -top-1.5 right-0 bg-[#d32f2f] text-white text-[10px] font-bold min-w-[18px] h-[18px] rounded-full flex items-center justify-center border-2 border-white leading-none">
+                    {itemCount}
+                  </span>
+                ) : (
+                  <span className="absolute -top-0.5 right-0 w-4 h-4 bg-[#d32f2f] rounded-full border-2 border-white" />
+                )}
               </button>
 
               <div

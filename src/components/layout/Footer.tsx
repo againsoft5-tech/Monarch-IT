@@ -8,7 +8,7 @@ const IMG_BASE = '/images'
 
 const importantLinksCol1 = [
   { name: 'About Us', href: '#' },
-  { name: 'Brands', href: '#' },
+  { name: 'Brands', href: '/brands' },
   { name: 'Blog', href: '#' },
   { name: 'Contact Us', href: '#' },
 ]

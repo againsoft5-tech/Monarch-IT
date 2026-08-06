@@ -30,8 +30,6 @@ export default function SearchDropdown({
 
   if (!q) return null
 
-  const totalCount = tab === 'products' ? matchedProducts.length : matchedCategories.length
-
   return (
     <div className={`${positionClassName} bg-white border border-gray-200 rounded-xl shadow-[0_16px_40px_rgba(0,0,0,0.14)] z-50 overflow-hidden`}>
       <div className="flex items-center gap-2 px-3 pt-3 pb-2">
@@ -78,7 +76,7 @@ export default function SearchDropdown({
                   <p className="text-[13px] text-gray-800 m-0 truncate">{p.name}</p>
                   <p className="text-[13px] font-bold text-[#d32f2f] m-0 mt-0.5">
                     ৳{p.priceNew.toLocaleString()}
-                    {p.priceOld && (
+                    {p.priceOld > p.priceNew && (
                       <span className="text-gray-400 font-normal line-through ml-1.5 text-[11.5px]">
                         ৳{p.priceOld.toLocaleString()}
                       </span>
@@ -109,13 +107,13 @@ export default function SearchDropdown({
           ))}
       </div>
 
-      {totalCount > 0 && (
+      {matchedProducts.length > 0 && (
         <Link
-          href="#"
+          href={`/search?q=${encodeURIComponent(query.trim())}`}
           onClick={onNavigate}
           className="block text-center text-[13px] font-semibold text-[#d32f2f] no-underline py-3 border-t border-gray-100 hover:bg-gray-50 transition-colors"
         >
-          See all {totalCount} results
+          See all {matchedProducts.length} results
         </Link>
       )}
     </div>

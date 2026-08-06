@@ -1,21 +1,29 @@
 import { componentProducts, monitorProducts, refrigeratorProducts } from './products'
-import { categoryProductsMap } from './categoryProducts'
+import { categoryProductsMap, type CategoryProduct } from './categoryProducts'
 import { drawerCategories } from './categories'
 
-export type SearchProduct = {
-  slug: string
-  name: string
-  image: string
-  priceNew: number
-  priceOld: number | null
-}
+export type SearchProduct = CategoryProduct
 
-export const searchProducts: SearchProduct[] = [
+const legacyProducts: SearchProduct[] = [
   ...monitorProducts,
   ...componentProducts,
   ...refrigeratorProducts,
+].map((p) => ({
+  id: p.slug,
+  slug: p.slug,
+  name: p.name,
+  image: p.image,
+  rating: p.rating,
+  reviews: p.reviews,
+  priceNew: p.priceNew,
+  priceOld: p.priceOld ?? p.priceNew,
+  discountPct: p.discountPct ?? 0,
+}))
+
+export const searchProducts: SearchProduct[] = [
+  ...legacyProducts,
   ...Object.values(categoryProductsMap).flatMap((c) => c.products),
-].map(({ slug, name, image, priceNew, priceOld }) => ({ slug, name, image, priceNew, priceOld }))
+]
 
 export type SearchCategory = { name: string; href: string }
 

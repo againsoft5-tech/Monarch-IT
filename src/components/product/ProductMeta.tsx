@@ -1,6 +1,7 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import type { ProductDetail } from '@/data/productDetail'
+import { slugify } from '@/data/brandIndex'
 
 export default function ProductMeta({
   product,
@@ -29,7 +30,7 @@ export default function ProductMeta({
       <span className="text-[#00b87a] font-semibold">In Stock</span>
       <span className="text-gray-500">
         Brand:{' '}
-        <Link href="#" className="text-[#d92128] font-semibold no-underline">
+        <Link href={`/brands/${slugify(product.brand)}`} className="text-[#d92128] font-semibold no-underline hover:underline">
           {product.brand}
         </Link>
       </span>
